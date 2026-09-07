@@ -32,7 +32,7 @@ Statistician and doctoral researcher working across statistical modeling, machin
 :::
 
 ::: {.cv-contact}
-[LinkedIn](https://linkedin.com/in/sebaslaverde){target="_blank" rel="noopener"}
+[LinkedIn](https://www.linkedin.com/in/sebastian-analytics){target="_blank" rel="noopener"}
 [GitHub](https://github.com/Laverde97){target="_blank" rel="noopener"}
 [Email](mailto:juan_laverde1997@hotmail.com)
 :::
@@ -252,7 +252,7 @@ Web / Analytics Apps
 ## Contact
 
 ::: {.cv-contact-grid}
-- **LinkedIn** — [linkedin.com/in/sebaslaverde](https://linkedin.com/in/sebaslaverde){target="_blank" rel="noopener"}
+- **LinkedIn** — [www.linkedin.com/in/sebastian-analytics](https://www.linkedin.com/in/sebastian-analytics){target="_blank" rel="noopener"}
 - **GitHub** — [github.com/Laverde97](https://github.com/Laverde97){target="_blank" rel="noopener"}
 - **Email** — [juan_laverde1997@hotmail.com](mailto:juan_laverde1997@hotmail.com)
 :::

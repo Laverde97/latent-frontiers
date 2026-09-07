@@ -9,7 +9,7 @@ about:
       href: https://bsky.app/
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/sebastian-analytics
     - icon: github
       text: Github
       href: https://github.com
