@@ -2,6 +2,7 @@ project:
   type: website
 
 website:
+  site-url: "https://laverde97.github.io/latent-frontiers/"
   title: "Latent Frontiers"
   description: "Exploring AI, machine learning, medicine, and doctoral research at the frontiers of discovery."
 
