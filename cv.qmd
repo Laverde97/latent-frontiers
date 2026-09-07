@@ -1,0 +1,43 @@
+---
+title: "Curriculum Vitae"
+---
+
+# Juan Sebastián Laverde Chunza
+
+**Doctoral Researcher in Data Science and Artificial Intelligence**
+
+Universidad El Bosque
+
+## Research Interests
+
+- Artificial Intelligence
+- Machine Learning
+- Generative AI
+- Large Language Models
+- AI Agents
+- AI for Medicine
+- Cancer Research
+
+## Education
+
+### PhD in Data Science and Artificial Intelligence
+Universidad El Bosque
+
+### [Tu título anterior]
+[Universidad]
+
+## Research & Projects
+
+### Latent Frontiers
+Personal research blog focused on AI, scientific discovery, medicine, and doctoral research.
+
+### Tensors for Machine Learning
+Development of educational materials, notebooks, and interactive resources for machine learning education.
+
+## Technical Skills
+
+Python · Machine Learning · Deep Learning · LLMs · Quarto · Git · GitHub · Data Science
+
+## Contact
+
+GitHub: [Laverde97](https://github.com/Laverde97)
