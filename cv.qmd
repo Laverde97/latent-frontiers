@@ -1,43 +1,260 @@
 ---
-title: "Curriculum Vitae"
+title: "Juan Sebastián Laverde Chunza"
+subtitle: "Curriculum Vitae"
+toc: false
+page-layout: article
 ---
 
-# Juan Sebastián Laverde Chunza
+::: {.cv-page}
 
-**Doctoral Researcher in Data Science and Artificial Intelligence**
+::: {.cv-hero}
 
-Universidad El Bosque
+::: {.cv-hero__photo}
+![](assets/images/sebastian-laverde.jpg){fig-alt="Portrait of Juan Sebastián Laverde Chunza"}
+:::
+
+::: {.cv-hero__intro}
+
+::: {.cv-hero__role}
+Doctoral Researcher
+:::
+
+::: {.cv-hero__field}
+Data Science & Artificial Intelligence
+:::
+
+::: {.cv-hero__affil}
+Universidad El Bosque · Bogotá, Colombia
+:::
+
+::: {.cv-hero__statement}
+Statistician and doctoral researcher working across statistical modeling, machine learning, and automated data workflows — from predictive analysis to data-quality validation.
+:::
+
+::: {.cv-contact}
+[LinkedIn](https://linkedin.com/in/sebaslaverde){target="_blank" rel="noopener"}
+[GitHub](https://github.com/Laverde97){target="_blank" rel="noopener"}
+[Email](mailto:juan_laverde1997@hotmail.com)
+:::
+
+:::
+
+:::
+
+## Professional Profile
+
+::: {.cv-profile}
+Statistician with a Master's Degree in Applied Statistics and Data Science, currently pursuing a PhD in Data Science and Artificial Intelligence at Universidad El Bosque. Works across advanced statistical analysis, predictive modeling, machine learning, and data mining — including dimensionality reduction, imputation, anomaly detection, classification, and regression — and builds automated data workflows with data-quality validation.
+:::
 
 ## Research Interests
 
-- Artificial Intelligence
-- Machine Learning
-- Generative AI
-- Large Language Models
-- AI Agents
-- AI for Medicine
-- Cancer Research
+::: {.cv-interests}
+[Artificial Intelligence]{.cv-tag}
+[Machine Learning]{.cv-tag}
+[Generative AI]{.cv-tag}
+[Large Language Models]{.cv-tag}
+[AI Agents]{.cv-tag}
+[AI for Medicine]{.cv-tag}
+[Cancer Research]{.cv-tag}
+:::
+
+## Professional Experience
+
+::: {.cv-timeline}
+
+::: {.cv-timeline__item}
+
+::: {.cv-entry__meta}
+::: {.cv-entry__head}
+**Data Scientist** — Ministerio de Hacienda y Crédito Público
+:::
+::: {.cv-entry__dates}
+Bogotá, Colombia · September 2024 – Present
+:::
+:::
+
+- Predictive modeling for financial analysis.
+- Machine learning and statistical methods applied to economic and fiscal data.
+- Data imputation and dimensionality reduction on incomplete datasets.
+- Multivariate economic and financial analysis.
+- Automation of data workflows in Python.
+- Web scraping from CHIP and other official government sources.
+- OCR-based information extraction and validation of Fiscal Viability Reports.
+
+:::
+
+::: {.cv-timeline__item}
+
+::: {.cv-entry__meta}
+::: {.cv-entry__head}
+**Data Analyst** — Ttungara Group S.A.S
+:::
+::: {.cv-entry__dates}
+Bogotá, Colombia · May 2020 – January 2021
+:::
+:::
+
+- Sampling design and survey data collection.
+- Survey instrumentation and fieldwork via SurveyMonkey.
+- Multiple Correspondence Analysis (Homals) on categorical survey data.
+- Principal Component Analysis.
+- Analytical reporting on social-behavior trends.
+
+:::
+
+:::
 
 ## Education
 
-### PhD in Data Science and Artificial Intelligence
-Universidad El Bosque
+::: {.cv-edu}
 
-### [Tu título anterior]
-[Universidad]
+::: {.cv-edu__item .cv-edu__item--featured}
+::: {.cv-entry__meta}
+::: {.cv-entry__head}
+**PhD in Data Science and Artificial Intelligence**
+:::
+::: {.cv-entry__dates}
+2026 – In progress
+:::
+:::
+Universidad El Bosque · Bogotá, Colombia
+:::
+
+::: {.cv-edu__item}
+::: {.cv-entry__meta}
+::: {.cv-entry__head}
+**Master's Degree in Applied Statistics and Data Science**
+:::
+::: {.cv-entry__dates}
+March 2024
+:::
+:::
+Universidad El Bosque · Bogotá, Colombia
+:::
+
+::: {.cv-edu__item}
+::: {.cv-entry__meta}
+::: {.cv-entry__head}
+**Bachelor's Degree in Statistics with emphasis in Actuarial Science**
+:::
+::: {.cv-entry__dates}
+February 2022
+:::
+:::
+Universidad El Bosque · Bogotá, Colombia
+:::
+
+:::
 
 ## Research & Projects
 
+::: {.cv-projects}
+
 ### Latent Frontiers
-Personal research blog focused on AI, scientific discovery, medicine, and doctoral research.
+A personal research blog exploring artificial intelligence, scientific discovery, medicine, and the journey of doctoral research.
 
 ### Tensors for Machine Learning
-Development of educational materials, notebooks, and interactive resources for machine learning education.
+Educational materials, notebooks, and interactive resources for machine learning education.
 
-## Technical Skills
+:::
 
-Python · Machine Learning · Deep Learning · LLMs · Quarto · Git · GitHub · Data Science
+## Technical Expertise
+
+::: {.cv-skillgrid}
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Programming & Data
+:::
+[Python]{.cv-tag}
+[R]{.cv-tag}
+[SQL]{.cv-tag}
+[PySpark]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Visualization
+:::
+[Power BI]{.cv-tag}
+[Tableau]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Statistical & Analytical Tools
+:::
+[SAS]{.cv-tag}
+[SPSS]{.cv-tag}
+[Advanced Excel]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Databases
+:::
+[MySQL]{.cv-tag}
+[PostgreSQL]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Machine Learning & Statistics
+:::
+[Predictive Modeling]{.cv-tag}
+[Machine Learning]{.cv-tag}
+[Multivariate Regression]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Big Data / Production
+:::
+[Azure Machine Learning]{.cv-tag}
+[Databricks]{.cv-tag}
+[Spark]{.cv-tag}
+:::
+
+::: {.cv-skillgroup}
+::: {.cv-skillgroup__label}
+Web / Analytics Apps
+:::
+[Shiny (R)]{.cv-tag}
+:::
+
+:::
+
+## Certifications
+
+::: {.cv-certs}
+- Modelo de microsimulación de impuestos y transferencias para Colombia — UNU WIDER (2025)
+- Programa Especializado en Machine Learning con Python (2026)
+- Iniciando con ArcGIS Dashboard — ESRI Colombia (2025)
+- Recopilación y manejo de datos de campo usando ArcGIS — ESRI Colombia (2025)
+- Cree mapas que comuniquen con ArcGIS Pro — ESRI Colombia (2025)
+- Visualización de Datos usando Power BI — SENA (2025)
+- Excel Avanzado — Fundación Telefónica Movistar (2025)
+- Técnico en Business Analytics — Fundación Carlos Slim (2024)
+- Analista de Datos — Fundación Carlos Slim (2024)
+- Scrum Foundation Professional — Certione (2024)
+- Python for Data Science AI Development — Coursera (2024)
+- Minicurso en Ciencia de Datos – Aprendizaje Profundo (2023)
+:::
+
+## Languages
+
+::: {.cv-langs}
+[**Spanish** — Native]{.cv-lang}
+[**English** — Intermediate (B1)]{.cv-lang}
+:::
 
 ## Contact
 
-GitHub: [Laverde97](https://github.com/Laverde97)
+::: {.cv-contact-grid}
+- **LinkedIn** — [linkedin.com/in/sebaslaverde](https://linkedin.com/in/sebaslaverde){target="_blank" rel="noopener"}
+- **GitHub** — [github.com/Laverde97](https://github.com/Laverde97){target="_blank" rel="noopener"}
+- **Email** — [juan_laverde1997@hotmail.com](mailto:juan_laverde1997@hotmail.com)
+:::
+
+:::
