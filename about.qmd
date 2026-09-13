@@ -1,19 +1,21 @@
 ---
-title: "About"
-image: profile.jpg
+title: "Juan Sebastián Laverde Chunza"
+image: assets/images/sebastian-laverde.jpg
 about:
   template: jolla
   links:
-    - icon: bluesky
-      text: Bluesky
-      href: https://bsky.app/
     - icon: linkedin
       text: LinkedIn
       href: https://www.linkedin.com/in/sebastian-analytics
     - icon: github
-      text: Github
-      href: https://github.com
-
+      text: GitHub
+      href: https://github.com/Laverde97
 ---
 
-About this blog
+I'm a statistician and doctoral researcher working in Data Science and Artificial Intelligence.
+
+I'm currently pursuing a PhD in Data Science and Artificial Intelligence at Universidad El Bosque, building on a Master's in Applied Statistics and Data Science and a Bachelor's in Statistics with an emphasis in Actuarial Science.
+
+My background spans statistical modeling, machine learning, data mining, and automated data workflows, along with growing work in generative AI. My current research interests are increasingly focused on applications of artificial intelligence in medicine, particularly in oncology.
+
+Latent Frontiers is where I document research, technical experiments, learning, and reflections from my doctoral journey.

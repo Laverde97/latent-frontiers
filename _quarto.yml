@@ -5,14 +5,23 @@ website:
   site-url: "https://laverde97.github.io/latent-frontiers/"
   title: "Latent Frontiers"
   description: "Exploring AI, machine learning, medicine, and doctoral research at the frontiers of discovery."
+  image: assets/images/sebastian-laverde.jpg
+  image-alt: "Latent Frontiers — Juan Sebastián Laverde Chunza"
+  favicon: assets/images/favicon.svg
+
+  open-graph: true
+
+  twitter-card:
+    card-style: summary_large_image
 
   navbar:
     left:
       - text: "Home"
         href: index.qmd
+      - text: "Articles"
+        href: articles.qmd
       - text: "About"
         href: about.qmd
-
       - text: "CV"
         href: cv.qmd
 
@@ -20,8 +29,19 @@ website:
       - icon: github
         href: https://github.com/Laverde97
 
+  page-footer:
+    left: "© 2026 Juan Sebastián Laverde Chunza"
+    right:
+      - icon: github
+        href: https://github.com/Laverde97
+      - icon: linkedin
+        href: https://www.linkedin.com/in/sebastian-analytics
+    background: "#12305C"
+    foreground: light
+    border: false
+
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, theme.scss]
     css: styles.css
     toc: true

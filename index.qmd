@@ -1,15 +1,46 @@
 ---
-title: "blog"
-listing:
-  contents: posts
-  feed: true
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
+pagetitle: "Latent Frontiers — Data Science & Artificial Intelligence"
 page-layout: full
-title-block-banner: true
+toc: false
 ---
 
+::: {.lf-hero}
 
+::: {.lf-hero__eyebrow}
+Latent Frontiers
+:::
+
+# Data Science &amp; Artificial Intelligence {.lf-hero__title}
+
+::: {.lf-hero__tagline}
+Where machine learning meets medicine, research, and scientific discovery.
+:::
+
+::: {.lf-hero__lead}
+Latent Frontiers is a research and technical blog exploring artificial intelligence, machine learning, and their applications in medicine and scientific discovery — from the perspective of an ongoing doctoral journey in Data Science and Artificial Intelligence.
+:::
+
+::: {.lf-hero__actions}
+[Explore Articles](articles.qmd){.lf-btn .lf-btn--primary}
+[About Me](about.qmd){.lf-btn}
+:::
+
+:::
+
+<div class="lf-cards">
+<div class="lf-card position-relative">
+<div class="lf-card__title">Artificial Intelligence</div>
+<div class="lf-card__desc">Machine learning, generative AI, large language models, and the emerging landscape of AI agents.</div>
+<a class="stretched-link" href="articles.qmd" aria-label="Read articles about Artificial Intelligence"></a>
+</div>
+<div class="lf-card position-relative">
+<div class="lf-card__title">Research &amp; Medicine</div>
+<div class="lf-card__desc">Doctoral research at the intersection of artificial intelligence and medicine, including applications in oncology.</div>
+<a class="stretched-link" href="articles.qmd" aria-label="Read articles about Research and Medicine"></a>
+</div>
+<div class="lf-card position-relative">
+<div class="lf-card__title">Notes &amp; Experiments</div>
+<div class="lf-card__desc">Technical notes, experiments, notebooks, and reflections from an ongoing journey through machine learning and research.</div>
+<a class="stretched-link" href="articles.qmd" aria-label="Read Notes and Experiments articles"></a>
+</div>
+</div>

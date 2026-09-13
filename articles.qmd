@@ -1,0 +1,18 @@
+---
+title: "Articles"
+description-meta: "Long-form articles on artificial intelligence, machine learning, and doctoral research in data science and medicine."
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  feed: true
+page-layout: full
+toc: false
+---
+
+::: {.lf-articles-intro}
+Long-form articles on artificial intelligence, machine learning, doctoral research, data science, and medicine — published here as each piece is completed.
+:::
