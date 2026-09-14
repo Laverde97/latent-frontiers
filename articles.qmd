@@ -1,17 +1,140 @@
 ---
 title: "Articles"
 description-meta: "Long-form articles on artificial intelligence, machine learning, and doctoral research in data science and medicine."
+lang: es
 listing:
-  contents: posts
-  type: default
+  contents:
+    - posts
+    - Articles
+  type: table
   sort: "date desc"
-  categories: false
   sort-ui: false
   filter-ui: false
+  categories: false
   feed: true
+  fields: [image, date, title, reading-time]
+  field-display-names:
+    image: " "
+  date-format: long
 page-layout: full
 toc: false
 ---
+
+<style>
+/* Tabla editorial del listing — todo scopeado a #listing-listing
+   (id exclusivo de esta página); no afecta Home/About/CV/navbar. */
+#listing-listing table.quarto-listing-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: transparent;
+  box-shadow: none;
+}
+
+#listing-listing table.quarto-listing-table th,
+#listing-listing table.quarto-listing-table td {
+  border: none;
+  border-bottom: 1px solid var(--lf-line, #E2E8F0);
+  padding: 0.85rem 0.75rem;
+  vertical-align: middle;
+  background: transparent;
+}
+
+#listing-listing table.quarto-listing-table thead th {
+  border-bottom: 1px solid var(--lf-line, #E2E8F0);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lf-muted, #6B7280);
+  padding-top: 0;
+}
+
+@media (max-width: 991.98px) {
+  #listing-listing table.quarto-listing-table thead th {
+    font-size: 0.9rem;
+  }
+}
+
+/* Column proportions: thumbnail | date | title | reading time */
+#listing-listing table.quarto-listing-table th:nth-child(1),
+#listing-listing table.quarto-listing-table td:nth-child(1) { width: 7%; padding-right: 0; }
+#listing-listing table.quarto-listing-table th:nth-child(2),
+#listing-listing table.quarto-listing-table td:nth-child(2) { width: 18%; }
+#listing-listing table.quarto-listing-table th:nth-child(3),
+#listing-listing table.quarto-listing-table td:nth-child(3) { width: 57%; }
+#listing-listing table.quarto-listing-table th:nth-child(4),
+#listing-listing table.quarto-listing-table td:nth-child(4) { width: 18%; }
+
+/* Date and reading time: quiet, secondary */
+#listing-listing table.quarto-listing-table td:nth-child(2),
+#listing-listing table.quarto-listing-table td:nth-child(4) {
+  color: var(--lf-muted, #6B7280);
+  font-size: 0.9rem;
+}
+
+/* Title: the dominant element, using the site's existing link color */
+#listing-listing table.quarto-listing-table td:nth-child(3) {
+  font-family: var(--lf-serif, Georgia, serif);
+  font-size: 1.08rem;
+}
+#listing-listing table.quarto-listing-table td:nth-child(3) a {
+  color: var(--lf-blue, #1D4E89);
+  text-decoration: none;
+}
+#listing-listing table.quarto-listing-table td:nth-child(3) a:hover,
+#listing-listing table.quarto-listing-table td:nth-child(3) a:focus-visible {
+  color: var(--lf-navy, #0B1E3D);
+  text-decoration: underline;
+}
+
+/* Thumbnail: small and secondary — never a cover photo.
+   Quarto's table listing sets an inline height (e.g. style="height:40px")
+   on the <img> itself; !important is the only way to override an inline
+   style, so it's used narrowly here on the two properties it sets. */
+#listing-listing table.quarto-listing-table td:nth-child(1) .listing-image img {
+  height: 64px !important;
+  width: auto !important;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Tighten the gap between the intro copy and the table */
+#listing-listing {
+  margin-top: 0;
+}
+
+@media (max-width: 767.98px) {
+  #listing-listing table.quarto-listing-table,
+  #listing-listing table.quarto-listing-table tbody {
+    display: block;
+    width: 100%;
+  }
+  #listing-listing table.quarto-listing-table thead {
+    display: none;
+  }
+  #listing-listing table.quarto-listing-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.85rem;
+    row-gap: 0.2rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--lf-line, #E2E8F0);
+  }
+  #listing-listing table.quarto-listing-table td {
+    display: block;
+    border: none;
+    padding: 0;
+    width: auto;
+  }
+  #listing-listing table.quarto-listing-table td:nth-child(1) { order: 1; flex: 0 0 auto; }
+  #listing-listing table.quarto-listing-table td:nth-child(2) { order: 2; flex: 0 1 auto; font-size: 0.85rem; }
+  #listing-listing table.quarto-listing-table td:nth-child(3) { order: 3; flex: 1 1 100%; font-size: 1.05rem; }
+  #listing-listing table.quarto-listing-table td:nth-child(4) { order: 4; flex: 1 1 100%; font-size: 0.85rem; }
+}
+</style>
 
 ::: {.lf-articles-intro}
 Long-form articles on artificial intelligence, machine learning, doctoral research, data science, and medicine — published here as each piece is completed.
