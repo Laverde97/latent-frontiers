@@ -12,9 +12,10 @@ listing:
   filter-ui: false
   categories: false
   feed: true
-  fields: [image, date, title, reading-time]
+  fields: [image, date, title, reading-time-display]
   field-display-names:
     image: " "
+    reading-time-display: "Tiempo de lectura"
   date-format: long
 page-layout: full
 toc: false

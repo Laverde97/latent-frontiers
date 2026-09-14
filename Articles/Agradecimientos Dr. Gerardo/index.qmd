@@ -1,6 +1,7 @@
 ---
-title: "Raíces que siguen creciendo"
+title: "Roots That Keep Growing"
 subtitle: "Un agradecimiento al Dr. Gerardo Aristizábal Aristizábal"
+reading-time-display: "5 minutos"
 author: "Juan Sebastián Laverde Chunza"
 date: "2026-09-13"
 lang: es
