@@ -3,14 +3,15 @@ title: "Raíces que siguen creciendo"
 subtitle: "Un agradecimiento al Dr. Gerardo Aristizábal Aristizábal"
 author: "Juan Sebastián Laverde Chunza"
 date: "2026-09-13"
+lang: es
 categories:
   - Reflexiones
   - Vida académica
   - Universidad El Bosque
-description: "Un recorrido personal por diez años de enseñanzas, confianza y crecimiento junto al Dr. Gerardo Aristizábal Aristizábal."
+description: "Un agradecimiento al Dr. Gerardo Aristizábal Aristizábal y un recorrido por momentos que han marcado mi formación académica y personal."
 image: "Images/gerardo-cara-web.jpg"
 toc: false
-page-layout: article
+page-layout: full
 title-block-banner: false
 format:
   html:
@@ -19,459 +20,551 @@ format:
 ---
 
 <style>
-/* Scoped entirely to this article — never touches Home, Articles, About or CV. */
-#title-block-header { display: none; }
+/* =========================================================
+   ARTÍCULO DR. GERARDO — DISEÑO INSPIRADO EN EL WORD
+   Todo queda scopeado a .gerardo-word para no afectar el sitio.
+   ========================================================= */
 
-.gerardo-editorial {
-  --ge-read: min(700px, 100%);
-  --ge-ink: var(--lf-ink, #1A1A1A);
-  --ge-body: var(--lf-body, #33333A);
-  --ge-muted: var(--lf-muted, #6B7280);
-  --ge-line: var(--lf-line, #E2E8F0);
-  --ge-blue: var(--lf-blue, #1D4E89);
-  --ge-navy: var(--lf-navy, #0B1E3D);
-  --ge-forest: #33513E;
-  --ge-serif: var(--lf-serif, Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif);
-
-  display: grid;
-  grid-template-columns: 1fr var(--ge-read) 1fr;
-  column-gap: clamp(1rem, 3vw, 2.5rem);
-  color: var(--ge-body);
-  font-size: 1.06rem;
-  line-height: 1.75;
+#title-block-header {
+  display: none;
 }
 
-.gerardo-editorial > * { grid-column: 2; }
-.gerardo-editorial p { margin: 0 0 1.15rem; }
-.gerardo-editorial img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.gerardo-word {
+  --gw-ink: var(--lf-ink, #1b1b1b);
+  --gw-body: var(--lf-body, #2f3035);
+  --gw-muted: var(--lf-muted, #6b7280);
+  --gw-line: var(--lf-line, #dfe3e8);
+  --gw-blue: var(--lf-blue, #1d4e89);
+  --gw-forest: #33513e;
+  --gw-serif: var(--lf-serif, Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif);
+  --gw-width: min(1080px, calc(100vw - 3rem));
 
-.gerardo-editorial .bleed-left,
-.gerardo-editorial .bleed-right,
-.gerardo-editorial .bleed-full,
-.gerardo-editorial .editorial-duo {
-  margin: clamp(2rem, 6vw, 3.5rem) 0;
+  width: var(--gw-width);
+  margin: 0 auto;
+  color: var(--gw-body);
+  font-size: 1.17rem;
+  line-height: 1.8;
 }
 
-.gerardo-editorial .bleed-left  { grid-column: 1 / 3; justify-self: start; width: min(560px, 100%); }
-.gerardo-editorial .bleed-right { grid-column: 2 / 4; justify-self: end;   width: min(620px, 100%); }
-.gerardo-editorial .bleed-full  { grid-column: 1 / 4; justify-self: stretch; max-width: 1080px; margin-inline: auto; }
-.gerardo-editorial .editorial-duo { grid-column: 1 / 4; }
-
-.gerardo-editorial .editorial-offset { margin-top: clamp(3rem, 8vw, 5rem); }
-
-/* Hero */
-.ge-hero {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: start;
-  gap: clamp(1.5rem, 4vw, 3rem);
+.gerardo-word *,
+.gerardo-word *::before,
+.gerardo-word *::after {
+  box-sizing: border-box;
 }
-.ge-hero.bleed-full { margin: clamp(1rem, 4vw, 2.5rem) 0 clamp(3rem, 8vw, 5.5rem); }
-.ge-eyebrow {
+
+/* ---------- Título ---------- */
+.gw-title {
+  margin: clamp(1.5rem, 4vw, 3rem) auto clamp(3rem, 7vw, 5rem);
+  max-width: 820px;
+  text-align: center;
+}
+
+.gw-eyebrow {
+  margin: 0 0 .8rem;
+  color: var(--gw-blue);
   font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.gw-title h1 {
+  margin: 0 auto 1rem;
+  color: var(--gw-ink);
+  font-family: var(--gw-serif);
+  font-size: clamp(3rem, 7vw, 5.4rem);
   font-weight: 600;
+  line-height: .98;
+  letter-spacing: -.025em;
+  text-align: center;
+}
+
+.gw-subtitle {
+  margin: 0 auto;
+  color: var(--gw-ink);
+  font-family: var(--gw-serif);
+  font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ---------- Prosa ---------- */
+.gerardo-word p {
+  margin: 0 0 1.3rem;
+}
+
+.gw-prose p,
+.gw-float-copy p,
+.gw-media-copy p,
+.gw-doctorado p,
+.gw-closing-copy p {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.gerardo-word strong {
+  color: var(--gw-ink);
+  font-weight: 700;
+}
+
+.gerardo-word a {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Encabezados ---------- */
+.gerardo-word h2 {
+  clear: both;
+  margin: clamp(3.5rem, 7vw, 5.5rem) 0 1.6rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--gw-line);
+  color: var(--gw-ink);
+  font-family: var(--gw-serif);
+  font-size: clamp(2rem, 3.1vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.gw-kicker {
+  margin: 3rem 0 .8rem;
+  color: var(--gw-forest);
+  font-size: .78rem;
+  font-weight: 700;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--ge-blue);
-  margin-bottom: .9rem;
 }
-.ge-hero__text h1 {
-  font-family: var(--ge-serif);
-  font-size: clamp(2.3rem, 1.8rem + 3vw, 3.7rem);
-  font-weight: 600;
-  line-height: 1.08;
-  color: var(--ge-ink);
-  margin: 0 0 1rem;
-}
-.ge-hero__subtitle {
-  font-family: var(--ge-serif);
-  font-size: clamp(1.1rem, 1rem + .5vw, 1.35rem);
-  font-style: italic;
-  color: var(--ge-body);
-  margin-bottom: .75rem;
-}
-.ge-hero__meta { font-size: .92rem; color: var(--ge-muted); }
-.ge-hero__portrait { margin-top: clamp(2rem, 8vw, 5rem); justify-self: end; max-width: 380px; }
 
-/* Section headings */
-.gerardo-editorial h2 {
-  font-family: var(--ge-serif);
-  font-size: clamp(1.5rem, 1.3rem + 1vw, 1.9rem);
+/* ---------- Título de etapa destacado (mismo peso que un H2 secundario) ---------- */
+.gw-kicker--display {
+  margin: clamp(3rem, 6vw, 4.5rem) 0 1.2rem;
+  color: var(--gw-forest);
+  font-family: var(--gw-serif);
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
   font-weight: 600;
-  color: var(--ge-ink);
-  margin: clamp(2.5rem, 6vw, 4rem) 0 1.25rem;
+  font-style: italic;
   line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-.article-lead {
-  font-size: 1.18rem;
-  line-height: 1.75;
-  color: var(--ge-body);
-  margin: 0 0 2rem;
+/* ---------- Enlace institucional ---------- */
+.gw-link-block {
+  margin: .4rem 0 1.6rem;
+  padding: .6rem 0;
 }
 
-.milestone {
-  font-size: .78rem;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--ge-forest);
-  margin-bottom: .6rem;
+.gw-link-block a {
+  font-weight: 600;
 }
 
-.photo-note {
-  font-size: .85rem;
-  color: var(--ge-muted);
-  line-height: 1.55;
-  margin: .65rem 0 0;
-  max-width: 34rem;
+/* ---------- Imágenes ---------- */
+.gerardo-word img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
 }
 
-.editorial-duo {
+.gw-photo-note {
+  margin-top: .6rem !important;
+  color: var(--gw-muted);
+  font-size: .84rem;
+  line-height: 1.5;
+  text-align: left !important;
+}
+
+/* ---------- Apertura tipo Word: foto flotante izquierda ---------- */
+.gw-float-photo {
+  width: min(47%, 500px);
+  margin: .2rem 2.2rem 1rem 0;
+}
+
+.gw-float-photo.left {
+  float: left;
+}
+
+.gw-float-photo.right {
+  float: right;
+  margin: .2rem 0 1rem 2.2rem;
+}
+
+.gw-float-copy::after,
+.gw-clear::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+/* ---------- Composición de fotos + texto ---------- */
+.gw-media-row {
   display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: clamp(1rem, 3vw, 2rem);
-  align-items: end;
-}
-.editorial-duo > *:nth-child(2) { margin-top: clamp(2rem, 6vw, 3.5rem); }
-
-.tree-line {
-  text-align: center;
-  font-family: var(--ge-serif);
-  font-style: italic;
-  font-size: 1.08rem;
-  color: var(--ge-body);
-  margin: 1.75rem 0 2.5rem;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr);
+  gap: clamp(1.5rem, 3.5vw, 2.5rem);
+  align-items: start;
+  margin: 2.5rem 0 3.5rem;
 }
 
-/* The one true quote — the narrative heart */
-.ge-quote-block {
+.gw-photo-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .9rem;
+}
+
+.gw-photo-pair img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+}
+
+.gw-photo-stack {
+  display: grid;
+  gap: .9rem;
+}
+
+.gw-photo-stack img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+}
+
+/* ---------- Cita central ---------- */
+.gw-quote {
   position: relative;
+  max-width: 900px;
+  margin: clamp(3rem, 7vw, 5.5rem) auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
   text-align: center;
 }
-.ge-quote-block.bleed-full { margin: clamp(3rem, 8vw, 6rem) 0; padding: clamp(2rem, 6vw, 3.5rem) 1rem; }
-.ge-quote-graphic {
+
+.gw-quote::before {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background:
+    linear-gradient(135deg, transparent 49.7%, rgba(51,81,62,.12) 50%, transparent 50.3%),
+    linear-gradient(45deg, transparent 49.7%, rgba(51,81,62,.08) 50%, transparent 50.3%);
+  content: "";
   pointer-events: none;
 }
-.ge-quote-graphic svg { width: min(720px, 90%); height: auto; opacity: .16; }
-.ge-quote {
+
+.gw-quote p {
   position: relative;
   z-index: 1;
-  max-width: 46rem;
-  margin: 0 auto;
-  font-family: var(--ge-serif);
-  font-size: clamp(1.6rem, 1.25rem + 2.2vw, 2.6rem);
+  margin: 0;
+  color: var(--gw-ink);
+  font-family: var(--gw-serif);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-style: italic;
   line-height: 1.35;
-  color: var(--ge-navy);
+  text-align: center;
 }
-.ge-quote__author {
+
+.gw-quote-author {
+  position: relative;
+  z-index: 1;
   display: block;
-  margin-top: 1.4rem;
-  font-size: .82rem;
+  margin-top: 1.25rem;
+  color: var(--gw-forest);
+  font-size: .8rem;
   font-style: normal;
-  letter-spacing: .06em;
-  color: var(--ge-forest);
+  font-weight: 700;
+  letter-spacing: .08em;
   text-transform: uppercase;
 }
 
-/* Narrator's own reflective emphasis — visually distinct from the real quote above */
-.ge-emphasis {
-  font-family: var(--ge-serif);
-  font-style: italic;
-  font-size: clamp(1.25rem, 1.05rem + 1vw, 1.6rem);
-  color: var(--ge-ink);
-  line-height: 1.4;
-  margin: 1.75rem 0;
+/* ---------- Fotografía amplia ---------- */
+.gw-wide-photo {
+  width: min(100%, 980px);
+  margin: 2.5rem auto 3rem;
 }
-.ge-emphasis strong { font-style: normal; }
 
-.ge-aside {
-  font-family: var(--ge-serif);
-  font-style: italic;
+.gw-wide-photo img {
+  max-height: 620px;
+  object-fit: contain;
+}
+
+/* ---------- Bloque del doctorado ---------- */
+.gw-doctorado {
+  margin-top: 1rem;
+}
+
+/* ---------- Cierre: composición única en una sola columna ---------- */
+.gw-closing {
+  max-width: 700px;
+  margin: clamp(3rem, 7vw, 5rem) auto 2rem;
+}
+
+.gw-closing-copy {
+  font-family: var(--gw-serif);
   font-size: 1.1rem;
-  color: var(--ge-body);
-  border-left: 2px solid var(--ge-line);
-  padding-left: 1rem;
-  margin: 1.75rem 0;
+  line-height: 1.7;
 }
 
-.ge-quote-echo {
-  font-family: var(--ge-serif);
-  font-style: italic;
-  font-size: 1.02rem;
-  color: var(--ge-muted);
-  text-align: center;
-  margin: 1.5rem auto 2rem;
-  max-width: 30rem;
+.gw-closing-copy .gw-thanks,
+.gw-closing-copy .gw-return {
+  font-weight: 700;
 }
 
-.closing {
-  margin: clamp(3rem, 8vw, 5rem) auto 1rem;
-  max-width: 640px;
-  padding: clamp(1.5rem, 4vw, 2.5rem) 0 0;
-  text-align: center;
-  border-top: 1px solid var(--ge-line);
-}
-.closing p { margin: 0 0 .6rem; }
-.closing strong { font-family: var(--ge-serif); font-size: 1.3rem; font-weight: 600; color: var(--ge-navy); }
-
-/* Motion — subtle, reversible, safe without JS */
-.ge-reveal { transition: opacity .7s ease, transform .7s ease; }
-.ge-reveal.ge-pre { opacity: 0; transform: translateY(14px); }
-.ge-reveal.ge-pre.is-visible { opacity: 1; transform: none; }
-
-@media (hover: hover) {
-  .gerardo-editorial img { transition: filter .3s ease; }
-  .gerardo-editorial img:hover { filter: brightness(1.03); }
+.gw-portrait {
+  width: min(360px, 60%);
+  margin: 2.5rem auto;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ge-reveal, .gerardo-editorial img { transition: none !important; }
+.gw-portrait img {
+  max-height: 460px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 4px;
 }
 
-@media (max-width: 768px) {
-  .gerardo-editorial { grid-template-columns: 1fr; row-gap: 0; }
-  .gerardo-editorial > * { grid-column: 1; }
-  .gerardo-editorial .bleed-left,
-  .gerardo-editorial .bleed-right,
-  .gerardo-editorial .bleed-full,
-  .gerardo-editorial .editorial-duo {
-    grid-column: 1;
-    justify-self: stretch;
-    width: 100%;
-    max-width: 100%;
+/* ---------- Créditos ---------- */
+.gw-credits {
+  margin: 4rem 0 1rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--gw-line);
+  color: var(--gw-muted);
+  font-size: .92rem;
+  line-height: 1.55;
+}
+
+.gw-credits p {
+  margin-bottom: .7rem;
+  text-align: left;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .gerardo-word {
+    --gw-width: min(100% - 2rem, 760px);
+    font-size: 1.12rem;
   }
-  .ge-hero { grid-template-columns: 1fr; }
-  .ge-hero__portrait { justify-self: stretch; max-width: 320px; margin: 1.75rem auto 0; }
-  .editorial-duo { grid-template-columns: 1fr; }
-  .editorial-duo > *:nth-child(2) { margin-top: 1.25rem; }
-  .article-lead { font-size: 1.08rem; }
-  .ge-quote { font-size: 1.5rem; }
+
+  .gw-media-row {
+    grid-template-columns: 1fr;
+  }
+
+  .gw-portrait {
+    width: min(320px, 80%);
+  }
+
+  .gw-photo-pair img {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 680px) {
+  .gerardo-word {
+    --gw-width: calc(100% - 1.5rem);
+    font-size: 1.08rem;
+    line-height: 1.72;
+  }
+
+  .gw-title {
+    margin-bottom: 2.5rem;
+  }
+
+  .gw-title h1 {
+    font-size: clamp(2.65rem, 14vw, 4.2rem);
+  }
+
+  .gw-prose p,
+  .gw-float-copy p,
+  .gw-media-copy p,
+  .gw-doctorado p,
+  .gw-closing-copy p {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
+  .gw-float-photo.left,
+  .gw-float-photo.right {
+    float: none;
+    width: 100%;
+    margin: 0 0 1.2rem;
+  }
+
+  .gw-photo-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .gw-photo-pair img,
+  .gw-photo-stack img {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .gerardo-word h2 {
+    margin-top: 3rem;
+  }
+
+  .gw-quote {
+    margin: 3rem auto;
+    padding-inline: .75rem;
+  }
 }
 </style>
 
-:::::: {.gerardo-editorial}
+:::: {.gerardo-word}
 
-::::: {.ge-hero .bleed-full}
-:::: {.ge-hero__text}
-::: {.ge-eyebrow}
+::: {.gw-title}
+::: {.gw-eyebrow}
 Fronteras Latentes · Primer artículo
 :::
 
 # Raíces que siguen creciendo
 
-::: {.ge-hero__subtitle}
-Un agradecimiento al Dr. Gerardo Aristizábal Aristizábal
+::: {.gw-subtitle}
+*Un agradecimiento al Dr. Gerardo Aristizábal Aristizábal*
+:::
 :::
 
-::: {.ge-hero__meta}
-Diez años de enseñanzas, confianza y crecimiento.
+<!-- =====================================================
+     APERTURA: MISMA LÓGICA VISUAL DEL WORD
+     Foto izquierda + texto que fluye a la derecha y debajo.
+     ===================================================== -->
+
+:::: {.gw-float-copy .gw-clear}
+
+::: {.gw-float-photo .left}
+![](Images/gerardo-leyendo-web.jpg){fig-alt="Dr. Gerardo Aristizábal leyendo"}
 :::
+
+Mi primer artículo en **Fronteras Latentes** quiero dedicarlo al Dr. Gerardo Aristizábal Aristizábal. El Dr. Gerardo es médico neurocirujano de la **Universidad Nacional de Colombia**, especialista en **Filosofía de la Ciencia**, fundador de la **Universidad El Bosque** y docente universitario desde 1965 en la Universidad Nacional de Colombia y en la Universidad El Bosque.
+
+Ha participado en diferentes publicaciones y recibió, entre otros reconocimientos, el **Premio Nacional de Ciencias Alejandro Ángel Escobar en 1972**. En la Universidad El Bosque fue **decano de la Facultad de Medicina entre 1986 y 1990** y **Vicerrector Académico entre 2002 y 2006**. Actualmente continúa vinculado a la **Facultad de Ciencias**.
+
+::: {.gw-link-block}
+[Consultar el perfil institucional del Dr. Gerardo Aristizábal Aristizábal](https://www.unbosque.edu.co/directorio/dr-gerardo-aristizabal-aristizabal){target="_blank"}
+:::
+
+Este año se cumplen aproximadamente **diez años desde que nos conocimos**. Estoy profundamente agradecido por su orientación, su apoyo y su confianza durante todo este tiempo, que han sido fundamentales en mi crecimiento académico y personal. A través de estas imágenes comparto algunos momentos que representan una parte de este camino, lleno de aprendizaje, confianza y significado.
+
+Más allá de sus títulos, cargos y reconocimientos, para mí el Dr. Gerardo representa algo mucho más cercano: un maestro, un mentor y una de esas personas que aparecen en nuestro camino y terminan transformándolo para siempre. Al mirar hacia atrás, siento una enorme gratitud por su orientación, sus consejos, su confianza y su apoyo en distintos momentos de mi vida académica. Algunas fotografías permiten regresar, aunque sea por unos segundos, a esos momentos.
+
 ::::
 
-:::: {.ge-hero__portrait .ge-reveal}
-![](Images/gerardo-cara-web.jpg){fig-alt="Retrato del Dr. Gerardo Aristizábal Aristizábal"}
+## El inicio de un camino transformador
 
-::: {.photo-note}
-Dr. Gerardo Aristizábal Aristizábal.
-:::
-::::
-:::::
+:::: {.gw-float-copy .gw-clear}
 
-::: {.article-lead}
-Mi primer artículo en **Fronteras Latentes** quiero dedicarlo a una persona que ha dejado una huella profunda en mi formación académica y personal.
-
-Hay personas que conocemos durante nuestra formación y recordamos por una clase, una conversación o un consejo. Hay otras que, con el paso de los años, terminan convirtiéndose en parte de nuestra propia historia. Para mí, el Dr. Gerardo pertenece a ese segundo grupo.
-:::
-
-## Una vida dedicada al conocimiento
-
-Hablar del Dr. Gerardo es hablar de una vida dedicada al conocimiento, a la educación y al servicio de los demás. Es médico neurocirujano de la **Universidad Nacional de Colombia**, especialista en **Filosofía de la Ciencia**, fundador de la **Universidad El Bosque** y profesor universitario desde 1965.
-
-A lo largo de su carrera recibió, entre otros reconocimientos, el **Premio Nacional de Ciencias Alejandro Ángel Escobar en 1972**. En la Universidad El Bosque fue **decano de la Facultad de Medicina entre 1986 y 1990** y **Vicerrector Académico entre 2002 y 2006**, y hoy continúa aportando a la formación de nuevas generaciones desde la **Facultad de Ciencias**.
-
-[Consultar perfil institucional del Dr. Gerardo Aristizábal Aristizábal](https://www.unbosque.edu.co/directorio/dr-gerardo-aristizabal-aristizabal){target="_blank"}
-
-:::: {.bleed-left .editorial-offset .ge-reveal}
-![](Images/gerardo-leyendo-web.jpg){fig-alt="Dr. Gerardo Aristizábal leyendo con atención"}
-
-::: {.photo-note}
-El conocimiento como una tarea permanente: leer, cuestionar, enseñar y continuar aprendiendo.
-:::
-::::
-
-Más allá de sus títulos, cargos y reconocimientos, para mí el Dr. Gerardo representa algo mucho más cercano: un maestro, un mentor y una de esas personas que aparecen en nuestro camino y terminan transformándolo para siempre.
-
-Este año se cumplen aproximadamente **diez años desde que nos conocimos**. Al mirar hacia atrás, siento una enorme gratitud por su orientación, sus consejos, su confianza y su apoyo en distintos momentos de mi vida académica.
-
-Y algunas fotografías permiten regresar, aunque sea por unos segundos, a esos momentos.
-
-## Un primer gran paso
-
-::: {.milestone}
-Estadística
-:::
-
-:::: {.bleed-right .ge-reveal}
+::: {.gw-float-photo .right}
 ![](Images/diploma-estadistico-web.jpg){fig-alt="Entrega del diploma de Estadística a Juan Sebastián Laverde"}
-
-::: {.photo-note}
-Uno de los momentos que marcaron el comienzo de mi camino profesional.
 :::
+
+Esta fotografía representa uno de esos momentos que permanecen en la memoria: la culminación de mi formación como **estadístico**. Recibir aquel diploma significó cerrar una etapa fundamental de mi vida académica y, al mismo tiempo, abrir el camino hacia muchas otras. Hoy, al volver a verla, su significado es diferente. Ya no representa únicamente una graduación o la obtención de un título, sino también el recorrido que hizo posible llegar hasta allí y, especialmente, a las personas que estuvieron presentes durante ese camino.
+
+Los años **2020 y 2021** fueron particularmente difíciles. La pandemia transformó profundamente nuestra forma de estudiar, trabajar y relacionarnos, y estuvo acompañada de incertidumbre, pérdidas y enormes desafíos para muchas personas. En medio de ese contexto, continuar avanzando académicamente también significó aprender a adaptarnos, perseverar y valorar aún más cada encuentro, cada enseñanza y cada logro alcanzado.
+
 ::::
 
-Esta fotografía representa uno de esos momentos: mi formación como **estadístico**. Recibir aquel diploma significaba cerrar una etapa muy importante, pero también comenzar muchas otras. Hoy, al verla nuevamente, su significado es distinto: ya no representa únicamente una graduación, sino también a las personas que estuvieron presentes durante el camino.
+::: {.gw-kicker--display}
+Maestría en Estadística Aplicada y Ciencia de Datos
+:::
 
-Después vendría la **maestría**, con nuevos retos académicos y una forma diferente de aproximarme al conocimiento. Y hoy ese recorrido continúa con mis estudios de **Doctorado en Ciencia de Datos e Inteligencia Artificial**.
+:::: {.gw-media-row}
 
-Cada etapa ha sido distinta, pero todas comparten algo esencial: detrás de cada logro existen personas que enseñan, orientan, confían y, muchas veces, logran ver posibilidades en nosotros antes de que nosotros mismos podamos verlas.
+::: {.gw-photo-pair}
+![](Images/gerardo-sembrando-web.jpg){fig-alt="Dr. Gerardo Aristizábal en el campus de la Universidad El Bosque"}
 
-## Una frase que se convirtió en símbolo
+![](Images/juan-arbol-web.jpg){fig-alt="Juan Sebastián Laverde junto al lugar de la siembra"}
+:::
 
-Entre todos esos recuerdos existe uno que ocupa un lugar especialmente importante para mí. En algún momento, el Dr. Gerardo me dijo unas palabras que nunca olvidé.
+::: {.gw-media-copy}
+Durante mi paso por la **Maestría en Estadística Aplicada y Ciencia de Datos**, el Dr. Gerardo continuó siendo una persona muy importante en mi formación. A lo largo de esta etapa siempre estuvo dispuesto a aconsejarme, orientarme y ayudarme a tomar decisiones sobre el camino que debía seguir, tanto en lo académico como en lo profesional.
+:::
 
-::::: {.ge-quote-block .bleed-full .ge-reveal}
-:::: {.ge-quote-graphic}
-```{=html}
-<svg viewBox="0 0 600 200" aria-hidden="true" focusable="false">
-  <path d="M300 8 C 288 55, 248 66, 214 108 C 194 132, 154 140, 112 168" fill="none" stroke="#33513E" stroke-width="1.4"/>
-  <path d="M300 8 C 312 55, 352 66, 386 108 C 406 132, 446 140, 488 168" fill="none" stroke="#33513E" stroke-width="1.4"/>
-  <path d="M300 8 C 300 62, 300 118, 300 188" fill="none" stroke="#33513E" stroke-width="1.4"/>
-  <path d="M262 82 C 250 94, 234 96, 216 110" fill="none" stroke="#33513E" stroke-width="1"/>
-  <path d="M338 82 C 350 94, 366 96, 384 110" fill="none" stroke="#33513E" stroke-width="1"/>
-</svg>
-```
 ::::
 
-:::: {.ge-quote}
-"Selle su pacto con el bosque.<br>
-Siembre un árbol en su campus."
-
-::: {.ge-quote__author}
-Dr. Gerardo Aristizábal Aristizábal
-:::
-::::
-:::::
-
-En ese momento podía parecer simplemente una invitación a sembrar un árbol. Con los años comprendí que aquellas palabras podían significar mucho más.
-
-## Sellar un pacto con el bosque
-
-::::: {.editorial-duo .bleed-full .ge-reveal}
-![](Images/gerardo-sembrando-web.jpg){fig-alt="Dr. Gerardo Aristizábal durante la actividad de siembra en el campus"}
-
-![](Images/sembrando-web.jpg){fig-alt="Actividad de siembra de un árbol en el campus de la Universidad El Bosque"}
-:::::
-
-::: {.photo-note}
-Sembrar un árbol fue también una manera de dejar una pequeña huella en el lugar donde ocurrió una parte importante de mi formación.
+::: {.gw-kicker}
+2 de diciembre de 2024 · Campus de Bogotá
 :::
 
-Ese día, aquellas palabras dejaron de ser solamente una frase: se convirtieron en una acción. Con el tiempo, aquella experiencia adquirió para mí un significado mucho más profundo — empecé a entenderla como una metáfora de lo que significa educar.
+:::: {.gw-media-row}
 
-::: {.tree-line}
-Sembrar conocimiento · Cultivar la curiosidad · Cuidar las raíces · Tener paciencia · Confiar en el crecimiento
+::: {.gw-photo-stack}
+![](Images/Arbol_Familia.jpeg){fig-alt="Dr. Gerardo Aristizábal fotografiando el árbol de la familia en el campus"}
+
+![](Images/sembrando-web.jpg){fig-alt="Actividad de siembra en el campus de la Universidad El Bosque"}
 :::
 
-## Volver a mirar lo sembrado
+::: {.gw-media-copy}
+Después de culminar la maestría, tuve la oportunidad de vivir un momento que conservo con especial cariño. El **2 de diciembre de 2024** me convertí en el primer egresado en sembrar un árbol en el campus de Bogotá de la Universidad El Bosque. Para mí, aquel acto representó mucho más que sembrar un árbol: significó dejar una pequeña huella en la universidad que ha sido parte fundamental de mi historia académica y personal.
 
-:::: {.bleed-left .ge-reveal}
-![](Images/juan-arbol-web.jpg){fig-alt="Juan Sebastián Laverde junto al árbol sembrado en el campus, tiempo después de la siembra"}
+Mi árbol fue sembrado al pie de otro árbol que el Dr. Gerardo había denominado **“el árbol de la familia”**. Poder hacerlo en ese lugar hizo que aquel momento adquiriera para mí un significado aún más especial, pues representaba mi vínculo con la Universidad, con las personas que han acompañado mi formación y con una institución en la que he vivido algunas de las etapas más importantes de mi vida.
+:::
+
 ::::
 
-Tiempo después regresé a verlo. Quizá una de las cosas más bonitas de sembrar algo es precisamente esa: después de hacerlo, comienza una historia que ya no depende solamente de nosotros.
-
-::: {.ge-emphasis}
-El árbol siguió creciendo.<br>
-**Y yo también.**
+::: {.gw-prose}
+Después de sembrarlo, el Dr. Gerardo me dejó unas palabras que aún conservo y que, con el paso del tiempo, han adquirido un significado todavía más profundo:
 :::
 
-Los años fueron pasando. Llegaron nuevos estudios, nuevos proyectos, nuevas personas, nuevas preguntas y nuevos horizontes. Hasta llegar a esta fotografía.
+::: {.gw-quote}
+“Selle su pacto con el bosque.  
+Siembre un árbol en su campus.”
 
-## Así va el árbol
-
-:::: {.bleed-right .ge-reveal}
-![](Images/arbol-2026-09-10-web.jpg){fig-alt="Estado del árbol sembrado en el campus, fotografiado el 10 de septiembre de 2026"}
-
-::: {.photo-note}
-Estado del árbol. Fotografía tomada el 10 de septiembre de 2026.
-:::
-::::
-
-Hoy el árbol ya no es aquel pequeño ejemplar que comenzó su historia años atrás. Tiene nuevas ramas y nuevas hojas; ha atravesado distintas temporadas y continúa encontrando la manera de crecer.
-
-Cuando lo observo, no veo solamente un árbol dentro del campus de la Universidad El Bosque. Veo también una parte de mi propia historia: el estudiante que fui, las decisiones que he tomado, las personas que me han acompañado y todo lo que todavía queda por aprender.
-
-::: {.ge-aside}
-Las cosas importantes necesitan tiempo para echar raíces.
+<span class="gw-quote-author">Dr. Gerardo Aristizábal Aristizábal</span>
 :::
 
-Pero la historia tampoco termina allí.
+::: {.gw-prose}
+Aquellas palabras terminaron convirtiendo la siembra en algo más que un acto simbólico. Para mí representaron una forma de reafirmar mi vínculo con la **Universidad El Bosque** y de dejar allí una pequeña parte de una historia que había comenzado muchos años atrás.
 
-## Nuevos horizontes
-
-::: {.milestone}
-Doctorado en Ciencia de Datos e Inteligencia Artificial
+Me siento profundamente orgulloso y agradecido de contar en mi vida con una persona como el Dr. Gerardo. Desde la **Facultad de Ciencias**, ha sido una figura muy importante a lo largo de mi trayectoria académica, siempre dispuesto a escucharme, orientarme y aconsejarme en distintas etapas y decisiones de mi formación. Su cercanía, confianza y acompañamiento han significado mucho para mí y han dejado una huella que trasciende lo académico.
 :::
 
-:::: {.bleed-full .ge-reveal}
+::: {.gw-kicker--display}
+Una nueva etapa
+:::
+
+::: {.gw-wide-photo}
 ![](Images/doctorado-web.jpg){fig-alt="Fotografía grupal al inicio del Doctorado en Ciencia de Datos e Inteligencia Artificial"}
-
-::: {.photo-note}
-El inicio de una nueva etapa académica y, al mismo tiempo, la continuación de un camino construido durante años.
 :::
+
+::: {.gw-doctorado}
+Y para cerrar este capítulo de agradecimientos, llego a la que quizá sea la última gran etapa de mi formación académica: el **Doctorado en Ciencia de Datos e Inteligencia Artificial**.
+
+El Dr. Gerardo tuvo mucho que ver con que hoy esté recorriendo este camino. Fue él quien me habló de este nuevo programa y quien, con ese entusiasmo que lo caracteriza, me lo presentó como **“el Doctorado de los Doctorados”**. Aquella conversación terminó convirtiéndose en el comienzo de una nueva etapa que hoy representa uno de los retos más importantes de mi vida académica.
+
+También quiero agradecerle profundamente por acompañarme en los primeros pasos de mi tesis doctoral, por ayudarme a encontrar y acercarme a las personas adecuadas y por comprender desde el comienzo el propósito que quiero darle a esta investigación. Recuerdo especialmente cuando le dije que quería utilizar la **inteligencia artificial** no para reemplazar personas o quitar empleos, sino para intentar **salvar vidas**. Esa idea terminó marcando el rumbo que quiero seguir: poner la ciencia de datos y la inteligencia artificial al servicio de la investigación en salud y, especialmente, del cáncer.
+
+Gracias también por ayudar a que en este nuevo camino pudiera contar con la mentoría del **Dr. Ravi Kalia**, cuya orientación está siendo fundamental en esta etapa de mi formación y en la construcción de mi proyecto doctoral.
+:::
+
+<!-- =====================================================
+     CIERRE: composición única en una sola columna —
+     texto, retrato integrado y despedida final.
+     ===================================================== -->
+
+:::: {.gw-closing}
+
+::: {.gw-closing-copy}
+Después de tantos años, resulta difícil resumir en unas pocas páginas todo lo que significa agradecer a una persona que ha estado presente en momentos tan importantes de mi recorrido. Por eso, este artículo no pretende ser un punto final. Es simplemente una pausa para mirar hacia atrás, reconocer el camino recorrido y decir gracias.
+
+**Gracias, Dr. Gerardo Aristizábal Aristizábal, por la confianza, los consejos, las oportunidades y por acompañarme en tantas etapas de este camino.**
+:::
+
+::: {.gw-portrait}
+![](Images/gerardo-cara-web.jpg){fig-alt="Retrato del Dr. Gerardo Aristizábal Aristizábal"}
+:::
+
+::: {.gw-closing-copy}
+Tal vez dentro de cuatro años vuelva a este mismo espacio para escribir otro artículo. Entonces podré mirar nuevamente hacia atrás, recordar estas palabras y comprobar, una vez más, lo rápido que pasa el tiempo.
+
+**Nos volveremos a encontrar aquí en cuatro años.**
+:::
+
 ::::
 
-Hoy comienza otra etapa: el **Doctorado en Ciencia de Datos e Inteligencia Artificial**. Cambian los retos, cambian las preguntas y cambia nuestra manera de comprender el mundo. Sin embargo, algunas cosas permanecen: la curiosidad, el deseo de aprender y la fortuna de seguir encontrando maestros con quienes compartir el conocimiento.
+::: {.gw-credits}
+**Fotografías y edición fotográfica:** Rafael Antonio Laverde Orjuela.
 
-Estas fotografías no son simplemente un recorrido por diferentes momentos académicos. **Juntas cuentan una historia**: la de un estudiante que recibió un diploma, continuó estudiando, sembró un árbol, regresó años después para verlo crecer y hoy comienza una nueva etapa de formación. Pero también cuentan la historia de quienes estuvieron allí durante ese recorrido. Y entre esas personas ocupa un lugar muy especial el Dr. Gerardo.
-
-## Gracias, Dr. Gerardo
-
-Gracias, Dr. Gerardo, por estos años de enseñanzas. Gracias por sus consejos, por su generosidad, por su confianza y por haber contribuido a sembrar en mí la curiosidad y el deseo permanente de seguir aprendiendo.
-
-Gracias también por aquella frase que con los años terminó adquiriendo un significado que probablemente yo no alcanzaba a comprender cuando la escuché por primera vez:
-
-::: {.ge-quote-echo}
-"Selle su pacto con el bosque. Siembre un árbol en su campus."
+Todas las fotografías que aparecen en este artículo fueron tomadas y editadas por **Rafael Antonio Laverde Orjuela**.
 :::
 
-Hoy puedo mirar ese árbol y comprender mejor aquellas palabras.
-
-::: {.closing}
-Algunas personas enseñan durante una clase.
-
-**Otras enseñan durante toda una vida.**
-
-Y algunas, además, dejan raíces que continúan creciendo con nosotros.
-:::
-
-::::::
-
-```{=html}
-<script>
-(function () {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (!('IntersectionObserver' in window)) return;
-  var items = document.querySelectorAll('.gerardo-editorial .ge-reveal');
-  if (!items.length) return;
-  items.forEach(function (el) { el.classList.add('ge-pre'); });
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  items.forEach(function (el) { io.observe(el); });
-})();
-</script>
-```
+::::
