@@ -1,5 +1,5 @@
 ---
-title: "Articles"
+title: "Writings"
 description-meta: "Long-form articles on artificial intelligence, machine learning, and doctoral research in data science and medicine."
 lang: es
 listing:

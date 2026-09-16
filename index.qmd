@@ -21,7 +21,7 @@ Latent Frontiers is a research and technical blog exploring artificial intellige
 :::
 
 ::: {.lf-hero__actions}
-[Explore Articles](articles.qmd){.lf-btn .lf-btn--primary}
+[Explore Writings](articles.qmd){.lf-btn .lf-btn--primary}
 [About Me](about.qmd){.lf-btn}
 :::
 
