@@ -16,6 +16,16 @@ engine: markdown
 ---
 
 <style>
+/* Oculta solo el bloque "Autor/a · Fecha de publicación" del title block.
+   author/date se conservan en el YAML porque writings.qmd los usa para
+   ordenar y mostrar la fecha en el listing; solo se oculta su despliegue
+   aquí, no se eliminan como metadatos. El selector iguala la especificidad
+   de la regla del tema (#title-block-header.quarto-title-block.default
+   .quarto-title-meta { display: grid }) para poder anularla. */
+#title-block-header.quarto-title-block.default .quarto-title-meta {
+  display: none;
+}
+
 .cancer-phd-article {
   max-width: 820px;
   margin-inline: auto;
