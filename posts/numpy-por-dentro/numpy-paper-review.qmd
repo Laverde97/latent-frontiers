@@ -6,6 +6,8 @@ date: "2026-09-16"
 lang: es
 categories: [Computación científica, Python, NumPy, Machine Learning]
 description: "Una lectura interactiva de 'Array programming with NumPy' (Harris et al., 2020, Nature): memoria, dtype, strides, vectorización y broadcasting, con laboratorios en vivo y benchmarks reales."
+image: "images/numpy-cover.jpg"
+reading-time-display: "8 minutos"
 toc: true
 page-layout: full
 title-block-banner: false
@@ -54,6 +56,10 @@ Abrir laboratorio
 </div>
 </div>
 </section>
+
+<div class="np-cover">
+<img src="images/numpy-cover.jpg" alt="Ilustración conceptual de arrays N-dimensionales, broadcasting y transformaciones de tensores">
+</div>
 
 :::: {.np-article}
 

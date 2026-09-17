@@ -10,7 +10,8 @@ categories:
   - Salud
   - Investigación
 description: "Una reflexión personal sobre el origen de mi interés por investigar el cáncer durante el doctorado: desde el diagnóstico de mi hermana hasta los retos de acceso a datos en salud que aprendí durante la maestría."
-reading-time-display: "5 minutos"
+image: "images/cancer-ai-cover.jpg"
+reading-time-display: "3 minutos"
 toc: false
 engine: markdown
 ---
@@ -32,6 +33,18 @@ engine: markdown
   color: var(--lf-body);
   font-size: 1.08rem;
   line-height: 1.8;
+}
+
+.cancer-phd-cover {
+  margin: 0 0 2.5rem;
+}
+
+.cancer-phd-cover img {
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
 }
 
 .cancer-phd-article p {
@@ -69,6 +82,10 @@ engine: markdown
 </style>
 
 :::: {.cancer-phd-article}
+
+::: {.cancer-phd-cover}
+![](images/cancer-ai-cover.jpg){fig-alt="Ilustración conceptual de una célula cancerígena junto a un análisis de imágenes histopatológicas asistido por inteligencia artificial"}
+:::
 
 Mi interés por desarrollar una investigación relacionada con el cáncer no surgió únicamente desde el ámbito académico. Es una motivación que tiene un origen profundamente personal y que me ha acompañado durante varios años.
 
