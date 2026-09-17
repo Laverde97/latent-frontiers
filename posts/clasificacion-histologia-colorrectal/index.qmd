@@ -1,0 +1,181 @@
+---
+title: "¿Puede una máquina distinguir tejidos colorrectales?"
+subtitle: "Una comparación rápida de modelos de clasificación sobre imágenes histológicas H&E."
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-09-17"
+lang: es
+categories: [Cáncer, Inteligencia Artificial, Machine Learning, Investigación]
+description: "Un experimento reproducible: clasificar 5.000 imágenes de histología colorrectal (Kather et al., 2016) en 8 tipos de tejido, comparando seis modelos clásicos de machine learning sobre color y textura."
+image: "images/crc-class-01-tumor.jpg"
+reading-time-display: "3 minutos"
+toc: false
+title-block-banner: false
+engine: markdown
+bibliography: references.bib
+format:
+  html:
+    css: crc-histologia.css
+---
+
+:::: {.crc-article}
+
+<section class="crc-hero">
+<div class="crc-hero__eyebrow">Machine Learning · Histopatología digital</div>
+<h1 class="crc-hero__title">¿Puede una máquina distinguir tejidos colorrectales?</h1>
+<p class="crc-hero__subtitle">Una comparación rápida de modelos de clasificación sobre imágenes histológicas H&amp;E.</p>
+<div class="crc-hero__grid">
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-01-tumor.jpg" alt="Parche histológico real de tejido tumoral" loading="eager">
+<figcaption class="crc-hero__label">Tumor</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-02-estroma.jpg" alt="Parche histológico real de estroma" loading="lazy">
+<figcaption class="crc-hero__label">Estroma</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-03-estroma-complejo.jpg" alt="Parche histológico real de estroma complejo" loading="lazy">
+<figcaption class="crc-hero__label">Estroma complejo</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-04-linfoide.jpg" alt="Parche histológico real de tejido linfoide" loading="lazy">
+<figcaption class="crc-hero__label">Tejido linfoide</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-05-detritos.jpg" alt="Parche histológico real de detritos" loading="lazy">
+<figcaption class="crc-hero__label">Detritos</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-06-mucosa.jpg" alt="Parche histológico real de mucosa" loading="lazy">
+<figcaption class="crc-hero__label">Mucosa</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-07-adiposo.jpg" alt="Parche histológico real de tejido adiposo" loading="lazy">
+<figcaption class="crc-hero__label">Tejido adiposo</figcaption>
+</figure>
+<figure class="crc-hero__item">
+<img class="crc-hero__thumb" src="images/crc-class-08-fondo.jpg" alt="Parche histológico real de fondo" loading="lazy">
+<figcaption class="crc-hero__label">Fondo</figcaption>
+</figure>
+</div>
+<div class="crc-hero__question">
+Dada una pequeña región de una imagen histológica colorrectal, ¿puede un modelo reconocer automáticamente qué tipo de tejido está observando?
+<div class="crc-io">
+<span class="crc-io__tag">Input: <strong>imagen histológica</strong></span>
+<span class="crc-io__arrow">→</span>
+<span class="crc-io__tag">Output: <strong>1 de 8 clases</strong></span>
+</div>
+</div>
+<div class="crc-stats">
+<div class="crc-stat"><div class="crc-stat__value">5.000</div><div class="crc-stat__label">imágenes</div></div>
+<div class="crc-stat"><div class="crc-stat__value">8</div><div class="crc-stat__label">tipos de tejido</div></div>
+<div class="crc-stat"><div class="crc-stat__value">150×150</div><div class="crc-stat__label">píxeles</div></div>
+<div class="crc-stat"><div class="crc-stat__value">625</div><div class="crc-stat__label">imágenes por clase</div></div>
+</div>
+<div class="crc-result">
+<div class="crc-result__label">Resultado principal</div>
+<div class="crc-result__value" id="crc-hero-result">XGBoost <span>94,4&nbsp;% accuracy</span></div>
+</div>
+</section>
+
+::: {.crc-credit}
+[Datos: Kather-CRC-2016 [@kather2016zenodo], CC BY 4.0.]{.crc-hero__label}
+:::
+
+<div class="crc-flow">
+<div class="crc-flow__step">Imagen H&amp;E</div>
+<div class="crc-flow__arrow">→</div>
+<div class="crc-flow__step">Color y textura</div>
+<div class="crc-flow__arrow">→</div>
+<div class="crc-flow__step">Clasificador</div>
+<div class="crc-flow__arrow">→</div>
+<div class="crc-flow__step">Tipo de tejido</div>
+<div class="crc-flow__arrow">→</div>
+<div class="crc-flow__step">Evaluación</div>
+</div>
+
+## Compara los modelos {#sec-comparacion}
+
+<span class="crc-badge">Resultado calculado aquí</span>
+
+<div class="crc-figure">
+<img src="images/crc-model-comparison.png" alt="Gráfica de barras horizontales comparando la accuracy de cada modelo, ordenada de mayor a menor">
+</div>
+
+XGBoost obtiene el mejor resultado: 94,4&nbsp;% de *accuracy* sobre un hold-out estratificado a nivel de imagen. Esto indica una fuerte capacidad de discriminación dentro de este conjunto de datos bajo el protocolo utilizado —no equivale a validación externa ni a eficacia clínica—. Random Forest y k-NN quedan cerca (~93&nbsp;%); los modelos basados en árboles y ensambles superan de forma consistente al árbol de decisión individual, el más débil del grupo (85,5&nbsp;%).
+
+Nota metodológica: el split separa imágenes de forma aleatoria y estratificada, pero los nombres de archivo del dataset indican que las imágenes provienen de 10 especímenes, y el mismo espécimen puede tener imágenes tanto en entrenamiento como en prueba —esta cifra no refleja independencia a nivel de paciente o lámina.
+
+## Explora los modelos {#sec-explora}
+
+<div class="crc-switcher">
+<select id="crc-model-select" class="crc-switcher__select" aria-label="Seleccionar modelo"></select>
+<div class="crc-switcher__head">
+<span class="crc-switcher__name" id="crc-switcher-name">—</span>
+<span class="crc-switcher__badge" id="crc-switcher-badge">Mejor resultado</span>
+</div>
+<div class="crc-switcher__metrics">
+<div class="crc-metric-tile"><div class="crc-metric-tile__value" id="crc-metric-accuracy">—</div><div class="crc-metric-tile__label">Accuracy</div></div>
+<div class="crc-metric-tile"><div class="crc-metric-tile__value" id="crc-metric-precision">—</div><div class="crc-metric-tile__label">Precision macro</div></div>
+<div class="crc-metric-tile"><div class="crc-metric-tile__value" id="crc-metric-recall">—</div><div class="crc-metric-tile__label">Recall macro</div></div>
+<div class="crc-metric-tile"><div class="crc-metric-tile__value" id="crc-metric-f1">—</div><div class="crc-metric-tile__label">F1 macro</div></div>
+</div>
+<p class="crc-switcher__desc" id="crc-switcher-desc">—</p>
+<noscript>
+<p>El selector interactivo requiere JavaScript. La gráfica de la sección anterior muestra la comparación completa entre modelos.</p>
+</noscript>
+</div>
+
+::: {.crc-lit-card}
+[Referencia publicada (no calculada en este análisis)]{.crc-lit-card__label}
+
+Kather et al. (2016) reportaron 87,4&nbsp;% de exactitud para el problema de las ocho clases en su protocolo experimental original [@kather2016]. El resumen del artículo no especifica un único clasificador para esa cifra, por lo que no se atribuye aquí a un modelo concreto. Esta cifra se muestra únicamente como contexto histórico y no constituye una comparación directa con el hold-out utilizado en este análisis (representación de características y esquema de validación distintos).
+:::
+
+## ¿Dónde se equivoca el mejor modelo? {#sec-confusion}
+
+<span class="crc-badge">Resultado calculado aquí</span>
+
+<div class="crc-figure">
+<img src="images/crc-confusion-matrix.png" alt="Matriz de confusión normalizada del mejor modelo sobre el conjunto de prueba">
+</div>
+
+XGBoost distingue con claridad 7 de las 8 clases (94&nbsp;% o más de aciertos cada una); **mucosa** es la mejor separada (98&nbsp;%). La excepción es **estroma** (85&nbsp;%), que se confunde principalmente con **detritos** y **estroma complejo** —tejidos con texturas fibrosas similares entre sí.
+
+## Lo importante
+
+<div class="crc-conclusions">
+<div class="crc-conclusion">
+<div class="crc-conclusion__num">1</div>
+<h3>Sí existe señal discriminante</h3>
+<p>Los patrones de color y textura de estas imágenes permiten separar una parte importante de los ocho tipos de tejido, sin usar los píxeles crudos.</p>
+</div>
+<div class="crc-conclusion">
+<div class="crc-conclusion__num">2</div>
+<h3>Algunos modelos generalizan mejor</h3>
+<p>Los modelos basados en árboles y ensambles (XGBoost, Random Forest) superaron a los modelos lineales y al árbol individual en este análisis, lo que sugiere relaciones no lineales entre color, textura y tipo de tejido.</p>
+</div>
+<div class="crc-conclusion">
+<div class="crc-conclusion__num">3</div>
+<h3>Esto todavía no es una herramienta clínica</h3>
+<p>El resultado demuestra capacidad de clasificación sobre este conjunto de imágenes, no diagnóstico de pacientes.</p>
+</div>
+</div>
+
+<div class="crc-callout">
+<p>Este análisis clasifica regiones histológicas en tipos de tejido. No predice si una persona desarrollará cáncer, no estima pronóstico y no sustituye la valoración de un patólogo.</p>
+</div>
+
+## ¿Qué seguiría?
+
+<ol class="crc-next-steps">
+<li class="crc-next-step"><span class="crc-next-step__num">01</span><strong>Validación externa</strong><p>Evaluar el modelo sobre imágenes de pacientes, láminas o centros no utilizados durante el entrenamiento.</p></li>
+<li class="crc-next-step"><span class="crc-next-step__num">02</span><strong>Modelos profundos</strong><p>Evaluar representaciones aprendidas (CNNs) frente a los descriptores manuales usados aquí.</p></li>
+<li class="crc-next-step"><span class="crc-next-step__num">03</span><strong>Evaluación con especialistas</strong><p>Contrastar los errores del modelo con el criterio de patólogos expertos.</p></li>
+</ol>
+
+<script src="crc-metrics.js"></script>
+<script src="crc-histologia.js"></script>
+
+::::
+
+## Referencias

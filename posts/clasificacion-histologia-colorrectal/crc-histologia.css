@@ -1,0 +1,504 @@
+/* Namespace: .crc- (Clasificación de tejido colorrectal).
+   Reutiliza los tokens globales --lf-* (theme.scss) con fallback en hex. */
+
+#title-block-header {
+  display: none;
+}
+
+:root {
+  --crc-blue: var(--lf-blue, #1D4E89);
+  --crc-navy: var(--lf-navy, #0B1E3D);
+  --crc-sky: var(--lf-sky, #4FA3D1);
+  --crc-ink: var(--lf-ink, #1A1A1A);
+  --crc-body: var(--lf-body, #33333A);
+  --crc-muted: var(--lf-muted, #6B7280);
+  --crc-line: var(--lf-line, #E2E8F0);
+  --crc-surface: var(--lf-surface, #F7F9FC);
+  --crc-serif: var(--lf-serif, Georgia, "Iowan Old Style", "Palatino Linotype", serif);
+  --crc-radius: 10px;
+}
+
+.crc-article {
+  max-width: 860px;
+  margin-inline: auto;
+  color: var(--crc-body);
+}
+
+.crc-article p {
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.crc-article h2 {
+  font-family: var(--crc-serif);
+  color: var(--crc-ink);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-size: 1.55rem;
+}
+
+/* ---------- Hero ---------- */
+
+.crc-hero {
+  max-width: 860px;
+  margin: 0.5rem auto 2.5rem;
+  text-align: center;
+}
+
+.crc-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--crc-blue);
+  margin-bottom: 0.7rem;
+}
+
+.crc-hero__title {
+  font-family: var(--crc-serif);
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 2.7rem);
+  font-weight: 600;
+  line-height: 1.18;
+  color: var(--crc-ink);
+  margin: 0 0 0.7rem;
+}
+
+.crc-hero__subtitle {
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.15rem);
+  color: var(--crc-blue);
+  font-weight: 500;
+  max-width: 42rem;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+}
+
+.crc-hero__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  margin: 0 auto 2rem;
+}
+
+.crc-hero__item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.crc-hero__thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--crc-radius);
+  border: 1px solid var(--crc-line);
+  display: block;
+}
+
+.crc-hero__label {
+  font-size: 0.74rem;
+  color: var(--crc-muted);
+  letter-spacing: 0.01em;
+}
+
+.crc-hero__question {
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  font-size: 1.06rem;
+  line-height: 1.65;
+  color: var(--crc-body);
+}
+
+.crc-io {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  font-size: 0.92rem;
+}
+
+.crc-io__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--crc-line);
+  background: #fff;
+  color: var(--crc-ink);
+}
+
+.crc-io__tag strong {
+  color: var(--crc-blue);
+  font-weight: 600;
+}
+
+.crc-io__arrow {
+  color: var(--crc-muted);
+  font-size: 1.1rem;
+}
+
+/* ---------- Stat strip ---------- */
+
+.crc-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--crc-line);
+  border-bottom: 1px solid var(--crc-line);
+}
+
+.crc-stat__value {
+  font-family: var(--crc-serif);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem);
+  font-weight: 600;
+  color: var(--crc-navy);
+  line-height: 1.1;
+}
+
+.crc-stat__label {
+  font-size: 0.78rem;
+  color: var(--crc-muted);
+  margin-top: 0.3rem;
+}
+
+/* ---------- Resultado principal ---------- */
+
+.crc-result {
+  max-width: 30rem;
+  margin: 0 auto 0.5rem;
+  padding: 1.1rem 1.6rem;
+  border-radius: var(--crc-radius);
+  background: var(--crc-surface);
+  border: 1px solid var(--crc-line);
+}
+
+.crc-result__label {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--crc-muted);
+  margin-bottom: 0.4rem;
+}
+
+.crc-result__value {
+  font-family: var(--crc-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--crc-blue);
+}
+
+.crc-result__value span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--crc-body);
+  margin-left: 0.4rem;
+}
+
+.crc-credit {
+  text-align: center;
+  margin: -1.5rem 0 2.5rem;
+}
+
+/* ---------- Flujo horizontal ---------- */
+
+.crc-flow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+  max-width: 860px;
+  margin: 0 auto 2.5rem;
+}
+
+.crc-flow__step {
+  flex: 1 1 8.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.9rem 0.7rem;
+  border: 1px solid var(--crc-line);
+  border-radius: var(--crc-radius);
+  background: #fff;
+  font-size: 0.88rem;
+  color: var(--crc-ink);
+  font-weight: 500;
+  min-height: 3.4rem;
+}
+
+.crc-flow__arrow {
+  display: flex;
+  align-items: center;
+  color: var(--crc-muted);
+  font-size: 1.15rem;
+  flex: 0 0 auto;
+}
+
+/* ---------- Figuras (gráfica y matriz) ---------- */
+
+.crc-kicker {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crc-blue);
+  margin-bottom: 0.5rem;
+}
+
+.crc-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(29, 78, 137, 0.1);
+  color: var(--crc-blue);
+  margin-bottom: 0.6rem;
+}
+
+.crc-figure {
+  text-align: center;
+  margin: 0 0 1.2rem;
+}
+
+.crc-figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--crc-radius);
+  border: 1px solid var(--crc-line);
+}
+
+/* ---------- Selector interactivo ---------- */
+
+.crc-switcher {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  padding: 1.6rem;
+  border: 1px solid var(--crc-line);
+  border-radius: calc(var(--crc-radius) + 2px);
+  background: var(--crc-surface);
+}
+
+.crc-switcher__select {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid var(--crc-line);
+  background: #fff;
+  color: var(--crc-ink);
+  margin-bottom: 1.1rem;
+}
+
+.crc-switcher__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.crc-switcher__name {
+  font-family: var(--crc-serif);
+  font-weight: 600;
+  color: var(--crc-ink);
+  font-size: 1.05rem;
+}
+
+.crc-switcher__badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--crc-blue);
+  background: rgba(29, 78, 137, 0.1);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.crc-switcher__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.crc-metric-tile {
+  text-align: center;
+  padding: 0.7rem 0.3rem;
+  background: #fff;
+  border: 1px solid var(--crc-line);
+  border-radius: 8px;
+}
+
+.crc-metric-tile__value {
+  font-family: var(--crc-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--crc-navy);
+}
+
+.crc-metric-tile__label {
+  font-size: 0.68rem;
+  color: var(--crc-muted);
+  margin-top: 0.2rem;
+}
+
+.crc-switcher__desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--crc-body);
+  margin: 0;
+}
+
+.crc-switcher noscript p {
+  font-size: 0.9rem;
+  color: var(--crc-muted);
+  font-style: italic;
+}
+
+/* ---------- Literatura vs. calculado ---------- */
+
+.crc-lit-card {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px dashed var(--crc-line);
+  border-radius: var(--crc-radius);
+  background: #fff;
+}
+
+.crc-lit-card__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--crc-muted);
+  margin-bottom: 0.5rem;
+}
+
+.crc-lit-card p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--crc-body);
+}
+
+/* ---------- Lo importante ---------- */
+
+.crc-conclusions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 860px;
+  margin: 0 auto 2rem;
+}
+
+.crc-conclusion__num {
+  font-family: var(--crc-serif);
+  font-size: 1.6rem;
+  color: var(--crc-sky);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.crc-conclusion h3 {
+  font-size: 1rem;
+  font-family: var(--crc-serif);
+  color: var(--crc-ink);
+  margin: 0 0 0.4rem;
+}
+
+.crc-conclusion p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--crc-body);
+  margin: 0;
+}
+
+/* ---------- Callout de alcance clínico ---------- */
+
+.crc-callout {
+  max-width: 860px;
+  margin: 0 auto 2.5rem;
+  padding: 1rem 1.3rem;
+  border-left: 3px solid var(--crc-sky);
+  background: var(--crc-surface);
+  border-radius: 0 8px 8px 0;
+}
+
+.crc-callout p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--crc-body);
+}
+
+/* ---------- Qué seguiría ---------- */
+
+.crc-next-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  max-width: 860px;
+  margin: 0 auto 2rem;
+  list-style: none;
+  padding: 0;
+}
+
+.crc-next-step__num {
+  font-family: var(--crc-serif);
+  font-size: 1.3rem;
+  color: var(--crc-blue);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.crc-next-step p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--crc-body);
+  margin: 0.2rem 0 0;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767.98px) {
+  .crc-hero__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crc-stats {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.3rem;
+  }
+
+  .crc-switcher__metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crc-conclusions,
+  .crc-next-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .crc-flow {
+    flex-direction: column;
+  }
+
+  .crc-flow__arrow {
+    transform: rotate(90deg);
+    justify-content: center;
+  }
+}
