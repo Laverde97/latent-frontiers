@@ -5,7 +5,6 @@ lang: es
 listing:
   contents:
     - posts
-    - Articles
   type: table
   sort: "date desc"
   sort-ui: false
@@ -137,6 +136,9 @@ toc: false
 }
 </style>
 
-::: {.lf-articles-intro}
-Long-form articles on artificial intelligence, machine learning, doctoral research, data science, and medicine — published here as each piece is completed.
+::: {.lf-writings-intro data-lang="es"}
+Artículos extensos sobre inteligencia artificial, aprendizaje automático, investigación doctoral, ciencia de datos y medicina — publicados aquí a medida que se completan. Los artículos están escritos en español.
+:::
+::: {.lf-writings-intro data-lang="en" hidden="hidden"}
+Long-form articles on artificial intelligence, machine learning, doctoral research, data science, and medicine — published here as each piece is completed. Articles are written in Spanish.
 :::

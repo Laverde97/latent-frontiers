@@ -19,13 +19,15 @@ website:
       - text: "Home"
         href: index.qmd
       - text: "Writings"
-        href: articles.qmd
+        href: writings.qmd
       - text: "About"
         href: about.qmd
       - text: "CV"
         href: cv.qmd
 
     right:
+      - text: "EN"
+        href: "#lang-toggle"
       - icon: github
         href: https://github.com/Laverde97
 
@@ -43,5 +45,6 @@ website:
 format:
   html:
     theme: [cosmo, theme.scss]
-    css: styles.css
+    css: [styles.css, assets/css/lang-toggle.css]
+    include-after-body: assets/js/lang-toggle-include.html
     toc: true

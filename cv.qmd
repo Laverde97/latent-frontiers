@@ -1,6 +1,7 @@
 ---
 title: "Juan Sebastián Laverde Chunza"
 subtitle: "Curriculum Vitae"
+lang: es
 toc: false
 page-layout: article
 ---
@@ -16,11 +17,11 @@ page-layout: article
 ::: {.cv-hero__intro}
 
 ::: {.cv-hero__role}
-Doctoral Researcher
+<span data-lang="es">Investigador Doctoral</span><span data-lang="en" hidden>Doctoral Researcher</span>
 :::
 
 ::: {.cv-hero__field}
-Data Science & Artificial Intelligence
+<span data-lang="es">Ciencia de Datos e Inteligencia Artificial</span><span data-lang="en" hidden>Data Science &amp; Artificial Intelligence</span>
 :::
 
 ::: {.cv-hero__affil}
@@ -28,7 +29,8 @@ Universidad El Bosque · Bogotá, Colombia
 :::
 
 ::: {.cv-hero__statement}
-Statistician and doctoral researcher working across statistical modeling, machine learning, and automated data workflows — from predictive analysis to data-quality validation.
+<span data-lang="es">Estadístico e investigador doctoral que trabaja en modelamiento estadístico, aprendizaje automático y automatización de flujos de datos — desde el análisis predictivo hasta la validación de calidad de datos.</span>
+<span data-lang="en" hidden>Statistician and doctoral researcher working across statistical modeling, machine learning, and automated data workflows — from predictive analysis to data-quality validation.</span>
 :::
 
 ::: {.cv-contact}
@@ -41,13 +43,16 @@ Statistician and doctoral researcher working across statistical modeling, machin
 
 :::
 
-## Professional Profile
+## <span data-lang="es">Perfil Profesional</span><span data-lang="en" hidden>Professional Profile</span>
 
-::: {.cv-profile}
+::: {.cv-profile data-lang="es"}
+Estadístico con Maestría en Estadística Aplicada y Ciencia de Datos, actualmente cursando un doctorado en Ciencia de Datos e Inteligencia Artificial en la Universidad El Bosque. Trabaja en análisis estadístico avanzado, modelamiento predictivo, aprendizaje automático y minería de datos — incluyendo reducción de dimensionalidad, imputación, detección de anomalías, clasificación y regresión — y construye flujos de datos automatizados con validación de calidad.
+:::
+::: {.cv-profile data-lang="en" hidden="hidden"}
 Statistician with a Master's Degree in Applied Statistics and Data Science, currently pursuing a PhD in Data Science and Artificial Intelligence at Universidad El Bosque. Works across advanced statistical analysis, predictive modeling, machine learning, and data mining — including dimensionality reduction, imputation, anomaly detection, classification, and regression — and builds automated data workflows with data-quality validation.
 :::
 
-## Research Interests
+## <span data-lang="es">Intereses de Investigación</span><span data-lang="en" hidden>Research Interests</span>
 
 ::: {.cv-interests}
 [Artificial Intelligence]{.cv-tag}
@@ -59,7 +64,7 @@ Statistician with a Master's Degree in Applied Statistics and Data Science, curr
 [Cancer Research]{.cv-tag}
 :::
 
-## Professional Experience
+## <span data-lang="es">Experiencia Profesional</span><span data-lang="en" hidden>Professional Experience</span>
 
 ::: {.cv-timeline}
 
@@ -67,13 +72,23 @@ Statistician with a Master's Degree in Applied Statistics and Data Science, curr
 
 ::: {.cv-entry__meta}
 ::: {.cv-entry__head}
-**Data Scientist** — Ministerio de Hacienda y Crédito Público
+**<span data-lang="es">Científico de Datos</span><span data-lang="en" hidden>Data Scientist</span>** — Ministerio de Hacienda y Crédito Público
 :::
 ::: {.cv-entry__dates}
-Bogotá, Colombia · September 2024 – Present
+<span data-lang="es">Bogotá, Colombia · Septiembre 2024 – 2026</span><span data-lang="en" hidden>Bogotá, Colombia · September 2024 – 2026</span>
 :::
 :::
 
+::: {data-lang="es"}
+- Modelamiento predictivo para análisis financiero.
+- Aprendizaje automático y métodos estadísticos aplicados a datos económicos y fiscales.
+- Imputación de datos y reducción de dimensionalidad sobre conjuntos de datos incompletos.
+- Análisis multivariado económico y financiero.
+- Automatización de flujos de datos en Python.
+- Web scraping desde el CHIP y otras fuentes oficiales del gobierno.
+- Extracción y validación de información mediante OCR en Informes de Viabilidad Fiscal.
+:::
+::: {data-lang="en" hidden="hidden"}
 - Predictive modeling for financial analysis.
 - Machine learning and statistical methods applied to economic and fiscal data.
 - Data imputation and dimensionality reduction on incomplete datasets.
@@ -81,6 +96,7 @@ Bogotá, Colombia · September 2024 – Present
 - Automation of data workflows in Python.
 - Web scraping from CHIP and other official government sources.
 - OCR-based information extraction and validation of Fiscal Viability Reports.
+:::
 
 :::
 
@@ -88,34 +104,43 @@ Bogotá, Colombia · September 2024 – Present
 
 ::: {.cv-entry__meta}
 ::: {.cv-entry__head}
-**Data Analyst** — Ttungara Group S.A.S
+**<span data-lang="es">Analista de Datos</span><span data-lang="en" hidden>Data Analyst</span>** — Ttungara Group S.A.S
 :::
 ::: {.cv-entry__dates}
-Bogotá, Colombia · May 2020 – January 2021
+<span data-lang="es">Bogotá, Colombia · Mayo 2020 – Enero 2021</span><span data-lang="en" hidden>Bogotá, Colombia · May 2020 – January 2021</span>
 :::
 :::
 
+::: {data-lang="es"}
+- Diseño muestral y recolección de datos de encuestas.
+- Instrumentación de encuestas y trabajo de campo mediante SurveyMonkey.
+- Análisis de Correspondencias Múltiples (Homals) sobre datos categóricos de encuestas.
+- Análisis de Componentes Principales.
+- Reportes analíticos sobre tendencias de comportamiento social.
+:::
+::: {data-lang="en" hidden="hidden"}
 - Sampling design and survey data collection.
 - Survey instrumentation and fieldwork via SurveyMonkey.
 - Multiple Correspondence Analysis (Homals) on categorical survey data.
 - Principal Component Analysis.
 - Analytical reporting on social-behavior trends.
-
 :::
 
 :::
 
-## Education
+:::
+
+## <span data-lang="es">Educación</span><span data-lang="en" hidden>Education</span>
 
 ::: {.cv-edu}
 
 ::: {.cv-edu__item .cv-edu__item--featured}
 ::: {.cv-entry__meta}
 ::: {.cv-entry__head}
-**PhD in Data Science and Artificial Intelligence**
+**<span data-lang="es">Doctorado en Ciencia de Datos e Inteligencia Artificial</span><span data-lang="en" hidden>PhD in Data Science and Artificial Intelligence</span>**
 :::
 ::: {.cv-entry__dates}
-2026 – In progress
+<span data-lang="es">2026 – En curso</span><span data-lang="en" hidden>2026 – In progress</span>
 :::
 :::
 Universidad El Bosque · Bogotá, Colombia
@@ -124,10 +149,10 @@ Universidad El Bosque · Bogotá, Colombia
 ::: {.cv-edu__item}
 ::: {.cv-entry__meta}
 ::: {.cv-entry__head}
-**Master's Degree in Applied Statistics and Data Science**
+**<span data-lang="es">Maestría en Estadística Aplicada y Ciencia de Datos</span><span data-lang="en" hidden>Master's Degree in Applied Statistics and Data Science</span>**
 :::
 ::: {.cv-entry__dates}
-March 2024
+<span data-lang="es">Marzo 2024</span><span data-lang="en" hidden>March 2024</span>
 :::
 :::
 Universidad El Bosque · Bogotá, Colombia
@@ -136,10 +161,10 @@ Universidad El Bosque · Bogotá, Colombia
 ::: {.cv-edu__item}
 ::: {.cv-entry__meta}
 ::: {.cv-entry__head}
-**Bachelor's Degree in Statistics with emphasis in Actuarial Science**
+**<span data-lang="es">Pregrado en Estadística con énfasis en Ciencia Actuarial</span><span data-lang="en" hidden>Bachelor's Degree in Statistics with emphasis in Actuarial Science</span>**
 :::
 ::: {.cv-entry__dates}
-February 2022
+<span data-lang="es">Febrero 2022</span><span data-lang="en" hidden>February 2022</span>
 :::
 :::
 Universidad El Bosque · Bogotá, Colombia
@@ -147,25 +172,35 @@ Universidad El Bosque · Bogotá, Colombia
 
 :::
 
-## Research & Projects
+## <span data-lang="es">Investigación y Proyectos</span><span data-lang="en" hidden>Research &amp; Projects</span>
 
 ::: {.cv-projects}
 
 ### Latent Frontiers
+::: {data-lang="es"}
+Un blog de investigación personal que explora inteligencia artificial, descubrimiento científico, medicina y el camino de la investigación doctoral.
+:::
+::: {data-lang="en" hidden="hidden"}
 A personal research blog exploring artificial intelligence, scientific discovery, medicine, and the journey of doctoral research.
+:::
 
 ### Tensors for Machine Learning
+::: {data-lang="es"}
+Materiales educativos, cuadernos y recursos interactivos para la enseñanza del aprendizaje automático.
+:::
+::: {data-lang="en" hidden="hidden"}
 Educational materials, notebooks, and interactive resources for machine learning education.
+:::
 
 :::
 
-## Technical Expertise
+## <span data-lang="es">Competencias Técnicas</span><span data-lang="en" hidden>Technical Expertise</span>
 
 ::: {.cv-skillgrid}
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Programming & Data
+<span data-lang="es">Programación y Datos</span><span data-lang="en" hidden>Programming &amp; Data</span>
 :::
 [Python]{.cv-tag}
 [R]{.cv-tag}
@@ -175,7 +210,7 @@ Programming & Data
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Visualization
+<span data-lang="es">Visualización</span><span data-lang="en" hidden>Visualization</span>
 :::
 [Power BI]{.cv-tag}
 [Tableau]{.cv-tag}
@@ -183,7 +218,7 @@ Visualization
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Statistical & Analytical Tools
+<span data-lang="es">Herramientas Estadísticas y Analíticas</span><span data-lang="en" hidden>Statistical &amp; Analytical Tools</span>
 :::
 [SAS]{.cv-tag}
 [SPSS]{.cv-tag}
@@ -192,7 +227,7 @@ Statistical & Analytical Tools
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Databases
+<span data-lang="es">Bases de Datos</span><span data-lang="en" hidden>Databases</span>
 :::
 [MySQL]{.cv-tag}
 [PostgreSQL]{.cv-tag}
@@ -200,7 +235,7 @@ Databases
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Machine Learning & Statistics
+<span data-lang="es">Aprendizaje Automático y Estadística</span><span data-lang="en" hidden>Machine Learning &amp; Statistics</span>
 :::
 [Predictive Modeling]{.cv-tag}
 [Machine Learning]{.cv-tag}
@@ -209,7 +244,7 @@ Machine Learning & Statistics
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Big Data / Production
+<span data-lang="es">Big Data / Producción</span><span data-lang="en" hidden>Big Data / Production</span>
 :::
 [Azure Machine Learning]{.cv-tag}
 [Databricks]{.cv-tag}
@@ -218,14 +253,14 @@ Big Data / Production
 
 ::: {.cv-skillgroup}
 ::: {.cv-skillgroup__label}
-Web / Analytics Apps
+<span data-lang="es">Aplicaciones Web / Analítica</span><span data-lang="en" hidden>Web / Analytics Apps</span>
 :::
 [Shiny (R)]{.cv-tag}
 :::
 
 :::
 
-## Certifications
+## <span data-lang="es">Certificaciones</span><span data-lang="en" hidden>Certifications</span>
 
 ::: {.cv-certs}
 - Modelo de microsimulación de impuestos y transferencias para Colombia — UNU WIDER (2025)
@@ -242,14 +277,14 @@ Web / Analytics Apps
 - Minicurso en Ciencia de Datos – Aprendizaje Profundo (2023)
 :::
 
-## Languages
+## <span data-lang="es">Idiomas</span><span data-lang="en" hidden>Languages</span>
 
 ::: {.cv-langs}
-[**Spanish** — Native]{.cv-lang}
-[**English** — Intermediate (B1)]{.cv-lang}
+[**<span data-lang="es">Español</span><span data-lang="en" hidden>Spanish</span>** — <span data-lang="es">Nativo</span><span data-lang="en" hidden>Native</span>]{.cv-lang}
+[**<span data-lang="es">Inglés</span><span data-lang="en" hidden>English</span>** — <span data-lang="es">Intermedio (B1)</span><span data-lang="en" hidden>Intermediate (B1)</span>]{.cv-lang}
 :::
 
-## Contact
+## <span data-lang="es">Contacto</span><span data-lang="en" hidden>Contact</span>
 
 ::: {.cv-contact-grid}
 - **LinkedIn** — [www.linkedin.com/in/sebastian-analytics](https://www.linkedin.com/in/sebastian-analytics){target="_blank" rel="noopener"}

@@ -1,0 +1,486 @@
+---
+title: "NumPy por dentro: ¿por qué un ndarray cambió Python científico?"
+subtitle: "Memoria, vectorización y broadcasting: una lectura interactiva de Harris et al. (2020)"
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-09-16"
+lang: es
+categories: [Computación científica, Python, NumPy, Machine Learning]
+description: "Una lectura interactiva de 'Array programming with NumPy' (Harris et al., 2020, Nature): memoria, dtype, strides, vectorización y broadcasting, con laboratorios en vivo y benchmarks reales."
+toc: true
+page-layout: full
+title-block-banner: false
+jupyter: python3
+bibliography: references.bib
+format:
+  html:
+    anchor-sections: true
+    smooth-scroll: true
+    css: numpy-paper-review.css
+    embed-resources: true
+    code-copy: true
+    code-fold: show
+execute:
+  echo: true
+  warning: false
+---
+
+<div id="np-progress-track"><div id="np-progress-bar"></div></div>
+
+<section class="np-hero">
+<div class="np-hero__inner">
+<div class="np-hero__top">
+<span class="np-hero__eyebrow">
+Paper review · Computación científica
+</span>
+</div>
+<h1 class="np-hero__title">
+NumPy por dentro: ¿por qué un ndarray cambió Python científico?
+</h1>
+<p class="np-hero__subtitle">
+Memoria, vectorización y broadcasting: una lectura interactiva de Harris et al. (2020).
+</p>
+<div class="np-hero__meta">
+<span><strong>Nature</strong> · 2026</span>
+<span><strong>Autores:</strong> Harris et al.</span>
+<span><strong>DOI:</strong> 10.1038/s41586-020-2649-2</span>
+</div>
+<div class="np-hero__actions">
+<a class="np-btn np-btn--primary" href="#sec-02-concepto">
+Explorar el concepto
+</a>
+<a class="np-btn np-btn--ghost" href="#sec-07-laboratorio">
+Abrir laboratorio
+</a>
+</div>
+</div>
+</section>
+
+:::: {.np-article}
+
+## Por qué este paper importa {#sec-01-motivacion}
+
+<span class="np-section-kicker">01</span>
+
+Antes de que existiera un estándar compartido para representar datos numéricos, el ecosistema científico de Python era fragmentado: cada proyecto (imágenes, señales, álgebra lineal) definía su propia forma de guardar arreglos en memoria. Trabajar con esos datos "elemento por elemento", usando bucles `for` interpretados por Python, era además intrínsecamente lento: cada iteración paga el costo de resolver tipos, invocar el intérprete y crear objetos temporales.
+
+Harris et al. [@harris2020array] documentan cómo `ndarray`, el objeto central de NumPy, resolvió ambos problemas a la vez: ofreció una estructura de datos N-dimensional eficiente y, al mismo tiempo, se convirtió en el "protocolo" común que bibliotecas de álgebra lineal, aprendizaje automático, procesamiento de señales e imágenes adoptaron para interoperar entre sí. El paper argumenta que ese segundo efecto —la estandarización— es tan importante como el rendimiento bruto: sin un tipo de dato compartido, cada biblioteca habría tenido que escribir sus propios conversores entre representaciones incompatibles.
+
+<div class="np-callout np-callout--interpretation">
+<span class="np-callout__label">Hecho del paper vs. interpretación</span>
+A lo largo de este artículo distinguimos explícitamente lo que el paper afirma (marcado con citas) de lo que es interpretación o contextualización propia del autor de esta lectura. Esta convención se aplica en todo el texto, no solo aquí.
+
+</div>
+
+## El concepto central, en lenguaje simple {#sec-02-concepto}
+
+<span class="np-section-kicker">02</span>
+
+Un `ndarray` no es "una lista con esteroides": es una **vista estructurada sobre un bloque de memoria contiguo**. Esa vista necesita cuatro piezas de metadata para saber cómo interpretar los bytes crudos: el `dtype` (qué tipo de número hay en cada posición), el `shape` (cuántos elementos hay en cada dimensión), y los `strides` (cuántos bytes hay que saltar para moverse de un elemento al siguiente en cada dimensión). Así se llega del buffer de memoria al array que usamos en Python:
+
+<div class="np-flow">
+<div class="np-flow__step">memory buffer</div>
+<span class="np-flow__arrow">&rarr;</span>
+<div class="np-flow__step">dtype</div>
+<span class="np-flow__arrow">&rarr;</span>
+<div class="np-flow__step">shape</div>
+<span class="np-flow__arrow">&rarr;</span>
+<div class="np-flow__step">strides</div>
+<span class="np-flow__arrow">&rarr;</span>
+<div class="np-flow__step">ndarray</div>
+</div>
+
+Veamos esto con un ejemplo concreto: una matriz de 2 filas por 3 columnas, con enteros de 32 bits. El siguiente código se ejecuta realmente al renderizar este artículo — los resultados que ves debajo son la salida real de NumPy en este entorno, no valores escritos a mano.
+
+```{python}
+import numpy as np
+
+x = np.array(
+    [[10, 20, 30],
+     [40, 50, 60]],
+    dtype=np.int32
+)
+
+print("shape   :", x.shape)
+print("ndim    :", x.ndim)
+print("size    :", x.size)
+print("dtype   :", x.dtype)
+print("itemsize:", x.itemsize)
+print("nbytes  :", x.nbytes)
+print("strides :", x.strides)
+```
+
+Cada campo responde una pregunta distinta: `shape` es la forma lógica `(2, 3)`; `ndim` es el número de dimensiones (2); `size` es el total de elementos (6); `dtype` describe el tipo de cada elemento (`int32`); `itemsize` son los bytes que ocupa un solo elemento (4, porque `int32` usa 4 bytes); `nbytes` es el total de memoria del array (`size × itemsize` = 24 bytes); y `strides` — el más interesante — indica cuántos bytes hay que avanzar para pasar al siguiente elemento en cada eje: `(12, 4)` significa que moverse una fila implica saltar 12 bytes (3 columnas × 4 bytes), y moverse una columna implica saltar 4 bytes (un `int32`). Esa relación entre `shape`, `dtype` e `itemsize` es exactamente lo que define los `strides` en el layout por defecto de NumPy (C-order), y es el tema de la siguiente sección.
+
+## Deep dive: memoria y strides {#sec-03-strides}
+
+<span class="np-section-kicker">03</span>
+
+La memoria física de una computadora es, en esencia, **lineal**: una secuencia de bytes direccionables uno tras otro. Un `ndarray`, en cambio, puede representar estructuras de N dimensiones. El puente entre ambos mundos es el cálculo de un **offset**: dado un índice lógico `(i, j, ...)`, NumPy calcula la posición exacta en el buffer lineal como:
+
+<div class="np-eq">offset = &sum;<sub>k</sub> índice<sub>k</sub> &times; stride<sub>k</sub></div>
+
+En el layout por defecto de NumPy (C-order, también llamado *row-major*), las filas se guardan de forma contigua: primero todos los elementos de la fila 0, luego todos los de la fila 1, y así sucesivamente. Eso es justamente lo que hace que el stride de las filas sea mayor que el de las columnas.
+
+Lo interesante es que operaciones como la transposición (`.T`) o el *slicing* (`[:, ::2]`) no necesariamente recorren ni copian los datos: en muchos casos, NumPy simplemente construye un nuevo `ndarray` que **reinterpreta el mismo buffer** con un `shape` y unos `strides` distintos. Comparemos un array original, su transposición y un slice con paso 2:
+
+```{python}
+import numpy as np
+
+a = np.arange(12, dtype=np.int64).reshape(3, 4)
+print("a.shape                  =", a.shape)
+print("a.strides                =", a.strides)
+print("a.flags['C_CONTIGUOUS']  =", a.flags['C_CONTIGUOUS'])
+
+a_t = a.T
+print("\na.T.shape                =", a_t.shape)
+print("a.T.strides              =", a_t.strides)
+print("a.T.flags['C_CONTIGUOUS']=", a_t.flags['C_CONTIGUOUS'])
+
+a_slice = a[:, ::2]
+print("\na[:, ::2].shape                =", a_slice.shape)
+print("a[:, ::2].strides             =", a_slice.strides)
+print("a[:, ::2].flags['C_CONTIGUOUS']=", a_slice.flags['C_CONTIGUOUS'])
+```
+
+La transposición invierte simplemente el orden de los `strides` (no mueve un solo byte), y por eso `a.T` deja de ser `C_CONTIGUOUS`: sus elementos ya no están en el orden que ese flag exige. El slice con paso 2 tampoco copia: sencillamente "salta" strides más grandes en la dimensión afectada.
+
+¿Cómo confirmamos, de forma práctica y no solo teórica, que dos arrays comparten el mismo bloque de memoria? NumPy ofrece `np.shares_memory()` (y su variante más rápida pero conservadora `np.may_share_memory()`) exactamente para esto:
+
+```{python}
+a_copy = a.copy()
+
+print("np.shares_memory(a, a.T)        =", np.shares_memory(a, a_t))
+print("np.shares_memory(a, a[:, ::2])  =", np.shares_memory(a, a_slice))
+print("np.shares_memory(a, a.copy())   =", np.shares_memory(a, a_copy))
+```
+
+<div class="np-callout">
+<span class="np-callout__label">Importante</span>
+Esto NO significa que toda transformación de un array produzca una vista. Operaciones como el indexado "fancy" (con arrays de índices o máscaras booleanas), muchas operaciones aritméticas, o `reshape` sobre un array no contiguo, pueden requerir una copia real. `strides` explica por qué una vista es posible cuando lo es, no garantiza que siempre lo sea [@numpy_strides_docs].
+
+</div>
+
+## Deep dive: vectorización {#sec-04-vectorizacion}
+
+<span class="np-section-kicker">04</span>
+
+Decir "NumPy es rápido porque está escrito en C" es cierto pero incompleto, y esconde el mecanismo real. La diferencia central es **dónde vive el bucle**. En Python puro, un `for` sobre una lista ejecuta, en cada iteración, una secuencia completa de pasos del intérprete: resolver el tipo del objeto, despachar dinámicamente el método `__add__` correspondiente, crear un objeto Python nuevo para el resultado, y gestionar su memoria. Ese costo se paga **una vez por elemento**.
+
+Una operación vectorizada como `a + b` sobre dos `ndarray` no elimina el bucle: lo **desplaza**. En lugar de miles de bucles interpretados en Python, hay un único bucle compilado y especializado para ese `dtype` y esa operación, ejecutado sin la sobrecarga del intérprete en cada paso. El código Python que escribimos describe *qué* operación aplicar sobre la estructura completa; la implementación compilada decide *cómo* recorrerla eficientemente.
+
+```{python}
+n = 8
+a_list = list(range(n))
+b_list = list(range(n, 2 * n))
+
+# Bucle interpretado por Python: un __add__ por cada par de elementos
+resultado_loop = []
+for i in range(n):
+    resultado_loop.append(a_list[i] + b_list[i])
+
+# Operacion vectorizada: el bucle se desplaza a un nivel compilado
+a_arr = np.array(a_list)
+b_arr = np.array(b_list)
+resultado_vectorizado = a_arr + b_arr
+
+print("resultado_loop        :", resultado_loop)
+print("resultado_vectorizado :", resultado_vectorizado)
+print("¿mismos valores?      :", resultado_loop == list(resultado_vectorizado))
+```
+
+## Mini benchmark real {#sec-05-benchmark}
+
+<span class="np-section-kicker">05</span>
+
+Para no quedarnos solo en la teoría, medimos el costo real de sumar dos secuencias de `n` elementos de dos maneras: un bucle `for` en Python puro y la suma vectorizada de NumPy. Usamos `timeit.repeat` con varias repeticiones y reportamos el **mínimo** de esas repeticiones (la práctica recomendada por la documentación de `timeit`, porque el mínimo refleja mejor el costo de estado estable, con menos ruido de otros procesos del sistema).
+
+```{python}
+import timeit
+import matplotlib.pyplot as plt
+
+n = 150_000
+a_list = list(range(n))
+b_list = list(range(n))
+a_arr = np.array(a_list)
+b_arr = np.array(b_list)
+
+def suma_loop():
+    resultado = [0] * n
+    for i in range(n):
+        resultado[i] = a_list[i] + b_list[i]
+    return resultado
+
+def suma_vectorizada():
+    return a_arr + b_arr
+
+repeticiones = 7
+tiempos_loop = timeit.repeat(suma_loop, repeat=repeticiones, number=1)
+tiempos_vectorizado = timeit.repeat(suma_vectorizada, repeat=repeticiones, number=1)
+
+min_loop_ms = min(tiempos_loop) * 1000
+min_vec_ms = min(tiempos_vectorizado) * 1000
+ratio = min_loop_ms / min_vec_ms
+
+print(f"n = {n:,} elementos, {repeticiones} repeticiones")
+print(f"Python puro (min)       : {min_loop_ms:8.2f} ms")
+print(f"NumPy vectorizado (min) : {min_vec_ms:8.3f} ms")
+print(f"Ratio (loop / vectorizado): {ratio:6.1f}x")
+```
+
+```{python}
+#| fig-align: center
+fig, ax = plt.subplots(figsize=(6, 3.2))
+metodos = ["Python puro\n(bucle for)", "NumPy\n(vectorizado)"]
+valores = [min_loop_ms, min_vec_ms]
+colores = ["#1D4E89", "#4FA3D1"]
+barras = ax.bar(metodos, valores, color=colores, width=0.55)
+ax.set_ylabel("Tiempo mínimo (ms)")
+ax.set_title(f"n = {n:,} elementos · mínimo de {repeticiones} repeticiones")
+for barra, valor in zip(barras, valores):
+    ax.text(barra.get_x() + barra.get_width() / 2, barra.get_height(),
+            f"{valor:.2f} ms", ha="center", va="bottom", fontsize=9)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+<div class="np-callout np-callout--warning">
+<span class="np-callout__label">Advertencia sobre estos números</span>
+Este resultado pertenece a esta máquina y este entorno de ejecución específicos (versión de Python, versión de NumPy, backend de BLAS, carga del sistema al momento del render). No representa un speedup universal ni un número de referencia para otro hardware: el ratio real varía según el tamaño de los datos, el tipo de operación y la arquitectura.
+
+</div>
+
+## Broadcasting {#sec-06-broadcasting}
+
+<span class="np-section-kicker">06</span>
+
+El broadcasting es la regla que le permite a NumPy operar entre arrays de formas distintas sin que el programador tenga que igualarlas manualmente. La regla, tal como la documenta NumPy [@numpy_broadcasting_docs], compara las dimensiones de dos shapes **empezando desde la derecha**. Dos dimensiones son compatibles cuando:
+
+1. son iguales, o
+2. una de ellas es `1`.
+
+Si una de las formas tiene menos dimensiones, se rellena conceptualmente con `1` por la izquierda antes de comparar.
+
+```{python}
+a = np.ones((2, 3))
+b = np.array([10, 20, 30])
+c = a + b
+print("(2,3) + (3,)       ->", c.shape)
+
+d = np.ones((4, 1, 3))
+e = np.ones((1, 3))
+f = d + e
+print("(4,1,3) + (1,3)    ->", f.shape)
+```
+
+No toda pareja de formas es compatible. Cuando ninguna de las dos condiciones se cumple en algún eje, NumPy lanza un error explícito en lugar de adivinar:
+
+```{python}
+g = np.ones((2, 3))
+h = np.ones((4, 3))
+try:
+    g + h
+except ValueError as err:
+    print("ValueError:", err)
+```
+
+<div class="np-callout">
+<span class="np-callout__label">Precisión importante</span>
+Broadcasting es una regla lógica sobre formas, no una afirmación sobre cómo se implementa físicamente en memoria. No asumas que NumPy siempre copia el array más pequeño para "expandirlo": en la práctica, el motor de operaciones puede iterar reutilizando el mismo dato sin materializar la copia expandida.
+
+</div>
+
+## Laboratorio interactivo {#sec-07-laboratorio}
+
+<span class="np-section-kicker">07</span>
+
+Los tres laboratorios siguientes corren completamente en el navegador, sin llamar a NumPy real: implementan las mismas reglas (layout C-order, offset lineal, alineación de broadcasting) en JavaScript puro, para que puedas explorarlas de forma interactiva mientras lees.
+
+<div class="np-lab" id="np-lab-a">
+<div class="np-lab__title">
+Array Explorer
+<span class="np-lab__title-tag">Lab A</span>
+</div>
+<p class="np-lab__desc">
+Ajusta filas, columnas y dtype. La matriz y su metadata se actualizan en vivo.
+</p>
+<div class="np-lab__controls">
+<div class="np-field">
+<label for="np-lab-a-rows">
+Filas (rows): <span id="np-lab-a-rows-value">3</span>
+</label>
+<input type="range" id="np-lab-a-rows" min="1" max="6" step="1" value="3">
+</div>
+<div class="np-field">
+<label for="np-lab-a-cols">
+Columnas (cols): <span id="np-lab-a-cols-value">4</span>
+</label>
+<input type="range" id="np-lab-a-cols" min="1" max="6" step="1" value="4">
+</div>
+<div class="np-field">
+<label for="np-lab-a-dtype">
+Tipo de dato (dtype)
+</label>
+<select id="np-lab-a-dtype">
+<option value="int8">int8</option>
+<option value="int16">int16</option>
+<option value="int32" selected>int32</option>
+<option value="float64">float64</option>
+</select>
+</div>
+</div>
+<div class="np-lab__body">
+<div id="np-lab-a-grid" class="np-matrix"></div>
+<ul id="np-lab-a-meta" class="np-meta-list"></ul>
+</div>
+<noscript><div class="np-noscript">Este laboratorio requiere JavaScript habilitado. / This lab requires JavaScript enabled.</div></noscript>
+</div>
+
+<div class="np-lab" id="np-lab-b">
+<div class="np-lab__title">
+Broadcasting Playground
+<span class="np-lab__title-tag">Lab B</span>
+</div>
+<p class="np-lab__desc">
+Elige dos formas y observa cómo se alinean desde la derecha, dimensión por dimensión.
+</p>
+<div class="np-lab__controls">
+<div class="np-field">
+<label for="np-lab-b-shape-a">Forma A</label>
+<select id="np-lab-b-shape-a">
+<option value="(3,)">(3,)</option>
+<option value="(2,3)" selected>(2,3)</option>
+<option value="(4,1,3)">(4,1,3)</option>
+<option value="(5,4)">(5,4)</option>
+<option value="(8,1,6,1)">(8,1,6,1)</option>
+</select>
+</div>
+<div class="np-field">
+<label for="np-lab-b-shape-b">Forma B</label>
+<select id="np-lab-b-shape-b">
+<option value="(3,)" selected>(3,)</option>
+<option value="(1,3)">(1,3)</option>
+<option value="(4,3)">(4,3)</option>
+<option value="(4,)">(4,)</option>
+<option value="(7,1,5)">(7,1,5)</option>
+</select>
+</div>
+</div>
+<div id="np-lab-b-result"></div>
+<noscript><div class="np-noscript">Este laboratorio requiere JavaScript habilitado. / This lab requires JavaScript enabled.</div></noscript>
+</div>
+
+<div class="np-lab" id="np-lab-c">
+<div class="np-lab__title">
+Strides / Memory Offset
+<span class="np-lab__title-tag">Lab C</span>
+</div>
+<p class="np-lab__desc">
+Haz clic en una celda para ver cómo su índice lógico se traduce en una posición de memoria.
+<br>
+Usa la matriz configurada en el Laboratorio A.
+</p>
+<div id="np-lab-c-grid" class="np-matrix"></div>
+<div id="np-lab-c-output" class="np-lab-output np-lab-output--empty"></div>
+<noscript><div class="np-noscript">Este laboratorio requiere JavaScript habilitado. / This lab requires JavaScript enabled.</div></noscript>
+</div>
+
+## Interoperabilidad {#sec-08-interoperabilidad}
+
+<span class="np-section-kicker">08</span>
+
+Uno de los argumentos centrales del paper es que el valor de NumPy no se mide solo en operaciones por segundo: se mide en cuántas bibliotecas distintas pueden intercambiar datos sin fricción porque comparten el mismo protocolo de array [@harris2020array]. Álgebra lineal, aprendizaje automático, estadística, procesamiento de imágenes y de señales construyen sus propias estructuras especializadas, pero casi todas aceptan y devuelven `ndarray` como moneda común.
+
+<div class="np-concept-grid">
+<div class="np-concept-grid__hub">NumPy ndarray</div>
+<div class="np-concept-grid__item">Scientific Python</div>
+<div class="np-concept-grid__item">Machine Learning</div>
+<div class="np-concept-grid__item">Statistics</div>
+<div class="np-concept-grid__item">Imaging</div>
+<div class="np-concept-grid__item">Signal Processing</div>
+</div>
+
+Este diagrama es una simplificación conceptual, no una lista exhaustiva ni una afirmación de compatibilidad específica con una versión concreta de cada biblioteca: el punto es ilustrar el rol de `ndarray` como formato común, tal como lo describe el paper, no certificar integraciones puntuales.
+
+## Limitaciones y trade-offs {#sec-09-limitaciones}
+
+<span class="np-section-kicker">09</span>
+
+NumPy no es una herramienta universal, y presentarlo como tal sería deshonesto. Algunas limitaciones reales a tener en cuenta:
+
+- **Arrays intermedios y memoria**: encadenar operaciones vectorizadas (`(a + b) * c - d`) puede crear varios arrays temporales completos antes de llegar al resultado final, aumentando el uso de memoria más allá de lo intuitivo.
+- **Broadcasting que explota el tamaño del output**: sumar un array de forma `(8,1,6,1)` con otro `(7,1,5)` produce un resultado de forma `(8,7,6,5)` — miles de elementos a partir de arrays pequeños. Broadcasting no es gratis cuando el resultado es grande.
+- **Copias implícitas**: no toda operación produce una vista; algunas requieren copiar datos, y esa distinción no siempre es obvia leyendo el código.
+- **Contigüidad de memoria**: ciertos algoritmos (sobre todo los que llaman a BLAS/LAPACK por debajo) requieren arrays contiguos en memoria; si no lo son, NumPy copia silenciosamente para poder operar.
+- **dtype homogéneo**: un `ndarray` exige que todos sus elementos compartan tipo. Datos heterogéneos (texto mezclado con números, estructuras anidadas irregulares) encajan mal en este modelo.
+- **Legibilidad**: código fuertemente vectorizado, con broadcasting implícito y slicing avanzado, puede volverse difícil de leer para quien no domina las reglas.
+- **GPU, distribución y out-of-core**: NumPy en sí mismo no ejecuta en GPU, no distribuye cómputo entre máquinas, y asume que los datos caben en memoria RAM. Cuando eso deja de ser cierto, se necesitan otras herramientas del ecosistema (construidas, eso sí, sobre las mismas ideas de `ndarray`).
+
+En resumen: NumPy es la base correcta para cómputo numérico en memoria sobre un solo nodo. Fuera de ese perímetro, es un punto de partida, no la solución final.
+
+## Aplicación mental: datos biomédicos {#sec-10-biomedico}
+
+<span class="np-section-kicker">10</span>
+
+Un caso mental útil para investigación computacional biomédica: una matriz de expresión génica simulada, donde cada fila es un paciente y cada columna es un gen (`X.shape = (pacientes, genes)`). Un paso de preprocesamiento común es centrar cada gen restando su media a través de todos los pacientes. Los datos son completamente simulados con una semilla fija; no representan pacientes reales ni tienen ninguna capacidad diagnóstica.
+
+```{python}
+rng = np.random.default_rng(42)
+n_pacientes, n_genes = 120, 500
+X = rng.normal(loc=8.0, scale=1.5, size=(n_pacientes, n_genes))
+
+print("X.shape:", X.shape)
+
+gene_mean = X.mean(axis=0)
+print("gene_mean.shape:", gene_mean.shape)
+
+X_centered = X - gene_mean
+print("X_centered.shape:", X_centered.shape)
+print("Media por gen tras centrar (primeros 5 genes):",
+      np.round(X_centered.mean(axis=0)[:5], 10))
+```
+
+`gene_mean` tiene forma `(n_genes,)`, mientras que `X` tiene forma `(n_pacientes, n_genes)`. Al restar, broadcasting alinea `(n_genes,)` contra el último eje de `X` y aplica la resta a cada paciente sin necesidad de un bucle explícito ni de repetir manualmente `gene_mean` para cada fila.
+
+## Key takeaways {#sec-11-takeaways}
+
+<span class="np-section-kicker">11</span>
+
+<div class="np-cards">
+<div class="np-card">
+<div class="np-card__num">01</div>
+<div class="np-card__title">Pensar en arrays, no en elementos</div>
+<div class="np-card__desc">
+La abstracción del `ndarray` permite expresar operaciones sobre estructuras completas en lugar de escribir bucles explícitos elemento por elemento.
+</div>
+</div>
+<div class="np-card">
+<div class="np-card__num">02</div>
+<div class="np-card__title">La memoria sí importa</div>
+<div class="np-card__desc">
+`shape`, `dtype`, vistas y `strides` explican buena parte del rendimiento y del comportamiento observado, no solo detalles de implementación.
+</div>
+</div>
+<div class="np-card">
+<div class="np-card__num">03</div>
+<div class="np-card__title">NumPy es infraestructura</div>
+<div class="np-card__desc">
+Parte del impacto de NumPy proviene de ofrecer un modelo común para datos numéricos que otras bibliotecas pueden compartir.
+</div>
+</div>
+</div>
+
+## Conclusión {#sec-12-conclusion}
+
+<span class="np-section-kicker">12</span>
+
+Después de leer el paper con cuidado, `NumPy` deja de entenderse como una simple colección de funciones matemáticas. Su contribución más profunda es ofrecer una representación N-dimensional que es, a la vez, eficiente, predecible e interoperable: eficiente porque desplaza el trabajo repetitivo fuera del intérprete de Python; predecible porque `shape`, `dtype` y `strides` determinan de forma explícita cómo se accede a cada elemento; e interoperable porque ese mismo modelo se convirtió en el lenguaje común de un ecosistema científico entero.
+
+Entender `ndarray`, `dtype`, `shape`, la memoria subyacente, los `strides`, la vectorización y el broadcasting no es solo un ejercicio de optimización de código: es entender de qué está hecha, literalmente, la infraestructura de cómputo científico en Python. Esa es, para mí, la lectura más valiosa de Harris et al. (2020): no un manual de funciones, sino la historia de por qué un tipo de dato bien diseñado puede sostener a un ecosistema entero.
+
+<script src="numpy-paper-review.js"></script>
+
+::::
+
+## Referencias

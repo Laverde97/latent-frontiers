@@ -1,5 +1,6 @@
 ---
 title: "Juan Sebastián Laverde Chunza"
+lang: es
 image: assets/images/sebastian-laverde.jpg
 about:
   template: jolla
@@ -12,6 +13,17 @@ about:
       href: https://github.com/Laverde97
 ---
 
+::: {data-lang="es"}
+Soy estadístico e investigador doctoral, y trabajo en Ciencia de Datos e Inteligencia Artificial.
+
+Actualmente curso un doctorado en Ciencia de Datos e Inteligencia Artificial en la Universidad El Bosque, construido sobre una Maestría en Estadística Aplicada y Ciencia de Datos y un pregrado en Estadística con énfasis en Ciencia Actuarial.
+
+Mi formación abarca modelamiento estadístico, aprendizaje automático, minería de datos y automatización de flujos de datos, junto con un trabajo creciente en IA generativa. Mis intereses de investigación actuales se enfocan cada vez más en aplicaciones de la inteligencia artificial en medicina, particularmente en oncología.
+
+Fronteras Latentes es el espacio donde documento investigación, experimentos técnicos, aprendizajes y reflexiones de mi camino doctoral.
+:::
+
+::: {data-lang="en" hidden="hidden"}
 I'm a statistician and doctoral researcher working in Data Science and Artificial Intelligence.
 
 I'm currently pursuing a PhD in Data Science and Artificial Intelligence at Universidad El Bosque, building on a Master's in Applied Statistics and Data Science and a Bachelor's in Statistics with an emphasis in Actuarial Science.
@@ -19,3 +31,4 @@ I'm currently pursuing a PhD in Data Science and Artificial Intelligence at Univ
 My background spans statistical modeling, machine learning, data mining, and automated data workflows, along with growing work in generative AI. My current research interests are increasingly focused on applications of artificial intelligence in medicine, particularly in oncology.
 
 Latent Frontiers is where I document research, technical experiments, learning, and reflections from my doctoral journey.
+:::

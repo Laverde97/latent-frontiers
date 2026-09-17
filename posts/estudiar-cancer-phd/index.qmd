@@ -1,0 +1,101 @@
+---
+title: "¿Por qué quiero estudiar el cáncer durante mi doctorado y cómo surgió esta idea?"
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-09-15"
+lang: es
+categories:
+  - Doctorado
+  - Cáncer
+  - Inteligencia Artificial
+  - Salud
+  - Investigación
+description: "Una reflexión personal sobre el origen de mi interés por investigar el cáncer durante el doctorado: desde el diagnóstico de mi hermana hasta los retos de acceso a datos en salud que aprendí durante la maestría."
+reading-time-display: "5 minutos"
+toc: false
+engine: markdown
+---
+
+<style>
+.cancer-phd-article {
+  max-width: 820px;
+  margin-inline: auto;
+  color: var(--lf-body);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.cancer-phd-article p {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.cancer-phd-article h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.3rem;
+  font-family: var(--lf-serif);
+  color: var(--lf-ink);
+}
+
+.cancer-phd-article blockquote {
+  margin: 2.5rem auto;
+  font-family: var(--lf-serif);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .cancer-phd-article {
+    font-size: 1.04rem;
+    line-height: 1.72;
+  }
+
+  .cancer-phd-article p {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+}
+</style>
+
+:::: {.cancer-phd-article}
+
+Mi interés por desarrollar una investigación relacionada con el cáncer no surgió únicamente desde el ámbito académico. Es una motivación que tiene un origen profundamente personal y que me ha acompañado durante varios años.
+
+Cuando mi hermana tenía aproximadamente 13 años, fue diagnosticada con cáncer de tiroides. En ese momento yo todavía no tenía los conocimientos que tengo actualmente sobre estadística, ciencia de datos o inteligencia artificial, pero aquella experiencia despertó en mí muchas preguntas. Comencé a preguntarme cómo se origina una enfermedad como el cáncer, qué ocurre dentro del organismo para que determinadas células comiencen a comportarse de manera anormal y cómo una alteración a nivel celular puede terminar afectando de manera tan importante la salud y la vida de una persona.
+
+Con el paso de los años, mientras avanzaba en mi formación como estadístico y posteriormente en la Maestría en Estadística Aplicada y Ciencia de Datos, esa inquietud personal comenzó a conectarse con mi formación profesional. Empecé a comprender que herramientas como la estadística, el aprendizaje automático y, más recientemente, la inteligencia artificial pueden utilizarse no solamente para analizar grandes cantidades de información, sino también para abordar problemas que tienen un impacto directo sobre la vida de las personas.
+
+Por esta razón, al comenzar mi Doctorado en Ciencia de Datos e Inteligencia Artificial, decidí que quería orientar mi investigación hacia el área de la salud y, particularmente, hacia el cáncer. Para mí, el doctorado representa la oportunidad de transformar una inquietud que nació hace muchos años en una investigación científica rigurosa, robusta y con una posible aplicación real.
+
+Uno de mis principales intereses es estudiar cómo la inteligencia artificial puede contribuir a comprender mejor determinados procesos relacionados con el cáncer, identificar patrones complejos en datos clínicos o biomédicos y desarrollar herramientas que puedan apoyar los procesos de diagnóstico, detección, clasificación o toma de decisiones.
+
+Sin embargo, mi intención no es desarrollar una inteligencia artificial que reemplace al médico o al especialista en oncología. Por el contrario, considero que este tipo de tecnologías deben funcionar como herramientas de apoyo. El conocimiento, la experiencia y el criterio clínico del especialista siguen siendo fundamentales. La inteligencia artificial puede complementar ese conocimiento ayudando a procesar grandes cantidades de información, identificar patrones difíciles de observar directamente y proporcionar información adicional que pueda contribuir a una interpretación más completa de cada caso.
+
+Mi objetivo es que la investigación doctoral pueda generar conocimiento que tenga utilidad más allá del ámbito puramente académico. Me interesa desarrollar una investigación que eventualmente pueda traducirse en una herramienta, metodología o aproximación que contribuya de alguna manera al diagnóstico, al entendimiento de la enfermedad o al bienestar de los pacientes.
+
+## Una inquietud que comenzó durante mi maestría
+
+Durante mi maestría también surgió una idea de investigación que llamó particularmente mi atención: estudiar cómo, a partir de información obtenida del ojo y de imágenes asociadas a este, podrían identificarse señales relacionadas con diferentes enfermedades mediante herramientas estadísticas y de inteligencia artificial.
+
+La idea me resultaba especialmente interesante porque permitía conectar el análisis de datos, el procesamiento de imágenes y el aprendizaje automático con un problema directamente relacionado con la salud. Sin embargo, finalmente no fue posible desarrollar esta investigación debido principalmente a las dificultades para acceder a los datos necesarios.
+
+Trabajar con información médica implica retos importantes. No siempre existen conjuntos de datos disponibles para responder una pregunta específica y, cuando se trata de información de pacientes, existen además requisitos de privacidad, confidencialidad, calidad de los datos, permisos institucionales y consideraciones éticas que deben respetarse. En ese momento no contaba con una fuente de datos adecuada que permitiera desarrollar la investigación con el rigor que requería.
+
+Aunque aquella idea no pudo convertirse en mi investigación de maestría, fue una experiencia importante para mí. Me permitió comprender que en la investigación aplicada a la salud no es suficiente tener una buena pregunta o conocer los métodos estadísticos y computacionales. También es fundamental contar con datos de calidad, establecer colaboraciones con especialistas e instituciones de salud y comprender adecuadamente el contexto clínico del problema que se desea estudiar.
+
+Esa experiencia también cambió mi manera de pensar la investigación. Entendí que primero debe existir un problema clínico real y una necesidad claramente identificada, y posteriormente determinar de qué manera la estadística, la ciencia de datos o la inteligencia artificial pueden contribuir a estudiarlo.
+
+Con el tiempo, y especialmente al iniciar el doctorado, comprendí que quería retomar ese interés por utilizar la inteligencia artificial en salud, pero orientándolo hacia un problema que además tiene un significado personal para mí: el cáncer.
+
+Por eso considero que mi interés actual es el resultado de dos caminos que terminaron encontrándose. Por una parte, está la experiencia que viví con mi hermana y las preguntas que surgieron desde entonces. Por otra, está toda la formación que he adquirido en estadística, ciencia de datos e inteligencia artificial y la posibilidad de utilizar ese conocimiento para estudiar problemas biomédicos de gran complejidad.
+
+> Hoy esas dos historias convergen en mi investigación doctoral.
+
+Quiero comprender mejor el cáncer desde la perspectiva de los datos y la inteligencia artificial. Quiero estudiar cómo las células, las moléculas, las imágenes y la información clínica pueden convertirse en datos que nos permitan entender mejor la enfermedad. También quiero aprender directamente de oncólogos, investigadores y especialistas para que cualquier desarrollo tecnológico responda a una necesidad médica real y no únicamente a un problema interesante desde el punto de vista computacional.
+
+Especialmente, quiero explorar cómo podemos utilizar la inteligencia artificial de manera responsable para apoyar a quienes trabajan todos los días en la prevención, el diagnóstico y el tratamiento del cáncer.
+
+Si en algún momento una investigación, un modelo o una herramienta desarrollada durante este proceso puede ayudar a un especialista a comprender mejor un caso, detectar una señal que antes era difícil de identificar o contribuir a mejorar la atención de un paciente, entonces sentiré que todo este camino académico ha tenido un propósito que va mucho más allá de obtener un título doctoral.
+
+::::

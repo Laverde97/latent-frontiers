@@ -1,5 +1,6 @@
 ---
 pagetitle: "Latent Frontiers — Data Science & Artificial Intelligence"
+lang: es
 page-layout: full
 toc: false
 ---
@@ -10,37 +11,52 @@ toc: false
 Latent Frontiers
 :::
 
-# Data Science &amp; Artificial Intelligence {.lf-hero__title}
+# <span data-lang="es">Ciencia de Datos e Inteligencia Artificial</span><span data-lang="en" hidden>Data Science &amp; Artificial Intelligence</span> {.lf-hero__title}
 
-::: {.lf-hero__tagline}
+::: {.lf-hero__tagline data-lang="es"}
+Donde el aprendizaje automático se encuentra con la medicina, la investigación y el descubrimiento científico.
+:::
+::: {.lf-hero__tagline data-lang="en" hidden="hidden"}
 Where machine learning meets medicine, research, and scientific discovery.
 :::
 
-::: {.lf-hero__lead}
+::: {.lf-hero__lead data-lang="es"}
+Fronteras Latentes es un blog de investigación y divulgación técnica sobre inteligencia artificial, aprendizaje automático y sus aplicaciones en medicina y descubrimiento científico — desde la perspectiva de un doctorado en curso en Ciencia de Datos e Inteligencia Artificial.
+:::
+::: {.lf-hero__lead data-lang="en" hidden="hidden"}
 Latent Frontiers is a research and technical blog exploring artificial intelligence, machine learning, and their applications in medicine and scientific discovery — from the perspective of an ongoing doctoral journey in Data Science and Artificial Intelligence.
 :::
 
 ::: {.lf-hero__actions}
-[Explore Writings](articles.qmd){.lf-btn .lf-btn--primary}
-[About Me](about.qmd){.lf-btn}
+[<span data-lang="es">Ver Escritos</span><span data-lang="en" hidden>Explore Writings</span>](writings.qmd){.lf-btn .lf-btn--primary}
+[<span data-lang="es">Sobre mí</span><span data-lang="en" hidden>About Me</span>](about.qmd){.lf-btn}
 :::
 
 :::
 
 <div class="lf-cards">
 <div class="lf-card position-relative">
-<div class="lf-card__title">Artificial Intelligence</div>
-<div class="lf-card__desc">Machine learning, generative AI, large language models, and the emerging landscape of AI agents.</div>
-<a class="stretched-link" href="articles.qmd" aria-label="Read articles about Artificial Intelligence"></a>
+<div class="lf-card__title"><span data-lang="es">Inteligencia Artificial</span><span data-lang="en" hidden>Artificial Intelligence</span></div>
+<div class="lf-card__desc">
+<span data-lang="es">Aprendizaje automático, IA generativa, modelos de lenguaje y el panorama emergente de los agentes de IA.</span>
+<span data-lang="en" hidden>Machine learning, generative AI, large language models, and the emerging landscape of AI agents.</span>
+</div>
+<a class="stretched-link" href="writings.qmd" aria-label="Read writings about Artificial Intelligence"></a>
 </div>
 <div class="lf-card position-relative">
-<div class="lf-card__title">Research &amp; Medicine</div>
-<div class="lf-card__desc">Doctoral research at the intersection of artificial intelligence and medicine, including applications in oncology.</div>
-<a class="stretched-link" href="articles.qmd" aria-label="Read articles about Research and Medicine"></a>
+<div class="lf-card__title"><span data-lang="es">Investigación y Medicina</span><span data-lang="en" hidden>Research &amp; Medicine</span></div>
+<div class="lf-card__desc">
+<span data-lang="es">Investigación doctoral en la intersección entre inteligencia artificial y medicina, incluyendo aplicaciones en oncología.</span>
+<span data-lang="en" hidden>Doctoral research at the intersection of artificial intelligence and medicine, including applications in oncology.</span>
+</div>
+<a class="stretched-link" href="writings.qmd" aria-label="Read writings about Research and Medicine"></a>
 </div>
 <div class="lf-card position-relative">
-<div class="lf-card__title">Notes &amp; Experiments</div>
-<div class="lf-card__desc">Technical notes, experiments, notebooks, and reflections from an ongoing journey through machine learning and research.</div>
-<a class="stretched-link" href="articles.qmd" aria-label="Read Notes and Experiments articles"></a>
+<div class="lf-card__title"><span data-lang="es">Notas y Experimentos</span><span data-lang="en" hidden>Notes &amp; Experiments</span></div>
+<div class="lf-card__desc">
+<span data-lang="es">Notas técnicas, experimentos, cuadernos y reflexiones de un recorrido continuo por el aprendizaje automático y la investigación.</span>
+<span data-lang="en" hidden>Technical notes, experiments, notebooks, and reflections from an ongoing journey through machine learning and research.</span>
+</div>
+<a class="stretched-link" href="writings.qmd" aria-label="Read Notes and Experiments writings"></a>
 </div>
 </div>
