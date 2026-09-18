@@ -51,6 +51,10 @@ from matplotlib.colors import LinearSegmentedColormap
 RANDOM_STATE = 42
 TEST_SIZE = 0.20
 
+# Override manual: si el ensemble gana pero la mejora es marginal, fijar en "xgb"
+# para mantener la matriz de confusión y el pie de figura existentes.
+CONFUSION_MATRIX_MODEL_ID: str | None = None  # None = usar best_id automáticamente
+
 DATA_ROOT = (
     Path.home()
     / ".cache"
@@ -110,6 +114,12 @@ MODEL_DESCRIPTIONS = {
         "XGBoost",
         "Construye árboles de decisión de forma secuencial, corrigiendo los errores de "
         "los anteriores. Suele ofrecer un desempeño competitivo con ajuste mínimo.",
+    ),
+    "ensemble": (
+        "Ensemble (voto suave)",
+        "Promedia las probabilidades de XGBoost, Random Forest, SVM (RBF) y regresión "
+        "logística, y elige la clase con mayor probabilidad promedio. Combina modelos "
+        "que cometen errores distintos entre sí.",
     ),
 }
 
@@ -377,14 +387,93 @@ def main():
             f"({time.time() - t0:.1f}s)"
         )
 
+    # --- Ensemble (voto suave): XGBoost + Random Forest + SVM(RBF) + LogReg ---
+    # Reusa los pipelines YA AJUSTADOS de xgb/rf/logreg (mismo split, sin reentrenar).
+    # SVM necesita una instancia NUEVA y SEPARADA con probability=True: la fila
+    # "svm" del comparativo (SVC(probability=False), sin cambios) NO se toca.
+    print("Entrenando SVM auxiliar (probability=True) solo para el ensemble…")
+    svm_for_ensemble = Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("clf", SVC(kernel="rbf", random_state=RANDOM_STATE, probability=True)),
+        ]
+    )
+    svm_for_ensemble.fit(X_train, y_train)
+
+    proba_xgb = models["xgb"].predict_proba(X_test)
+    proba_rf = models["rf"].predict_proba(X_test)
+    proba_logreg = models["logreg"].predict_proba(X_test)
+    proba_svm = svm_for_ensemble.predict_proba(X_test)
+
+    # Verificación de orden de clases antes de promediar columnas de probabilidad.
+    # rf/logreg/svm exponen las clases originales (strings) en .classes_, en el
+    # mismo orden que label_encoder.classes_ (ambos ordenan alfabéticamente).
+    assert list(label_encoder.classes_) == list(models["rf"].classes_)
+    assert list(label_encoder.classes_) == list(models["logreg"].classes_)
+    assert list(label_encoder.classes_) == list(svm_for_ensemble.classes_)
+    # xgb fue entrenado con labels codificadas por label_encoder, así que sus
+    # clases son enteros 0..7 — por construcción de LabelEncoder, la columna j
+    # de proba_xgb corresponde a label_encoder.classes_[j]. Se verifica esa
+    # suposición explícitamente en vez de asumirla en silencio.
+    assert list(models["xgb"].classes_) == list(range(len(label_encoder.classes_)))
+
+    proba_ensemble = (proba_xgb + proba_rf + proba_logreg + proba_svm) / 4.0
+    y_pred_ensemble = label_encoder.classes_[np.argmax(proba_ensemble, axis=1)]
+
+    results["ensemble"] = {
+        "accuracy": float(accuracy_score(y_test, y_pred_ensemble)),
+        "precision_macro": float(
+            precision_score(y_test, y_pred_ensemble, average="macro", zero_division=0)
+        ),
+        "recall_macro": float(
+            recall_score(y_test, y_pred_ensemble, average="macro", zero_division=0)
+        ),
+        "f1_macro": float(f1_score(y_test, y_pred_ensemble, average="macro", zero_division=0)),
+        "y_pred": y_pred_ensemble,
+    }
+    print(f"  ensemble: accuracy={results['ensemble']['accuracy']:.4f}")
+
     best_id = max(results, key=lambda k: results[k]["accuracy"])
     print(f"Mejor modelo: {best_id} ({results[best_id]['accuracy']:.4f} accuracy)")
+
+    xgb_acc = results["xgb"]["accuracy"]
+    ens_acc = results["ensemble"]["accuracy"]
+    delta_pp = (ens_acc - xgb_acc) * 100
+    if best_id == "ensemble":
+        marginal = abs(delta_pp) < 1.0
+        print(
+            f"\n>>> EL ENSEMBLE SUPERA A XGBOOST: {ens_acc:.4f} vs {xgb_acc:.4f} "
+            f"(+{delta_pp:.2f} pp). CASO 'GANA'.\n"
+            "    Acciones manuales requeridas en index.qmd:\n"
+            "    - Hero #crc-hero-result -> 'Ensemble' + nueva accuracy\n"
+            "    - Prosa de ## Compara los modelos -> mencionar Ensemble como mejor\n"
+            "    - bestModelId ya quedó en 'ensemble' automáticamente (ver metrics.json)\n"
+            + (
+                "    - Mejora marginal (<1 pp): se recomienda mantener "
+                "CONFUSION_MATRIX_MODEL_ID='xgb' y NO tocar la matriz de confusión "
+                "ni su pie de figura."
+                if marginal
+                else "    - Mejora no marginal (>=1 pp): considerar regenerar la "
+                "matriz de confusión para el ensemble."
+            )
+        )
+    else:
+        print(
+            f"\n>>> EL ENSEMBLE NO SUPERA A XGBOOST: {ens_acc:.4f} vs {xgb_acc:.4f} "
+            f"({delta_pp:+.2f} pp). CASO 'NO GANA'.\n"
+            "    Acciones manuales requeridas en index.qmd: ninguna en hero/bestModelId/"
+            "matriz de confusión (siguen siendo XGBoost). Añadir el ensemble a la prosa "
+            "de ## Compara los modelos con redacción tipo 'aunque el ensemble no superó "
+            "al mejor modelo individual...'.\n"
+        )
 
     class_order = list(CLASS_MAP.values())  # [(id, label), ...] en orden 01..08
     class_ids = [c[0] for c in class_order]
     class_labels = [c[1] for c in class_order]
 
-    cm = confusion_matrix(y_test, results[best_id]["y_pred"], labels=class_ids)
+    cm_model_id = CONFUSION_MATRIX_MODEL_ID or best_id
+    print(f"Matriz de confusión generada para: {cm_model_id}")
+    cm = confusion_matrix(y_test, results[cm_model_id]["y_pred"], labels=class_ids)
     plot_confusion(cm, class_labels, IMAGES_DIR / "crc-confusion-matrix.png")
     plot_comparison(
         {k: v for k, v in results.items()}, best_id, IMAGES_DIR / "crc-model-comparison.png"

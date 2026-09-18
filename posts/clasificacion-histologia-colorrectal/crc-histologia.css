@@ -394,6 +394,38 @@
   color: var(--crc-body);
 }
 
+/* ---------- Definiciones de métricas ---------- */
+
+.crc-metric-defs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.crc-metric-def {
+  padding: 0.7rem 0.6rem;
+  background: var(--crc-surface);
+  border: 1px solid var(--crc-line);
+  border-radius: 8px;
+}
+
+.crc-metric-def__term {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--crc-blue);
+  margin-bottom: 0.25rem;
+}
+
+.crc-metric-def p {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--crc-body);
+  margin: 0;
+}
+
 /* ---------- Lo importante ---------- */
 
 .crc-conclusions {
@@ -448,7 +480,7 @@
 
 .crc-next-steps {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.2rem;
   max-width: 860px;
   margin: 0 auto 2rem;
@@ -484,7 +516,8 @@
     row-gap: 1.3rem;
   }
 
-  .crc-switcher__metrics {
+  .crc-switcher__metrics,
+  .crc-metric-defs {
     grid-template-columns: repeat(2, 1fr);
   }
 

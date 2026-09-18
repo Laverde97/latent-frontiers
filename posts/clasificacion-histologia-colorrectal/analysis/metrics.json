@@ -10,6 +10,15 @@
       "f1_macro": 0.9442
     },
     {
+      "id": "ensemble",
+      "label": "Ensemble (voto suave)",
+      "description": "Promedia las probabilidades de XGBoost, Random Forest, SVM (RBF) y regresión logística, y elige la clase con mayor probabilidad promedio. Combina modelos que cometen errores distintos entre sí.",
+      "accuracy": 0.936,
+      "precision_macro": 0.9372,
+      "recall_macro": 0.936,
+      "f1_macro": 0.936
+    },
+    {
       "id": "rf",
       "label": "Random Forest",
       "description": "Combina muchos árboles de decisión entrenados sobre subconjuntos distintos de datos y características. Suele generalizar mejor que un árbol individual.",

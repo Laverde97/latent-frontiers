@@ -7,7 +7,7 @@ lang: es
 categories: [Cáncer, Inteligencia Artificial, Machine Learning, Investigación]
 description: "Un experimento reproducible: clasificar 5.000 imágenes de histología colorrectal (Kather et al., 2016) en 8 tipos de tejido, comparando seis modelos clásicos de machine learning sobre color y textura."
 image: "images/crc-class-01-tumor.jpg"
-reading-time-display: "3 minutos"
+reading-time-display: "4 minutos"
 toc: false
 title-block-banner: false
 engine: markdown
@@ -101,7 +101,7 @@ Dada una pequeña región de una imagen histológica colorrectal, ¿puede un mod
 <img src="images/crc-model-comparison.png" alt="Gráfica de barras horizontales comparando la accuracy de cada modelo, ordenada de mayor a menor">
 </div>
 
-XGBoost obtiene el mejor resultado: 94,4&nbsp;% de *accuracy* sobre un hold-out estratificado a nivel de imagen. Esto indica una fuerte capacidad de discriminación dentro de este conjunto de datos bajo el protocolo utilizado —no equivale a validación externa ni a eficacia clínica—. Random Forest y k-NN quedan cerca (~93&nbsp;%); los modelos basados en árboles y ensambles superan de forma consistente al árbol de decisión individual, el más débil del grupo (85,5&nbsp;%).
+XGBoost obtiene el mejor resultado individual bajo el protocolo utilizado en este análisis: 94,4&nbsp;% de *accuracy* sobre un hold-out estratificado a nivel de imagen. Esto indica una fuerte capacidad de discriminación dentro de este conjunto de datos bajo el protocolo utilizado —no equivale a validación externa ni a eficacia clínica—. Random Forest y k-NN quedan cerca (~93&nbsp;%); los modelos basados en árboles y ensambles superan de forma consistente al árbol de decisión individual, el más débil del grupo (85,5&nbsp;%). También se evaluó un ensemble de voto suave (XGBoost + Random Forest + SVM + regresión logística) bajo el mismo protocolo: no superó al mejor modelo individual (93,6&nbsp;% de *accuracy*), pero se incluye en el selector siguiente por transparencia.
 
 Nota metodológica: el split separa imágenes de forma aleatoria y estratificada, pero los nombres de archivo del dataset indican que las imágenes provienen de 10 especímenes, y el mismo espécimen puede tener imágenes tanto en entrenamiento como en prueba —esta cifra no refleja independencia a nivel de paciente o lámina.
 
@@ -125,11 +125,24 @@ Nota metodológica: el split separa imágenes de forma aleatoria y estratificada
 </noscript>
 </div>
 
+<div class="crc-metric-defs">
+<div class="crc-metric-def"><span class="crc-metric-def__term">Accuracy</span><p>Proporción de imágenes que el modelo clasifica correctamente, sobre el total.</p></div>
+<div class="crc-metric-def"><span class="crc-metric-def__term">Precision macro</span><p>De lo que el modelo asigna a una clase, qué proporción realmente pertenece a ella, promediado por igual entre las 8 clases.</p></div>
+<div class="crc-metric-def"><span class="crc-metric-def__term">Recall macro</span><p>De lo que realmente pertenece a una clase, qué proporción detecta el modelo, promediado por igual entre las 8 clases.</p></div>
+<div class="crc-metric-def"><span class="crc-metric-def__term">F1 macro</span><p>Un solo número que resume el equilibrio entre precision y recall, promediado por igual entre las 8 clases.</p></div>
+</div>
+
 ::: {.crc-lit-card}
 [Referencia publicada (no calculada en este análisis)]{.crc-lit-card__label}
 
 Kather et al. (2016) reportaron 87,4&nbsp;% de exactitud para el problema de las ocho clases en su protocolo experimental original [@kather2016]. El resumen del artículo no especifica un único clasificador para esa cifra, por lo que no se atribuye aquí a un modelo concreto. Esta cifra se muestra únicamente como contexto histórico y no constituye una comparación directa con el hold-out utilizado en este análisis (representación de características y esquema de validación distintos).
 :::
+
+<div class="crc-metric-focus">
+<p class="crc-kicker">¿Qué métrica importa más aquí?</p>
+<p>Las ocho clases de este problema están balanceadas, así que el F1 macro —que combina precision y recall dando el mismo peso a las 8 clases— funciona como un buen resumen general. Aun así, ninguna métrica es "la mejor" de forma universal: depende del objetivo. Un recall bajo implica más falsos negativos (tejido relevante que el modelo no detecta); una precision baja implica más falsos positivos (tejido irrelevante marcado como relevante). De forma laxa —no como una equivalencia estadística rigurosa— estos errores recuerdan a los errores Tipo II y Tipo I de la estadística clásica.</p>
+<p>En este trabajo las imágenes proceden de tejido ya obtenido, por lo que el modelo no decide si un paciente debe someterse a una biopsia. Sin embargo, en futuros sistemas de apoyo clínico, los falsos positivos podrían contribuir a pruebas o procedimientos adicionales [@elmore1998], mientras que los falsos negativos podrían retrasar la identificación de tejido relevante. Por ello, la elección de la métrica debe depender del uso clínico específico.</p>
+</div>
 
 ## ¿Dónde se equivoca el mejor modelo? {#sec-confusion}
 
@@ -165,12 +178,19 @@ XGBoost distingue con claridad 7 de las 8 clases (94&nbsp;% o más de aciertos c
 <p>Este análisis clasifica regiones histológicas en tipos de tejido. No predice si una persona desarrollará cáncer, no estima pronóstico y no sustituye la valoración de un patólogo.</p>
 </div>
 
+## Conclusión
+
+Los patrones de color y textura de este conjunto de imágenes permiten separar razonablemente bien los ocho tipos de tejido colorrectal bajo el protocolo utilizado aquí. XGBoost obtuvo el mejor desempeño entre todos los métodos evaluados bajo este protocolo, con 94,4&nbsp;% de *accuracy*; el ensemble de voto suave alcanzó 93,6&nbsp;%. Esto no constituye validación clínica ni un split independiente a nivel de paciente o lámina —ver nota metodológica más arriba—.
+
+Ningún algoritmo es necesariamente el más adecuado para todos los escenarios: la elección depende de los datos, del protocolo de evaluación y del objetivo clínico. Una dirección lógica para seguir explorando es estudiar combinaciones de modelos (*ensembles*), que pueden ofrecer resultados más robustos que depender de un único clasificador.
+
 ## ¿Qué seguiría?
 
 <ol class="crc-next-steps">
 <li class="crc-next-step"><span class="crc-next-step__num">01</span><strong>Validación externa</strong><p>Evaluar el modelo sobre imágenes de pacientes, láminas o centros no utilizados durante el entrenamiento.</p></li>
-<li class="crc-next-step"><span class="crc-next-step__num">02</span><strong>Modelos profundos</strong><p>Evaluar representaciones aprendidas (CNNs) frente a los descriptores manuales usados aquí.</p></li>
-<li class="crc-next-step"><span class="crc-next-step__num">03</span><strong>Evaluación con especialistas</strong><p>Contrastar los errores del modelo con el criterio de patólogos expertos.</p></li>
+<li class="crc-next-step"><span class="crc-next-step__num">02</span><strong>Ensemble de modelos</strong><p>Combinar algoritmos que cometen errores diferentes puede producir predicciones más robustas que depender de un único clasificador.</p></li>
+<li class="crc-next-step"><span class="crc-next-step__num">03</span><strong>Modelos profundos</strong><p>Evaluar representaciones aprendidas (CNNs) frente a los descriptores manuales usados aquí.</p></li>
+<li class="crc-next-step"><span class="crc-next-step__num">04</span><strong>Evaluación con especialistas</strong><p>Contrastar los errores del modelo con el criterio de patólogos expertos.</p></li>
 </ol>
 
 <script src="crc-metrics.js"></script>
