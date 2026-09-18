@@ -33,30 +33,3 @@ Latent Frontiers is a research and technical blog exploring artificial intellige
 :::
 
 :::
-
-<div class="lf-cards">
-<div class="lf-card position-relative">
-<div class="lf-card__title"><span data-lang="es">Inteligencia Artificial</span><span data-lang="en" hidden>Artificial Intelligence</span></div>
-<div class="lf-card__desc">
-<span data-lang="es">Aprendizaje automático, IA generativa, modelos de lenguaje y el panorama emergente de los agentes de IA.</span>
-<span data-lang="en" hidden>Machine learning, generative AI, large language models, and the emerging landscape of AI agents.</span>
-</div>
-<a class="stretched-link" href="writings.qmd" aria-label="Read writings about Artificial Intelligence"></a>
-</div>
-<div class="lf-card position-relative">
-<div class="lf-card__title"><span data-lang="es">Investigación y Medicina</span><span data-lang="en" hidden>Research &amp; Medicine</span></div>
-<div class="lf-card__desc">
-<span data-lang="es">Investigación doctoral en la intersección entre inteligencia artificial y medicina, incluyendo aplicaciones en oncología.</span>
-<span data-lang="en" hidden>Doctoral research at the intersection of artificial intelligence and medicine, including applications in oncology.</span>
-</div>
-<a class="stretched-link" href="writings.qmd" aria-label="Read writings about Research and Medicine"></a>
-</div>
-<div class="lf-card position-relative">
-<div class="lf-card__title"><span data-lang="es">Notas y Experimentos</span><span data-lang="en" hidden>Notes &amp; Experiments</span></div>
-<div class="lf-card__desc">
-<span data-lang="es">Notas técnicas, experimentos, cuadernos y reflexiones de un recorrido continuo por el aprendizaje automático y la investigación.</span>
-<span data-lang="en" hidden>Technical notes, experiments, notebooks, and reflections from an ongoing journey through machine learning and research.</span>
-</div>
-<a class="stretched-link" href="writings.qmd" aria-label="Read Notes and Experiments writings"></a>
-</div>
-</div>
