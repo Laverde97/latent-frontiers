@@ -1,0 +1,612 @@
+{
+  "framework": "pytorch",
+  "device": "cuda",
+  "architecture": "Conv2D(16)+ReLU+MaxPool -> Conv2D(32)+ReLU+MaxPool -> Conv2D(64)+ReLU+MaxPool -> GlobalAveragePooling2D -> Dense(64)+ReLU -> Dropout(0.3) -> Dense(8, logits)",
+  "nParameters": 28264,
+  "randomState": 42,
+  "split": {
+    "splitType": "group_disjoint_specimen_gss",
+    "randomState": 42,
+    "groupDisjoint": true,
+    "nTrain": 3131,
+    "nVal": 1243,
+    "nTest": 626,
+    "trainGroups": [
+      "01",
+      "04",
+      "05",
+      "06",
+      "08",
+      "10"
+    ],
+    "valGroups": [
+      "03",
+      "07"
+    ],
+    "testGroups": [
+      "02",
+      "09"
+    ],
+    "note": "Split distinto al LeaveOneGroupOut de grouped_evaluation.py (aquí train/val/test fijos, allá CV agrupada de 10 folds), pero igualmente group-disjoint: ningún espécimen aparece en más de uno de los tres conjuntos. El conjunto de test no participó en el entrenamiento ni en el early stopping."
+  },
+  "maxEpochs": 60,
+  "earlyStoppingPatience": 8,
+  "bestEpoch": 22,
+  "epochsRun": 30,
+  "bestValLoss": 0.7971509466141055,
+  "trainingTimeSeconds": 195.9,
+  "history": [
+    {
+      "epoch": 1,
+      "trainLoss": 1.833972286622161,
+      "valLoss": 1.6808462548620358,
+      "valAccuracy": 0.10378117457763475
+    },
+    {
+      "epoch": 2,
+      "trainLoss": 1.2957731151078236,
+      "valLoss": 1.2288949251750354,
+      "valAccuracy": 0.5277554304102977
+    },
+    {
+      "epoch": 3,
+      "trainLoss": 1.0463221261616296,
+      "valLoss": 1.1754630809336637,
+      "valAccuracy": 0.38535800482703136
+    },
+    {
+      "epoch": 4,
+      "trainLoss": 0.9131551852853714,
+      "valLoss": 1.0015337351628686,
+      "valAccuracy": 0.4650040225261464
+    },
+    {
+      "epoch": 5,
+      "trainLoss": 0.8516576213792504,
+      "valLoss": 1.0496367838530414,
+      "valAccuracy": 0.5293644408688657
+    },
+    {
+      "epoch": 6,
+      "trainLoss": 0.8116744849408484,
+      "valLoss": 0.9549586747024487,
+      "valAccuracy": 0.5189058728881738
+    },
+    {
+      "epoch": 7,
+      "trainLoss": 0.7678036820351678,
+      "valLoss": 1.0641276286862498,
+      "valAccuracy": 0.4094931617055511
+    },
+    {
+      "epoch": 8,
+      "trainLoss": 0.752138231783696,
+      "valLoss": 0.9275740659342403,
+      "valAccuracy": 0.5687851971037812
+    },
+    {
+      "epoch": 9,
+      "trainLoss": 0.7530866823840621,
+      "valLoss": 0.9195901231236354,
+      "valAccuracy": 0.5390185036202735
+    },
+    {
+      "epoch": 10,
+      "trainLoss": 0.73887019011206,
+      "valLoss": 0.9334828328769819,
+      "valAccuracy": 0.5116653258246179
+    },
+    {
+      "epoch": 11,
+      "trainLoss": 0.7248144355759915,
+      "valLoss": 0.9469528981662045,
+      "valAccuracy": 0.5124698310539019
+    },
+    {
+      "epoch": 12,
+      "trainLoss": 0.7240896469029098,
+      "valLoss": 0.9651647069980709,
+      "valAccuracy": 0.49798873692679
+    },
+    {
+      "epoch": 13,
+      "trainLoss": 0.7166676862443152,
+      "valLoss": 0.9130010449972636,
+      "valAccuracy": 0.5583266291230893
+    },
+    {
+      "epoch": 14,
+      "trainLoss": 0.6932278365153773,
+      "valLoss": 0.9500521972763472,
+      "valAccuracy": 0.5309734513274337
+    },
+    {
+      "epoch": 15,
+      "trainLoss": 0.6877381581538251,
+      "valLoss": 0.9597443398852455,
+      "valAccuracy": 0.5382139983909895
+    },
+    {
+      "epoch": 16,
+      "trainLoss": 0.6857851392276293,
+      "valLoss": 0.9186193275288622,
+      "valAccuracy": 0.5534995977473853
+    },
+    {
+      "epoch": 17,
+      "trainLoss": 0.6783042558082488,
+      "valLoss": 0.8381044870648572,
+      "valAccuracy": 0.588897827835881
+    },
+    {
+      "epoch": 18,
+      "trainLoss": 0.6726105035169937,
+      "valLoss": 1.0551670068516812,
+      "valAccuracy": 0.5285599356395817
+    },
+    {
+      "epoch": 19,
+      "trainLoss": 0.6585033108578137,
+      "valLoss": 0.8259469405152293,
+      "valAccuracy": 0.6098149637972646
+    },
+    {
+      "epoch": 20,
+      "trainLoss": 0.6388222845321797,
+      "valLoss": 0.8826114594672634,
+      "valAccuracy": 0.5744167337087691
+    },
+    {
+      "epoch": 21,
+      "trainLoss": 0.748218433558465,
+      "valLoss": 0.9036609267670592,
+      "valAccuracy": 0.582461786001609
+    },
+    {
+      "epoch": 22,
+      "trainLoss": 0.6746807822744064,
+      "valLoss": 0.7971509466141055,
+      "valAccuracy": 0.6395816572807723
+    },
+    {
+      "epoch": 23,
+      "trainLoss": 0.6369944286780478,
+      "valLoss": 0.8497582752788058,
+      "valAccuracy": 0.6082059533386966
+    },
+    {
+      "epoch": 24,
+      "trainLoss": 0.6341495567980913,
+      "valLoss": 0.8758587663152576,
+      "valAccuracy": 0.585679806918745
+    },
+    {
+      "epoch": 25,
+      "trainLoss": 0.6291045308284431,
+      "valLoss": 0.8403130094082434,
+      "valAccuracy": 0.6186645213193885
+    },
+    {
+      "epoch": 26,
+      "trainLoss": 0.6573559599385708,
+      "valLoss": 0.8316669970487072,
+      "valAccuracy": 0.5953338696701529
+    },
+    {
+      "epoch": 27,
+      "trainLoss": 0.6236922309749692,
+      "valLoss": 0.8730611448158972,
+      "valAccuracy": 0.585679806918745
+    },
+    {
+      "epoch": 28,
+      "trainLoss": 0.6062528782666053,
+      "valLoss": 0.9058418087871057,
+      "valAccuracy": 0.5905068382944489
+    },
+    {
+      "epoch": 29,
+      "trainLoss": 0.6178894321479115,
+      "valLoss": 0.838322506853389,
+      "valAccuracy": 0.6339501206757844
+    },
+    {
+      "epoch": 30,
+      "trainLoss": 0.5887743661728045,
+      "valLoss": 0.821473711485692,
+      "valAccuracy": 0.6259050683829445
+    }
+  ],
+  "test": {
+    "accuracy": 0.4042,
+    "precisionMacro": 0.3218,
+    "recallMacro": 0.3512,
+    "f1Macro": 0.2706,
+    "perClass": [
+      {
+        "classId": "tumor",
+        "label": "Tumor",
+        "precision": 0.3167,
+        "recall": 0.1033,
+        "f1": 0.1557,
+        "support": 184
+      },
+      {
+        "classId": "estroma",
+        "label": "Estroma",
+        "precision": 0.7143,
+        "recall": 0.0617,
+        "f1": 0.1136,
+        "support": 81
+      },
+      {
+        "classId": "estroma_complejo",
+        "label": "Estroma complejo",
+        "precision": 0.382,
+        "recall": 0.5,
+        "f1": 0.4331,
+        "support": 68
+      },
+      {
+        "classId": "linfoide",
+        "label": "Tejido linfoide",
+        "precision": 0.5069,
+        "recall": 0.5759,
+        "f1": 0.5392,
+        "support": 191
+      },
+      {
+        "classId": "detritos",
+        "label": "Detritos",
+        "precision": 0.3077,
+        "recall": 0.6957,
+        "f1": 0.4267,
+        "support": 23
+      },
+      {
+        "classId": "mucosa",
+        "label": "Mucosa",
+        "precision": 0.3467,
+        "recall": 0.8734,
+        "f1": 0.4964,
+        "support": 79
+      },
+      {
+        "classId": "adiposo",
+        "label": "Tejido adiposo",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      {
+        "classId": "fondo",
+        "label": "Fondo",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      }
+    ],
+    "confusionMatrix": {
+      "classIds": [
+        "tumor",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "detritos",
+        "mucosa",
+        "adiposo",
+        "fondo"
+      ],
+      "classLabels": [
+        "Tumor",
+        "Estroma",
+        "Estroma complejo",
+        "Tejido linfoide",
+        "Detritos",
+        "Mucosa",
+        "Tejido adiposo",
+        "Fondo"
+      ],
+      "counts": [
+        [
+          19,
+          2,
+          3,
+          104,
+          1,
+          55,
+          0,
+          0
+        ],
+        [
+          0,
+          5,
+          31,
+          0,
+          32,
+          13,
+          0,
+          0
+        ],
+        [
+          13,
+          0,
+          34,
+          0,
+          0,
+          21,
+          0,
+          0
+        ],
+        [
+          24,
+          0,
+          19,
+          110,
+          0,
+          38,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          16,
+          3,
+          2,
+          0
+        ],
+        [
+          4,
+          0,
+          0,
+          3,
+          3,
+          69,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "rowNormalizedPct": [
+        [
+          10.33,
+          1.09,
+          1.63,
+          56.52,
+          0.54,
+          29.89,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.17,
+          38.27,
+          0.0,
+          39.51,
+          16.05,
+          0.0,
+          0.0
+        ],
+        [
+          19.12,
+          0.0,
+          50.0,
+          0.0,
+          0.0,
+          30.88,
+          0.0,
+          0.0
+        ],
+        [
+          12.57,
+          0.0,
+          9.95,
+          57.59,
+          0.0,
+          19.9,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          8.7,
+          0.0,
+          69.57,
+          13.04,
+          8.7,
+          0.0
+        ],
+        [
+          5.06,
+          0.0,
+          0.0,
+          3.8,
+          3.8,
+          87.34,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "topConfusionPairs": [
+      {
+        "trueClassId": "tumor",
+        "trueClassLabel": "Tumor",
+        "predClassId": "linfoide",
+        "predClassLabel": "Tejido linfoide",
+        "count": 104,
+        "pctOfTrueClass": 56.52,
+        "category": "tumor_to_non_tumor"
+      },
+      {
+        "trueClassId": "tumor",
+        "trueClassLabel": "Tumor",
+        "predClassId": "mucosa",
+        "predClassLabel": "Mucosa",
+        "count": 55,
+        "pctOfTrueClass": 29.89,
+        "category": "tumor_to_non_tumor"
+      },
+      {
+        "trueClassId": "linfoide",
+        "trueClassLabel": "Tejido linfoide",
+        "predClassId": "mucosa",
+        "predClassLabel": "Mucosa",
+        "count": 38,
+        "pctOfTrueClass": 19.9,
+        "category": "non_tumor_to_non_tumor"
+      }
+    ],
+    "classesMissingFromTestSet": [
+      "Tejido adiposo",
+      "Fondo"
+    ],
+    "f1MacroPresentClassesOnly": 0.3608,
+    "f1MacroPresentClassesOnlyNote": "El holdout group-disjoint de la CNN (especímenes 02 y 09) no tiene NINGÚN ejemplo real de Tejido adiposo ni de Fondo (support=0) -- ambas clases faltan por completo del conjunto de especímenes elegido para test, no por selección manual (ver cnn_split_manifest.json). El F1 macro oficial (8 clases, 0.2706) incluye esas dos clases como F1=0 sin evidencia real; este campo recalcula F1 macro solo sobre las 6 clases que sí tienen soporte, como diagnóstico adicional, no como sustituto de la cifra oficial."
+  },
+  "comparisonVsXgboostGrouped": {
+    "note": "La comparacion CNN-vs-XGBoost valida (mismo conjunto de evaluacion exacto) es comparisonSameSplit, no el numero LOGO pooled OOF de grouped_evaluation.json (ese usa las 5000 imagenes acumuladas de 10 especimenes bajo un esquema de CV distinto, no el mismo test set de 626 imagenes de 2 especimenes que usa la CNN).",
+    "xgbGroupedLogoPooledOofF1Macro_NOT_directly_comparable": 0.7193913570094015,
+    "comparisonSameSplit": {
+      "note": "XGBoost entrenado/evaluado sobre EXACTAMENTE el mismo split group-disjoint que la CNN (cnn_split_manifest.json): train+val de la CNN combinados para fit, test de la CNN para evaluación única.",
+      "trainGroups": [
+        "01",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "10"
+      ],
+      "testGroups": [
+        "02",
+        "09"
+      ],
+      "nTrain": 4374,
+      "nTest": 626,
+      "accuracy": 0.7987,
+      "precisionMacro": 0.6155,
+      "recallMacro": 0.5844,
+      "f1Macro": 0.586,
+      "f1MacroPresentClassesOnly": 0.7814,
+      "classesMissingFromTestSet": [
+        "Tejido adiposo",
+        "Fondo"
+      ],
+      "perClass": [
+        {
+          "classId": "tumor",
+          "label": "Tumor",
+          "precision": 0.931,
+          "recall": 0.8804,
+          "f1": 0.905,
+          "support": 184
+        },
+        {
+          "classId": "estroma",
+          "label": "Estroma",
+          "precision": 0.9423,
+          "recall": 0.6049,
+          "f1": 0.7368,
+          "support": 81
+        },
+        {
+          "classId": "estroma_complejo",
+          "label": "Estroma complejo",
+          "precision": 0.4127,
+          "recall": 0.7647,
+          "f1": 0.5361,
+          "support": 68
+        },
+        {
+          "classId": "linfoide",
+          "label": "Tejido linfoide",
+          "precision": 0.9024,
+          "recall": 0.7749,
+          "f1": 0.8338,
+          "support": 191
+        },
+        {
+          "classId": "detritos",
+          "label": "Detritos",
+          "precision": 0.9444,
+          "recall": 0.7391,
+          "f1": 0.8293,
+          "support": 23
+        },
+        {
+          "classId": "mucosa",
+          "label": "Mucosa",
+          "precision": 0.7912,
+          "recall": 0.9114,
+          "f1": 0.8471,
+          "support": 79
+        },
+        {
+          "classId": "adiposo",
+          "label": "Tejido adiposo",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        },
+        {
+          "classId": "fondo",
+          "label": "Fondo",
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 0
+        }
+      ]
+    }
+  },
+  "reproducibilityNote": "Semillas fijas para Python, NumPy y PyTorch (incl. CUDA). El entrenamiento en GPU puede introducir variaciones numéricas menores entre hardware/backends incluso con semillas fijas (operaciones no completamente deterministas en cuDNN)."
+}

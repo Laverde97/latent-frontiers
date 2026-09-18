@@ -1,0 +1,613 @@
+{
+  "protocol": "grouped_specimen_leave_one_group_out",
+  "primaryMetric": "f1_macro_pooled_oof",
+  "groupIdSource": "Identificador NN extraído de 'CRC-Prim-HE-NN' en el nombre de archivo — espécimen/lámina de origen. El dataset no permite demostrar que corresponda a un paciente distinto; nunca se usa el término 'paciente'.",
+  "strategy": "LeaveOneGroupOut",
+  "strategyJustification": "Con solo 10 especímenes y clases muy concentradas en unos pocos de ellos (p.ej. 'fondo' solo existe en 2 de los 10 — ver group_class_crosstab.json), StratifiedGroupKFold y GroupKFold con k<10 no garantizan cobertura de las 8 clases en cada fold, y GroupShuffleSplit requeriría fijar arbitrariamente cuántos especímenes van a test. LeaveOneGroupOut usa los 10 especímenes como 10 folds naturales, sin ningún parámetro libre, y garantiza que cada imagen del dataset recibe exactamente una predicción out-of-group al acumular los 10 folds — suficiente para un F1 macro pooled out-of-fold sobre las 8 clases, aunque los folds individuales no cubran las 8 clases cada uno.",
+  "nGroups": 10,
+  "nImages": 5000,
+  "crosstabPath": "analysis/group_class_crosstab.json",
+  "results": {
+    "logreg": {
+      "accuracyPooledOof": 0.686,
+      "f1MacroPooledOof": 0.6684568059509362,
+      "f1MacroPerFoldMean": 0.6850889656082215,
+      "f1MacroPerFoldStd": 0.09203799097148133
+    },
+    "tree": {
+      "accuracyPooledOof": 0.6116,
+      "f1MacroPooledOof": 0.5880925225135195,
+      "f1MacroPerFoldMean": 0.5921444616886924,
+      "f1MacroPerFoldStd": 0.09813798054114323
+    },
+    "rf": {
+      "accuracyPooledOof": 0.7042,
+      "f1MacroPooledOof": 0.6876893255490302,
+      "f1MacroPerFoldMean": 0.7054799717567577,
+      "f1MacroPerFoldStd": 0.09900806860502581
+    },
+    "knn": {
+      "accuracyPooledOof": 0.685,
+      "f1MacroPooledOof": 0.6732468370743826,
+      "f1MacroPerFoldMean": 0.6444192970107049,
+      "f1MacroPerFoldStd": 0.1293059683475269
+    },
+    "svm": {
+      "accuracyPooledOof": 0.6942,
+      "f1MacroPooledOof": 0.6796205373532589,
+      "f1MacroPerFoldMean": 0.681751922207545,
+      "f1MacroPerFoldStd": 0.11428526021185834
+    },
+    "xgb": {
+      "accuracyPooledOof": 0.73,
+      "f1MacroPooledOof": 0.7193913570094015,
+      "f1MacroPerFoldMean": 0.7196090915290052,
+      "f1MacroPerFoldStd": 0.09612704515137564
+    },
+    "ensemble": {
+      "accuracyPooledOof": 0.7136,
+      "f1MacroPooledOof": 0.6963417579459137,
+      "f1MacroPerFoldMean": 0.7117415714369331,
+      "f1MacroPerFoldStd": 0.1056429007486973
+    }
+  },
+  "bestIndividualModelId": "xgb",
+  "ensembleEvaluated": true,
+  "deltaF1MacroPooledOofVsBaseline": {
+    "logreg": -0.2445,
+    "tree": -0.2666,
+    "rf": -0.2413,
+    "knn": -0.2538,
+    "svm": -0.2342,
+    "xgb": -0.2248,
+    "ensemble": -0.2397
+  },
+  "classOrder": [
+    "tumor",
+    "estroma",
+    "estroma_complejo",
+    "linfoide",
+    "detritos",
+    "mucosa",
+    "adiposo",
+    "fondo"
+  ],
+  "classLabels": [
+    "Tumor",
+    "Estroma",
+    "Estroma complejo",
+    "Tejido linfoide",
+    "Detritos",
+    "Mucosa",
+    "Tejido adiposo",
+    "Fondo"
+  ],
+  "confusionMatrix": {
+    "classIds": [
+      "tumor",
+      "estroma",
+      "estroma_complejo",
+      "linfoide",
+      "detritos",
+      "mucosa",
+      "adiposo",
+      "fondo"
+    ],
+    "classLabels": [
+      "Tumor",
+      "Estroma",
+      "Estroma complejo",
+      "Tejido linfoide",
+      "Detritos",
+      "Mucosa",
+      "Tejido adiposo",
+      "Fondo"
+    ],
+    "counts": [
+      [
+        558,
+        4,
+        34,
+        10,
+        0,
+        19,
+        0,
+        0
+      ],
+      [
+        2,
+        437,
+        83,
+        0,
+        99,
+        2,
+        2,
+        0
+      ],
+      [
+        26,
+        67,
+        468,
+        40,
+        18,
+        5,
+        1,
+        0
+      ],
+      [
+        37,
+        0,
+        50,
+        533,
+        0,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        279,
+        37,
+        0,
+        241,
+        46,
+        22,
+        0
+      ],
+      [
+        16,
+        2,
+        11,
+        4,
+        25,
+        567,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        6,
+        0,
+        600,
+        16
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        379,
+        246
+      ]
+    ],
+    "rowNormalizedPct": [
+      [
+        89.28,
+        0.64,
+        5.44,
+        1.6,
+        0.0,
+        3.04,
+        0.0,
+        0.0
+      ],
+      [
+        0.32,
+        69.92,
+        13.28,
+        0.0,
+        15.84,
+        0.32,
+        0.32,
+        0.0
+      ],
+      [
+        4.16,
+        10.72,
+        74.88,
+        6.4,
+        2.88,
+        0.8,
+        0.16,
+        0.0
+      ],
+      [
+        5.92,
+        0.0,
+        8.0,
+        85.28,
+        0.0,
+        0.8,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        44.64,
+        5.92,
+        0.0,
+        38.56,
+        7.36,
+        3.52,
+        0.0
+      ],
+      [
+        2.56,
+        0.32,
+        1.76,
+        0.64,
+        4.0,
+        90.72,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.48,
+        0.0,
+        0.0,
+        0.96,
+        0.0,
+        96.0,
+        2.56
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        60.64,
+        39.36
+      ]
+    ]
+  },
+  "topConfusionPairs": [
+    {
+      "trueClassId": "fondo",
+      "trueClassLabel": "Fondo",
+      "predClassId": "adiposo",
+      "predClassLabel": "Tejido adiposo",
+      "count": 379,
+      "pctOfTrueClass": 60.64,
+      "category": "non_tumor_to_non_tumor"
+    },
+    {
+      "trueClassId": "detritos",
+      "trueClassLabel": "Detritos",
+      "predClassId": "estroma",
+      "predClassLabel": "Estroma",
+      "count": 279,
+      "pctOfTrueClass": 44.64,
+      "category": "non_tumor_to_non_tumor"
+    },
+    {
+      "trueClassId": "estroma",
+      "trueClassLabel": "Estroma",
+      "predClassId": "detritos",
+      "predClassLabel": "Detritos",
+      "count": 99,
+      "pctOfTrueClass": 15.84,
+      "category": "non_tumor_to_non_tumor"
+    }
+  ],
+  "misclassifiedExamples": [
+    {
+      "trueClassId": "fondo",
+      "predClassId": "adiposo",
+      "imagePath": "images/errors/err-grouped-fondo-as-adiposo-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.9999,
+      "trueScore": 0.0,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    },
+    {
+      "trueClassId": "fondo",
+      "predClassId": "adiposo",
+      "imagePath": "images/errors/err-grouped-fondo-as-adiposo-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.5039,
+      "trueScore": 0.4907,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    },
+    {
+      "trueClassId": "detritos",
+      "predClassId": "estroma",
+      "imagePath": "images/errors/err-grouped-detritos-as-estroma-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 1.0,
+      "trueScore": 0.0,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    },
+    {
+      "trueClassId": "detritos",
+      "predClassId": "estroma",
+      "imagePath": "images/errors/err-grouped-detritos-as-estroma-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.4959,
+      "trueScore": 0.4958,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    },
+    {
+      "trueClassId": "estroma",
+      "predClassId": "detritos",
+      "imagePath": "images/errors/err-grouped-estroma-as-detritos-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 1.0,
+      "trueScore": 0.0,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    },
+    {
+      "trueClassId": "estroma",
+      "predClassId": "detritos",
+      "imagePath": "images/errors/err-grouped-estroma-as-detritos-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.4556,
+      "trueScore": 0.4334,
+      "probabilityType": "predict_proba",
+      "sourceProtocol": "grouped_out_of_group"
+    }
+  ],
+  "perFoldDiagnostics": [
+    {
+      "heldOutGroup": "01",
+      "nTest": 401,
+      "classesPresentInTest": [
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "adiposo",
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.669531063787956,
+        "tree": 0.5653866724127677,
+        "rf": 0.7011495344129752,
+        "knn": 0.6041443515751688,
+        "svm": 0.5778779612258982,
+        "xgb": 0.648335418478668,
+        "ensemble": 0.6751423477596457
+      }
+    },
+    {
+      "heldOutGroup": "02",
+      "nTest": 284,
+      "classesPresentInTest": [
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "adiposo",
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.5472851853455841,
+        "tree": 0.4403263227628993,
+        "rf": 0.5113581715236168,
+        "knn": 0.4458260592835061,
+        "svm": 0.4514064900158348,
+        "xgb": 0.5686287165966166,
+        "ensemble": 0.4834135289554758
+      }
+    },
+    {
+      "heldOutGroup": "03",
+      "nTest": 740,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.7039070791164016,
+        "tree": 0.5461300143387782,
+        "rf": 0.7404848037476919,
+        "knn": 0.5460673664665313,
+        "svm": 0.7074182193276528,
+        "xgb": 0.768079327400457,
+        "ensemble": 0.7608049028793182
+      }
+    },
+    {
+      "heldOutGroup": "04",
+      "nTest": 381,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "mucosa",
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.6582022804623424,
+        "tree": 0.6583463205236353,
+        "rf": 0.7102466128835297,
+        "knn": 0.6802576922821602,
+        "svm": 0.7014496656417307,
+        "xgb": 0.7546168454668926,
+        "ensemble": 0.7259812546731587
+      }
+    },
+    {
+      "heldOutGroup": "05",
+      "nTest": 661,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.6414269397655854,
+        "tree": 0.5706797118793769,
+        "rf": 0.6459764013815311,
+        "knn": 0.6348680426484945,
+        "svm": 0.6589659676763222,
+        "xgb": 0.6961406845368836,
+        "ensemble": 0.6797478878582279
+      }
+    },
+    {
+      "heldOutGroup": "06",
+      "nTest": 1061,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "fondo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.7037074543054392,
+        "tree": 0.5792725514965091,
+        "rf": 0.716954831430902,
+        "knn": 0.7087169199751531,
+        "svm": 0.6991226061331075,
+        "xgb": 0.7257968512358164,
+        "ensemble": 0.7199642098218598
+      }
+    },
+    {
+      "heldOutGroup": "07",
+      "nTest": 503,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.6873912334909912,
+        "tree": 0.5600830334594302,
+        "rf": 0.7142699168628958,
+        "knn": 0.6956370811951121,
+        "svm": 0.6924805988424871,
+        "xgb": 0.6983184640344319,
+        "ensemble": 0.7203195149973285
+      }
+    },
+    {
+      "heldOutGroup": "08",
+      "nTest": 389,
+      "classesPresentInTest": [
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "adiposo",
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.5924681354129206,
+        "tree": 0.503324143885318,
+        "rf": 0.6353723267817988,
+        "knn": 0.4801352743997156,
+        "svm": 0.6448705832204266,
+        "xgb": 0.6149795062901858,
+        "ensemble": 0.6431023467064332
+      }
+    },
+    {
+      "heldOutGroup": "09",
+      "nTest": 342,
+      "classesPresentInTest": [
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "linfoide",
+        "mucosa",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "adiposo",
+        "fondo"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.7361437723083678,
+        "tree": 0.6884176265787622,
+        "rf": 0.7543703669046186,
+        "knn": 0.733026001453597,
+        "svm": 0.7642338725054366,
+        "xgb": 0.7927411405023731,
+        "ensemble": 0.7877533452280473
+      }
+    },
+    {
+      "heldOutGroup": "10",
+      "nTest": 238,
+      "classesPresentInTest": [
+        "adiposo",
+        "detritos",
+        "estroma",
+        "estroma_complejo",
+        "fondo",
+        "linfoide",
+        "tumor"
+      ],
+      "classesMissingInTest": [
+        "mucosa"
+      ],
+      "f1MacroPresentClassesOnly": {
+        "logreg": 0.9108265120866277,
+        "tree": 0.8094782195494464,
+        "rf": 0.924616751638017,
+        "knn": 0.9155141808276106,
+        "svm": 0.9196932574865546,
+        "xgb": 0.9284539607477271,
+        "ensemble": 0.9211863754898361
+      }
+    }
+  ]
+}

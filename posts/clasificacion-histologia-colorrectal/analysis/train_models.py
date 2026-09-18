@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import time
 from pathlib import Path
 
@@ -39,6 +40,7 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
+    precision_recall_fscore_support,
     confusion_matrix,
 )
 
@@ -50,6 +52,16 @@ from matplotlib.colors import LinearSegmentedColormap
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.20
+
+# Métrica primaria del experimento: 8 clases balanceadas, mismo peso para las 8 al
+# comparar modelos -> F1 macro (combina precision y recall). Accuracy se conserva
+# como dato secundario en todos los payloads, no se elimina.
+PRIMARY_METRIC = "f1_macro"
+
+# Cantidad de imágenes de ejemplo guardadas por cada uno de los top-N pares de
+# confusión, para la galería de misclassifications del artículo.
+GALLERY_EXAMPLES_PER_PAIR = 2
+GALLERY_TOP_K_PAIRS = 3
 
 # Override manual: si el ensemble gana pero la mejora es marginal, fijar en "xgb"
 # para mantener la matriz de confusión y el pie de figura existentes.
@@ -64,9 +76,18 @@ DATA_ROOT = (
 )
 POST_DIR = Path(__file__).resolve().parent.parent
 IMAGES_DIR = POST_DIR / "images"
+ERRORS_DIR = IMAGES_DIR / "errors"
 ANALYSIS_DIR = Path(__file__).resolve().parent
 METRICS_JS_PATH = POST_DIR / "crc-metrics.js"
 METRICS_JSON_PATH = ANALYSIS_DIR / "metrics.json"
+SPLIT_MANIFEST_PATH = ANALYSIS_DIR / "split_manifest.json"
+ERROR_ANALYSIS_PATH = ANALYSIS_DIR / "error_analysis.json"
+
+# Patrón confirmado contra los nombres de archivo reales del dataset:
+# "<id>_CRC-Prim-HE-<NN>_<sub>.tif_Row_<r>_Col_<c>.tif", donde NN (01-10)
+# identifica el espécimen/lámina de origen. El dataset no permite demostrar que
+# cada NN sea un paciente distinto, así que nunca se usa el término "paciente".
+GROUP_ID_PATTERN = re.compile(r"CRC-Prim-HE-(\d{2})")
 
 VALID_EXTS = {".tif", ".tiff", ".jpg", ".jpeg", ".png", ".bmp"}
 
@@ -128,6 +149,19 @@ LF_NAVY = "#0B1E3D"
 LF_MUTED = "#6B7280"
 LF_SURFACE = "#F7F9FC"
 LF_LINE = "#E2E8F0"
+
+
+def extract_group_id(img_path: Path) -> str:
+    """Identificador de grupo (espécimen/lámina) a partir del nombre de archivo.
+
+    Nunca se llama "paciente": el dataset solo permite demostrar espécimen/lámina
+    (ver GROUP_ID_PATTERN). Usado tanto por la evaluación agrupada (grouped_evaluation.py)
+    como, si es viable, por el split de la CNN opcional.
+    """
+    match = GROUP_ID_PATTERN.search(img_path.name)
+    if not match:
+        raise ValueError(f"No se pudo extraer group_id de: {img_path.name}")
+    return match.group(1)
 
 
 def extract_features(img_path: Path) -> np.ndarray:
@@ -266,10 +300,16 @@ def build_models():
     return models
 
 
-def plot_comparison(results: dict, best_id: str, out_path: Path):
-    order = sorted(results.items(), key=lambda kv: kv[1]["accuracy"], reverse=True)
+def plot_comparison(
+    results: dict,
+    best_id: str,
+    out_path: Path,
+    metric_key: str = PRIMARY_METRIC,
+    metric_label: str = "F1 macro (%)",
+):
+    order = sorted(results.items(), key=lambda kv: kv[1][metric_key], reverse=True)
     labels = [MODEL_DESCRIPTIONS[k][0] for k, _ in order]
-    values = [v["accuracy"] * 100 for _, v in order]
+    values = [v[metric_key] * 100 for _, v in order]
     colors = [LF_BLUE if k == best_id else LF_MUTED for k, _ in order]
 
     fig, ax = plt.subplots(figsize=(6.4, 0.6 * len(order) + 1.2))
@@ -281,7 +321,7 @@ def plot_comparison(results: dict, best_id: str, out_path: Path):
     ax.set_yticks(y_pos)
     ax.set_yticklabels(labels, fontsize=10.5, color="#1A1A1A")
     ax.set_xlim(0, max(values) + 10)
-    ax.set_xlabel("Accuracy (%)", fontsize=9.5, color=LF_MUTED)
+    ax.set_xlabel(metric_label, fontsize=9.5, color=LF_MUTED)
     for spine in ("top", "right", "left"):
         ax.spines[spine].set_visible(False)
     ax.spines["bottom"].set_color(LF_LINE)
@@ -347,6 +387,209 @@ def save_class_samples(paths, y, class_labels_by_id):
         out_path = IMAGES_DIR / f"crc-class-{idx:02d}-{slug}.jpg"
         img.save(out_path, "JPEG", quality=82, optimize=True)
         print(f"  Guardado {out_path.name} ({out_path.stat().st_size / 1024:.1f} KB)")
+
+
+def compute_split_manifest(paths_train, paths_test, data_root: Path) -> dict:
+    """Guarda el split train/test (paths relativos a data_root) para que pueda
+    reproducirse exactamente en otros procesos/venvs (p.ej. la CNN opcional) sin
+    volver a invocar train_test_split y confiar en que el RNG coincida."""
+
+    def rel(paths):
+        return [str(Path(p).relative_to(data_root)) for p in paths]
+
+    return {
+        "randomState": RANDOM_STATE,
+        "testSize": TEST_SIZE,
+        "stratify": "y",
+        "nTrain": len(paths_train),
+        "nTest": len(paths_test),
+        "trainPaths": rel(paths_train),
+        "testPaths": rel(paths_test),
+    }
+
+
+TUMOR_CLASS_ID = "tumor"
+
+
+def compute_per_class_metrics(y_test, y_pred, class_order) -> list[dict]:
+    class_ids = [c[0] for c in class_order]
+    class_labels = {c[0]: c[1] for c in class_order}
+    precision, recall, f1, support = precision_recall_fscore_support(
+        y_test, y_pred, labels=class_ids, average=None, zero_division=0
+    )
+    return [
+        {
+            "classId": cid,
+            "label": class_labels[cid],
+            "precision": round(float(p), 4),
+            "recall": round(float(r), 4),
+            "f1": round(float(f), 4),
+            "support": int(s),
+        }
+        for cid, p, r, f, s in zip(class_ids, precision, recall, f1, support)
+    ]
+
+
+def compute_confusion_payload(cm: np.ndarray, class_order) -> dict:
+    class_ids = [c[0] for c in class_order]
+    class_labels = [c[1] for c in class_order]
+    row_sums = cm.sum(axis=1, keepdims=True)
+    row_norm = np.divide(
+        cm.astype(float), row_sums, out=np.zeros(cm.shape, dtype=float), where=row_sums != 0
+    )
+    return {
+        "classIds": class_ids,
+        "classLabels": class_labels,
+        "counts": cm.tolist(),
+        "rowNormalizedPct": (row_norm * 100).round(2).tolist(),
+    }
+
+
+def _confusion_category(true_id: str, pred_id: str) -> str:
+    if true_id == TUMOR_CLASS_ID and pred_id != TUMOR_CLASS_ID:
+        return "tumor_to_non_tumor"
+    if true_id != TUMOR_CLASS_ID and pred_id == TUMOR_CLASS_ID:
+        return "non_tumor_to_tumor"
+    return "non_tumor_to_non_tumor"
+
+
+def top_confusion_pairs(cm: np.ndarray, class_order, k: int = GALLERY_TOP_K_PAIRS) -> list[dict]:
+    class_ids = [c[0] for c in class_order]
+    class_labels = {c[0]: c[1] for c in class_order}
+    pairs = []
+    for i, true_id in enumerate(class_ids):
+        for j, pred_id in enumerate(class_ids):
+            if i == j:
+                continue
+            count = int(cm[i, j])
+            if count == 0:
+                continue
+            row_total = int(cm[i].sum())
+            pairs.append(
+                {
+                    "trueClassId": true_id,
+                    "trueClassLabel": class_labels[true_id],
+                    "predClassId": pred_id,
+                    "predClassLabel": class_labels[pred_id],
+                    "count": count,
+                    "pctOfTrueClass": round(100.0 * count / row_total, 2) if row_total else 0.0,
+                    "category": _confusion_category(true_id, pred_id),
+                }
+            )
+    pairs.sort(key=lambda p: p["count"], reverse=True)
+    return pairs[:k]
+
+
+def save_misclassified_gallery(
+    paths_test,
+    y_test,
+    y_pred,
+    top_pairs: list[dict],
+    out_dir: Path,
+    post_dir: Path,
+    proba_matrix: np.ndarray | None = None,
+    proba_class_order: list[str] | None = None,
+    probability_type: str | None = "predict_proba",
+    n_per_pair: int = GALLERY_EXAMPLES_PER_PAIR,
+    filename_prefix: str = "err",
+) -> list[dict]:
+    """Guarda hasta n_per_pair imágenes reales de test por cada par de confusión.
+
+    Si se da proba_matrix (predict_proba o, si probability_type="decision_score",
+    un score de decisión — nunca se llama "probabilidad" a un decision_score), se usa
+    para elegir un ejemplo de alta confianza equivocada y uno límite/casi empatado por
+    par, y para registrar el valor en cada ejemplo. Sin proba_matrix, la selección es
+    determinística (los primeros n_per_pair encontrados) y no se reporta confianza.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    paths_arr = np.asarray([str(p) for p in paths_test])
+    y_test_arr = np.asarray(y_test)
+    y_pred_arr = np.asarray(y_pred)
+    class_idx = {cid: i for i, cid in enumerate(proba_class_order)} if proba_class_order else None
+
+    examples = []
+    for pair in top_pairs:
+        true_id, pred_id = pair["trueClassId"], pair["predClassId"]
+        idxs = np.where((y_test_arr == true_id) & (y_pred_arr == pred_id))[0]
+        if len(idxs) == 0:
+            print(f"  (sin ejemplos reales para {true_id} -> {pred_id})")
+            continue
+
+        if proba_matrix is not None and class_idx is not None:
+            by_pred_conf = sorted(idxs, key=lambda i: proba_matrix[i][class_idx[pred_id]], reverse=True)
+            by_margin = sorted(
+                idxs,
+                key=lambda i: abs(
+                    proba_matrix[i][class_idx[pred_id]] - proba_matrix[i][class_idx[true_id]]
+                ),
+            )
+            chosen = [by_pred_conf[0]]
+            for i in by_margin:
+                if i not in chosen:
+                    chosen.append(i)
+                    break
+        else:
+            chosen = list(idxs[:n_per_pair])
+
+        for n, idx in enumerate(chosen[:n_per_pair], start=1):
+            src = Path(paths_arr[idx])
+            img = Image.open(src).convert("RGB").resize((300, 300), Image.LANCZOS)
+            true_slug, pred_slug = true_id.replace("_", "-"), pred_id.replace("_", "-")
+            out_name = f"{filename_prefix}-{true_slug}-as-{pred_slug}-{n:02d}.jpg"
+            out_path = out_dir / out_name
+            img.save(out_path, "JPEG", quality=82, optimize=True)
+
+            example = {
+                "trueClassId": true_id,
+                "predClassId": pred_id,
+                "imagePath": str(out_path.relative_to(post_dir)),
+                "category": pair["category"],
+            }
+            if proba_matrix is not None and class_idx is not None:
+                example["predScore"] = round(float(proba_matrix[idx][class_idx[pred_id]]), 4)
+                example["trueScore"] = round(float(proba_matrix[idx][class_idx[true_id]]), 4)
+                example["probabilityType"] = probability_type
+            else:
+                example["probabilityType"] = None
+            examples.append(example)
+            print(f"  Guardado {out_name}")
+
+    return examples
+
+
+def compute_clinical_scenarios(per_class_metrics: list[dict]) -> list[dict]:
+    tumor = next(m for m in per_class_metrics if m["classId"] == TUMOR_CLASS_ID)
+    macro_f1 = float(np.mean([m["f1"] for m in per_class_metrics]))
+    return [
+        {
+            "id": "minimize_missed_tumor",
+            "label": "Minimizar regiones tumorales no detectadas",
+            "relevantMetric": "recall",
+            "classFocus": "tumor",
+            "value": tumor["recall"],
+        },
+        {
+            "id": "minimize_false_alerts",
+            "label": "Reducir falsas alertas relacionadas con tumor",
+            "relevantMetric": "precision",
+            "classFocus": "tumor",
+            "value": tumor["precision"],
+        },
+        {
+            "id": "balance_tumor",
+            "label": "Equilibrar ambos tipos de error en la clase Tumor",
+            "relevantMetric": "f1",
+            "classFocus": "tumor",
+            "value": tumor["f1"],
+        },
+        {
+            "id": "balanced_eight_classes",
+            "label": "Evaluación equilibrada de las 8 clases",
+            "relevantMetric": "f1_macro",
+            "classFocus": None,
+            "value": round(macro_f1, 4),
+        },
+    ]
 
 
 def main():
@@ -433,19 +676,22 @@ def main():
     }
     print(f"  ensemble: accuracy={results['ensemble']['accuracy']:.4f}")
 
-    best_id = max(results, key=lambda k: results[k]["accuracy"])
-    print(f"Mejor modelo: {best_id} ({results[best_id]['accuracy']:.4f} accuracy)")
+    best_id = max(results, key=lambda k: results[k][PRIMARY_METRIC])
+    print(
+        f"Mejor modelo (por {PRIMARY_METRIC}): {best_id} "
+        f"({results[best_id][PRIMARY_METRIC]:.4f}, accuracy={results[best_id]['accuracy']:.4f})"
+    )
 
-    xgb_acc = results["xgb"]["accuracy"]
-    ens_acc = results["ensemble"]["accuracy"]
-    delta_pp = (ens_acc - xgb_acc) * 100
+    xgb_metric = results["xgb"][PRIMARY_METRIC]
+    ens_metric = results["ensemble"][PRIMARY_METRIC]
+    delta_pp = (ens_metric - xgb_metric) * 100
     if best_id == "ensemble":
         marginal = abs(delta_pp) < 1.0
         print(
-            f"\n>>> EL ENSEMBLE SUPERA A XGBOOST: {ens_acc:.4f} vs {xgb_acc:.4f} "
-            f"(+{delta_pp:.2f} pp). CASO 'GANA'.\n"
+            f"\n>>> EL ENSEMBLE SUPERA A XGBOOST EN {PRIMARY_METRIC.upper()}: "
+            f"{ens_metric:.4f} vs {xgb_metric:.4f} (+{delta_pp:.2f} pp). CASO 'GANA'.\n"
             "    Acciones manuales requeridas en index.qmd:\n"
-            "    - Hero #crc-hero-result -> 'Ensemble' + nueva accuracy\n"
+            "    - Hero #crc-hero-result -> 'Ensemble' + nueva cifra\n"
             "    - Prosa de ## Compara los modelos -> mencionar Ensemble como mejor\n"
             "    - bestModelId ya quedó en 'ensemble' automáticamente (ver metrics.json)\n"
             + (
@@ -459,12 +705,12 @@ def main():
         )
     else:
         print(
-            f"\n>>> EL ENSEMBLE NO SUPERA A XGBOOST: {ens_acc:.4f} vs {xgb_acc:.4f} "
-            f"({delta_pp:+.2f} pp). CASO 'NO GANA'.\n"
+            f"\n>>> EL ENSEMBLE NO SUPERA A XGBOOST EN {PRIMARY_METRIC.upper()}: "
+            f"{ens_metric:.4f} vs {xgb_metric:.4f} ({delta_pp:+.2f} pp). CASO 'NO GANA'.\n"
             "    Acciones manuales requeridas en index.qmd: ninguna en hero/bestModelId/"
-            "matriz de confusión (siguen siendo XGBoost). Añadir el ensemble a la prosa "
-            "de ## Compara los modelos con redacción tipo 'aunque el ensemble no superó "
-            "al mejor modelo individual...'.\n"
+            "matriz de confusión (siguen siendo XGBoost). El ensemble se reporta en la "
+            "prosa como experimento ya evaluado que no mejoró el resultado del mejor "
+            "modelo individual — no como línea de trabajo futura.\n"
         )
 
     class_order = list(CLASS_MAP.values())  # [(id, label), ...] en orden 01..08
@@ -482,7 +728,63 @@ def main():
     print("Guardando parches de ejemplo por clase…")
     save_class_samples(paths_test, y_test, CLASS_MAP)
 
+    print("Guardando manifiesto del split (baseline, aleatorio por patch)…")
+    split_manifest = compute_split_manifest(paths_train, paths_test, DATA_ROOT)
+    SPLIT_MANIFEST_PATH.write_text(json.dumps(split_manifest, indent=2, ensure_ascii=False))
+    print(f"Escrito {SPLIT_MANIFEST_PATH}")
+
+    print(f"Calculando métricas por clase y análisis de errores para: {cm_model_id}…")
+    per_class_metrics = compute_per_class_metrics(y_test, results[cm_model_id]["y_pred"], class_order)
+    confusion_payload = compute_confusion_payload(cm, class_order)
+    top_pairs = top_confusion_pairs(cm, class_order)
+    clinical_scenarios = compute_clinical_scenarios(per_class_metrics)
+
+    # Confianza para la galería: XGBoost/RF/LogReg exponen predict_proba de forma
+    # nativa; si cm_model_id fuera SVM con probability=False, no se reporta score
+    # (ver manejo especial en grouped_evaluation.py, que sí puede reentrenar con
+    # probability=True cuando corresponde).
+    proba_matrix, proba_class_order, probability_type = None, None, None
+    baseline_model = models.get(cm_model_id)
+    if baseline_model is not None and hasattr(baseline_model, "predict_proba"):
+        if cm_model_id == "xgb":
+            proba_matrix = baseline_model.predict_proba(X_test)
+            proba_class_order = [label_encoder.classes_[i] for i in range(len(label_encoder.classes_))]
+        elif cm_model_id != "svm" or getattr(baseline_model.named_steps["clf"], "probability", False):
+            proba_matrix = baseline_model.predict_proba(X_test)
+            proba_class_order = list(baseline_model.classes_)
+        probability_type = "predict_proba" if proba_matrix is not None else None
+
+    print("Guardando galería de misclassifications (baseline, referencia en analysis/)…")
+    misclassified_examples = save_misclassified_gallery(
+        paths_test,
+        y_test,
+        results[cm_model_id]["y_pred"],
+        top_pairs,
+        ERRORS_DIR,
+        POST_DIR,
+        proba_matrix=proba_matrix,
+        proba_class_order=proba_class_order,
+        probability_type=probability_type,
+    )
+
+    error_analysis_payload = {
+        "protocol": "baseline_patch_split",
+        "modelId": cm_model_id,
+        "primaryMetric": PRIMARY_METRIC,
+        "classOrder": class_ids,
+        "classLabels": class_labels,
+        "perClass": per_class_metrics,
+        "confusionMatrix": confusion_payload,
+        "topConfusionPairs": top_pairs,
+        "misclassifiedExamples": misclassified_examples,
+        "clinicalScenarios": clinical_scenarios,
+    }
+    ERROR_ANALYSIS_PATH.write_text(json.dumps(error_analysis_payload, indent=2, ensure_ascii=False))
+    print(f"Escrito {ERROR_ANALYSIS_PATH}")
+
     metrics_payload = {
+        "primaryMetric": PRIMARY_METRIC,
+        "protocol": "random_patch_split",
         "models": [
             {
                 "id": model_id,
@@ -510,7 +812,7 @@ def main():
             ),
         },
     }
-    metrics_payload["models"].sort(key=lambda m: m["accuracy"], reverse=True)
+    metrics_payload["models"].sort(key=lambda m: m[PRIMARY_METRIC], reverse=True)
 
     METRICS_JSON_PATH.write_text(json.dumps(metrics_payload, indent=2, ensure_ascii=False))
 

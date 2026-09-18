@@ -1,5 +1,7 @@
 // AUTO-GENERADO por analysis/train_models.py — no editar a mano.
 const CRC_METRICS = {
+  "primaryMetric": "f1_macro",
+  "protocol": "random_patch_split",
   "models": [
     {
       "id": "xgb",

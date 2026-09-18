@@ -1,0 +1,392 @@
+{
+  "protocol": "baseline_patch_split",
+  "modelId": "xgb",
+  "primaryMetric": "f1_macro",
+  "classOrder": [
+    "tumor",
+    "estroma",
+    "estroma_complejo",
+    "linfoide",
+    "detritos",
+    "mucosa",
+    "adiposo",
+    "fondo"
+  ],
+  "classLabels": [
+    "Tumor",
+    "Estroma",
+    "Estroma complejo",
+    "Tejido linfoide",
+    "Detritos",
+    "Mucosa",
+    "Tejido adiposo",
+    "Fondo"
+  ],
+  "perClass": [
+    {
+      "classId": "tumor",
+      "label": "Tumor",
+      "precision": 0.9597,
+      "recall": 0.952,
+      "f1": 0.9558,
+      "support": 125
+    },
+    {
+      "classId": "estroma",
+      "label": "Estroma",
+      "precision": 0.955,
+      "recall": 0.848,
+      "f1": 0.8983,
+      "support": 125
+    },
+    {
+      "classId": "estroma_complejo",
+      "label": "Estroma complejo",
+      "precision": 0.8613,
+      "recall": 0.944,
+      "f1": 0.9008,
+      "support": 125
+    },
+    {
+      "classId": "linfoide",
+      "label": "Tejido linfoide",
+      "precision": 0.9917,
+      "recall": 0.952,
+      "f1": 0.9714,
+      "support": 125
+    },
+    {
+      "classId": "detritos",
+      "label": "Detritos",
+      "precision": 0.8824,
+      "recall": 0.96,
+      "f1": 0.9195,
+      "support": 125
+    },
+    {
+      "classId": "mucosa",
+      "label": "Mucosa",
+      "precision": 0.976,
+      "recall": 0.976,
+      "f1": 0.976,
+      "support": 125
+    },
+    {
+      "classId": "adiposo",
+      "label": "Tejido adiposo",
+      "precision": 0.9754,
+      "recall": 0.952,
+      "f1": 0.9636,
+      "support": 125
+    },
+    {
+      "classId": "fondo",
+      "label": "Fondo",
+      "precision": 0.968,
+      "recall": 0.968,
+      "f1": 0.968,
+      "support": 125
+    }
+  ],
+  "confusionMatrix": {
+    "classIds": [
+      "tumor",
+      "estroma",
+      "estroma_complejo",
+      "linfoide",
+      "detritos",
+      "mucosa",
+      "adiposo",
+      "fondo"
+    ],
+    "classLabels": [
+      "Tumor",
+      "Estroma",
+      "Estroma complejo",
+      "Tejido linfoide",
+      "Detritos",
+      "Mucosa",
+      "Tejido adiposo",
+      "Fondo"
+    ],
+    "counts": [
+      [
+        119,
+        1,
+        2,
+        0,
+        0,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        106,
+        9,
+        0,
+        10,
+        0,
+        0,
+        0
+      ],
+      [
+        3,
+        2,
+        118,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        5,
+        119,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        3,
+        0,
+        120,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        2,
+        122,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        119,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3,
+        121
+      ]
+    ],
+    "rowNormalizedPct": [
+      [
+        95.2,
+        0.8,
+        1.6,
+        0.0,
+        0.0,
+        2.4,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        84.8,
+        7.2,
+        0.0,
+        8.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        2.4,
+        1.6,
+        94.4,
+        0.8,
+        0.8,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.8,
+        0.0,
+        4.0,
+        95.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.6,
+        2.4,
+        0.0,
+        96.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.8,
+        0.0,
+        0.0,
+        0.0,
+        1.6,
+        97.6,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.6,
+        0.0,
+        95.2,
+        3.2
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.8,
+        0.0,
+        2.4,
+        96.8
+      ]
+    ]
+  },
+  "topConfusionPairs": [
+    {
+      "trueClassId": "estroma",
+      "trueClassLabel": "Estroma",
+      "predClassId": "detritos",
+      "predClassLabel": "Detritos",
+      "count": 10,
+      "pctOfTrueClass": 8.0,
+      "category": "non_tumor_to_non_tumor"
+    },
+    {
+      "trueClassId": "estroma",
+      "trueClassLabel": "Estroma",
+      "predClassId": "estroma_complejo",
+      "predClassLabel": "Estroma complejo",
+      "count": 9,
+      "pctOfTrueClass": 7.2,
+      "category": "non_tumor_to_non_tumor"
+    },
+    {
+      "trueClassId": "linfoide",
+      "trueClassLabel": "Tejido linfoide",
+      "predClassId": "estroma_complejo",
+      "predClassLabel": "Estroma complejo",
+      "count": 5,
+      "pctOfTrueClass": 4.0,
+      "category": "non_tumor_to_non_tumor"
+    }
+  ],
+  "misclassifiedExamples": [
+    {
+      "trueClassId": "estroma",
+      "predClassId": "detritos",
+      "imagePath": "images/errors/err-estroma-as-detritos-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.9982,
+      "trueScore": 0.0011,
+      "probabilityType": "predict_proba"
+    },
+    {
+      "trueClassId": "estroma",
+      "predClassId": "detritos",
+      "imagePath": "images/errors/err-estroma-as-detritos-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.5329,
+      "trueScore": 0.4128,
+      "probabilityType": "predict_proba"
+    },
+    {
+      "trueClassId": "estroma",
+      "predClassId": "estroma_complejo",
+      "imagePath": "images/errors/err-estroma-as-estroma-complejo-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 1.0,
+      "trueScore": 0.0,
+      "probabilityType": "predict_proba"
+    },
+    {
+      "trueClassId": "estroma",
+      "predClassId": "estroma_complejo",
+      "imagePath": "images/errors/err-estroma-as-estroma-complejo-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.7424,
+      "trueScore": 0.2548,
+      "probabilityType": "predict_proba"
+    },
+    {
+      "trueClassId": "linfoide",
+      "predClassId": "estroma_complejo",
+      "imagePath": "images/errors/err-linfoide-as-estroma-complejo-01.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.9462,
+      "trueScore": 0.001,
+      "probabilityType": "predict_proba"
+    },
+    {
+      "trueClassId": "linfoide",
+      "predClassId": "estroma_complejo",
+      "imagePath": "images/errors/err-linfoide-as-estroma-complejo-02.jpg",
+      "category": "non_tumor_to_non_tumor",
+      "predScore": 0.5408,
+      "trueScore": 0.4523,
+      "probabilityType": "predict_proba"
+    }
+  ],
+  "clinicalScenarios": [
+    {
+      "id": "minimize_missed_tumor",
+      "label": "Minimizar regiones tumorales no detectadas",
+      "relevantMetric": "recall",
+      "classFocus": "tumor",
+      "value": 0.952
+    },
+    {
+      "id": "minimize_false_alerts",
+      "label": "Reducir falsas alertas relacionadas con tumor",
+      "relevantMetric": "precision",
+      "classFocus": "tumor",
+      "value": 0.9597
+    },
+    {
+      "id": "balance_tumor",
+      "label": "Equilibrar ambos tipos de error en la clase Tumor",
+      "relevantMetric": "f1",
+      "classFocus": "tumor",
+      "value": 0.9558
+    },
+    {
+      "id": "balanced_eight_classes",
+      "label": "Evaluación equilibrada de las 8 clases",
+      "relevantMetric": "f1_macro",
+      "classFocus": null,
+      "value": 0.9442
+    }
+  ]
+}

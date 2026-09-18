@@ -1,0 +1,94 @@
+{
+  "note": "XGBoost entrenado/evaluado sobre EXACTAMENTE el mismo split group-disjoint que la CNN (cnn_split_manifest.json): train+val de la CNN combinados para fit, test de la CNN para evaluación única.",
+  "trainGroups": [
+    "01",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "10"
+  ],
+  "testGroups": [
+    "02",
+    "09"
+  ],
+  "nTrain": 4374,
+  "nTest": 626,
+  "accuracy": 0.7987,
+  "precisionMacro": 0.6155,
+  "recallMacro": 0.5844,
+  "f1Macro": 0.586,
+  "f1MacroPresentClassesOnly": 0.7814,
+  "classesMissingFromTestSet": [
+    "Tejido adiposo",
+    "Fondo"
+  ],
+  "perClass": [
+    {
+      "classId": "tumor",
+      "label": "Tumor",
+      "precision": 0.931,
+      "recall": 0.8804,
+      "f1": 0.905,
+      "support": 184
+    },
+    {
+      "classId": "estroma",
+      "label": "Estroma",
+      "precision": 0.9423,
+      "recall": 0.6049,
+      "f1": 0.7368,
+      "support": 81
+    },
+    {
+      "classId": "estroma_complejo",
+      "label": "Estroma complejo",
+      "precision": 0.4127,
+      "recall": 0.7647,
+      "f1": 0.5361,
+      "support": 68
+    },
+    {
+      "classId": "linfoide",
+      "label": "Tejido linfoide",
+      "precision": 0.9024,
+      "recall": 0.7749,
+      "f1": 0.8338,
+      "support": 191
+    },
+    {
+      "classId": "detritos",
+      "label": "Detritos",
+      "precision": 0.9444,
+      "recall": 0.7391,
+      "f1": 0.8293,
+      "support": 23
+    },
+    {
+      "classId": "mucosa",
+      "label": "Mucosa",
+      "precision": 0.7912,
+      "recall": 0.9114,
+      "f1": 0.8471,
+      "support": 79
+    },
+    {
+      "classId": "adiposo",
+      "label": "Tejido adiposo",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 0
+    },
+    {
+      "classId": "fondo",
+      "label": "Fondo",
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 0
+    }
+  ]
+}

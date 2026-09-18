@@ -504,6 +504,172 @@
   margin: 0.2rem 0 0;
 }
 
+/* ---------- Tablas (métricas por clase, escenarios clínicos) ---------- */
+
+.crc-article table {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto 1.6rem;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.crc-article th,
+.crc-article td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--crc-line);
+  text-align: left;
+}
+
+.crc-article th {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--crc-muted);
+}
+
+.crc-article td {
+  color: var(--crc-body);
+}
+
+/* ---------- Explicador de features + reproducibilidad ---------- */
+
+.crc-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+  max-width: 860px;
+  margin: 0 auto 1.6rem;
+}
+
+.crc-feature-card {
+  padding: 0.85rem 0.8rem;
+  background: var(--crc-surface);
+  border: 1px solid var(--crc-line);
+  border-radius: 8px;
+}
+
+.crc-feature-card__dims {
+  font-family: var(--crc-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--crc-navy);
+}
+
+.crc-feature-card__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--crc-blue);
+  margin: 0.15rem 0 0.3rem;
+}
+
+.crc-feature-card p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--crc-body);
+  margin: 0;
+}
+
+.crc-repro {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--crc-line);
+  border-radius: var(--crc-radius);
+  background: #fff;
+}
+
+.crc-repro p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--crc-body);
+  margin: 0 0 0.5rem;
+}
+
+.crc-repro p:last-child {
+  margin-bottom: 0;
+}
+
+.crc-repro code {
+  font-size: 0.85em;
+  background: var(--crc-surface);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+/* ---------- Galería de errores reales ---------- */
+
+.crc-error-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 860px;
+  margin: 0 auto 1.6rem;
+}
+
+.crc-error-card {
+  margin: 0;
+  border: 1px solid var(--crc-line);
+  border-radius: var(--crc-radius);
+  overflow: hidden;
+  background: #fff;
+}
+
+.crc-error-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.crc-error-card figcaption {
+  padding: 0.6rem 0.7rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--crc-body);
+}
+
+.crc-error-card figcaption strong {
+  color: var(--crc-ink);
+}
+
+.crc-error-card__note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--crc-muted);
+  font-style: italic;
+}
+
+/* ---------- Limitaciones metodológicas ---------- */
+
+.crc-limitation {
+  max-width: 860px;
+  margin: 0 auto 1.4rem;
+  padding: 1rem 1.3rem;
+  border-left: 3px solid var(--crc-muted);
+  background: var(--crc-surface);
+  border-radius: 0 8px 8px 0;
+}
+
+.crc-limitation__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--crc-muted);
+  margin-bottom: 0.4rem;
+}
+
+.crc-limitation p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--crc-body);
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 767.98px) {
@@ -524,6 +690,27 @@
   .crc-conclusions,
   .crc-next-steps {
     grid-template-columns: 1fr;
+  }
+
+  .crc-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crc-error-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .crc-article table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .crc-article th,
+  .crc-article td {
+    padding: 0.45rem 0.6rem;
   }
 
   .crc-flow {

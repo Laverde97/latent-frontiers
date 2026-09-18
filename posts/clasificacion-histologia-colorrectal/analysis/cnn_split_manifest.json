@@ -1,0 +1,25 @@
+{
+  "splitType": "group_disjoint_specimen_gss",
+  "randomState": 42,
+  "groupDisjoint": true,
+  "nTrain": 3131,
+  "nVal": 1243,
+  "nTest": 626,
+  "trainGroups": [
+    "01",
+    "04",
+    "05",
+    "06",
+    "08",
+    "10"
+  ],
+  "valGroups": [
+    "03",
+    "07"
+  ],
+  "testGroups": [
+    "02",
+    "09"
+  ],
+  "note": "Split distinto al LeaveOneGroupOut de grouped_evaluation.py (aquí train/val/test fijos, allá CV agrupada de 10 folds), pero igualmente group-disjoint: ningún espécimen aparece en más de uno de los tres conjuntos. El conjunto de test no participó en el entrenamiento ni en el early stopping."
+}

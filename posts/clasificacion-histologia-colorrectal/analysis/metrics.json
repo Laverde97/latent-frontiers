@@ -1,4 +1,6 @@
 {
+  "primaryMetric": "f1_macro",
+  "protocol": "random_patch_split",
   "models": [
     {
       "id": "xgb",

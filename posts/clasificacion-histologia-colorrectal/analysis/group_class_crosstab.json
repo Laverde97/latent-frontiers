@@ -1,0 +1,162 @@
+{
+  "groups": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10"
+  ],
+  "classIds": [
+    "tumor",
+    "estroma",
+    "estroma_complejo",
+    "linfoide",
+    "detritos",
+    "mucosa",
+    "adiposo",
+    "fondo"
+  ],
+  "counts": {
+    "01": {
+      "tumor": 54,
+      "estroma": 51,
+      "estroma_complejo": 72,
+      "linfoide": 208,
+      "detritos": 15,
+      "mucosa": 1,
+      "adiposo": 0,
+      "fondo": 0
+    },
+    "02": {
+      "tumor": 107,
+      "estroma": 50,
+      "estroma_complejo": 16,
+      "linfoide": 106,
+      "detritos": 2,
+      "mucosa": 3,
+      "adiposo": 0,
+      "fondo": 0
+    },
+    "03": {
+      "tumor": 30,
+      "estroma": 170,
+      "estroma_complejo": 132,
+      "linfoide": 4,
+      "detritos": 111,
+      "mucosa": 111,
+      "adiposo": 182,
+      "fondo": 0
+    },
+    "04": {
+      "tumor": 62,
+      "estroma": 124,
+      "estroma_complejo": 7,
+      "linfoide": 16,
+      "detritos": 141,
+      "mucosa": 0,
+      "adiposo": 31,
+      "fondo": 0
+    },
+    "05": {
+      "tumor": 57,
+      "estroma": 27,
+      "estroma_complejo": 90,
+      "linfoide": 159,
+      "detritos": 32,
+      "mucosa": 152,
+      "adiposo": 144,
+      "fondo": 0
+    },
+    "06": {
+      "tumor": 38,
+      "estroma": 54,
+      "estroma_complejo": 90,
+      "linfoide": 20,
+      "detritos": 20,
+      "mucosa": 120,
+      "adiposo": 129,
+      "fondo": 590
+    },
+    "07": {
+      "tumor": 120,
+      "estroma": 68,
+      "estroma_complejo": 84,
+      "linfoide": 6,
+      "detritos": 59,
+      "mucosa": 77,
+      "adiposo": 89,
+      "fondo": 0
+    },
+    "08": {
+      "tumor": 55,
+      "estroma": 23,
+      "estroma_complejo": 25,
+      "linfoide": 8,
+      "detritos": 193,
+      "mucosa": 85,
+      "adiposo": 0,
+      "fondo": 0
+    },
+    "09": {
+      "tumor": 77,
+      "estroma": 31,
+      "estroma_complejo": 52,
+      "linfoide": 85,
+      "detritos": 21,
+      "mucosa": 76,
+      "adiposo": 0,
+      "fondo": 0
+    },
+    "10": {
+      "tumor": 25,
+      "estroma": 27,
+      "estroma_complejo": 57,
+      "linfoide": 13,
+      "detritos": 31,
+      "mucosa": 0,
+      "adiposo": 50,
+      "fondo": 35
+    }
+  },
+  "missingClassesByGroup": {
+    "01": [
+      "adiposo",
+      "fondo"
+    ],
+    "02": [
+      "adiposo",
+      "fondo"
+    ],
+    "03": [
+      "fondo"
+    ],
+    "04": [
+      "mucosa",
+      "fondo"
+    ],
+    "05": [
+      "fondo"
+    ],
+    "06": [],
+    "07": [
+      "fondo"
+    ],
+    "08": [
+      "adiposo",
+      "fondo"
+    ],
+    "09": [
+      "adiposo",
+      "fondo"
+    ],
+    "10": [
+      "mucosa"
+    ]
+  },
+  "note": "Cada fold de LeaveOneGroupOut deja fuera un espécimen como conjunto de evaluación. 'missingClassesByGroup' indica qué clases no tienen NINGÚN ejemplo en ese espécimen y por tanto no pueden evaluarse en ese fold concreto (aunque sí participan en el entrenamiento de ese mismo fold si aparecen en alguno de los otros 9 especímenes). Esto motiva usar el F1 macro pooled out-of-fold, sobre los 10 folds acumulados, como métrica primaria en vez del F1 macro de cada fold por separado."
+}
