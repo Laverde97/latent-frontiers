@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="becasCoverTitle">
+  <title id="becasCoverTitle">Ilustración conceptual del recorrido de un paper científico hacia una idea de investigación, una propuesta y una convocatoria de financiación</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1E3D"/>
+      <stop offset="1" stop-color="#12305C"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D4E89"/>
+      <stop offset="1" stop-color="#4FA3D1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <line x1="180" y1="315" x2="1020" y2="315" stroke="#4FA3D1" stroke-width="3" stroke-opacity="0.5" stroke-dasharray="2 14" stroke-linecap="round"/>
+
+  <g fill="#4FA3D1" opacity="0.85">
+    <path d="M312,308 L328,315 L312,322 Z"/>
+    <path d="M592,308 L608,315 L592,322 Z"/>
+    <path d="M872,308 L888,315 L872,322 Z"/>
+  </g>
+
+  <!-- Node 1: paper -->
+  <g transform="translate(180,315)">
+    <circle r="68" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M-20,-28 H8 L20,-16 V28 H-20 Z"/>
+      <path d="M8,-28 V-16 H20"/>
+      <line x1="-11" y1="-2" x2="11" y2="-2"/>
+      <line x1="-11" y1="8" x2="11" y2="8"/>
+      <line x1="-11" y1="18" x2="3" y2="18"/>
+    </g>
+  </g>
+
+  <!-- Node 2: idea -->
+  <g transform="translate(460,315)">
+    <circle r="68" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <circle cx="0" cy="-6" r="17"/>
+      <line x1="-6" y1="13" x2="6" y2="13"/>
+      <line x1="-5" y1="21" x2="5" y2="21"/>
+      <line x1="0" y1="-31" x2="0" y2="-39"/>
+      <line x1="15" y1="-19" x2="21" y2="-25"/>
+      <line x1="-15" y1="-19" x2="-21" y2="-25"/>
+    </g>
+  </g>
+
+  <!-- Node 3: proposal -->
+  <g transform="translate(740,315)">
+    <circle r="68" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <rect x="-20" y="-28" width="40" height="56" rx="5"/>
+      <path d="M-10,2 L-1,11 L13,-9"/>
+    </g>
+  </g>
+
+  <!-- Node 4: funding -->
+  <g transform="translate(1020,315)">
+    <circle r="68" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <ellipse cx="-7" cy="11" rx="19" ry="10"/>
+      <ellipse cx="7" cy="-7" rx="19" ry="10"/>
+    </g>
+  </g>
+</svg>
