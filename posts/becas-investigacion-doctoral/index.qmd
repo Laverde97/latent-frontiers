@@ -130,7 +130,7 @@ engine: markdown
 ![](images/becas-investigacion-cover.svg){fig-alt="Ilustración conceptual de un recorrido que va de un paper científico a una idea de investigación, una propuesta y una convocatoria de financiación"}
 :::
 
-Quiero comenzar este artículo agradeciendo al profesor Andrés por la orientación que nos brindó recientemente sobre la búsqueda y aplicación a becas que puedan ayudarnos a cubrir los gastos asociados al doctorado. Fue una conversación breve, pero dejó varias ideas que vale la pena escribir mientras siguen frescas, no tanto como una guía técnica sobre becas, sino como una reflexión sobre cómo empezar a pensar en la financiación doctoral desde el inicio, y no solo cuando aparece una convocatoria. Estas líneas también quieren servir como una nota personal a la que volver más adelante, y quizás como algo útil para otros estudiantes que apenas están empezando a pensar en este tema.
+Quiero comenzar este artículo agradeciendo al profesor [Andrés Felipe Cardona Mendoza](https://www.linkedin.com/in/andr%C3%A9s-felipe-cardona-mendoza-b44a1b180/?locale=es) por la orientación que nos brindó recientemente sobre la búsqueda y aplicación a becas que puedan ayudarnos a cubrir los gastos asociados al doctorado. Fue una conversación breve, pero dejó varias ideas que vale la pena escribir mientras siguen frescas, no tanto como una guía técnica sobre becas, sino como una reflexión sobre cómo empezar a pensar en la financiación doctoral desde el inicio, y no solo cuando aparece una convocatoria. Estas líneas también quieren servir como una nota personal a la que volver más adelante, y quizás como algo útil para otros estudiantes que apenas están empezando a pensar en este tema.
 
 ## No basta con encontrar una convocatoria
 
@@ -176,6 +176,6 @@ También quedó claro algo que parece obvio pero es fácil de olvidar: antes de 
 
 Si tuviera que resumir en una sola idea lo que me llevo de esta orientación, sería esta: la búsqueda de financiación no debería empezar únicamente cuando aparece una convocatoria. Puede, y probablemente debería, empezar mucho antes, leyendo, entendiendo el problema, identificando vacíos en la literatura y construyendo, poco a poco, una investigación que realmente valga la pena financiar.
 
-Gracias de nuevo, profe Andrés. Esta orientación no solo ayuda a pensar en cómo financiar el doctorado, sino también en cómo convertir una idea de investigación en una propuesta competitiva, respaldada por evidencia y con posibilidades reales de generar impacto, en Colombia y más allá.
+Gracias de nuevo, profesor [Andrés Felipe Cardona Mendoza](https://www.linkedin.com/in/andr%C3%A9s-felipe-cardona-mendoza-b44a1b180/?locale=es). Esta orientación no solo ayuda a pensar en cómo financiar el doctorado, sino también en cómo convertir una idea de investigación en una propuesta competitiva, respaldada por evidencia y con posibilidades reales de generar impacto, en Colombia y más allá.
 
 ::::
