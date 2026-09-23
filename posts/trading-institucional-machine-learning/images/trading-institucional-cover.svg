@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="tradingCoverTitle">
+  <title id="tradingCoverTitle">Ilustración conceptual de una arquitectura cuantitativa: velas de XAUUSD que fluyen hacia datos, Python, Machine Learning, gestión de riesgo y ejecución</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1E3D"/>
+      <stop offset="1" stop-color="#12305C"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1D4E89"/>
+      <stop offset="1" stop-color="#4FA3D1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#4FA3D1" stroke-opacity="0.07" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Market panel: stylized candles + time series -->
+  <g transform="translate(70,150)">
+    <rect x="0" y="0" width="300" height="330" rx="10" fill="#0B1E3D" fill-opacity="0.55" stroke="#4FA3D1" stroke-opacity="0.35"/>
+    <text x="22" y="40" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" letter-spacing="3" fill="#C9A227">XAUUSD</text>
+    <text x="210" y="40" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="16" fill="#4FA3D1" fill-opacity="0.8">M5 · M15</text>
+    <g stroke-linecap="round">
+      <g stroke="#4FA3D1"><line x1="40" y1="170" x2="40" y2="250" stroke-width="2"/><rect x="31" y="185" width="18" height="45" fill="#4FA3D1"/></g>
+      <g stroke="#9FB3C8"><line x1="75" y1="150" x2="75" y2="230" stroke-width="2"/><rect x="66" y="165" width="18" height="40" fill="none" stroke-width="2"/></g>
+      <g stroke="#4FA3D1"><line x1="110" y1="175" x2="110" y2="240" stroke-width="2"/><rect x="101" y="185" width="18" height="35" fill="#4FA3D1"/></g>
+      <g stroke="#9FB3C8"><line x1="145" y1="130" x2="145" y2="215" stroke-width="2"/><rect x="136" y="145" width="18" height="50" fill="none" stroke-width="2"/></g>
+      <g stroke="#9FB3C8"><line x1="180" y1="110" x2="180" y2="180" stroke-width="2"/><rect x="171" y="120" width="18" height="40" fill="none" stroke-width="2"/></g>
+      <g stroke="#4FA3D1"><line x1="215" y1="120" x2="215" y2="200" stroke-width="2"/><rect x="206" y="130" width="18" height="50" fill="#4FA3D1"/></g>
+      <g stroke="#9FB3C8"><line x1="250" y1="105" x2="250" y2="175" stroke-width="2"/><rect x="241" y="115" width="18" height="38" fill="none" stroke-width="2"/></g>
+    </g>
+    <polyline points="22,290 55,282 88,295 121,276 154,284 187,262 220,270 253,255 280,262" fill="none" stroke="#C9A227" stroke-width="2.5" stroke-linejoin="round" stroke-opacity="0.9"/>
+  </g>
+
+  <!-- Flow line -->
+  <line x1="370" y1="315" x2="1110" y2="315" stroke="#4FA3D1" stroke-width="3" stroke-opacity="0.5" stroke-dasharray="2 14" stroke-linecap="round"/>
+
+  <!-- Node: data -->
+  <g transform="translate(450,315)">
+    <circle r="50" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="0" cy="-16" rx="20" ry="7"/>
+      <path d="M-20,-16 V16 A20,7 0 0 0 20,16 V-16"/>
+      <path d="M-20,0 A20,7 0 0 0 20,0"/>
+    </g>
+  </g>
+
+  <!-- Node: Python -->
+  <g transform="translate(610,315)">
+    <circle r="50" fill="url(#badge)"/>
+    <text x="0" y="10" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="30" font-weight="700" fill="#F7F9FC">{ }</text>
+  </g>
+
+  <!-- Node: ML -->
+  <g transform="translate(770,315)">
+    <circle r="50" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="2.5" stroke-opacity="0.85">
+      <line x1="-22" y1="-16" x2="0" y2="-20"/><line x1="-22" y1="-16" x2="0" y2="0"/><line x1="-22" y1="-16" x2="0" y2="20"/>
+      <line x1="-22" y1="16" x2="0" y2="-20"/><line x1="-22" y1="16" x2="0" y2="0"/><line x1="-22" y1="16" x2="0" y2="20"/>
+      <line x1="0" y1="-20" x2="22" y2="0"/><line x1="0" y1="0" x2="22" y2="0"/><line x1="0" y1="20" x2="22" y2="0"/>
+    </g>
+    <g fill="#F7F9FC">
+      <circle cx="-22" cy="-16" r="5"/><circle cx="-22" cy="16" r="5"/>
+      <circle cx="0" cy="-20" r="5"/><circle cx="0" cy="0" r="5"/><circle cx="0" cy="20" r="5"/>
+      <circle cx="22" cy="0" r="5"/>
+    </g>
+  </g>
+
+  <!-- Node: risk -->
+  <g transform="translate(930,315)">
+    <circle r="50" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0,-26 L20,-18 V2 C20,16 10,24 0,28 C-10,24 -20,16 -20,2 V-18 Z"/>
+      <path d="M-8,2 L-2,8 L9,-5"/>
+    </g>
+  </g>
+
+  <!-- Node: execution -->
+  <g transform="translate(1090,315)">
+    <circle r="50" fill="url(#badge)"/>
+    <g stroke="#F7F9FC" stroke-width="4" fill="none">
+      <circle r="22"/>
+      <circle r="11"/>
+    </g>
+    <circle r="4" fill="#C9A227"/>
+  </g>
+
+  <!-- Arrowheads -->
+  <g fill="#4FA3D1" opacity="0.85">
+    <path d="M522,308 L536,315 L522,322 Z"/>
+    <path d="M682,308 L696,315 L682,322 Z"/>
+    <path d="M842,308 L856,315 L842,322 Z"/>
+    <path d="M1002,308 L1016,315 L1002,322 Z"/>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="15" fill="#9FB3C8" text-anchor="middle" letter-spacing="1">
+    <text x="450" y="400">datos</text>
+    <text x="610" y="400">python</text>
+    <text x="770" y="400">modelo</text>
+    <text x="930" y="400">riesgo</text>
+    <text x="1090" y="400">ejecución</text>
+  </g>
+</svg>
