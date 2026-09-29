@@ -106,7 +106,7 @@ Una analogía útil desde datos: cada muestra es un vector con miles de proporci
 
 ## Diseño del estudio
 
-Se trata de un **estudio transversal prospectivo** con 41 pacientes reclutados entre 2015 y 2017 en la Facultad de Odontología de la Universidad El Bosque, en Bogotá. Treinta y seis personas tenían diagnóstico de OPMD con displasia; cinco muestras fueron negativas para displasia y se diagnosticaron como **hiperplasia**. Se excluyeron las lesiones de orofaringe, paladar blando y piso de boca, y las personas con cáncer previo o hábito de fumar [@buenahora2021].
+Se trata de un **estudio transversal prospectivo** con 41 pacientes reclutados entre 2015 y 2017 en la Facultad de Odontología de la Universidad El Bosque, en Bogotá. Según la sección de Métodos, treinta y seis personas tenían diagnóstico de OPMD con displasia; cinco muestras fueron negativas para displasia y se diagnosticaron como **hiperplasia**. Se excluyeron las lesiones de orofaringe, paladar blando y piso de boca, y las personas con cáncer previo o hábito de fumar [@buenahora2021].
 
 <figure class="opmd-figure">
 <img src="images/diseno-estudio.svg" alt="Diagrama del diseño: 41 pacientes, clasificación por p16INK4a y HPV, tres grupos y cuatro muestras por grupo analizadas mediante RRBS" loading="lazy">
@@ -130,6 +130,23 @@ Las 12 muestras RRBS se reparten en **tres grupos de cuatro muestras** y se anal
 
 El uso de hiperplasias como control no es arbitrario: por razones éticas no era posible obtener tejido sano, y las hiperplasias son lesiones reactivas frecuentes en la práctica clínica [@buenahora2021]. Esto tiene consecuencias para la interpretación, que se discuten en las limitaciones.
 
+::: {.opmd-callout .opmd-callout--limit}
+[Nota: discrepancias en los conteos publicados]{.opmd-callout__label}
+
+El artículo presenta una **discrepancia interna de reporte** en los conteos de la cohorte clínica. Estas inconsistencias se refieren a los conteos reportados de la cohorte y de los grupos HPV/p16. Por sí solas, no demuestran que el análisis de metilación o sus resultados sean incorrectos.
+
+::: {.opmd-discrepancy}
+| Fuente / sección | Valor reportado | Por qué difiere |
+|---|---|---|
+| Métodos (*Study design and samples*) | 36 pacientes con OPMD + 5 hiperplasias = 41 | — |
+| Resultados (*Characteristics of the study population*) | 22 leve + 13 moderada + 2 severa + 4 hiperplasias = 41 | Implica 37 lesiones con displasia y 4 hiperplasias, no 36 y 5 como en Métodos. |
+| Tabla 1 | p16+/HPV+ = 20 · p16+/HPV− = 9 · p16−/HPV− = 12 | Los grupos se rotulan con HPV en general. |
+| Texto de Resultados | De las 29 muestras p16+, 14 con algún genotipo de HPV y 9 con HPV16 | Ni 14 ni 9 coinciden con el n = 20 de la Tabla 1. |
+:::
+
+Ser HPV-positivo (cualquier genotipo) y ser HPV16-positivo no son necesariamente la misma categoría, así que parte de la diferencia podría deberse a cómo se definió cada grupo. Aun así, con el texto publicado no es posible reconciliar del todo esos conteos. Por eso, en este artículo cada cifra se cita junto con la sección de la que proviene.
+:::
+
 ## Datos y variables
 
 La tabla recoge solo las variables y los valores que el artículo reporta explícitamente.
@@ -140,7 +157,7 @@ La tabla recoge solo las variables y los valores que el artículo reporta explí
 | Sexo | Sexo del paciente | Categórica binaria | 63 % mujeres | Registro clínico |
 | Localización de la lesión | Sitio anatómico | Categórica nominal | Mucosa alveolar, encía, lengua, paladar, labio, otra | Examen clínico |
 | Diagnóstico clínico | Tipo clínico de lesión | Categórica nominal | Leucoplasia, eritroplasia, leucoeritroplasia, liquen plano, sobrecrecimiento inespecífico | Examen clínico |
-| Diagnóstico histopatológico | Grado de alteración del epitelio | Ordinal | Displasia leve (22), moderada (13), severa (2); hiperplasia sin displasia (5) | Histopatología |
+| Diagnóstico histopatológico | Grado de alteración del epitelio | Ordinal | Según Resultados: displasia leve (22), moderada (13), severa (2); hiperplasia sin displasia (4) | Histopatología |
 | Expresión de p16INK4a | Presencia de la proteína en el tejido | Binaria (+/−) | 29 muestras p16+ | IHC con anticuerpo CDKN2A (Bond III, Leica) |
 | Patrón de tinción p16 | Distribución de la tinción | Categórica nominal | En p16+: parches 3/29, focal 26/29 | Criterios de Kostopoulou (2011) y Darragh (2012) |
 | ADN de HPV | Presencia de algún HPV | Binaria | 14 de las 29 muestras p16+ | PCR en tiempo real con cebadores GP5+/6+ |
@@ -150,13 +167,7 @@ La tabla recoge solo las variables y los valores que el artículo reporta explí
 | DMR | Región con metilación diferente entre grupos | Región genómica + dirección (hiper/hipo) | Diferencia ≥ 15 % y q ≤ 0,05 | Análisis diferencial en CLC |
 | Anotación genómica | Dónde cae cada DMR | Categórica nominal | Promotor, exón, CDS, UTR, 1–5 kb aguas arriba del TSS | annotatr y GREAT |
 
-: Variables reportadas en Buenahora et al. (2021). Los conteos se transcriben tal como aparecen en el texto del artículo.
-
-::: {.opmd-callout .opmd-callout--limit}
-[Nota de lectura]{.opmd-callout__label}
-
-Dos detalles del texto publicado conviene leerlos con cuidado. Primero, los grados de displasia más las hiperplasias (22 + 13 + 2 + 5) suman 42, no 41. Segundo, la Tabla 1 organiza la cohorte en tres grupos rotulados p16(+) HPV(+) (n = 20), p16(+) HPV(−) (n = 9) y p16(−) HPV(−) (n = 12), mientras que el texto informa que 14 de las 29 muestras p16+ tenían algún genotipo de HPV y 9 tenían HPV16. Con la información publicada no es posible reconciliar del todo esos conteos, así que aquí se reportan como aparecen.
-:::
+: Variables reportadas en Buenahora et al. (2021). Los conteos se transcriben tal como aparecen en el texto del artículo; ver la nota sobre discrepancias en los conteos publicados.
 
 ## Metodología experimental
 

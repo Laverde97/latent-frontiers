@@ -305,4 +305,47 @@
   .opmd-notebook {
     padding: 1rem;
   }
+
+  .opmd-article table caption {
+    max-width: calc(100vw - 3.5rem);
+    text-align: left;
+  }
+
+  /* Nota de discrepancias: tabla → tarjetas apiladas para no ocultar columnas */
+  .opmd-discrepancy table,
+  .opmd-discrepancy tbody,
+  .opmd-discrepancy tr,
+  .opmd-discrepancy td {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .opmd-discrepancy thead {
+    display: none;
+  }
+
+  .opmd-discrepancy tr {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--opmd-line);
+  }
+
+  .opmd-discrepancy td {
+    min-width: 0;
+    border: none;
+    padding: 0.15rem 0;
+  }
+
+  .opmd-discrepancy td::before {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--opmd-muted);
+  }
+
+  .opmd-discrepancy td:nth-child(1)::before { content: "Fuente / sección"; }
+  .opmd-discrepancy td:nth-child(2)::before { content: "Valor reportado"; }
+  .opmd-discrepancy td:nth-child(3)::before { content: "Por qué difiere"; }
 }
