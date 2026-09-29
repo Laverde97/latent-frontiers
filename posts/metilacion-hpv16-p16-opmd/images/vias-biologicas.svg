@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-label="Vías biológicas asociadas a genes con DMRs en muestras HPV positivas">
+  <rect width="960" height="400" fill="#FFFFFF" />
+  <rect x="40" y="30" width="420" height="60" rx="10" fill="#1D4E89" stroke="#1D4E89" stroke-width="2" />
+  <text x="250.0" y="67.0" font-size="20" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Genes hipermetilados (HPV+)</text>
+  <rect x="500" y="30" width="420" height="60" rx="10" fill="#4FA3D1" stroke="#4FA3D1" stroke-width="2" />
+  <text x="710.0" y="67.0" font-size="20" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Genes hipometilados (HPV+)</text>
+  <rect x="40" y="110" width="420" height="65" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="250.0" y="137.39999999999998" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Señalización NOTCH1 / NICD</text>
+  <text x="250.0" y="159.49999999999997" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">p = 0,008</text>
+  <rect x="40" y="190" width="420" height="65" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="250.0" y="217.39999999999998" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Interferón gamma</text>
+  <text x="250.0" y="239.49999999999997" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">p = 0,008</text>
+  <rect x="40" y="270" width="420" height="65" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="250.0" y="297.4" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Señalización IL-6</text>
+  <text x="250.0" y="319.5" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">p = 0,027</text>
+  <rect x="500" y="110" width="420" height="65" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="710.0" y="137.39999999999998" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Activación de IRF dependiente de TRAF3</text>
+  <text x="710.0" y="159.49999999999997" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">respuesta antiviral</text>
+  <rect x="500" y="190" width="420" height="65" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="710.0" y="217.39999999999998" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">RIG-I/MDA5 → IFN-α/β</text>
+  <text x="710.0" y="239.49999999999997" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">inmunidad innata</text>
+  <text x="710" y="290" font-size="16" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Temas: ciclo celular · respuesta inmune</text>
+  <text x="480" y="380" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Diagrama original basado en Buenahora et al. (2021)</text>
+</svg>

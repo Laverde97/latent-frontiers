@@ -5,6 +5,8 @@ lang: es
 listing:
   contents:
     - posts
+    - "!posts/metilacion-hpv16-p16-opmd/slides.qmd"
+    - "!posts/metilacion-hpv16-p16-opmd/analysis/*.ipynb"
   type: table
   sort: "date desc"
   sort-ui: false

@@ -1,0 +1,405 @@
+---
+title: "Modulación epigenética mediada por HPV16–p16INK4a en trastornos orales potencialmente malignos"
+subtitle: "Una lectura guiada de Buenahora, Lafaurie y Perdomo (2021) para quien llega desde Data Science e IA."
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-09-29"
+lang: es
+categories: [Cáncer, Epigenética, Bioinformática, Investigación, Inteligencia Artificial]
+description: "Una explicación progresiva de un estudio epigenómico sobre lesiones orales potencialmente malignas: qué son HPV16, p16INK4a y la metilación del ADN, cómo se diseñó el análisis RRBS de 12 muestras, qué significan sus 270 regiones diferencialmente metiladas y qué podría —y qué no podría— aportar hoy el Machine Learning."
+image: "images/opmd-metilacion-cover.svg"
+reading-time-display: "18 minutos"
+toc: false
+title-block-banner: false
+engine: markdown
+bibliography: references.bib
+resources:
+  - media/modulacion-epigenetica-hpv16-opmd.mp4
+  - analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb
+  - analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb
+format:
+  html:
+    css: opmd-metilacion.css
+---
+
+:::: {.opmd-article}
+
+<section class="opmd-hero">
+<div class="opmd-hero__eyebrow">Paper review · Epigenética y cáncer oral</div>
+<h1 class="opmd-hero__title">Modulación epigenética mediada por HPV16–p16INK4a en trastornos orales potencialmente malignos</h1>
+<p class="opmd-hero__subtitle">Una lectura guiada de Buenahora, Lafaurie y Perdomo (2021) para quien llega desde Data Science e IA.</p>
+<div class="opmd-stats">
+<div class="opmd-stat"><div class="opmd-stat__value">41</div><div class="opmd-stat__label">pacientes en la cohorte</div></div>
+<div class="opmd-stat"><div class="opmd-stat__value">12</div><div class="opmd-stat__label">muestras analizadas por RRBS</div></div>
+<div class="opmd-stat"><div class="opmd-stat__value">3</div><div class="opmd-stat__label">grupos moleculares</div></div>
+<div class="opmd-stat"><div class="opmd-stat__value">270</div><div class="opmd-stat__label">regiones diferencialmente metiladas</div></div>
+</div>
+<div class="opmd-actions">
+<a class="lf-btn lf-btn--primary" href="slides.html">Ver diapositivas</a>
+<a class="lf-btn" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8451454/">Artículo completo</a>
+<a class="lf-btn" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8451454/pdf/KEPI_16_1834923.pdf">PDF</a>
+<a class="lf-btn" href="https://doi.org/10.1080/15592294.2020.1834923">DOI</a>
+</div>
+</section>
+
+Este texto explica, paso a paso, el artículo *Identification of HPV16-p16INK4a mediated methylation in oral potentially malignant disorder* [@buenahora2021]. Está escrito desde la perspectiva de alguien que viene de la ciencia de datos y la inteligencia artificial y que todavía está aprendiendo biología molecular, epigenética y oncología. La idea es construir el vocabulario necesario antes de llegar a los resultados, y separar con cuidado lo que el artículo **demuestra**, lo que **sugiere** y lo que **no aborda**.
+
+::: {.opmd-callout .opmd-callout--ai}
+[Perspectiva desde IA]{.opmd-callout__label}
+
+Este es un estudio **epigenómico y bioinformático**. No construye ni evalúa ningún modelo predictivo de Machine Learning. Cuando más adelante se habla de IA, se trata de posibilidades metodológicas actuales, no de algo que los autores hayan hecho.
+:::
+
+## ¿Por qué importa este problema?
+
+Algunas lesiones de la boca —placas blancas, placas rojas o lesiones de liquen plano— no son cáncer, pero tienen un riesgo mayor que el tejido normal de evolucionar hacia un carcinoma oral. Entender qué ocurre a nivel molecular en esas lesiones **antes** de que aparezca el cáncer es valioso por una razón práctica: si se identifican alteraciones tempranas y reproducibles, podrían convertirse, con mucha más investigación, en marcadores de diagnóstico o de pronóstico. Los propios autores plantean ese horizonte al cerrar su discusión [@buenahora2021].
+
+El artículo se pregunta si el virus del papiloma humano tipo 16 (HPV16) y la proteína p16INK4a se relacionan con cambios en la metilación del ADN de estas lesiones. Para seguir esa pregunta hace falta entender cinco piezas.
+
+## Conceptos clave
+
+### Trastornos orales potencialmente malignos (OPMD)
+
+*Oral potentially malignant disorders* es el nombre para un grupo de lesiones de la mucosa oral con mayor riesgo de transformación maligna. En este estudio entran lesiones clínicas como **leucoplasia** (placa blanca), **eritroplasia** (placa roja), **leucoeritroplasia** y **liquen plano oral**, con diagnóstico histológico de **displasia**: alteraciones en la arquitectura y en las células del epitelio que se gradúan como leve, moderada o severa [@buenahora2021].
+
+::: {.opmd-callout}
+[Concepto clave]{.opmd-callout__label}
+
+Un OPMD **no es** un cáncer. Es un estado de riesgo. La displasia describe cuán alterado se ve el tejido al microscopio; no garantiza por sí sola que la lesión vaya a progresar.
+:::
+
+### HPV y HPV16
+
+El virus del papiloma humano (HPV) es una familia de virus que infecta epitelios. Algunos genotipos se consideran de **alto riesgo** por su asociación con cáncer; **HPV16** es uno de ellos. En este trabajo, primero se detectó ADN de HPV en general y después se identificó el genotipo específico para saber si se trataba de HPV16 [@buenahora2021].
+
+### p16INK4a
+
+p16INK4a es una proteína codificada por el gen *CDKN2A* que participa en el freno del ciclo celular. En patología se mide por **inmunohistoquímica** (IHC): una tinción que revela si la proteína está presente en las células del tejido. En tumores asociados a HPV suele verse sobreexpresada, por lo que a menudo se usa como marcador indirecto de infección por HPV. El artículo muestra por qué esa equivalencia no es perfecta: hay muestras p16-positivas **sin** HPV16, y los autores señalan que factores distintos del HPV también pueden conducir a la sobreexpresión de p16INK4a [@buenahora2021].
+
+### Epigenética y metilación del ADN
+
+La **epigenética** estudia cambios que modifican cómo se usan los genes sin cambiar la secuencia de letras del ADN. La **metilación del ADN** es uno de esos mecanismos: la adición de un grupo metilo a una citosina (C).
+
+En humanos, la metilación ocurre sobre todo en **sitios CpG**: una citosina seguida de una guanina en la misma hebra. Las regiones ricas en CpG, llamadas **islas CpG**, aparecen con frecuencia cerca de los promotores, que son las zonas desde las que se inicia la lectura de un gen.
+
+<figure class="opmd-figure">
+<img src="images/metilacion-cpg.svg" alt="Esquema de hipermetilación e hipometilación: una región con la mayoría de sitios CpG metilados frente a otra con la mayoría no metilados" loading="lazy">
+<figcaption>Diagrama conceptual original. La relación entre metilación y expresión génica depende del contexto genómico.</figcaption>
+</figure>
+
+::: {.opmd-callout}
+[Concepto clave]{.opmd-callout__label}
+
+- **Hipermetilación:** una región tiene *más* metilación en un grupo que en otro. En promotores suele asociarse a un gen menos accesible o silenciado.
+- **Hipometilación:** una región tiene *menos* metilación. Puede asociarse a mayor accesibilidad del ADN o a inestabilidad genómica.
+- **DMR** (*differentially methylated region*): una región cuyo nivel de metilación difiere de forma estadísticamente significativa entre grupos.
+
+Una analogía útil desde datos: cada muestra es un vector con miles de proporciones entre 0 y 1 (o entre 0 % y 100 %), una por sitio CpG. Una DMR es una coordenada de ese vector donde los grupos difieren más de lo esperable por azar.
+:::
+
+## Problema, pregunta y objetivo
+
+**Problema.** La sobreexpresión de p16INK4a y la infección por HPV aparecen en lesiones orales, pero no está claro si, en los OPMD, se acompañan de un perfil propio de metilación del ADN ni qué procesos biológicos quedarían afectados.
+
+**Pregunta.** ¿Existen diferencias en los perfiles de metilación del ADN de lesiones orales según su estado de p16INK4a y HPV16?
+
+**Objetivo declarado.** Evaluar la posible participación de una modulación epigenética mediada por HPV16–p16INK4a en OPMD, generando perfiles de metilación del ADN según la expresión de p16INK4a y el genotipo HPV16, y usando como control muestras negativas para ambos [@buenahora2021].
+
+## Diseño del estudio
+
+Se trata de un **estudio transversal prospectivo** con 41 pacientes reclutados entre 2015 y 2017 en la Facultad de Odontología de la Universidad El Bosque, en Bogotá. Treinta y seis personas tenían diagnóstico de OPMD con displasia; cinco muestras fueron negativas para displasia y se diagnosticaron como **hiperplasia**. Se excluyeron las lesiones de orofaringe, paladar blando y piso de boca, y las personas con cáncer previo o hábito de fumar [@buenahora2021].
+
+<figure class="opmd-figure">
+<img src="images/diseno-estudio.svg" alt="Diagrama del diseño: 41 pacientes, clasificación por p16INK4a y HPV, tres grupos y cuatro muestras por grupo analizadas mediante RRBS" loading="lazy">
+<figcaption>Diagrama original basado en Buenahora et al. (2021) [@buenahora2021]. No reproduce ninguna figura del artículo.</figcaption>
+</figure>
+
+### Cohorte clínica frente a muestras RRBS
+
+Es fácil confundir dos conjuntos distintos:
+
+| Conjunto | Tamaño | Para qué se usa |
+|---|---|---|
+| **Cohorte clínica** | 41 pacientes | Describir edad, sexo, localización, diagnóstico clínico, grado de displasia, expresión de p16INK4a y detección de HPV. |
+| **Subconjunto RRBS** | 12 muestras | Generar los perfiles de metilación del ADN, identificar DMRs y hacer el análisis de genes y vías. |
+
+Las 12 muestras RRBS se reparten en **tres grupos de cuatro muestras** y se analizaron **por triplicado** [@buenahora2021]:
+
+1. **p16+ / HPV16+** — lesiones con sobreexpresión de p16INK4a y presencia de HPV16.
+2. **p16+ / HPV16−** — lesiones con sobreexpresión de p16INK4a sin HPV16.
+3. **p16− / HPV16−** — grupo control, formado por hiperplasias.
+
+El uso de hiperplasias como control no es arbitrario: por razones éticas no era posible obtener tejido sano, y las hiperplasias son lesiones reactivas frecuentes en la práctica clínica [@buenahora2021]. Esto tiene consecuencias para la interpretación, que se discuten en las limitaciones.
+
+## Datos y variables
+
+La tabla recoge solo las variables y los valores que el artículo reporta explícitamente.
+
+| Variable | Qué representa | Tipo | Categorías o valores reportados | Cómo se obtuvo |
+|---|---|---|---|---|
+| Edad | Edad del paciente | Cuantitativa | Media 55,2 años; rango 30–82 | Registro clínico |
+| Sexo | Sexo del paciente | Categórica binaria | 63 % mujeres | Registro clínico |
+| Localización de la lesión | Sitio anatómico | Categórica nominal | Mucosa alveolar, encía, lengua, paladar, labio, otra | Examen clínico |
+| Diagnóstico clínico | Tipo clínico de lesión | Categórica nominal | Leucoplasia, eritroplasia, leucoeritroplasia, liquen plano, sobrecrecimiento inespecífico | Examen clínico |
+| Diagnóstico histopatológico | Grado de alteración del epitelio | Ordinal | Displasia leve (22), moderada (13), severa (2); hiperplasia sin displasia (5) | Histopatología |
+| Expresión de p16INK4a | Presencia de la proteína en el tejido | Binaria (+/−) | 29 muestras p16+ | IHC con anticuerpo CDKN2A (Bond III, Leica) |
+| Patrón de tinción p16 | Distribución de la tinción | Categórica nominal | En p16+: parches 3/29, focal 26/29 | Criterios de Kostopoulou (2011) y Darragh (2012) |
+| ADN de HPV | Presencia de algún HPV | Binaria | 14 de las 29 muestras p16+ | PCR en tiempo real con cebadores GP5+/6+ |
+| Genotipo HPV16 | Presencia específica de HPV16 | Binaria | 9 de las 29 muestras p16+ | Genotipado con tecnología Luminex |
+| Grupo molecular | Combinación de p16 y HPV | Categórica nominal (3 niveles) | p16+/HPV+, p16+/HPV−, p16−/HPV− | Derivada de IHC y genotipado |
+| Metilación por sitio | Proporción de lecturas metiladas en cada citosina | Cuantitativa (0–100 %) | Cobertura media 20X; conversión con bisulfito 98–99 % | RRBS + Bismark + CLC Genomics Workbench |
+| DMR | Región con metilación diferente entre grupos | Región genómica + dirección (hiper/hipo) | Diferencia ≥ 15 % y q ≤ 0,05 | Análisis diferencial en CLC |
+| Anotación genómica | Dónde cae cada DMR | Categórica nominal | Promotor, exón, CDS, UTR, 1–5 kb aguas arriba del TSS | annotatr y GREAT |
+
+: Variables reportadas en Buenahora et al. (2021). Los conteos se transcriben tal como aparecen en el texto del artículo.
+
+::: {.opmd-callout .opmd-callout--limit}
+[Nota de lectura]{.opmd-callout__label}
+
+Dos detalles del texto publicado conviene leerlos con cuidado. Primero, los grados de displasia más las hiperplasias (22 + 13 + 2 + 5) suman 42, no 41. Segundo, la Tabla 1 organiza la cohorte en tres grupos rotulados p16(+) HPV(+) (n = 20), p16(+) HPV(−) (n = 9) y p16(−) HPV(−) (n = 12), mientras que el texto informa que 14 de las 29 muestras p16+ tenían algún genotipo de HPV y 9 tenían HPV16. Con la información publicada no es posible reconciliar del todo esos conteos, así que aquí se reportan como aparecen.
+:::
+
+## Metodología experimental
+
+### Detección y genotipado de HPV
+
+El ADN se extrajo de tejido fijado en formol e incluido en parafina (FFPE) con el kit QIAamp DNA FFPE Tissue Kit. Se hizo PCR en tiempo real con cebadores consenso **GP5+/6+**, dirigidos a la región L1 del virus, y un fragmento del gen de **β-globina** como control de calidad del ADN. El genotipo se determinó con **tecnología Luminex** [@buenahora2021].
+
+### Inmunohistoquímica de p16INK4a
+
+La proteína se detectó con el anticuerpo CDKN2A en la plataforma Bond III (Leica), con tejido tumoral como control positivo. La positividad se definió como tinción citoplasmática difusa, tenue o continua, y se describieron patrones en parches y focales [@buenahora2021].
+
+### ¿Qué es RRBS?
+
+La *reduced representation bisulfite sequencing* [@meissner2005] es una forma económica de medir metilación con resolución de una sola base en una fracción del genoma rica en CpG. Se apoya en dos trucos:
+
+1. **Reducir el genoma.** La enzima **MspI** corta el ADN en la secuencia C↓CGG, sin importar si está metilada. Al seleccionar fragmentos de ciertos tamaños, la secuenciación se concentra en regiones ricas en CpG, como promotores e islas CpG.
+2. **Leer la metilación con bisulfito.** El bisulfito convierte las citosinas *no metiladas* en uracilo, que tras la PCR se lee como timina (T); las citosinas *metiladas* quedan protegidas y siguen leyéndose como C. Comparar cada lectura con el genoma de referencia revela qué citosinas estaban metiladas.
+
+En este estudio se usaron 200 ng de ADN con el kit EpiNext High-Sensitivity Bisulphite-Seq (EpiGentek): digestión con MspI durante 16 horas a 37 °C, reparación de extremos y ligación de adaptadores TruSeq, selección en gel de fragmentos de 40–120 pb y 120–220 pb, tratamiento con bisulfito, 18 ciclos de PCR y secuenciación *single-read* de 76 ciclos en un Illumina HiSeq 2000 [@buenahora2021].
+
+## Pipeline bioinformático
+
+<figure class="opmd-figure">
+<img src="images/pipeline-rrbs.svg" alt="Pipeline: ADN, digestión MspI, adaptadores, selección de tamaño, bisulfito, secuenciación; luego Bismark, CLC Genomics Workbench, DAVID, MEME, GREAT y annotatr" loading="lazy">
+<figcaption>Diagrama original basado en Buenahora et al. (2021) [@buenahora2021].</figcaption>
+</figure>
+
+1. **Alineamiento.** Las lecturas se alinearon contra el genoma humano GRCh37 (hg19) con **Bismark** [@krueger2011], un alineador diseñado para lecturas tratadas con bisulfito.
+2. **Control de calidad.** La eficiencia de conversión con bisulfito estuvo entre 98 % y 99 %, con una cobertura de 20X. La correlación de Pearson entre réplicas fue r = 0,87–0,89 [@buenahora2021].
+3. **Cuantificación y DMRs.** El nivel de metilación de cada muestra y las DMRs se obtuvieron con el *plugin* de secuenciación con bisulfito de **CLC Genomics Workbench 20**, con los criterios de diferencia ≥ 15 % y q ajustado por FDR ≤ 0,05.
+4. **Interpretación funcional.** Los genes cercanos a las DMRs se analizaron con **DAVID** [@huang2009] (Gene Ontology y vías). Los motivos de secuencia se buscaron con **MEME Suite** [@bailey2009]. Las regiones se asociaron a genes con **GREAT** [@mclean2010] y se anotaron por tipo de región con **annotatr** [@cavalcante2017]. Las interacciones entre proteínas se exploraron con STRING e InnateDB.
+
+## Software utilizado
+
+| Herramienta | Etapa | Propósito | Explicación sencilla |
+|---|---|---|---|
+| **STATA 12** | Estadística | Descriptivos, χ²/Fisher y ANOVA | El programa estadístico con el que se compararon grupos y variables clínicas. |
+| **CLC Genomics Workbench 20** | Cuantificación | Medir metilación e identificar DMRs | Convierte lecturas alineadas en porcentajes de metilación y busca regiones que difieren entre grupos. |
+| **Bismark** | Alineamiento | Alinear lecturas tratadas con bisulfito | Encuentra dónde cae cada lectura en el genoma teniendo en cuenta que muchas C se leen como T. |
+| **DAVID** | Interpretación | Enriquecimiento de Gene Ontology y vías | Pregunta si una lista de genes está sobrerrepresentada en ciertos procesos biológicos. |
+| **MEME Suite** | Interpretación | Descubrimiento de motivos | Busca secuencias cortas repetidas en las DMRs que coinciden con sitios de unión de factores de transcripción. |
+| **GREAT** | Interpretación | Asociar regiones a genes | Asigna cada región genómica a los genes cuya regulación podría influir, incluso si no está justo encima del gen. |
+| **annotatr** | Anotación | Clasificar regiones genómicas | Etiqueta cada DMR como promotor, exón, CDS, UTR o región aguas arriba del TSS. |
+
+: Software reportado en Buenahora et al. (2021). STRING e InnateDB se usaron además para explorar redes de interacción proteína–proteína.
+
+## Métodos estadísticos
+
+- **Estadística descriptiva.** Frecuencias y porcentajes para las variables categóricas; media y rango para la edad.
+- **Chi-cuadrado (χ²) y prueba exacta de Fisher.** Comparan proporciones entre grupos en tablas de contingencia; Fisher es preferible cuando hay celdas con pocos casos, algo esperable con 41 pacientes. Así se comparó la expresión de p16INK4a según HPV y las variables clínicas. Por ejemplo, la localización de la lesión difirió entre grupos (p = 0,009; la lengua fue más frecuente entre las p16+) y el diagnóstico clínico no (p = 0,104) [@buenahora2021].
+- **ANOVA.** Compara medias entre más de dos grupos. Se usó para evaluar la metilación diferencial entre casos y controles con un nivel de significancia del 5 % [@buenahora2021].
+- **Valores p y umbral de significancia.** Un valor p pequeño indica que una diferencia así sería poco probable si no hubiera ninguna diferencia real. El umbral general fue α = 0,05; para Gene Ontology y vías se filtró con P < 0,01.
+- **Corrección por comparaciones múltiples (FDR).** Cuando se prueban miles de regiones, algunas saldrán "significativas" por azar. El *false discovery rate* [@benjamini1995] controla la proporción esperada de falsos positivos entre los hallazgos. Las DMRs exigieron q ≤ 0,05, y las vías enriquecidas también Q ≤ 0,05 [@buenahora2021].
+- **Análisis exploratorio.** Agrupamiento jerárquico con mapa de calor, gráficos de violín de la distribución de metilación y **análisis de componentes principales (PCA)**, que proyecta los perfiles de metilación en pocos ejes que resumen la mayor variación.
+- **Reproducibilidad técnica.** Correlación de Pearson entre réplicas.
+
+## Resultados
+
+<figure class="opmd-figure">
+<img src="images/dmr-resultados.svg" alt="Barra dividida: 142 DMRs hipermetiladas (54 %) y 128 hipometiladas (46 %) de un total de 270" loading="lazy">
+<figcaption>Diagrama original con los valores reportados en Buenahora et al. (2021) [@buenahora2021].</figcaption>
+</figure>
+
+::: {.opmd-callout .opmd-callout--result}
+[Resultado principal]{.opmd-callout__label}
+
+Se identificaron **270 regiones diferencialmente metiladas**: **142 (≈ 54 %) hipermetiladas** y **128 (≈ 46 %) hipometiladas**. Los autores lo interpretan como una tendencia hacia el aumento de metilación en los loci alterados de los OPMD [@buenahora2021].
+:::
+
+**Metilación global.** No hubo diferencias estadísticamente significativas en el nivel *global* de metilación entre hiperplasias, OPMD HPV+ y OPMD HPV− [@buenahora2021]. La diferencia está en regiones concretas, no en el promedio del genoma. Es el mismo fenómeno que conocemos en datos: dos distribuciones pueden tener igual media y diferir mucho en coordenadas específicas.
+
+### PCA y perfiles de metilación
+
+<figure class="opmd-figure">
+<img src="images/pca-explicacion.svg" alt="Esquema ilustrativo de un PCA con dos componentes, en el que las hiperplasias se separan de las muestras con displasia" loading="lazy">
+<figcaption>Esquema ilustrativo del tipo de patrón descrito; no reproduce los datos ni la figura del artículo.</figcaption>
+</figure>
+
+El artículo describe que el PCA de los cambios de metilación muestra una **separación clara entre las hiperplasias (p16−/HPV−) y las muestras con displasia** (p16+/HPV16+ y p16+/HPV16−). El agrupamiento jerárquico y el mapa de calor de las DMRs muestran perfiles distintos entre grupos [@buenahora2021].
+
+::: {.opmd-callout .opmd-callout--limit}
+[Limitación]{.opmd-callout__label}
+
+**Separación en un PCA ≠ clasificador clínico.** El PCA es no supervisado y descriptivo. Además, se calculó sobre regiones seleccionadas por diferir entre grupos, lo que tiende a exagerar la separación visual. Con 12 muestras, es evidencia exploratoria.
+:::
+
+### Genes y vías biológicas
+
+<figure class="opmd-figure">
+<img src="images/vias-biologicas.svg" alt="Vías asociadas a genes hipermetilados (NOTCH1, interferón gamma, IL-6) e hipometilados (activación de IRF dependiente de TRAF3, RIG-I/MDA5) en muestras HPV+" loading="lazy">
+<figcaption>Diagrama original basado en Buenahora et al. (2021) [@buenahora2021].</figcaption>
+</figure>
+
+- En las muestras **HPV+**, los genes **hipermetilados** se asociaron con el transporte de NICD al núcleo y la **señalización de NOTCH1** (p = 0,008), el **interferón gamma** (p = 0,008) y la **señalización de interleucina 6** (p = 0,027).
+- Los genes **hipometilados** se asociaron con vías de **respuesta inmune innata y antiviral**, como la activación de IRF dependiente de TRAF3 y la inducción de interferón α/β mediada por RIG-I/MDA5.
+- La búsqueda de motivos encontró secuencias coincidentes con sitios de unión de factores de transcripción como HINFP1, Sp4, Myf6, NHLH1, Zfp281, Smad3, Ascl2, KLF16 y ZIC3.
+- Por ubicación, el **43 %** de las DMRs cayó en promotores, y alrededor del **18 %** entre 1.501 y 50.000 pb aguas arriba del sitio de inicio de la transcripción (TSS) [@buenahora2021].
+
+Los autores concluyen que la infección por HPV en OPMD se relaciona con la modulación de genes vinculados al **sistema inmune** y a la **regulación del ciclo celular** [@buenahora2021].
+
+::: {.opmd-callout .opmd-callout--limit}
+[Limitación]{.opmd-callout__label}
+
+**Asociación ≠ causalidad.** El diseño es transversal: observa a la vez infección, p16 y metilación. No puede establecer que HPV16 *cause* los cambios de metilación ni que estos cambios *causen* progresión.
+:::
+
+## Fortalezas
+
+- **Pregunta biológica bien delimitada:** separa la sobreexpresión de p16INK4a de la presencia de HPV16, en lugar de tratar a p16 como un sustituto automático del virus.
+- **Resolución de base única** en regiones ricas en CpG gracias a RRBS, con buen control técnico: conversión 98–99 % y réplicas con r = 0,87–0,89.
+- **Criterios explícitos** para definir una DMR (diferencia ≥ 15 % y FDR ≤ 0,05) y corrección por comparaciones múltiples.
+- **Interpretación multinivel:** vías, motivos, anotación genómica y redes de interacción.
+- **Población poco representada** en la literatura epigenómica: pacientes colombianos atendidos en Bogotá.
+
+## Limitaciones
+
+::: {.opmd-callout .opmd-callout--limit}
+[Limitación]{.opmd-callout__label}
+
+- **Tamaño muestral:** 12 muestras RRBS, cuatro por grupo. La potencia estadística es baja y los hallazgos necesitan replicación.
+- **Control no sano:** las hiperplasias son lesiones reactivas, no mucosa normal, lo que se justifica éticamente pero limita las comparaciones.
+- **Sin seguimiento longitudinal:** no se sabe qué lesiones progresaron a carcinoma, así que no se puede evaluar valor pronóstico.
+- **Sin validación funcional ni externa:** no se midió la expresión de los genes afectados ni se replicaron las DMRs en otra cohorte o con otra técnica.
+- **Una DMR no es un biomarcador clínico validado:** para serlo haría falta reproducibilidad analítica, validación en cohortes independientes y utilidad clínica demostrada.
+- **Cobertura parcial del genoma:** RRBS mide sobre todo regiones ricas en CpG; los cambios en otras regiones quedan fuera.
+:::
+
+## Impacto científico
+
+El trabajo aporta una de las primeras descripciones de perfiles de metilación del ADN en OPMD estratificados por p16INK4a y HPV16, y muestra que p16+ y HPV16+ no son lo mismo a nivel molecular. Sus vías candidatas (NOTCH1 y la respuesta inmune antiviral) ofrecen hipótesis concretas para estudios con más muestras, seguimiento y validación funcional, con el objetivo que los autores plantean: avanzar hacia marcadores de diagnóstico y pronóstico [@buenahora2021].
+
+## Posibilidades actuales con Machine Learning e IA
+
+::: {.opmd-callout .opmd-callout--ai}
+[Perspectiva desde IA]{.opmd-callout__label}
+
+El estudio original **no entrenó ningún modelo predictivo**. Lo que sigue es una reflexión metodológica sobre cómo podría extenderse este tipo de trabajo, no una descripción de lo que hicieron los autores.
+:::
+
+Un dataset RRBS es el caso típico de **`p >> n`**: miles de sitios CpG (variables, *p*) para muy pocas muestras (*n*). Con 12 muestras, cualquier modelo complejo memoriza en lugar de aprender, y **12 muestras no justifican un modelo de Deep Learning**. Lo razonable sería:
+
+1. **Evitar la fuga de información (*data leakage*).** La selección de CpGs o DMRs debe hacerse **dentro** de cada partición de validación cruzada, nunca con todos los datos antes de validar.
+2. **Modelos regularizados e interpretables** —regresión logística con penalización L1/L2 o Elastic Net— como línea base, antes de cualquier modelo más complejo.
+3. **Validación honesta:** validación cruzada repetida y estratificada, métricas como *balanced accuracy* y F1 macro, y **pruebas de permutación** para comparar con lo esperable por azar.
+4. **Estabilidad de biomarcadores:** medir con qué frecuencia cada región se selecciona entre remuestreos, en lugar de confiar en un único ranking.
+5. **Validación externa** en cohortes independientes y, si existe seguimiento, modelos de supervivencia para estimar el riesgo de progresión.
+
+La pregunta interesante no es "qué algoritmo clasifica mejor", sino si existe una firma molecular **estable, interpretable y externamente validable** que, junto con variables clínicas, ayude a estimar el riesgo de progresión de un OPMD. El segundo notebook complementario explora exactamente estas ideas con datos sintéticos.
+
+## Video explicativo
+
+Este video es un recurso audiovisual complementario, generado con **NotebookLM** a partir del artículo, para facilitar una primera comprensión del estudio. No sustituye la lectura del artículo original.
+
+```{=html}
+<div class="opmd-video">
+<video controls preload="metadata" playsinline>
+<source src="media/modulacion-epigenetica-hpv16-opmd.mp4" type="video/mp4">
+Tu navegador no puede reproducir este video. Puedes <a href="media/modulacion-epigenetica-hpv16-opmd.mp4">descargarlo aquí</a>.
+</video>
+</div>
+```
+
+<div class="opmd-actions opmd-actions--left">
+<a class="lf-btn" href="media/modulacion-epigenetica-hpv16-opmd.mp4">Abrir el video en una pestaña nueva</a>
+</div>
+
+## Notebooks complementarios
+
+::: {.opmd-callout .opmd-callout--limit}
+[Importante]{.opmd-callout__label}
+
+Ambos notebooks usan **datos sintéticos y didácticos**, generados por simulación. **No** contienen ni reproducen el dataset RRBS original de pacientes, que no es público. Sirven para practicar el razonamiento analítico, no para replicar los resultados del artículo.
+:::
+
+::: {.opmd-notebook}
+### Notebook 1 — Análisis RRBS y metilación
+
+Recorre el flujo de análisis de una matriz de metilación tipo RRBS con 12 muestras simuladas (cuatro por grupo):
+
+- estructura de los datos de metilación tipo RRBS (valores beta por región);
+- exploración de calidad por muestra y correlación entre muestras;
+- PCA como herramienta exploratoria, no como clasificador;
+- metilación diferencial con Δβ y prueba de Welch;
+- corrección por comparaciones múltiples (FDR, Benjamini–Hochberg);
+- visualización de DMRs con *volcano plot* y mapa de calor;
+- interpretación y contraste con los resultados publicados.
+
+<div class="opmd-actions opmd-actions--left">
+<a class="lf-btn" href="analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb" download>Descargar .ipynb</a>
+<a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb">Ver en GitHub</a>
+<a class="opmd-colab" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Abrir el Notebook 1 en Google Colab"></a>
+</div>
+
+:::
+
+::: {.opmd-notebook}
+### Notebook 2 — Machine Learning interpretable
+
+Construye un pipeline de Machine Learning interpretable y sin fuga de información sobre datos sintéticos de alta dimensión:
+
+- datos de alta dimensión y el problema `p >> n`;
+- selección de características (`SelectKBest`) dentro del pipeline;
+- prevención de *data leakage*;
+- validación cruzada estratificada y repetida;
+- modelo regularizado (regresión logística multinomial con L2);
+- prueba de permutación frente al azar;
+- interpretabilidad mediante coeficientes;
+- estabilidad de los biomarcadores candidatos entre remuestreos.
+
+<div class="opmd-actions opmd-actions--left">
+<a class="lf-btn" href="analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb" download>Descargar .ipynb</a>
+<a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb">Ver en GitHub</a>
+<a class="opmd-colab" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Abrir el Notebook 2 en Google Colab"></a>
+</div>
+
+:::
+
+## Diapositivas
+
+Una versión resumida de este artículo en 15 diapositivas, pensada para una presentación académica.
+
+<div class="opmd-actions opmd-actions--left">
+<a class="lf-btn lf-btn--primary" href="slides.html">Ver diapositivas</a>
+</div>
+
+<div class="opmd-slides-frame">
+<iframe src="slides.html" title="Vista previa de las diapositivas" loading="lazy" allowfullscreen></iframe>
+</div>
+
+## Artículo original
+
+<div class="opmd-citation">
+Buenahora MR, Lafaurie GI, Perdomo SJ. Identification of HPV16-p16INK4a mediated methylation in oral potentially malignant disorder. <em>Epigenetics</em>. 2021;16(9):1016–1030. doi:<a href="https://doi.org/10.1080/15592294.2020.1834923">10.1080/15592294.2020.1834923</a>.
+</div>
+
+<div class="opmd-actions opmd-actions--left">
+<a class="lf-btn lf-btn--primary" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8451454/">Artículo completo</a>
+<a class="lf-btn" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8451454/pdf/KEPI_16_1834923.pdf">PDF</a>
+<a class="lf-btn" href="https://doi.org/10.1080/15592294.2020.1834923">DOI</a>
+</div>
+
+El artículo tiene copyright © 2020 Informa UK Limited (Taylor & Francis Group). Por eso este texto no reproduce sus figuras: todos los diagramas son originales, simplificados a partir de la información publicada, y citan el artículo como fuente.
+
+::::
+
+## Referencias

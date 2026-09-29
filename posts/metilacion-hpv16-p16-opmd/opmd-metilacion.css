@@ -1,0 +1,308 @@
+/* Namespace: .opmd- (Metilación HPV16–p16INK4a en OPMD).
+   Reutiliza los tokens globales --lf-* (theme.scss) con fallback en hex. */
+
+#title-block-header {
+  display: none;
+}
+
+:root {
+  --opmd-blue: var(--lf-blue, #1D4E89);
+  --opmd-navy: var(--lf-navy, #0B1E3D);
+  --opmd-sky: var(--lf-sky, #4FA3D1);
+  --opmd-indigo: var(--lf-indigo, #4C4A7D);
+  --opmd-ink: var(--lf-ink, #1A1A1A);
+  --opmd-body: var(--lf-body, #33333A);
+  --opmd-muted: var(--lf-muted, #6B7280);
+  --opmd-line: var(--lf-line, #E2E8F0);
+  --opmd-surface: var(--lf-surface, #F7F9FC);
+  --opmd-serif: var(--lf-serif, Georgia, "Iowan Old Style", "Palatino Linotype", serif);
+  --opmd-radius: 10px;
+}
+
+.opmd-article {
+  max-width: 860px;
+  margin-inline: auto;
+  color: var(--opmd-body);
+}
+
+.opmd-article p,
+.opmd-article li {
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.opmd-article h2 {
+  font-family: var(--opmd-serif);
+  color: var(--opmd-ink);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-size: 1.55rem;
+}
+
+.opmd-article h3 {
+  font-family: var(--opmd-serif);
+  color: var(--opmd-ink);
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+/* ---------- Hero ---------- */
+
+.opmd-hero {
+  margin: 0.5rem auto 2.5rem;
+  text-align: center;
+}
+
+.opmd-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--opmd-blue);
+  margin-bottom: 0.7rem;
+}
+
+.opmd-hero__title {
+  font-family: var(--opmd-serif);
+  font-size: clamp(1.8rem, 1.4rem + 2vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.18;
+  color: var(--opmd-ink);
+  margin: 0 0 0.7rem;
+}
+
+.opmd-hero__subtitle {
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.15rem);
+  color: var(--opmd-blue);
+  font-weight: 500;
+  max-width: 42rem;
+  margin: 0 auto 1.8rem;
+  line-height: 1.5;
+}
+
+.opmd-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.2rem 0;
+  margin: 0 auto 1.8rem;
+  border-top: 1px solid var(--opmd-line);
+  border-bottom: 1px solid var(--opmd-line);
+}
+
+.opmd-stat__value {
+  font-family: var(--opmd-serif);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--opmd-navy);
+  line-height: 1.1;
+}
+
+.opmd-stat__label {
+  font-size: 0.8rem;
+  color: var(--opmd-muted);
+  margin-top: 0.25rem;
+}
+
+/* Botones: reutilizan .lf-btn / .lf-btn--primary del tema global */
+.opmd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 1rem;
+}
+
+.opmd-actions--left {
+  justify-content: flex-start;
+}
+
+.opmd-article .lf-btn {
+  text-decoration: none;
+}
+
+/* ---------- Figuras ---------- */
+
+.opmd-figure {
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.opmd-figure img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--opmd-line);
+  border-radius: var(--opmd-radius);
+}
+
+.opmd-figure figcaption {
+  font-size: 0.82rem;
+  color: var(--opmd-muted);
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+/* ---------- Callouts ---------- */
+
+.opmd-callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.3rem;
+  border-left: 3px solid var(--opmd-sky);
+  background: var(--opmd-surface);
+  border-radius: 0 8px 8px 0;
+}
+
+.opmd-callout__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--opmd-blue);
+  margin-bottom: 0.4rem;
+}
+
+.opmd-callout p,
+.opmd-callout li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--opmd-body);
+}
+
+.opmd-callout p:last-child,
+.opmd-callout ul:last-child {
+  margin-bottom: 0;
+}
+
+.opmd-callout--result {
+  border-left-color: var(--opmd-blue);
+}
+
+.opmd-callout--limit {
+  border-left-color: var(--opmd-muted);
+}
+
+.opmd-callout--limit .opmd-callout__label {
+  color: var(--opmd-muted);
+}
+
+.opmd-callout--ai {
+  border-left-color: var(--opmd-indigo);
+}
+
+.opmd-callout--ai .opmd-callout__label {
+  color: var(--opmd-indigo);
+}
+
+/* ---------- Tablas ---------- */
+
+.opmd-article table {
+  width: 100%;
+  font-size: 0.9rem;
+  border-collapse: collapse;
+  margin: 1rem 0 1.8rem;
+}
+
+.opmd-article th,
+.opmd-article td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--opmd-line);
+  vertical-align: top;
+  text-align: left;
+}
+
+.opmd-article th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--opmd-muted);
+}
+
+/* ---------- Video y diapositivas ---------- */
+
+.opmd-video {
+  margin: 1.2rem 0 0.8rem;
+}
+
+.opmd-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--opmd-navy);
+  border-radius: var(--opmd-radius);
+}
+
+.opmd-slides-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.2rem 0 0.8rem;
+  border: 1px solid var(--opmd-line);
+  border-radius: var(--opmd-radius);
+  overflow: hidden;
+}
+
+.opmd-slides-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- Notebooks ---------- */
+
+.opmd-notebook {
+  margin: 1.2rem 0 2rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--opmd-line);
+  border-radius: var(--opmd-radius);
+}
+
+.opmd-notebook h3 {
+  margin-top: 0;
+}
+
+.opmd-colab img {
+  height: 28px;
+  width: auto;
+  vertical-align: middle;
+}
+
+/* ---------- Cita del artículo original ---------- */
+
+.opmd-citation {
+  padding: 1rem 1.3rem;
+  background: var(--opmd-surface);
+  border-radius: var(--opmd-radius);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767.98px) {
+  .opmd-stats {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.2rem;
+  }
+
+  .opmd-article table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.82rem;
+  }
+
+  .opmd-article th,
+  .opmd-article td {
+    min-width: 8rem;
+  }
+
+  .opmd-notebook {
+    padding: 1rem;
+  }
+}

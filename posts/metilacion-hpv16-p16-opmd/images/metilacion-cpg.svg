@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-label="Hipermetilación e hipometilación de sitios CpG en una región reguladora">
+  <rect width="960" height="420" fill="#FFFFFF" />
+  <text x="40" y="70" font-size="22" fill="#1A1A1A" font-weight="bold" text-anchor="start" font-family="Georgia, serif">Hipermetilación</text>
+  <line x1="40" y1="130" x2="560" y2="130" stroke="#12305C" stroke-width="6" />
+  <text x="90" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="90" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="175" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="175" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="260" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="260" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="345" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="345" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="430" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="430" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="515" y="170" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="515" cy="130" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="600" y="120" font-size="18" fill="#1A1A1A" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Más grupos metilo en la región</text>
+  <text x="600" y="148" font-size="16" fill="#6B7280" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">→ a menudo, gen menos accesible</text>
+  <text x="40" y="240" font-size="22" fill="#1A1A1A" font-weight="bold" text-anchor="start" font-family="Georgia, serif">Hipometilación</text>
+  <line x1="40" y1="300" x2="560" y2="300" stroke="#12305C" stroke-width="6" />
+  <text x="90" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="90" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="175" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="175" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="260" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="260" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#1D4E89" />
+  <text x="345" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="345" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="430" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="430" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="515" y="340" font-size="15" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CpG</text>
+  <circle cx="515" cy="300" r="16" stroke="#1D4E89" stroke-width="4" fill="#FFFFFF" />
+  <text x="600" y="290" font-size="18" fill="#1A1A1A" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">Menos grupos metilo en la región</text>
+  <text x="600" y="318" font-size="16" fill="#6B7280" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">→ a menudo, gen más accesible</text>
+  <circle cx="60" cy="385" r="10" fill="#1D4E89" stroke="#1D4E89" stroke-width="3" />
+  <text x="80" y="391" font-size="15" fill="#1A1A1A" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">CpG metilado</text>
+  <circle cx="250" cy="385" r="10" fill="#FFFFFF" stroke="#1D4E89" stroke-width="3" />
+  <text x="270" y="391" font-size="15" fill="#1A1A1A" font-weight="normal" text-anchor="start" font-family="Helvetica, Arial, sans-serif">CpG no metilado</text>
+  <text x="920" y="391" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="end" font-family="Helvetica, Arial, sans-serif">Esquema conceptual; la relación con la expresión depende del contexto</text>
+</svg>

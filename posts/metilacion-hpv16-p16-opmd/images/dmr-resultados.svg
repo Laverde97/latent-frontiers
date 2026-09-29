@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-label="270 regiones diferencialmente metiladas: 142 hipermetiladas y 128 hipometiladas">
+  <rect width="960" height="300" fill="#FFFFFF" />
+  <text x="480" y="55" font-size="26" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Georgia, serif">270 regiones diferencialmente metiladas (DMRs)</text>
+  <rect x="40" y="100" width="463" height="80" fill="#1D4E89" />
+  <rect x="503" y="100" width="417" height="80" fill="#4FA3D1" />
+  <text x="271.5" y="150" font-size="22" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">142 hipermetiladas · 54 %</text>
+  <text x="711.5" y="150" font-size="22" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">128 hipometiladas · 46 %</text>
+  <text x="480" y="230" font-size="18" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Sin diferencias significativas en la metilación global entre grupos</text>
+  <text x="480" y="275" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Diagrama original basado en Buenahora et al. (2021)</text>
+</svg>

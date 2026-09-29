@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" role="img" aria-label="Pipeline experimental y bioinformático RRBS del estudio">
+  <rect width="960" height="470" fill="#FFFFFF" />
+  <text x="40" y="40" font-size="20" fill="#1A1A1A" font-weight="bold" text-anchor="start" font-family="Georgia, serif">Laboratorio</text>
+  <rect x="40" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="105.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">ADN</text>
+  <text x="105.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">200 ng</text>
+  <line x1="170" y1="105" x2="190" y2="105" stroke="#6B7280" stroke-width="3" />
+  <polygon points="192,105 180,98 180,112" fill="#6B7280" />
+  <rect x="190" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="255.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">MspI</text>
+  <text x="255.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">corta C↓CGG</text>
+  <line x1="320" y1="105" x2="340" y2="105" stroke="#6B7280" stroke-width="3" />
+  <polygon points="342,105 330,98 330,112" fill="#6B7280" />
+  <rect x="340" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="405.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Adaptadores</text>
+  <text x="405.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">TruSeq</text>
+  <line x1="470" y1="105" x2="490" y2="105" stroke="#6B7280" stroke-width="3" />
+  <polygon points="492,105 480,98 480,112" fill="#6B7280" />
+  <rect x="490" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="555.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Selección</text>
+  <text x="555.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">40–220 pb</text>
+  <line x1="620" y1="105" x2="640" y2="105" stroke="#6B7280" stroke-width="3" />
+  <polygon points="642,105 630,98 630,112" fill="#6B7280" />
+  <rect x="640" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="705.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Bisulfito</text>
+  <text x="705.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">C → U</text>
+  <line x1="770" y1="105" x2="790" y2="105" stroke="#6B7280" stroke-width="3" />
+  <polygon points="792,105 780,98 780,112" fill="#6B7280" />
+  <rect x="790" y="60" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="855.0" y="99.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Secuencia</text>
+  <text x="855.0" y="122.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">HiSeq 2000</text>
+  <text x="40" y="230" font-size="20" fill="#1A1A1A" font-weight="bold" text-anchor="start" font-family="Georgia, serif">Bioinformática</text>
+  <rect x="40" y="250" width="160" height="90" rx="10" fill="#12305C" stroke="#12305C" stroke-width="2" />
+  <text x="120.0" y="289.9" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Bismark</text>
+  <text x="120.0" y="312.0" font-size="17" fill="#FFFFFF" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">alineamiento hg19</text>
+  <line x1="200" y1="295" x2="220" y2="295" stroke="#6B7280" stroke-width="3" />
+  <polygon points="222,295 210,288 210,302" fill="#6B7280" />
+  <rect x="220" y="250" width="160" height="90" rx="10" fill="#12305C" stroke="#12305C" stroke-width="2" />
+  <text x="300.0" y="289.9" font-size="17" fill="#FFFFFF" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CLC Genomics 20</text>
+  <text x="300.0" y="312.0" font-size="17" fill="#FFFFFF" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">metilación y DMRs</text>
+  <line x1="380" y1="295" x2="400" y2="295" stroke="#6B7280" stroke-width="3" />
+  <polygon points="402,295 390,288 390,302" fill="#6B7280" />
+  <rect x="400" y="250" width="160" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="480.0" y="289.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">DAVID</text>
+  <text x="480.0" y="312.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">GO y vías</text>
+  <line x1="560" y1="295" x2="580" y2="295" stroke="#6B7280" stroke-width="3" />
+  <polygon points="582,295 570,288 570,302" fill="#6B7280" />
+  <rect x="580" y="250" width="160" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="660.0" y="289.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">MEME · GREAT</text>
+  <text x="660.0" y="312.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">motivos y genes</text>
+  <line x1="740" y1="295" x2="760" y2="295" stroke="#6B7280" stroke-width="3" />
+  <polygon points="762,295 750,288 750,302" fill="#6B7280" />
+  <rect x="760" y="250" width="160" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="840.0" y="289.9" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">annotatr</text>
+  <text x="840.0" y="312.0" font-size="17" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">anotación génica</text>
+  <text x="480" y="390" font-size="18" fill="#1A1A1A" font-weight="bold" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Criterio DMR: diferencia ≥ 15 % y q (FDR) ≤ 0,05</text>
+  <text x="480" y="440" font-size="14" fill="#6B7280" font-weight="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Diagrama original basado en Buenahora et al. (2021)</text>
+</svg>
