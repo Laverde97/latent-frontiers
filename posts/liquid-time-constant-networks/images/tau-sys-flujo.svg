@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-label="Cómo la entrada y el estado determinan la constante de tiempo efectiva de una LTC">
+  <rect width="960" height="330" fill="#FFFFFF" />
+  <rect x="20" y="40" width="150" height="70" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="95.0" y="69.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Entrada</text>
+  <text x="95.0" y="91.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">I(t)</text>
+  <rect x="20" y="170" width="150" height="70" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="95.0" y="199.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Estado actual</text>
+  <text x="95.0" y="221.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t)</text>
+  <rect x="220" y="95" width="170" height="90" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="305.0" y="134.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Red no lineal</text>
+  <text x="305.0" y="156.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">f(x, I, t, θ)</text>
+  <rect x="440" y="30" width="200" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="540.0" y="69.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Rapidez efectiva</text>
+  <text x="540.0" y="91.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">τ_sys = τ/(1 + τ·f)</text>
+  <rect x="440" y="160" width="200" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="540.0" y="199.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Hacia dónde empuja</text>
+  <text x="540.0" y="221.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">término f · A</text>
+  <rect x="690" y="95" width="130" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="755.0" y="123.2" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Dinámica</text>
+  <text x="755.0" y="145.6" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">dx/dt</text>
+  <text x="755.0" y="168.0" font-size="16" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Ec. (1)</text>
+  <rect x="860" y="95" width="90" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="905.0" y="145.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t+Δt)</text>
+  <line x1="170" y1="75" x2="211.8" y2="112.6" stroke="#6B7280" stroke-width="3" />
+  <polygon points="220.0,120.0 207.1,117.8 216.5,107.4" fill="#6B7280" />
+  <line x1="170" y1="205" x2="211.8" y2="167.4" stroke="#6B7280" stroke-width="3" />
+  <polygon points="220.0,160.0 216.5,172.6 207.1,162.2" fill="#6B7280" />
+  <line x1="390" y1="120" x2="431.4" y2="86.9" stroke="#6B7280" stroke-width="3" />
+  <polygon points="440.0,80.0 435.8,92.3 427.0,81.4" fill="#6B7280" />
+  <line x1="390" y1="160" x2="431.4" y2="193.1" stroke="#6B7280" stroke-width="3" />
+  <polygon points="440.0,200.0 427.0,198.6 435.8,187.7" fill="#6B7280" />
+  <line x1="640" y1="80" x2="681.4" y2="113.1" stroke="#6B7280" stroke-width="3" />
+  <polygon points="690.0,120.0 677.0,118.6 685.8,107.7" fill="#6B7280" />
+  <line x1="640" y1="200" x2="681.4" y2="166.9" stroke="#6B7280" stroke-width="3" />
+  <polygon points="690.0,160.0 685.8,172.3 677.0,161.4" fill="#6B7280" />
+  <line x1="820" y1="140" x2="849.0" y2="140.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="860.0,140.0 849.0,147.0 849.0,133.0" fill="#6B7280" />
+  <path d="M905.0,185.0 L905.0,290.0 L95.0,290.0 L95.0,251.0" fill="none" stroke="#6B7280" stroke-width="3" stroke-linejoin="round" stroke-dasharray="7 6" />
+  <polygon points="95,240 88,252 102,252" fill="#6B7280" />
+  <text x="500" y="315" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">el nuevo estado es el estado actual del siguiente paso</text>
+</svg>

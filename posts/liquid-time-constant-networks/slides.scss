@@ -1,0 +1,114 @@
+/*-- scss:defaults --*/
+
+// Paleta Latent Frontiers (tokens --lf-* de theme.scss)
+$lf-navy: #0B1E3D;
+$lf-deep-blue: #12305C;
+$lf-blue: #1D4E89;
+$lf-sky: #4FA3D1;
+$lf-indigo: #4C4A7D;
+$lf-muted: #6B7280;
+$lf-line: #E2E8F0;
+$lf-surface: #F7F9FC;
+
+$body-bg: #FFFFFF;
+$body-color: #33333A;
+$link-color: $lf-blue;
+$presentation-heading-color: $lf-navy;
+$presentation-heading-font: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+$presentation-heading-font-weight: 600;
+$presentation-font-size-root: 34px;
+$presentation-h2-font-size: 1.5em;
+
+/*-- scss:rules --*/
+
+.reveal .slide-logo {
+  display: none;
+}
+
+.reveal h2 {
+  border-bottom: 3px solid $lf-sky;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .quarto-title-block .title {
+  font-size: 1.7em;
+  color: $lf-navy;
+}
+
+.reveal .quarto-title-block .subtitle {
+  color: $lf-blue;
+}
+
+.reveal img {
+  max-height: 52vh;
+  border: 1px solid $lf-line;
+  border-radius: 10px;
+}
+
+.reveal .lf-big {
+  font-family: Georgia, serif;
+  font-size: 2.4em;
+  font-weight: 600;
+  color: $lf-navy;
+  line-height: 1;
+}
+
+.reveal .lf-muted,
+.reveal .lf-source {
+  color: $lf-muted;
+}
+
+.reveal .lf-source {
+  font-size: 0.5em;
+}
+
+.reveal .lf-card {
+  display: block;
+  background: $lf-surface;
+  border-left: 5px solid $lf-sky;
+  border-radius: 0 10px 10px 0;
+  padding: 0.5em 0.8em;
+  margin-bottom: 0.4em;
+}
+
+.reveal .lf-card--limit {
+  border-left-color: $lf-muted;
+}
+
+.reveal .lf-card--ai {
+  border-left-color: $lf-indigo;
+}
+
+.reveal table {
+  font-size: 0.75em;
+}
+
+.reveal table th {
+  color: $lf-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+// ---- Ajustes propios de la presentación LTC ----
+
+.reveal .lf-card--paper {
+  border-left-color: $lf-blue;
+}
+
+.reveal .lf-card--today {
+  border-left-color: #2E7D4F;
+}
+
+.reveal .lf-small {
+  font-size: 0.7em;
+}
+
+.reveal pre code {
+  font-size: 0.82em;
+  line-height: 1.35;
+}
+
+.reveal .lf-tight table {
+  font-size: 0.6em;
+}

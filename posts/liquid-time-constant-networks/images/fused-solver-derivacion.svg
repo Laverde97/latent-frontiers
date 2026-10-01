@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-label="Derivación paso a paso del Fused ODE Solver: de la Ec. 1 a la Ec. 3">
+  <rect width="960" height="560" fill="#FFFFFF" />
+  <rect x="130" y="20" width="700" height="76" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="480.0" y="52.0" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">1. EDO original — Ec. (1)</text>
+  <text x="480.0" y="75.8" font-size="17" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">dx/dt = −[1/τ + f]·x + f·A</text>
+  <line x1="480" y1="96" x2="480.0" y2="111.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="480.0,122.0 473.0,111.0 487.0,111.0" fill="#6B7280" />
+  <rect x="130" y="122" width="700" height="76" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="480.0" y="154.0" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">2. Discretizar el tiempo</text>
+  <text x="480.0" y="177.8" font-size="17" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">[x(t+Δt) − x(t)] / Δt ≈ dx/dt</text>
+  <line x1="480" y1="198" x2="480.0" y2="213.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="480.0,224.0 473.0,213.0 487.0,213.0" fill="#6B7280" />
+  <rect x="130" y="224" width="700" height="76" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="480.0" y="256.1" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">3. Fusionar: x lineal en t+Δt, f evaluada en t</text>
+  <text x="480.0" y="279.9" font-size="17" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t+Δt) = x(t) + Δt·( −[1/τ + f]·x(t+Δt) + f·A )</text>
+  <line x1="480" y1="300" x2="480.0" y2="315.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="480.0,326.0 473.0,315.0 487.0,315.0" fill="#6B7280" />
+  <rect x="130" y="326" width="700" height="76" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="480.0" y="358.1" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">4. Agrupar los términos con x(t+Δt)</text>
+  <text x="480.0" y="381.9" font-size="17" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t+Δt)·( 1 + Δt·[1/τ + f] ) = x(t) + Δt·f·A</text>
+  <line x1="480" y1="402" x2="480.0" y2="417.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="480.0,428.0 473.0,417.0 487.0,417.0" fill="#6B7280" />
+  <rect x="130" y="428" width="700" height="76" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="480.0" y="460.1" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">5. Despejar — Ec. (3)</text>
+  <text x="480.0" y="483.9" font-size="17" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t+Δt) = ( x(t) + Δt·f·A ) / ( 1 + Δt·(1/τ + f) )</text>
+  <text x="480" y="540" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">En todos los pasos, f = f(x(t), I(t), t, θ): la no linealidad se evalúa con el estado presente.</text>
+</svg>

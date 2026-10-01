@@ -1,0 +1,132 @@
+<!-- Temporizador de la presentación (RevealJS).
+     Duración: cambia PRESENTATION_MINUTES, unas líneas más abajo.
+     Controles: clic o tecla T = iniciar/pausar · Shift+T o doble clic = reiniciar. -->
+<style>
+  .lf-timer {
+    position: fixed;
+    top: 10px;
+    right: 12px;
+    z-index: 40;
+    margin: 0;
+    padding: 3px 9px;
+    font: 600 clamp(10px, 1.5vw, 14px)/1.4 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    color: #6B7280;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid #E2E8F0;
+    border-radius: 999px;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.75;
+  }
+
+  .lf-timer:hover,
+  .lf-timer:focus-visible,
+  .lf-timer.is-running {
+    opacity: 1;
+  }
+
+  .lf-timer.is-running { color: #12305C; border-color: #4FA3D1; }
+  .lf-timer.is-warning { color: #A16207; border-color: #A16207; }
+  .lf-timer.is-urgent { color: #B42318; border-color: #B42318; }
+  .lf-timer.is-finished { color: #fff; background: #B42318; border-color: #B42318; opacity: 1; }
+
+  @media print {
+    .lf-timer { display: none !important; }
+  }
+
+  html.print-pdf .lf-timer,
+  html.reveal-print .lf-timer {
+    display: none !important;
+  }
+</style>
+<script>
+(function () {
+  // ---- Duración de la presentación: único valor que hay que cambiar ----
+  const PRESENTATION_MINUTES = 15;
+
+  const WARNING_SECONDS = 5 * 60; // aviso sutil
+  const URGENT_SECONDS = 2 * 60;  // aviso más fuerte
+  const TOTAL_MS = PRESENTATION_MINUTES * 60 * 1000;
+
+  if (/print-pdf/i.test(window.location.search)) return;
+
+  const timer = document.createElement("button");
+  timer.type = "button";
+  timer.className = "lf-timer";
+  timer.title = "Clic o T: iniciar / pausar · Shift+T o doble clic: reiniciar";
+
+  let remainingMs = TOTAL_MS;
+  let deadline = null; // marca de tiempo en la que llega a 00:00; null si está detenido
+  let ticker = null;
+
+  function render() {
+    const seconds = Math.max(0, Math.ceil(remainingMs / 1000));
+    const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const ss = String(seconds % 60).padStart(2, "0");
+    const running = deadline !== null;
+    const finished = seconds === 0;
+    timer.textContent = (running || finished ? "" : "▶ ") + mm + ":" + ss;
+    timer.classList.toggle("is-running", running);
+    timer.classList.toggle("is-warning", !finished && seconds <= WARNING_SECONDS && seconds > URGENT_SECONDS);
+    timer.classList.toggle("is-urgent", !finished && seconds <= URGENT_SECONDS);
+    timer.classList.toggle("is-finished", finished);
+    timer.setAttribute("aria-label", "Temporizador: " + mm + ":" + ss + (running ? ", en marcha" : finished ? ", terminado" : ", detenido"));
+  }
+
+  function stop() {
+    if (deadline !== null) remainingMs = Math.max(0, deadline - performance.now());
+    deadline = null;
+    clearInterval(ticker);
+    ticker = null;
+  }
+
+  function tick() {
+    remainingMs = Math.max(0, deadline - performance.now());
+    if (remainingMs === 0) stop(); // se queda en 00:00, nunca en negativo
+    render();
+  }
+
+  function toggle() {
+    if (deadline !== null) {
+      stop();
+    } else if (remainingMs > 0) {
+      deadline = performance.now() + remainingMs;
+      ticker = setInterval(tick, 250);
+    }
+    render();
+  }
+
+  function reset() {
+    stop();
+    remainingMs = TOTAL_MS;
+    render();
+  }
+
+  timer.addEventListener("click", function () { toggle(); timer.blur(); });
+  timer.addEventListener("dblclick", function () { reset(); timer.blur(); });
+
+  // T no está asignada en RevealJS ni en los plugins de Quarto; R sí (vista de desplazamiento), por eso no se usa.
+  document.addEventListener("keydown", function (event) {
+    if (event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
+    const el = document.activeElement;
+    if (el && (el.isContentEditable || /^(input|textarea|select)$/i.test(el.tagName))) return;
+    if (event.key !== "t" && event.key !== "T") return;
+    if (event.shiftKey) reset(); else toggle();
+  });
+
+  function mount() {
+    (document.querySelector(".reveal") || document.body).appendChild(timer);
+    render();
+    if (window.Reveal && typeof Reveal.registerKeyboardShortcut === "function") {
+      Reveal.registerKeyboardShortcut("T", "Temporizador: iniciar / pausar");
+      Reveal.registerKeyboardShortcut("Shift + T", "Temporizador: reiniciar");
+    }
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount);
+  else mount();
+
+  window.lfTimer = { toggle: toggle, reset: reset, minutes: PRESENTATION_MINUTES };
+})();
+</script>
