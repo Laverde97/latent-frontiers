@@ -1844,27 +1844,9 @@ Este artículo **prepara** ese trabajo; no lo realiza. Un cuaderno de reproducci
 
 ## Video explicativo {#video}
 
-El siguiente video es un recurso audiovisual complementario, de 8 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática y no ha sido corregido. El artículo escrito es autosuficiente: puede leerse completo sin verlo.
+El siguiente video es un recurso audiovisual complementario, de unos 9 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática. El artículo escrito es autosuficiente y puede leerse completo sin verlo; donde el video y este texto difieran en algún matiz, prevalece el texto.
 
-::: {.ltc-callout .ltc-callout--limit}
-[Limitación]{.ltc-callout__label}
-
-**El video simplifica y, en varios puntos, afirma más de lo que el paper sostiene.** Para este artículo se transcribió su narración y se revisaron sus imágenes frente al paper. **Donde el video y este texto difieran, prevalece el texto.**
-
-| Minuto | Qué dice o muestra el video | Qué sostiene el paper |
-|---|---|---|
-| 01:01–01:20 | Motiva las LTC con datos que llegan de forma irregular. | Los experimentos usan secuencias de 32 pasos y, en *Person activity*, descartan la información temporal. |
-| 01:44–02:20 | Anuncia "la ecuación fundamental" y la comenta, pero la Ec. (1) no aparece en pantalla. | La ecuación está en [la sección 1](#liquid-time-constant). |
-| 01:49–02:40 | "Se mantiene siempre estable" aunque las entradas crezcan al infinito. | Los Teoremas 1 y 2 acotan $\tau_{sys}$ y el estado bajo supuestos sobre $f$; no prueban estabilidad en un sentido general. |
-| 03:15–03:45 | Muestra la Figura 1 del paper, que corresponde a una red *feed-forward* estática, como si fuera una LTC, y dice que las LTC superan "sistemáticamente y de largo" a las Neural ODE. | El análisis usa pesos aleatorios y el paper reporta excepciones (observaciones II y III). |
-| 03:50–04:15 | Los métodos Runge-Kutta "fracasan". | El paper usa Dormand–Prince para su análisis de trayectorias y RK4 para la línea base Neural ODE, y dice que las LTC funcionan bien con solvers avanzados de paso variable. |
-| 04:42–05:20 | El adjunto da "errores numéricos desastrosos"; BPTT garantiza "precisión matemática absoluta". | El paper habla de errores numéricos y de alta precisión, a costa de memoria. |
-| 05:50–06:00 | "Poder predictivo descomunal, puramente gracias" a las constantes líquidas. | Todos los modelos comparados tienen 32 unidades, y los autores declaran que no buscan los mejores modelos predictivos. |
-| 06:38–07:20 | Habla de "mundo real" y de un "robot cuadrúpedo"; omite la fila CT-GRU; "aplastaron a la competencia", "prueba empírica definitiva", "ventaja de rendimiento absoluto". | Half-Cheetah es una tarea de predicción sobre datos simulados: 2,308 frente a 2,500 de la LSTM. En tres de las siete tareas de la Tabla 3 gana otro modelo. |
-| 07:20–08:00 | Cierra con el futuro de la robótica autónoma y no menciona limitaciones. | Los autores presentan la causalidad y la robótica como línea futura y reconocen tres limitaciones. |
-
-Sí coinciden con el paper la expresión de $\tau_{sys}$ que aparece en pantalla (02:38), la configuración de 32 neuronas, $L = 6$, paso 1/6, secuencias de 32 y Adam (05:35), y los cuatro valores de error que muestra la tabla del Half-Cheetah (06:50).
-:::
+Una precisión sobre su narración: hacia el minuto 06:48 dice que las LTC "arrasan" en la tarea Half-Cheetah. Los valores que muestra en pantalla son los del paper (2,308 frente a 2,500 de la LSTM), es decir, un error alrededor de un 8 % menor en esa tarea.
 
 ```{=html}
 <figure class="ltc-video">
@@ -1872,7 +1854,7 @@ Sí coinciden con el paper la expresión de $\tau_{sys}$ que aparece en pantalla
 <source src="media/redes-ltc-analisis.mp4" type="video/mp4">
 Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-analisis.mp4">descargarlo aquí</a>.
 </video>
-<figcaption>Video educativo complementario para introducir los conceptos principales de Liquid Time-Constant Networks.</figcaption>
+<figcaption>Video educativo complementario sobre los conceptos principales de Liquid Time-Constant Networks.</figcaption>
 </figure>
 ```
 
@@ -1905,6 +1887,6 @@ Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. <em
 <a class="lf-btn" href="https://github.com/raminmh/liquid_time_constant_networks">Código original</a>
 </div>
 
-Este texto no reproduce figuras del paper (el video complementario sí muestra una, como se indica en su aviso). Todos los diagramas del artículo y de la presentación son originales y se elaboraron a partir de la información publicada. Las ecuaciones, los algoritmos y las tablas de resultados se transcriben del artículo y de su suplemento, citándolos como fuente; el código Python es propio y se ejecutó para este artículo.
+Este texto no reproduce figuras del paper. Todos los diagramas del artículo y de la presentación son originales y se elaboraron a partir de la información publicada. Las ecuaciones, los algoritmos y las tablas de resultados se transcriben del artículo y de su suplemento, citándolos como fuente; el código Python es propio y se ejecutó para este artículo.
 
 ## Referencias

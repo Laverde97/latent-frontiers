@@ -12,7 +12,7 @@ Este archivo empieza por `_`, así que Quarto no lo renderiza ni lo lista.
 - **`references.bib`** — metadatos tomados de Crossref (DOI), arXiv, PMLR y la documentación oficial de cada librería.
 - **`images/*.svg`** — diagramas originales generados por script y validados como XML.
 - **`analysis/`** — el código Python que se muestra en el artículo.
-- **`media/redes-ltc-analisis.mp4`** — video complementario (43.676.198 bytes, 1280×720, 8 min 03 s).
+- **`media/redes-ltc-analisis.mp4`** — video complementario (42.371.015 bytes, 1280×720, 8 min 46 s). Es la segunda versión; sustituye a la original en la misma ruta.
 
 `writings.qmd` excluye `slides.qmd` del listado.
 
@@ -60,7 +60,7 @@ La salida va a `_site/posts/liquid-time-constant-networks/` (`index.html`, `slid
 - Fuente primaria: **arXiv:2006.04439v4** (14 dic. 2020, 25 páginas con suplemento S1–S9). Se cotejó con el PDF de las actas de AAAI-21 (10 páginas, sin suplemento): ecuaciones (1)–(9), Algorithm 1–2, enunciados de los teoremas y valores de las Tablas 1–6 coinciden; el protocolo experimental, las demostraciones y los hiperparámetros solo están en arXiv. El artículo lo explica en la sección «Versiones del paper».
 - Las tasas de aprendizaje por modelo (0,01–0,02 para LTC; 0,001 para los demás) proceden del **README del repositorio**, no del paper. El artículo las mantiene en una columna aparte.
 - Las «Notas de lectura» describen qué escribe la versión consultada y qué lectura se adopta; no corrigen la notación original.
-- **Video:** se transcribió la narración y se revisaron fotogramas. Resultado: necesita revisión (afirmaciones más fuertes que las del paper y una figura del paper mal atribuida). El video no se editó; el artículo incluye un aviso con los minutos concretos.
+- **Video:** la primera versión se auditó (narración transcrita y fotogramas) y necesitaba revisión. Se sustituyó por una versión corregida, revisada del mismo modo: los problemas graves están resueltos. Queda un exceso verbal en 06:48 ("arrasan"), que el artículo señala en una frase, y detalles menores sin nota (p. ej., la Ec. (3) se describe pero no se muestra).
 - Tiempo de lectura: ~17.400 palabras, 22 ecuaciones en bloque y ~160 líneas de código y pseudocódigo; a 200 palabras por minuto más el tiempo de ecuaciones y código, unos 110 minutos.
 
 ## Validación aplicada
