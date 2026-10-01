@@ -127,9 +127,11 @@ Coste: $O(L \times T)$
 
 [`FusedStep` + bucle `i = 1 … L`]{.lf-card .lf-card--paper}
 
-[TensorFlow 1.14 · $L = 6$]{.lf-card .lf-card--paper}
+[Experimentos: TensorFlow 1.14 · $L = 6$]{.lf-card .lf-card--paper}
 
 [Misma matemática, software actual]{.lf-card .lf-card--today}
+
+[Sigue la Ec. (3): **no** es la parametrización del repositorio oficial ni de `ncps`]{.lf-card .lf-card--limit .lf-small}
 :::
 ::: {.column width="58%"}
 **PyTorch 2.x**
@@ -178,7 +180,7 @@ def forward(self, input_t, x):
 ::: {.column width="58%"}
 ![](images/trayectoria-latente.svg){fig-alt="Entrada circular, red continua, PCA y trayectoria latente"}
 
-[Teorema 3: las LTC son aproximadores universales]{.lf-card}
+[Teorema 3: **existe** una LTC que aproxima la trayectoria; no compara arquitecturas]{.lf-card}
 :::
 ::: {.column width="42%"}
 **Profundidad computacional**
@@ -231,13 +233,13 @@ def forward(self, input_t, x):
 | Half-Cheetah | MSE ↓ | 2,500 | 2,838 | 3,805 | 3,014 | **2,308** |
 :::
 
-[Medias de n = 5 (Tablas 3 y 6). LTC gana en 4 de 7 series de tiempo y **no** en las otras 3.]{.lf-muted}
+[Medias de n = 5 (Tablas 3 y 6), bajo esta configuración. LTC obtiene el mejor valor en 4 de 7 series de tiempo y **no** en las otras 3.]{.lf-muted}
 
 ## Reproducción actual
 
 ![](images/reproduccion-pipeline.svg){fig-alt="Pipeline de reproducción en doce etapas" fig-align="center"}
 
-[**A** misma matemática · **B** ingeniería · **C** experimento modificado (otro solver) · **D** modelo posterior (CfC)]{.lf-muted}
+[**A** misma matemática · **B** ingeniería · **C** experimento modificado (otro solver) · **D** modelo posterior (CfC, 2022: no es el Algorithm 1 actualizado)]{.lf-small .lf-muted}
 
 ## Limitaciones y conclusiones
 
@@ -247,7 +249,7 @@ def forward(self, input_t, x):
 
 [Gradiente que se desvanece: no es la opción obvia para **largo plazo**]{.lf-card .lf-card--limit}
 
-[Fuerte dependencia del **solver**]{.lf-card .lf-card--limit}
+[Rendimiento muy ligado al **solver**]{.lf-card .lf-card--limit}
 
 [Mayor coste de **tiempo y memoria**]{.lf-card .lf-card--limit}
 :::
@@ -256,6 +258,7 @@ def forward(self, input_t, x):
 
 - La misma $f$ fija el destino **y** la rapidez
 - El solver fusionado da un paso estable en forma cerrada
+- Mejor valor en 7 de 10 resultados, **no** en todos
 - Reproducir ≠ modernizar ≠ extender
 :::
 ::::

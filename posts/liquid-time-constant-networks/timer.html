@@ -36,8 +36,21 @@
   }
 
   html.print-pdf .lf-timer,
-  html.reveal-print .lf-timer {
+  html.reveal-print .lf-timer,
+  html.print-pdf .lf-timer-hint,
+  html.reveal-print .lf-timer-hint {
     display: none !important;
+  }
+
+  /* Recordatorio de los controles, solo en la portada */
+  .reveal .lf-timer-hint {
+    margin-top: 2.2em;
+    font-size: 0.42em;
+    color: #6B7280;
+  }
+
+  @media print {
+    .lf-timer-hint { display: none !important; }
   }
 </style>
 <script>
@@ -118,6 +131,13 @@
   function mount() {
     (document.querySelector(".reveal") || document.body).appendChild(timer);
     render();
+    const cover = document.getElementById("title-slide");
+    if (cover) {
+      const hint = document.createElement("p");
+      hint.className = "lf-timer-hint";
+      hint.textContent = "Temporizador (arriba a la derecha): T o clic = iniciar / pausar · Shift+T o doble clic = reiniciar";
+      cover.appendChild(hint);
+    }
     if (window.Reveal && typeof Reveal.registerKeyboardShortcut === "function") {
       Reveal.registerKeyboardShortcut("T", "Temporizador: iniciar / pausar");
       Reveal.registerKeyboardShortcut("Shift + T", "Temporizador: reiniciar");

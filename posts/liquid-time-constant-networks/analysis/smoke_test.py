@@ -119,5 +119,7 @@ if __name__ == "__main__":
     test_bounds_with_sigmoid()
     demo_explicit_vs_fused()
     demo_training_loop()
-    n_params = sum(p.numel() for p in LTCNetwork(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE).cell.parameters())
-    print(f"parámetros de la celda (M={INPUT_SIZE}, N={HIDDEN_SIZE}): {n_params}")
+    cell = LTCNetwork(INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE).cell
+    counts = {name: p.numel() for name, p in cell.named_parameters()}
+    detail = ", ".join(f"{name} {n}" for name, n in counts.items())
+    print(f"parámetros de la celda (M={INPUT_SIZE}, N={HIDDEN_SIZE}): {sum(counts.values())}  [{detail}]")

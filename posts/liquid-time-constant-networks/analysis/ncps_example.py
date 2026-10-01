@@ -17,5 +17,9 @@ print("salidas:", tuple(outputs.shape))          # (16, 32, 32)
 print("estado final:", tuple(last_state.shape))  # (16, 32)
 
 outputs.sum().backward()
-print("parámetros entrenables:", sum(p.numel() for p in rnn.parameters() if p.requires_grad))
-print("nombres:", sorted({name.split(".")[-1] for name, _ in rnn.named_parameters()}))
+
+# Recuento de parámetros entrenables, por tensor (para compararlo con la implementación manual)
+counts = {name.split(".")[-1]: p.numel() for name, p in rnn.named_parameters() if p.requires_grad}
+for name, n in counts.items():
+    print(f"  {name:14s} {n:5d}")
+print("parámetros entrenables:", sum(counts.values()))

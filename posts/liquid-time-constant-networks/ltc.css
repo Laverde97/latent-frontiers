@@ -274,7 +274,7 @@ main.content .lf-btn {
   border-top-color: var(--ltc-impl);
 }
 
-.ltc-compare__col h4 {
+main.content .ltc-compare__col h4 {
   margin-top: 0;
 }
 
