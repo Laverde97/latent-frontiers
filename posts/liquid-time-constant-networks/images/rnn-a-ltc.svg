@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-label="De la RNN discreta a la LTC: cuatro formas de actualizar el estado oculto">
+  <rect width="960" height="300" fill="#FFFFFF" />
+  <rect x="20" y="40" width="215" height="220" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="127.5" y="102.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">RNN discreta</text>
+  <text x="127.5" y="123.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="127.5" y="144.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x[t+1] = f(x[t], I[t])</text>
+  <text x="127.5" y="165.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="127.5" y="186.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Salta de un paso</text>
+  <text x="127.5" y="207.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">al siguiente</text>
+  <line x1="235" y1="150" x2="244.0" y2="150.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="255.0,150.0 244.0,157.0 244.0,143.0" fill="#6B7280" />
+  <rect x="255" y="40" width="215" height="220" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="362.5" y="102.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Neural ODE</text>
+  <text x="362.5" y="123.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="362.5" y="144.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">dx/dt = f(x, I, t, θ)</text>
+  <text x="362.5" y="165.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="362.5" y="186.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">La red define</text>
+  <text x="362.5" y="207.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">la derivada</text>
+  <line x1="470" y1="150" x2="479.0" y2="150.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="490.0,150.0 479.0,157.0 479.0,143.0" fill="#6B7280" />
+  <rect x="490" y="40" width="215" height="220" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="597.5" y="102.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">CT-RNN</text>
+  <text x="597.5" y="123.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="597.5" y="144.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">dx/dt = −x/τ + f(·)</text>
+  <text x="597.5" y="165.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="597.5" y="186.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Fuga con</text>
+  <text x="597.5" y="207.8" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">τ fija</text>
+  <line x1="705" y1="150" x2="714.0" y2="150.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="725.0,150.0 714.0,157.0 714.0,143.0" fill="#6B7280" />
+  <rect x="725" y="40" width="215" height="220" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="832.5" y="92.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">LTC</text>
+  <text x="832.5" y="113.2" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="832.5" y="134.2" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">dx/dt = −[1/τ + f(·)]·x</text>
+  <text x="832.5" y="155.2" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">+ f(·)·A</text>
+  <text x="832.5" y="176.2" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif"></text>
+  <text x="832.5" y="197.2" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">f también modula</text>
+  <text x="832.5" y="218.2" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">la constante de tiempo</text>
+</svg>

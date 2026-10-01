@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 290" role="img" aria-label="Pipeline para reproducir hoy los experimentos del paper LTC">
+  <rect width="960" height="290" fill="#FFFFFF" />
+  <rect x="25" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="95.0" y="64.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Paper y</text>
+  <text x="95.0" y="85.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">apéndice</text>
+  <line x1="165" y1="70" x2="168.0" y2="70.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="179.0,70.0 168.0,77.0 168.0,63.0" fill="#6B7280" />
+  <rect x="179" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="249.0" y="75.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Datasets</text>
+  <line x1="319" y1="70" x2="322.0" y2="70.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="333.0,70.0 322.0,77.0 322.0,63.0" fill="#6B7280" />
+  <rect x="333" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="403.0" y="64.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Preproce-</text>
+  <text x="403.0" y="85.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">samiento</text>
+  <line x1="473" y1="70" x2="476.0" y2="70.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="487.0,70.0 476.0,77.0 476.0,63.0" fill="#6B7280" />
+  <rect x="487" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="557.0" y="64.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Modelos</text>
+  <text x="557.0" y="85.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">baseline</text>
+  <line x1="627" y1="70" x2="630.0" y2="70.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="641.0,70.0 630.0,77.0 630.0,63.0" fill="#6B7280" />
+  <rect x="641" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="711.0" y="75.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Celda LTC</text>
+  <line x1="781" y1="70" x2="784.0" y2="70.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="795.0,70.0 784.0,77.0 784.0,63.0" fill="#6B7280" />
+  <rect x="795" y="30" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="865.0" y="64.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Fused ODE</text>
+  <text x="865.0" y="85.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Solver</text>
+  <rect x="25" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="95.0" y="194.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Desenrollado</text>
+  <text x="95.0" y="215.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">en T pasos</text>
+  <line x1="165" y1="200" x2="168.0" y2="200.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="179.0,200.0 168.0,207.0 168.0,193.0" fill="#6B7280" />
+  <rect x="179" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="249.0" y="205.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Pérdida</text>
+  <line x1="319" y1="200" x2="322.0" y2="200.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="333.0,200.0 322.0,207.0 322.0,193.0" fill="#6B7280" />
+  <rect x="333" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="403.0" y="205.2" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">BPTT</text>
+  <line x1="473" y1="200" x2="476.0" y2="200.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="487.0,200.0 476.0,207.0 476.0,193.0" fill="#6B7280" />
+  <rect x="487" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="557.0" y="194.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Optimizador</text>
+  <text x="557.0" y="215.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Adam</text>
+  <line x1="627" y1="200" x2="630.0" y2="200.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="641.0,200.0 630.0,207.0 630.0,193.0" fill="#6B7280" />
+  <rect x="641" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="711.0" y="194.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Evaluación</text>
+  <text x="711.0" y="215.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">n = 5</text>
+  <line x1="781" y1="200" x2="784.0" y2="200.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="795.0,200.0 784.0,207.0 784.0,193.0" fill="#6B7280" />
+  <rect x="795" y="160" width="140" height="80" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="865.0" y="194.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Comparar con</text>
+  <text x="865.0" y="215.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">lo reportado</text>
+  <path d="M865.0,110.0 L865.0,135.0 L95.0,135.0 L95.0,149.0" fill="none" stroke="#6B7280" stroke-width="3" stroke-linejoin="round" />
+  <polygon points="95,160 88,148 102,148" fill="#6B7280" />
+  <text x="480" y="270" font-size="14" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">En azul, las dos piezas que definen el método original. Cambiarlas convierte la reproducción en un experimento modificado.</text>
+</svg>

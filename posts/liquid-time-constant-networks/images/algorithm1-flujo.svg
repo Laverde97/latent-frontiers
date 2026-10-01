@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 260" role="img" aria-label="Flujo del Algorithm 1: evaluar f, aplicar FusedStep y repetir L veces">
+  <rect width="960" height="260" fill="#FFFFFF" />
+  <rect x="20" y="90" width="150" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="95.0" y="129.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Entradas</text>
+  <text x="95.0" y="151.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">I(t), x(t)</text>
+  <rect x="215" y="90" width="180" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="305.0" y="129.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Evaluar la red</text>
+  <text x="305.0" y="151.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">f(x, I, t, θ)</text>
+  <rect x="440" y="90" width="170" height="90" rx="10" fill="#F7F9FC" stroke="#4FA3D1" stroke-width="3" />
+  <text x="525.0" y="129.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">FusedStep</text>
+  <text x="525.0" y="151.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Ec. (3)</text>
+  <rect x="655" y="90" width="140" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="725.0" y="129.4" font-size="16" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Actualizar</text>
+  <text x="725.0" y="151.8" font-size="16" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x ← x nuevo</text>
+  <rect x="840" y="90" width="105" height="90" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="2" />
+  <text x="892.5" y="129.8" font-size="15" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Salida</text>
+  <text x="892.5" y="150.8" font-size="15" fill="#1A1A1A" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">x(t+Δt)</text>
+  <line x1="170" y1="135" x2="204.0" y2="135.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="215.0,135.0 204.0,142.0 204.0,128.0" fill="#6B7280" />
+  <line x1="395" y1="135" x2="429.0" y2="135.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="440.0,135.0 429.0,142.0 429.0,128.0" fill="#6B7280" />
+  <line x1="610" y1="135" x2="644.0" y2="135.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="655.0,135.0 644.0,142.0 644.0,128.0" fill="#6B7280" />
+  <line x1="795" y1="135" x2="829.0" y2="135.0" stroke="#6B7280" stroke-width="3" />
+  <polygon points="840.0,135.0 829.0,142.0 829.0,128.0" fill="#6B7280" />
+  <path d="M725.0,90.0 L725.0,40.0 L305.0,40.0 L305.0,79.0" fill="none" stroke="#1D4E89" stroke-width="3" stroke-linejoin="round" stroke-dasharray="7 6" />
+  <polygon points="305,90 298,78 312,78" fill="#1D4E89" />
+  <text x="515" y="30" font-size="15" fill="#1D4E89" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">repetir L veces (pasos de desenrollado del solver)</text>
+  <text x="480" y="225" font-size="15" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">Un paso de entrada = L pasos del solver con Δt fijo. En los experimentos del paper, L = 6.</text>
+</svg>

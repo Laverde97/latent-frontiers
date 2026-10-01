@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-label="Intervalos acotados por los Teoremas 1 y 2: constante de tiempo y estado neuronal">
+  <rect width="960" height="330" fill="#FFFFFF" />
+  <text x="40" y="40" font-size="18" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="start" font-family="Georgia, serif">Teorema 1 — constante de tiempo efectiva de la neurona i</text>
+  <line x1="60" y1="100" x2="900" y2="100" stroke="#E2E8F0" stroke-width="4" />
+  <line x1="330" y1="100" x2="760" y2="100" stroke="#1D4E89" stroke-width="10" stroke-linecap="round" />
+  <circle cx="330" cy="100" r="9" fill="#FFFFFF" stroke="#1D4E89" stroke-width="4" />
+  <text x="330" y="78" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">τᵢ / (1 + τᵢ·Wᵢ)</text>
+  <text x="330" y="132" font-size="14" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">f en su máximo: reacción más rápida</text>
+  <circle cx="760" cy="100" r="9" fill="#FFFFFF" stroke="#1D4E89" stroke-width="4" />
+  <text x="760" y="78" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">τᵢ</text>
+  <text x="760" y="132" font-size="14" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">f → 0: reacción más lenta</text>
+  <text x="60" y="132" font-size="14" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">0</text>
+  <line x1="60" y1="90" x2="60" y2="110" stroke="#6B7280" stroke-width="2" />
+  <text x="545" y="160" font-size="15" fill="#1D4E89" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">τ_sys de la neurona i vive aquí</text>
+  <text x="40" y="215" font-size="18" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="start" font-family="Georgia, serif">Teorema 2 — estado de la neurona i en un intervalo finito [0, T]</text>
+  <line x1="60" y1="270" x2="900" y2="270" stroke="#E2E8F0" stroke-width="4" />
+  <line x1="200" y1="270" x2="780" y2="270" stroke="#4C4A7D" stroke-width="10" stroke-linecap="round" />
+  <circle cx="200" cy="270" r="9" fill="#FFFFFF" stroke="#4C4A7D" stroke-width="4" />
+  <text x="200" y="248" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">min(0, Aᵢ mín)</text>
+  <circle cx="780" cy="270" r="9" fill="#FFFFFF" stroke="#4C4A7D" stroke-width="4" />
+  <text x="780" y="248" font-size="17" fill="#1A1A1A" font-weight="bold" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">max(0, Aᵢ máx)</text>
+  <line x1="460" y1="260" x2="460" y2="280" stroke="#6B7280" stroke-width="2" />
+  <text x="460" y="248" font-size="14" fill="#6B7280" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">0</text>
+  <text x="490" y="305" font-size="15" fill="#4C4A7D" font-weight="normal" font-style="normal" text-anchor="middle" font-family="Helvetica, Arial, sans-serif">xᵢ(t) permanece aquí aunque la entrada crezca sin límite</text>
+</svg>

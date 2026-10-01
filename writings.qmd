@@ -7,6 +7,7 @@ listing:
     - posts
     - "!posts/metilacion-hpv16-p16-opmd/slides.qmd"
     - "!posts/metilacion-hpv16-p16-opmd/analysis/*.ipynb"
+    - "!posts/liquid-time-constant-networks/slides.qmd"
   type: table
   sort: "date desc"
   sort-ui: false
