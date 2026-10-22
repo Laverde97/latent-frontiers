@@ -356,7 +356,8 @@ Recorre el flujo de análisis de una matriz de metilación tipo RRBS con 12 mues
 - interpretación y contraste con los resultados publicados.
 
 <div class="opmd-actions opmd-actions--left">
-<a class="lf-btn" href="analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb" download>Descargar .ipynb</a>
+<a class="lf-btn" href="analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb">Ver en HTML</a>
+<a class="lf-btn" href="analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb?download=1" download="01_RRBS_Metilacion_OPMD_HPV16.ipynb">Descargar .ipynb</a>
 <a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb">Ver en GitHub</a>
 <a class="opmd-colab" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/01_RRBS_Metilacion_OPMD_HPV16.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Abrir el Notebook 1 en Google Colab"></a>
 </div>
@@ -378,7 +379,8 @@ Construye un pipeline de Machine Learning interpretable y sin fuga de informaci�
 - estabilidad de los biomarcadores candidatos entre remuestreos.
 
 <div class="opmd-actions opmd-actions--left">
-<a class="lf-btn" href="analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb" download>Descargar .ipynb</a>
+<a class="lf-btn" href="analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb">Ver en HTML</a>
+<a class="lf-btn" href="analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb?download=1" download="02_ML_Interpretable_Metilacion_OPMD.ipynb">Descargar .ipynb</a>
 <a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb">Ver en GitHub</a>
 <a class="opmd-colab" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/metilacion-hpv16-p16-opmd/analysis/02_ML_Interpretable_Metilacion_OPMD.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Abrir el Notebook 2 en Google Colab"></a>
 </div>
