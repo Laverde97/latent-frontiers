@@ -338,8 +338,61 @@ main.content table caption {
 
 /* ---------- Video y diapositivas ---------- */
 
+/* El video va justo después del título: sin hueco grande entre ambos */
+.ltc-hero--title {
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- Desplegables (<details>) ---------- */
+
+.ltc-details {
+  margin: 1rem 0 1.4rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+  padding: 0 1.1rem;
+}
+
+.ltc-details > summary {
+  cursor: pointer;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ltc-blue);
+}
+
+.ltc-details > summary:focus-visible {
+  outline: 2px solid var(--ltc-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ltc-details[open] {
+  padding-bottom: 0.6rem;
+}
+
+.ltc-details[open] > summary {
+  border-bottom: 1px solid var(--ltc-line);
+  margin-bottom: 0.8rem;
+}
+
+main.content h2.ltc-video-heading {
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+}
+
+.ltc-hero--meta {
+  margin-top: 2rem;
+}
+
+.ltc-video-note p {
+  font-size: 0.9rem;
+  color: var(--ltc-muted);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+
 .ltc-video {
-  margin: 1.2rem 0 0.4rem;
+  margin: 1.2rem 0 0.8rem;
 }
 
 .ltc-video video {
