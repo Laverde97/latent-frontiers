@@ -20,6 +20,7 @@ resources:
   - analysis/ltc_manual.py
   - analysis/smoke_test.py
   - analysis/ncps_example.py
+  - analysis/ltc_intro.ipynb
 format:
   html:
     css: ltc.css
@@ -89,8 +90,8 @@ El artículo se puede leer de corrido, pero no hace falta. Está organizado en t
 
 ::: {.ltc-route}
 1. **Comprender** — qué es una LTC y por qué se propuso, sin requisitos previos más allá de saber qué es una red neuronal. [¿Qué son las redes líquidas?](#que-son) → [Conceptos previos](#conceptos-previos) → [De una RNN a una LTC](#rnn-a-ltc).
-2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Laboratorio](#laboratorio) → [Fused ODE Solver](#fused-solver) → [Algorithm 1 hoy](#algorithm-1-hoy) → [BPTT](#bptt).
-3. **Profundizar** — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
+2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Laboratorio](#laboratorio) → [Fused ODE Solver](#solver-intro) → [Código paso a paso](#codigo-progresivo) → [BPTT](#bptt).
+3. **Profundizar** — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) y [gráficas](#resultados-graficas) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
 :::
 
 ## ¿Qué son las redes neuronales líquidas? {#que-son}
@@ -790,6 +791,75 @@ Por eso los autores añaden una segunda medida. Si se alimenta una red con una t
 
 Esta sección responde a una pregunta práctica: dada la Ec. (1), ¿cómo se calcula realmente el estado?
 
+### El solver en seis pasos {#solver-intro}
+
+Antes de la derivación rigurosa, el recorrido completo en versión corta. Cada paso tiene su desarrollo más abajo.
+
+**1. El problema.** La Ec. (1) da la velocidad de cambio del estado, no el estado. Para saber cuánto vale $x$ dentro de un rato hay que acumular esa velocidad en el tiempo, y con una $f$ no lineal no hay fórmula cerrada: hace falta un **solver numérico**.
+
+**2. La idea.** El solver **discretiza** el tiempo: avanza en pasos de duración $\Delta t$ y en cada uno sustituye la curva por una actualización sencilla. Euler **explícito** usa la velocidad del instante presente; es barato, pero diverge si $\Delta t$ es grande frente a la constante de tiempo. Euler **implícito** usa la velocidad del instante futuro; es estable, pero obliga a resolver una ecuación en cada paso. El paper **fusiona** ambos: trata de forma implícita solo la parte lineal en $x$ y deja $f$ en el presente, de modo que la incógnita se despeja con una división ([detalle](#fused-derivacion)).
+
+**3. La fórmula.** Para una neurona, con $f$ evaluada al comienzo del paso:
+
+$$
+x(t+\Delta t)=
+\frac{x(t)+\Delta t\,fA}
+{1+\Delta t\left(\frac{1}{\tau}+f\right)}
+$$
+
+- **Numerador:** el estado actual $x(t)$ más el empuje hacia $A$ que $f$ ejerce durante el paso, $\Delta t\,fA$.
+- **Denominador:** $1$ más la fuga ($\Delta t/\tau$) y la modulación de $f$ ($\Delta t\,f$) durante el paso. Es la parte implícita. Con $f \geq 0$ vale al menos 1, así que nunca divide por cero y el nuevo estado es un promedio ponderado del estado anterior, de $A$ y de $0$.
+
+::: {.ltc-example}
+[Ejemplo numérico · un paso del solver]{.ltc-example__label}
+
+Valores hipotéticos: $x(t) = 0$, $\tau = 2$, $f = 0{,}5$, $A = 1$ y $\Delta t = 1$. Se trata de una actualización escalar ilustrativa, con $f$ congelada durante el paso.
+
+Numerador:
+
+$$
+\begin{aligned}
+&x(t) + \Delta t\,fA \\
+&\quad = 0 + 1 \cdot 0{,}5 \cdot 1 = 0{,}5.
+\end{aligned}
+$$
+
+Denominador:
+
+$$
+\begin{aligned}
+&1 + \Delta t\left(\frac{1}{\tau}+f\right) \\
+&\quad = 1 + 1 \cdot (0{,}5 + 0{,}5) = 2.
+\end{aligned}
+$$
+
+Resultado:
+
+$$
+x(t+\Delta t) = \frac{0{,}5}{2} = 0{,}25.
+$$
+
+Un segundo paso parte de $0{,}25$: $(0{,}25 + 0{,}5)/2 = 0{,}375$. La solución exacta con $f$ fija vale $0{,}316$ en $t = 1$ (ver el [ejemplo de la Ec. (1)](#ec1-por-capas)): el paso fusionado es **estable**, no exacto, y su error disminuye al reducir $\Delta t$. El [Simulador 2](#lab-estado) dibuja estos mismos puntos.
+:::
+
+**4. El flujo de un paso.**
+
+```text
+entrada I(t) y estado x(t)  →  red no lineal f(x, I)  →  numerador y denominador de la Ec. (3)
+                            →  nuevo estado x(t + Δt)  →  siguiente paso del solver
+```
+
+**5. El número de pasos $L$.** Por cada observación de la secuencia, el Algorithm 1 repite ese paso $L$ veces con la entrada fija, reevaluando $f$ en cada repetición con el estado actualizado. En los experimentos del paper, $L = 6$ y $\Delta t$ es 1/6 del periodo de muestreo. Más pasos integran con más precisión, pero el coste crece con $L \times T$.
+
+**6. La implementación.** El pseudocódigo está en el [Algorithm 1](#algorithm-1) y el código paso a paso en [¿Cómo desarrollaríamos Algorithm 1 hoy?](#algorithm-1-hoy).
+
+<details class="ltc-details ltc-question">
+<summary>Pregunta 3 · ¿Por qué una LTC necesita un solver numérico?</summary>
+
+Porque la Ec. (1) define la **derivada** del estado, no el estado. Como $f$ es una red no lineal que depende del propio estado, la ecuación no tiene una solución cerrada general: el estado se obtiene avanzando en pasos de tiempo, y eso es lo que hace un solver. El Fused ODE Solver es la elección del paper: tan barato como Euler explícito y estable, como Euler implícito, en la parte lineal.
+
+</details>
+
 ### ¿Por qué necesitamos un ODE solver?
 
 En una RNN discreta, la ecuación del modelo **es** la regla de actualización: se evalúa y se asigna. La Ec. (1), en cambio, no dice cuánto vale $\mathbf{x}(t + \Delta t)$; dice cuánto vale su derivada.
@@ -858,7 +928,7 @@ El paso implícito es **estable**, no exacto: decae como debe, pero más despaci
 
 El problema del Euler implícito es su coste: si $g$ es una red neuronal, despejar $x_{i+1}$ exige un método iterativo en cada paso. Aquí entra la idea de los autores.
 
-### Derivación de la actualización del Fused ODE Solver
+### Derivación de la actualización del Fused ODE Solver {#fused-derivacion}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1057,7 +1127,108 @@ Son observaciones de lectura, no modificaciones del algoritmo.
 :::
 ::::
 
-### Implementación manual y transparente
+### Del cálculo a mano al código: cinco niveles {#codigo-progresivo}
+
+El código completo de la celda puede intimidar al principio. Estos niveles llevan del ejemplo numérico a la implementación en PyTorch; todos los fragmentos se ejecutaron para este artículo y su salida es real.
+
+#### Nivel 1 · Una neurona en Python puro
+
+La Ec. (3) para un solo número, sin librerías. Reproduce el ejemplo del [solver en seis pasos](#solver-intro).
+
+```python
+def tau_sys(tau, f):
+    """Constante de tiempo efectiva: τ_sys = τ / (1 + τ f)."""
+    return tau / (1 + tau * f)
+
+
+def fused_step(x, f, tau, A, dt):
+    """Un paso de la Ec. (3) para una neurona, con f fija durante el paso."""
+    numerator = x + dt * f * A                # estado actual + empuje hacia A
+    denominator = 1 + dt * (1 / tau + f)      # parte implícita: fuga + modulación de f
+    return numerator / denominator
+
+
+tau, f, A, dt = 2.0, 0.5, 1.0, 1.0           # valores hipotéticos del ejemplo
+print("tau_sys =", tau_sys(tau, f))
+
+x = 0.0                                      # x(0)
+for step in range(1, 4):
+    x = fused_step(x, f, tau, A, dt)
+    print(f"paso {step}: x = {x:.4f}")
+```
+
+Salida:
+
+```text
+tau_sys = 1.0
+paso 1: x = 0.2500
+paso 2: x = 0.3750
+paso 3: x = 0.4375
+```
+
+#### Nivel 2 · Las piezas de PyTorch
+
+Para pasar de una neurona a una red se necesitan cinco ideas de PyTorch:
+
+- **`torch.Tensor`**: un arreglo de números con forma (*shape*) y, si hace falta, historial para derivar. Una secuencia de entrada tiene forma `(batch_size, sequence_length, input_size)`: cuántas secuencias se procesan a la vez, cuántos instantes tiene cada una y cuántos valores se observan en cada instante.
+- **Estado oculto**: un tensor de forma `(batch_size, hidden_size)`, una fila de $N$ neuronas por secuencia del lote.
+- **Parámetros entrenables** (`nn.Parameter`): tensores que el optimizador modifica, como $\gamma$, $\tau$ o $A$.
+- **`nn.Module` y `forward()`**: una clase que agrupa parámetros y define el cálculo hacia adelante; llamar a `modelo(x)` ejecuta `forward`.
+- **Diferenciación automática** (`autograd`): PyTorch registra las operaciones y `loss.backward()` calcula los gradientes de todos los parámetros.
+
+```python
+import torch
+from torch import nn
+
+torch.manual_seed(0)
+
+batch_size, sequence_length, input_size, hidden_size = 4, 10, 3, 8
+sequence = torch.randn(batch_size, sequence_length, input_size)
+print("entrada:", tuple(sequence.shape))     # (batch_size, sequence_length, input_size)
+
+input_t = sequence[:, 0, :]                  # observación en el primer instante
+print("I(t):", tuple(input_t.shape))         # (batch_size, input_size)
+
+x = torch.zeros(batch_size, hidden_size)     # estado oculto x(0): una fila por secuencia
+print("x(t):", tuple(x.shape))               # (batch_size, hidden_size)
+
+gamma = nn.Parameter(torch.randn(input_size, hidden_size) * 0.1)  # parámetro entrenable
+f = torch.tanh(input_t @ gamma)              # (batch_size, hidden_size)
+loss = f.pow(2).mean()
+loss.backward()                              # autograd calcula d(loss)/d(gamma)
+print("gradiente de gamma:", tuple(gamma.grad.shape), "| requires_grad:", gamma.requires_grad)
+```
+
+Salida:
+
+```text
+entrada: (4, 10, 3)
+I(t): (4, 3)
+x(t): (4, 8)
+gradiente de gamma: (3, 8) | requires_grad: True
+```
+
+#### Nivel 3 · La celda LTC
+
+La [implementación manual](#implementacion-manual) de más abajo junta las piezas: `fused_step()` es el Nivel 1 aplicado a todas las neuronas y a todo el lote a la vez, `f()` es la red no lineal con $\gamma$, $\gamma_r$ y $\mu$, y `forward()` repite el paso $L$ veces. Se muestra sin cambios, porque es una copia literal de [`analysis/ltc_manual.py`](analysis/ltc_manual.py); la tabla [De la matemática al código](#matematica-codigo) relaciona cada línea con un símbolo del paper.
+
+#### Nivel 4 · Secuencias
+
+`LTCNetwork.forward()` recorre la secuencia instante a instante. En cada uno toma la observación `sequence[:, t, :]`, llama a la celda para obtener el nuevo estado y lo **conserva** para el instante siguiente: así la red recuerda. Después de cada observación, una capa lineal convierte el estado en una predicción, y al final se apilan todas en un tensor `(batch_size, sequence_length, output_size)`.
+
+#### Nivel 5 · Entrenamiento
+
+El bucle de la [Sección 3](#algorithm-2) calcula la pérdida sobre toda la secuencia, llama a `loss.backward()` —que es BPTT— y actualiza con Adam. El cuaderno de este artículo lo ejecuta completo sobre datos sintéticos, con gráficas de la pérdida, de las predicciones y de $\tau_{sys}$ a lo largo del tiempo.
+
+::: {.ltc-callout .ltc-callout--impl}
+[Implementación actual]{.ltc-callout__label}
+
+**Cuaderno `analysis/ltc_intro.ipynb`** · [descargar .ipynb](analysis/ltc_intro.ipynb){download=""} · [ver en GitHub](https://github.com/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/ltc_intro.ipynb) · [abrir en Google Colab](https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/ltc_intro.ipynb). Funciona en CPU en menos de un minuto, con semilla fija. Entrena una LTC de 16 neuronas, con activación sigmoide, para suavizar una señal con saltos, una tarea sintética que necesita memoria. En la ejecución guardada, el MSE en 8 secuencias no vistas fue 0,0008, frente a 0,0999 de una predicción sin memoria que copia la entrada. **Es una demostración educativa, no una reproducción de los experimentos del paper**: datos sintéticos, una semilla y ninguna comparación con otras arquitecturas.
+
+Los enlaces de GitHub y Colab abren la versión publicada en la rama principal del repositorio.
+:::
+
+### Implementación manual y transparente {#implementacion-manual}
 
 El propósito de este código es **entender** el algoritmo, no usarlo en producción. Por eso no empieza con una librería: cada línea corresponde a un símbolo del paper. El archivo completo es [`analysis/ltc_manual.py`](analysis/ltc_manual.py) y se ejecutó con PyTorch 2.14.1 (CPU).
 
@@ -1151,7 +1322,7 @@ class LTCNetwork(nn.Module):
         return torch.stack(outputs, dim=1), x  # (batch, T, salida), (batch, N)
 ```
 
-### De la matemática al código
+### De la matemática al código {#matematica-codigo}
 
 | Matemática del paper | Implementación actual | Forma del tensor |
 |---|---|---|
@@ -1459,6 +1630,13 @@ Esta tabla es una síntesis de este artículo, no una tabla del paper. Las tres 
 Los marcos modernos **no eliminan** la disyuntiva matemática. Guardar la trayectoria cuesta memoria; no guardarla obliga a reconstruirla, con coste de cómputo o de precisión. El *checkpointing* permite elegir un punto intermedio, no escapar del compromiso. Como observación de esta lectura, la recomendación actual de una librería como Diffrax —derivar la solución discreta, con *checkpointing*, en lugar de usar el adjunto continuo— apunta en la misma dirección que la decisión del paper, aunque no es la misma técnica: el paper guarda la trayectoria completa.
 :::
 
+<details class="ltc-details ltc-question">
+<summary>Pregunta 4 · ¿Cuál es la diferencia entre BPTT y el método adjunto?</summary>
+
+Ambos calculan gradientes de un modelo definido por una ODE. **BPTT** guarda todos los estados del paso hacia adelante y aplica la regla de la cadena sobre las mismas operaciones: el gradiente es exacto para el cálculo discreto realizado, pero la memoria crece con $L \times T$. El **método adjunto** no guarda la trayectoria: resuelve otra ODE hacia atrás en el tiempo, con memoria constante, pero los estados reconstruidos pueden no coincidir con los originales y el gradiente puede tener error numérico. El paper elige BPTT: cambia memoria por precisión.
+
+</details>
+
 ## ODE Solvers: 2021 vs. herramientas actuales {#ode-solvers}
 
 ### Los solvers que aparecen en el paper
@@ -1510,6 +1688,20 @@ Las LTC se representan mediante una ODE que varía su constante de tiempo según
 </figure>
 
 ### Theorem 1 — cotas de la constante de tiempo
+
+::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
+[Guía de lectura · Teorema 1]{.ltc-callout__label}
+
+**Pregunta que responde.** Si $\tau_{sys}$ cambia con la entrada, ¿puede hacerse cero o infinita?
+
+**Intuición.** No, bajo las hipótesis del teorema: la constante efectiva se mueve dentro de un intervalo fijo. Su techo es $\tau$ (cuando $f = 0$) y su suelo depende de cuánto puede valer $f$.
+
+**Hipótesis.** $f$ es una sigmoide acotada y creciente entre 0 y 1; la neurona recibe $M$ conexiones; $W_i$ es la escala de pesos que aparece en la demostración del suplemento.
+
+**Ejemplo.** Con $\tau = 2$ y una sigmoide sin pesos de escala ($W_i = 1$), la cota inferior es $2/(1 + 2 \cdot 1) = 0{,}67$, así que $0{,}67 \leq \tau_{sys} \leq 2$. El valor $\tau_{sys} = 1$ del [ejemplo numérico](#ec1-por-capas), con $f = 0{,}5$, cae dentro.
+
+**Demostración:** suplemento S1 de arXiv v4 (ver el [apéndice](#apendice)).
+:::
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1563,6 +1755,20 @@ Porque responde a la preocupación de la introducción: una constante de tiempo 
 :::
 
 ### Theorem 2 — cotas del estado neuronal
+
+::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
+[Guía de lectura · Teorema 2]{.ltc-callout__label}
+
+**Pregunta que responde.** ¿Puede una entrada enorme hacer que el estado de una neurona crezca sin control?
+
+**Intuición.** No, bajo las hipótesis del teorema: el estado queda atrapado entre $0$ —adonde lo lleva la fuga— y los valores $A$ —adonde lo empuja $f$—. Una entrada grande solo puede hacer que llegue antes al borde, no que lo cruce.
+
+**Hipótesis.** $f \geq 0$ (sigmoide), un intervalo de tiempo finito y un estado inicial dentro del intervalo.
+
+**Ejemplo y visualización.** Con $A = 1$ y $x(0) = 0$, el estado permanece en $[0, 1]$; con $A = -0{,}5$, en $[-0{,}5, 0]$. El [Simulador 2](#lab-estado) sombrea ese intervalo y restringe $x(0)$ a él, y el diagrama del comienzo de esta sección resume ambos teoremas.
+
+**Demostración:** suplemento S2 de arXiv v4.
+:::
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1635,6 +1841,20 @@ Entender cómo las propiedades estructurales de una red determinan qué funcione
 :::
 
 ### Theorem 3 — aproximación universal
+
+::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
+[Guía de lectura · Teorema 3]{.ltc-callout__label}
+
+**Pregunta que responde.** ¿Hay sistemas dinámicos que una LTC no pueda imitar?
+
+**Intuición.** Para una clase amplia de sistemas, no: dada cualquier precisión $\epsilon$, **existe** una LTC con suficientes neuronas cuya salida se mantiene a menos de $\epsilon$ de la trayectoria verdadera durante un tiempo finito. Por ejemplo, la oscilación de un péndulo durante diez segundos.
+
+**Hipótesis.** Un sistema autónomo con dinámica $C^1$, condiciones iniciales en un conjunto compacto, tiempo finito $[0, T]$, trayectoria acotada y una inicialización adecuada de la red.
+
+**Lo decisivo.** Es un resultado de **existencia**: no dice cuántas neuronas hacen falta ni que el entrenamiento las encuentre. La lista de lo que no establece está tras el enunciado.
+
+**Demostración:** suplemento S3 de arXiv v4.
+:::
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1738,6 +1958,22 @@ Como lectura de la tabla: con un solver de paso variable, las LTC dan en promedi
 
 ### Theorems 4 y 5 — cotas inferiores de la longitud de trayectoria
 
+::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
+[Guía de lectura · Teorema 4 y 5]{.ltc-callout__label}
+
+**Pregunta que responden.** ¿Cuánto puede "estirar y retorcer" una red una curva de entrada sencilla?
+
+**Intuición.** Se mide la longitud de la trayectoria de los estados ocultos cuando la entrada recorre un círculo. Una curva más larga indica que la red puede generar patrones más complejos. Los teoremas dan **cotas inferiores** de esa longitud para Neural ODE, CT-RNN (Teorema 4) y LTC (Teorema 5).
+
+**Hipótesis.** Pesos aleatorios con varianzas $\sigma_w^2$ y $\sigma_b^2$, activaciones Hard-tanh y una condición sobre la entrada.
+
+**Ejemplo con números hipotéticos.** Un círculo de radio 1 mide $2\pi \approx 6{,}28$. Si la trayectoria latente de una red midiera 63, la red habría multiplicado la longitud por unos 10. Las cotas dicen cómo crece ese factor con la anchura, la varianza de los pesos y los pasos del solver. El esquema de la subsección anterior muestra el procedimiento.
+
+**Lo decisivo.** Expresividad teórica no es desempeño predictivo: una trayectoria más larga no implica menor error en datos reales.
+
+**Demostraciones:** suplemento S4 (Teorema 4) y la sección sin numerar que le sigue (Teorema 5).
+:::
+
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
 
@@ -1782,6 +2018,13 @@ En su discusión, los autores señalan que: (I) la cota de las Neural ODE es muy
 - Los Teoremas 4 y 5 son **cotas inferiores** en notación $O(\cdot)$, demostradas para activaciones **Hard-tanh** y bajo una condición sobre la entrada. Comparar cotas inferiores entre modelos es orientativo: no establece por sí solo que la longitud real de un modelo supere a la de otro.
 - La mayor longitud de las LTC va acompañada de una mayor profundidad computacional, es decir, de más cómputo.
 :::
+
+<details class="ltc-details ltc-question">
+<summary>Pregunta 5 · ¿Una mayor longitud de trayectoria garantiza mayor exactitud predictiva?</summary>
+
+No. La longitud de trayectoria mide la capacidad de una red con pesos aleatorios para generar patrones complejos: es un indicador indirecto de expresividad. La exactitud depende además del entrenamiento, de los datos, de la regularización y de si esa complejidad es la que la tarea necesita. El paper presenta mayor longitud de trayectoria y buenos resultados en varias tareas, pero no demuestra que la primera cause los segundos.
+
+</details>
 
 ## 6. Experimental Evaluation — evaluación experimental {#experimentos}
 
@@ -1903,6 +2146,50 @@ Lectura de la Tabla 3, fila por fila, en estos conjuntos de datos y bajo esta co
 - La ventaja más amplia está en **Traffic** (0,099 frente a 0,169 de LSTM).
 - En **Occupancy**, la diferencia con CT-RNN (94,63 % frente a 94,54 %) es menor que la desviación estándar de CT-RNN.
 
+#### Dos filas de la Tabla 3 en gráficas {#resultados-graficas}
+
+Las gráficas muestran los mismos valores de la tabla; no añaden datos. Cada una usa su propia métrica y su propio eje, y no deben compararse entre sí.
+
+```{=html}
+<figure class="ltc-dots" id="grafica-gesture">
+<figcaption class="ltc-dots__title">Gesture: segmentación de gestos<span>Exactitud en prueba (%) · mayor es mejor (↑)</span></figcaption>
+<div class="ltc-dots__plot">
+<div class="ltc-dots__grid" aria-hidden="true"><span style="left:0.00%"></span><span style="left:28.57%"></span><span style="left:57.14%"></span><span style="left:85.71%"></span></div>
+<div class="ltc-dots__row" title="LSTM: 64,57 % ± 0,59"><span class="ltc-dots__name">LSTM</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:68.51%;width:3.37%"></span><span class="ltc-dots__dot" style="left:70.20%"></span></span><span class="ltc-dots__value">64,57 % ± 0,59</span></div>
+<div class="ltc-dots__row" title="CT-RNN: 59,01 % ± 1,22"><span class="ltc-dots__name">CT-RNN</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:50.83%;width:6.97%"></span><span class="ltc-dots__dot" style="left:54.31%"></span></span><span class="ltc-dots__value">59,01 % ± 1,22</span></div>
+<div class="ltc-dots__row" title="Neural ODE: 46,97 % ± 3,03"><span class="ltc-dots__name">Neural ODE</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:11.26%;width:17.31%"></span><span class="ltc-dots__dot" style="left:19.91%"></span></span><span class="ltc-dots__value">46,97 % ± 3,03</span></div>
+<div class="ltc-dots__row" title="CT-GRU: 68,31 % ± 1,78"><span class="ltc-dots__name">CT-GRU</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:75.80%;width:10.17%"></span><span class="ltc-dots__dot" style="left:80.89%"></span></span><span class="ltc-dots__value">68,31 % ± 1,78</span></div>
+<div class="ltc-dots__row ltc-dots__row--ltc" title="LTC: 69,55 % ± 1,13"><span class="ltc-dots__name">LTC (mejor media)</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:81.20%;width:6.46%"></span><span class="ltc-dots__dot" style="left:84.43%"></span></span><span class="ltc-dots__value">69,55 % ± 1,13</span></div>
+<div class="ltc-dots__axis" aria-hidden="true"><span class="ltc-dots__name"></span><span class="ltc-dots__ticks"><span style="left:0.00%">40 %</span><span style="left:28.57%">50 %</span><span style="left:57.14%">60 %</span><span style="left:85.71%">70 %</span></span><span class="ltc-dots__value"></span></div>
+</div>
+<p class="ltc-dots__note">Punto: media de 5 ejecuciones; barra: ± 1 desviación estándar. El eje no empieza en cero. Fuente: Tabla 3 de Hasani et al. (2021); valores publicados, no reproducidos aquí.</p>
+</figure>
+```
+
+**¿Cómo interpretamos esta gráfica?** En Gesture, la LTC obtiene la media más alta (69,55 %), 1,24 puntos por encima de la CT-GRU (68,31 %). Las barras de ± 1 desviación estándar de ambos modelos se solapan. La Neural ODE queda muy por debajo (46,97 %).
+
+**¿Qué no podemos concluir?** Que la LTC supere a la CT-GRU de forma robusta en esta tarea: con 5 ejecuciones, barras que se solapan y sin pruebas de significación en el paper, el orden entre ambas podría cambiar. Tampoco que la ventaja se mantenga con otro tamaño de red u otros datos de gestos.
+
+```{=html}
+<figure class="ltc-dots" id="grafica-activity">
+<figcaption class="ltc-dots__title">Activity recognition: reconocimiento de actividades<span>Exactitud en prueba (%) · mayor es mejor (↑)</span></figcaption>
+<div class="ltc-dots__plot">
+<div class="ltc-dots__grid" aria-hidden="true"><span style="left:14.29%"></span><span style="left:42.86%"></span><span style="left:71.43%"></span><span style="left:100.00%"></span></div>
+<div class="ltc-dots__row" title="LSTM: 95,85 % ± 0,29"><span class="ltc-dots__name">LSTM</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:30.29%;width:16.57%"></span><span class="ltc-dots__dot" style="left:38.57%"></span></span><span class="ltc-dots__value">95,85 % ± 0,29</span></div>
+<div class="ltc-dots__row" title="CT-RNN: 95,73 % ± 0,47"><span class="ltc-dots__name">CT-RNN</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:21.71%;width:26.86%"></span><span class="ltc-dots__dot" style="left:35.14%"></span></span><span class="ltc-dots__value">95,73 % ± 0,47</span></div>
+<div class="ltc-dots__row" title="Neural ODE: 97,26 % ± 0,10"><span class="ltc-dots__name">Neural ODE (mejor media)</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:76.00%;width:5.71%"></span><span class="ltc-dots__dot" style="left:78.86%"></span></span><span class="ltc-dots__value">97,26 % ± 0,10</span></div>
+<div class="ltc-dots__row" title="CT-GRU: 96,16 % ± 0,39"><span class="ltc-dots__name">CT-GRU</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:36.29%;width:22.29%"></span><span class="ltc-dots__dot" style="left:47.43%"></span></span><span class="ltc-dots__value">96,16 % ± 0,39</span></div>
+<div class="ltc-dots__row ltc-dots__row--ltc" title="LTC: 95,67 % ± 0,575"><span class="ltc-dots__name">LTC</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:17.00%;width:32.86%"></span><span class="ltc-dots__dot" style="left:33.43%"></span></span><span class="ltc-dots__value">95,67 % ± 0,575</span></div>
+<div class="ltc-dots__axis" aria-hidden="true"><span class="ltc-dots__name"></span><span class="ltc-dots__ticks"><span style="left:14.29%">95 %</span><span style="left:42.86%">96 %</span><span style="left:71.43%">97 %</span><span style="left:100.00%">98 %</span></span><span class="ltc-dots__value"></span></div>
+</div>
+<p class="ltc-dots__note">Punto: media de 5 ejecuciones; barra: ± 1 desviación estándar. El eje no empieza en cero. Fuente: Tabla 3 de Hasani et al. (2021); valores publicados, no reproducidos aquí.</p>
+</figure>
+```
+
+**¿Cómo interpretamos esta gráfica?** En Activity recognition, la mejor media es la de la **Neural ODE** (97,26 %), y la LTC tiene la media más baja de los cinco modelos (95,67 %). Los cinco quedan dentro de un rango de 1,6 puntos.
+
+**¿Qué no podemos concluir?** Ni que la LTC sea en general peor que la Neural ODE, ni lo contrario: es un único dataset con una única configuración. Lo que sí muestra es que los resultados del paper no son uniformes, y por eso conviene leerlos tarea por tarea.
+
 #### 6.2 Person activity dataset
 
 ::: {.ltc-callout .ltc-callout--paper}
@@ -1975,6 +2262,26 @@ Los autores escriben que estos resultados "abogan por la superioridad" (*root fo
 
 Este resultado muestra que, en **esta** tarea de predicción sobre datos simulados y bajo esta configuración, la LTC obtuvo el menor error medio: 2,308 frente a 2,500 de la LSTM, el segundo mejor modelo. No evalúa control en lazo cerrado, ni robots reales, ni otros entornos. No convierte a las LTC en una arquitectura universalmente superior para robótica.
 :::
+
+```{=html}
+<figure class="ltc-dots" id="grafica-cheetah">
+<figcaption class="ltc-dots__title">Half-Cheetah: modelado de la cinemática<span>Error cuadrático medio (MSE) · menor es mejor (↓)</span></figcaption>
+<div class="ltc-dots__plot">
+<div class="ltc-dots__grid" aria-hidden="true"><span style="left:0.00%"></span><span style="left:22.73%"></span><span style="left:45.45%"></span><span style="left:68.18%"></span><span style="left:90.91%"></span></div>
+<div class="ltc-dots__row" title="LSTM: 2,500 ± 0,140"><span class="ltc-dots__name">LSTM</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:16.36%;width:12.73%"></span><span class="ltc-dots__dot" style="left:22.73%"></span></span><span class="ltc-dots__value">2,500 ± 0,140</span></div>
+<div class="ltc-dots__row" title="CT-RNN: 2,838 ± 0,112"><span class="ltc-dots__name">CT-RNN</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:33.00%;width:10.18%"></span><span class="ltc-dots__dot" style="left:38.09%"></span></span><span class="ltc-dots__value">2,838 ± 0,112</span></div>
+<div class="ltc-dots__row" title="Neural ODE: 3,805 ± 0,313"><span class="ltc-dots__name">Neural ODE</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:67.82%;width:28.45%"></span><span class="ltc-dots__dot" style="left:82.05%"></span></span><span class="ltc-dots__value">3,805 ± 0,313</span></div>
+<div class="ltc-dots__row" title="CT-GRU: 3,014 ± 0,134"><span class="ltc-dots__name">CT-GRU</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:40.00%;width:12.18%"></span><span class="ltc-dots__dot" style="left:46.09%"></span></span><span class="ltc-dots__value">3,014 ± 0,134</span></div>
+<div class="ltc-dots__row ltc-dots__row--ltc" title="LTC: 2,308 ± 0,015"><span class="ltc-dots__name">LTC (mejor media)</span><span class="ltc-dots__track"><span class="ltc-dots__err" style="left:13.32%;width:1.36%"></span><span class="ltc-dots__dot" style="left:14.00%"></span></span><span class="ltc-dots__value">2,308 ± 0,015</span></div>
+<div class="ltc-dots__axis" aria-hidden="true"><span class="ltc-dots__name"></span><span class="ltc-dots__ticks"><span style="left:0.00%">2,0</span><span style="left:22.73%">2,5</span><span style="left:45.45%">3,0</span><span style="left:68.18%">3,5</span><span style="left:90.91%">4,0</span></span><span class="ltc-dots__value"></span></div>
+</div>
+<p class="ltc-dots__note">Punto: media de 5 ejecuciones; barra: ± 1 desviación estándar. El eje no empieza en cero. Fuente: Tabla 6 de Hasani et al. (2021); valores publicados, no reproducidos aquí.</p>
+</figure>
+```
+
+**¿Cómo interpretamos esta gráfica?** Aquí **menor es mejor**. La LTC obtiene el menor error medio (2,308) y la menor dispersión entre ejecuciones (± 0,015); la LSTM es la segunda (2,500 ± 0,140), con un error alrededor de un 8 % mayor. Las barras de ambos modelos no se solapan.
+
+**¿Qué no podemos concluir?** Que la LTC controle mejor un robot: la tarea es predecir observaciones simuladas, no controlar en lazo cerrado. El resultado corresponde a un entorno, una configuración y 5 ejecuciones.
 
 ### ¿Qué muestran los resultados?
 

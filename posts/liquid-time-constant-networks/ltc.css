@@ -291,6 +291,12 @@ main.content pre {
   -webkit-overflow-scrolling: touch;
 }
 
+/* El código en línea largo, como una forma de tensor, puede partirse en pantallas estrechas */
+main.content :not(pre) > code {
+  white-space: pre-wrap;  /* el tema usa white-space: pre, que impide partir la línea */
+  overflow-wrap: anywhere;
+}
+
 main.content pre code {
   white-space: pre;
   font-size: 0.85rem;
@@ -712,6 +718,154 @@ main.content .ltc-lab table td {
   min-width: 0;
   padding: 0.4rem 0.5rem;
   font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Gráficas de puntos de resultados (HTML/CSS, sin JS) ---------- */
+
+.ltc-dots {
+  margin: 1.5rem 0 1rem;
+  padding: 1rem 1.2rem 0.8rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+  --ltc-dots-name: 8.5rem;
+  --ltc-dots-value: 7.5rem;
+}
+
+main.content .ltc-dots__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  text-align: left;
+  margin: 0 0 0.8rem;
+}
+
+.ltc-dots__title span {
+  display: block;
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--ltc-muted);
+}
+
+.ltc-dots__plot {
+  position: relative;
+}
+
+/* Rejilla vertical: alineada con la columna de la pista */
+.ltc-dots__grid {
+  position: absolute;
+  top: 0;
+  bottom: 1.6rem;
+  left: calc(var(--ltc-dots-name) + 0.6rem);
+  right: calc(var(--ltc-dots-value) + 0.6rem);
+}
+
+.ltc-dots__grid span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--ltc-line);
+}
+
+.ltc-dots__row,
+.ltc-dots__axis {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--ltc-dots-name) 1fr var(--ltc-dots-value);
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.ltc-dots__name {
+  font-size: 0.85rem;
+  color: var(--ltc-body);
+  line-height: 1.25;
+}
+
+.ltc-dots__row--ltc .ltc-dots__name {
+  font-weight: 600;
+  color: var(--ltc-ink);
+}
+
+.ltc-dots__track {
+  position: relative;
+  height: 1.4rem;
+}
+
+.ltc-dots__err {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: #9CA3AF;
+  border-radius: 1px;
+}
+
+.ltc-dots__dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: #6B7280;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.ltc-dots__row--ltc .ltc-dots__err { background: #2E6DB4; }
+.ltc-dots__row--ltc .ltc-dots__dot { background: #2E6DB4; }
+
+.ltc-dots__value {
+  font-size: 0.8rem;
+  color: var(--ltc-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ltc-dots__ticks {
+  position: relative;
+  height: 1.2rem;
+}
+
+.ltc-dots__ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--ltc-muted);
+  white-space: nowrap;
+}
+
+main.content .ltc-dots__note {
+  font-size: 0.78rem;
+  color: var(--ltc-muted);
+  line-height: 1.5;
+  margin: 0.6rem 0 0;
+}
+
+/* En móvil cada fila se apila: nombre y valor arriba, pista a todo el ancho debajo */
+@media (max-width: 575.98px) {
+  .ltc-dots {
+    padding: 0.8rem 0.8rem 0.6rem;
+  }
+
+  .ltc-dots__row,
+  .ltc-dots__axis {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name value" "track track";
+    row-gap: 0;
+    min-height: 0;
+    margin-bottom: 0.35rem;
+  }
+
+  .ltc-dots__name { grid-area: name; }
+  .ltc-dots__value { grid-area: value; }
+  .ltc-dots__track,
+  .ltc-dots__ticks { grid-area: track; }
+
+  .ltc-dots__grid {
+    left: 0;
+    right: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
