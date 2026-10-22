@@ -16,6 +16,7 @@ engine: markdown
 bibliography: references.bib
 resources:
   - media/redes-ltc-analisis.mp4
+  - ltc-lab.js
   - analysis/ltc_manual.py
   - analysis/smoke_test.py
   - analysis/ncps_example.py
@@ -88,7 +89,7 @@ El artículo se puede leer de corrido, pero no hace falta. Está organizado en t
 
 ::: {.ltc-route}
 1. **Comprender** — qué es una LTC y por qué se propuso, sin requisitos previos más allá de saber qué es una red neuronal. [¿Qué son las redes líquidas?](#que-son) → [Conceptos previos](#conceptos-previos) → [De una RNN a una LTC](#rnn-a-ltc).
-2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Fused ODE Solver](#fused-solver) → [Algorithm 1 hoy](#algorithm-1-hoy) → [BPTT](#bptt).
+2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Laboratorio](#laboratorio) → [Fused ODE Solver](#fused-solver) → [Algorithm 1 hoy](#algorithm-1-hoy) → [BPTT](#bptt).
 3. **Profundizar** — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
 :::
 
@@ -568,7 +569,133 @@ $$
 En $t = 1$, $x(1) = 0{,}5\,(1 - e^{-1}) \approx 0{,}316$: el 63 % del camino hacia $x^{*}$ tras una constante de tiempo.
 :::
 
-**Nivel E — Interpretación.** Con estos valores, la constante de tiempo efectiva es la mitad de la base: mientras $f = 0{,}5$, la neurona responde el doble de rápido que si $f$ fuera $0$, en cuyo caso $\tau_{sys} = \tau = 2$. Que $\tau_{sys}$ cambie significa que la misma neurona puede comportarse como una unidad lenta o rápida según la entrada. Estas conclusiones dependen de las hipótesis del ejemplo ($f \geq 0$ y fija); en la red real $f$ varía en cada instante, y con $\tanh$ se aplica la [limitación](#tanh-limit) indicada arriba.
+**Nivel E — Interpretación.** Con estos valores, la constante de tiempo efectiva es la mitad de la base: mientras $f = 0{,}5$, la neurona responde el doble de rápido que si $f$ fuera $0$, en cuyo caso $\tau_{sys} = \tau = 2$. Que $\tau_{sys}$ cambie significa que la misma neurona puede comportarse como una unidad lenta o rápida según la entrada. Estas conclusiones dependen de las hipótesis del ejemplo ($f \geq 0$ y fija); en la red real $f$ varía en cada instante, y con $\tanh$ se aplica la [limitación](#tanh-limit) indicada arriba. El [laboratorio](#laboratorio) permite cambiar los valores y ver el efecto.
+
+### Laboratorio interactivo {#laboratorio}
+
+Dos simuladores para experimentar con la ecuación sin instalar nada. Ambos usan **valores elegidos por el lector y una $f$ simplificada**: no contienen una red neuronal entrenada ni reproducen ningún resultado del paper.
+
+#### Simulador 1 · Constante de tiempo efectiva {#lab-tau}
+
+::: {.ltc-lab}
+Mueve $\tau$ y $f$ y observa cómo cambia
+
+$$
+\tau_{sys} = \frac{\tau}{1 + \tau f}.
+$$
+
+Aquí $f$ es un **control** entre 0 y 1 —el rango de una sigmoide, el caso que analizan los Teoremas 1 y 2—, no la salida de una red entrenada. En ese rango el denominador es siempre al menos 1, así que no hay divisiones por cero.
+
+```{=html}
+<div id="ltc-lab-tau" class="ltc-lab__panel ltc-lab__js" hidden>
+<div class="ltc-lab__controls">
+<label class="ltc-lab__control">
+<span class="ltc-lab__name">τ · constante de tiempo base <output data-out="tau"></output></span>
+<input type="range" min="0.2" max="5" step="0.1" value="2" data-param="tau" data-digits="1" aria-describedby="ltc-lab-tau-help">
+</label>
+<label class="ltc-lab__control">
+<span class="ltc-lab__name"><i>f</i> · salida no lineal (control) <output data-out="f"></output></span>
+<input type="range" min="0" max="1" step="0.05" value="0.5" data-param="f" data-digits="2" aria-describedby="ltc-lab-tau-help">
+</label>
+</div>
+<p id="ltc-lab-tau-help" class="ltc-lab__help">Usa el ratón o las flechas del teclado sobre cada control.</p>
+<div class="ltc-lab__result" aria-live="polite">
+<p class="ltc-lab__big">τ<sub>sys</sub> = <output data-out="tausys"></output> <span class="ltc-lab__muted">(τ<sub>sys</sub> / τ = <output data-out="ratio"></output>)</span></p>
+<div class="ltc-lab__bars" aria-hidden="true">
+<div class="ltc-lab__bar-row"><span>τ</span><span class="ltc-lab__track"><span class="ltc-lab__bar ltc-lab__bar--base" data-bar="tau"></span></span><span data-bar-label="tau"></span></div>
+<div class="ltc-lab__bar-row"><span>τ<sub>sys</sub></span><span class="ltc-lab__track"><span class="ltc-lab__bar" data-bar="tausys"></span></span><span data-bar-label="tausys"></span></div>
+</div>
+<p data-out="explain"></p>
+</div>
+<button type="button" class="lf-btn" data-action="reset">Restablecer valores</button>
+</div>
+<noscript><p class="ltc-lab__noscript">El simulador necesita JavaScript. Con los valores iniciales (τ = 2, <i>f</i> = 0,5) el resultado es τ<sub>sys</sub> = 2 / (1 + 2 · 0,5) = 1; con <i>f</i> = 0 se obtiene τ<sub>sys</sub> = τ.</p></noscript>
+```
+:::
+
+#### Simulador 2 · Evolución del estado neuronal {#lab-estado}
+
+::: {.ltc-lab}
+Este simulador **congela $f$** en el valor elegido durante toda la simulación. Con esa simplificación las dos ecuaciones son lineales y tienen solución exacta, que es la que se dibuja:
+
+**CT-RNN:**
+
+$$
+\frac{dx}{dt} = -\frac{x}{\tau} + f
+$$
+
+**LTC:**
+
+$$
+\frac{dx}{dt} = -\left[\frac{1}{\tau} + f\right]x + f A
+$$
+
+La CT-RNN se relaja con constante de tiempo $\tau$ hacia $\tau f$; la LTC, con constante $\tau_{sys}$ hacia $\tau_{sys} f A$. Los puntos son los pasos de la Ec. (3) —el Fused ODE Solver que explica la [Sección 2](#fused-solver)— con el $\Delta t$ elegido y la misma $f$ fija.
+
+```{=html}
+<div id="ltc-lab-state" class="ltc-lab__panel ltc-lab__js" hidden>
+<div class="ltc-lab__controls">
+<label class="ltc-lab__control"><span class="ltc-lab__name">τ · constante base <output data-out="tau"></output></span>
+<input type="range" min="0.2" max="5" step="0.1" value="2" data-param="tau" data-digits="1"></label>
+<label class="ltc-lab__control"><span class="ltc-lab__name"><i>f</i> · salida no lineal (fija) <output data-out="f"></output></span>
+<input type="range" min="0" max="1" step="0.05" value="0.5" data-param="f" data-digits="2"></label>
+<label class="ltc-lab__control"><span class="ltc-lab__name"><i>A</i> · valor hacia el que empuja <i>f</i> <output data-out="A"></output></span>
+<input type="range" min="-1" max="1" step="0.05" value="1" data-param="A" data-digits="2"></label>
+<label class="ltc-lab__control"><span class="ltc-lab__name"><i>x</i>(0) · estado inicial <output data-out="x0"></output></span>
+<input type="range" min="0" max="1" step="0.05" value="0" data-param="x0" data-digits="2" aria-describedby="ltc-lab-x0-help"></label>
+<label class="ltc-lab__control"><span class="ltc-lab__name">Δ<i>t</i> · paso del solver <output data-out="dt"></output></span>
+<input type="range" min="0.1" max="2" step="0.1" value="1" data-param="dt" data-digits="1"></label>
+</div>
+<p id="ltc-lab-x0-help" class="ltc-lab__help"><i>x</i>(0) se restringe al intervalo <output data-out="interval"></output> = [min(0, <i>A</i>), max(0, <i>A</i>)]: es la condición inicial que supone el Teorema 2.</p>
+<div class="ltc-lab__toggles">
+<label><input type="checkbox" data-param="steps" checked> Mostrar pasos del Fused ODE Solver</label>
+<label><input type="checkbox" data-param="band" checked> Mostrar el intervalo del Teorema 2 (LTC)</label>
+</div>
+<p id="ltc-lab-state-title" class="ltc-lab__chart-title">Estado <i>x</i>(<i>t</i>) con <i>f</i> congelada: LTC frente a CT-RNN</p>
+<ul class="ltc-lab__legend">
+<li><span class="ltc-lab__key ltc-lab__key--ltc"></span>LTC (constante τ<sub>sys</sub>)</li>
+<li><span class="ltc-lab__key ltc-lab__key--ctrnn"></span>CT-RNN (constante τ fija)</li>
+<li><span class="ltc-lab__key ltc-lab__key--dot"></span>Pasos de la Ec. (3)</li>
+<li><span class="ltc-lab__key ltc-lab__key--band"></span>Intervalo del Teorema 2 (solo LTC)</li>
+</ul>
+<div class="ltc-lab__chart-wrap"><div class="ltc-lab__chart" data-chart></div><div class="ltc-lab__tooltip" data-tooltip hidden></div></div>
+<dl class="ltc-lab__readout" aria-live="polite">
+<div><dt>τ<sub>sys</sub></dt><dd data-out="tausys"></dd></div>
+<div><dt>Destino LTC, τ<sub>sys</sub><i>fA</i></dt><dd data-out="targetLtc"></dd></div>
+<div><dt>Destino CT-RNN, τ<i>f</i></dt><dd data-out="targetCt"></dd></div>
+<div><dt>Primer paso de la Ec. (3), <i>x</i>(Δ<i>t</i>)</dt><dd data-out="first"></dd></div>
+<div><dt>Solución exacta en Δ<i>t</i></dt><dd data-out="exact"></dd></div>
+</dl>
+<details class="ltc-details" data-table>
+<summary>Ver los valores en una tabla</summary>
+<table>
+<thead><tr><th>t</th><th>LTC exacta</th><th>LTC, Ec. (3)</th><th>CT-RNN</th></tr></thead>
+<tbody></tbody>
+</table>
+</details>
+<button type="button" class="lf-btn" data-action="reset">Restablecer valores</button>
+</div>
+<script src="ltc-lab.js" defer></script>
+<noscript><p class="ltc-lab__noscript">El simulador necesita JavaScript. Con los valores iniciales (τ = 2, <i>f</i> = 0,5, <i>A</i> = 1, <i>x</i>(0) = 0, Δ<i>t</i> = 1): τ<sub>sys</sub> = 1, la LTC tiende a 0,5 y la CT-RNN a 1; el primer paso de la Ec. (3) da 0,25, frente a 0,316 de la solución exacta en <i>t</i> = 1.</p></noscript>
+```
+
+**¿Cómo leer la gráfica?** Con los valores iniciales, la LTC (línea continua) llega antes a su destino que la CT-RNN (discontinua), porque $\tau_{sys} = 1 < \tau = 2$; también tiende a otro valor, porque su destino depende de $A$. Los puntos del solver siguen la curva de la LTC con un error que crece con $\Delta t$, pero nunca salen del intervalo sombreado. Con $f = 0$ la LTC decae hacia cero con la misma rapidez que la CT-RNN.
+
+**Cuándo vale el intervalo sombreado.** Mientras $f \geq 0$, haya un único $A$ por neurona y $x(0)$ esté dentro de $[\min(0, A), \max(0, A)]$, la trayectoria de la LTC —y también los pasos de la Ec. (3)— permanece en ese intervalo, que es lo que establece el Teorema 2. Por eso el control de $x(0)$ no permite salir de él. El intervalo no se aplica a la CT-RNN, que no tiene parámetro $A$.
+:::
+
+::: {.ltc-callout .ltc-callout--limit}
+[Limitación]{.ltc-callout__label}
+
+Estos simuladores ilustran la Ec. (1) con $f$ **constante**. En una LTC real, $f$ es una red no lineal que cambia en cada instante con la entrada y con el propio estado, y cada neurona interactúa con las demás. Las curvas sirven para entender el papel de $\tau$, $f$ y $A$; no representan la dinámica completa de una LTC ni sustituyen una simulación de la red entrenada.
+:::
+
+<details class="ltc-details ltc-question">
+<summary>Pregunta 2 · ¿Qué ocurre con la constante efectiva cuando <i>f</i> aumenta, suponiendo τ &gt; 0 y <i>f</i> ≥ 0?</summary>
+
+Disminuye. Como $\tau_{sys} = \tau / (1 + \tau f)$ y el denominador crece con $f$, una $f$ mayor da una $\tau_{sys}$ menor: la neurona responde más rápido. Con $f = 0$ se recupera $\tau_{sys} = \tau$, el valor máximo. Si $f$ pudiera ser negativa (por ejemplo, con $\tanh$), esta conclusión ya no está garantizada.
+
+</details>
 
 ### Why this specific formulation? — la motivación biológica {#motivacion-biologica}
 

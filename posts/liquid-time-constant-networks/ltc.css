@@ -508,6 +508,220 @@ main.content dl dd {
   line-height: 1.65;
 }
 
+/* ---------- Laboratorio interactivo ---------- */
+
+.ltc-lab {
+  margin: 1.2rem 0 2rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+}
+
+.ltc-lab__panel {
+  margin-top: 1rem;
+}
+
+.ltc-lab__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem 1.4rem;
+}
+
+.ltc-lab__control {
+  display: block;
+  margin: 0;
+}
+
+/* Bloque (no flex): así los <i> del nombre no se separan como elementos flex */
+.ltc-lab__name {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--ltc-ink);
+}
+
+.ltc-lab__name output {
+  float: right;
+  margin-left: 0.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.ltc-lab input[type="range"] {
+  width: 100%;
+  accent-color: var(--ltc-blue);
+}
+
+.ltc-lab input:focus-visible,
+.ltc-lab button:focus-visible {
+  outline: 2px solid var(--ltc-blue);
+  outline-offset: 2px;
+}
+
+.ltc-lab input[type="range"]:disabled {
+  opacity: 0.45;
+}
+
+main.content .ltc-lab__help,
+main.content .ltc-lab__muted {
+  font-size: 0.85rem;
+  color: var(--ltc-muted);
+}
+
+.ltc-lab__result {
+  margin: 1rem 0;
+}
+
+main.content .ltc-lab__big {
+  font-family: var(--ltc-serif);
+  font-size: 1.35rem;
+  color: var(--ltc-ink);
+  margin-bottom: 0.6rem;
+}
+
+.ltc-lab__bars {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  max-width: 32rem;
+}
+
+.ltc-lab__bar-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--ltc-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ltc-lab__track {
+  display: block;
+  height: 14px;
+  background: var(--ltc-surface);
+  border-radius: 4px;
+}
+
+.ltc-lab__bar {
+  display: block;
+  height: 100%;
+  background: #2E6DB4;
+  border-radius: 0 4px 4px 0;
+}
+
+.ltc-lab__bar--base {
+  background: #9CA3AF;
+}
+
+.ltc-lab__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  font-size: 0.9rem;
+  margin: 0.6rem 0 0.8rem;
+}
+
+main.content .ltc-lab__chart-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  margin: 0.8rem 0 0.3rem;
+}
+
+.ltc-lab__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.4rem;
+}
+
+main.content .ltc-lab__legend li {
+  font-size: 0.82rem;
+  color: var(--ltc-muted);
+  line-height: 1.5;
+}
+
+.ltc-lab__key {
+  display: inline-block;
+  width: 1.4rem;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+.ltc-lab__key--ltc { border-top: 2px solid #2E6DB4; }
+.ltc-lab__key--ctrnn { border-top: 2px dashed #C2410C; }
+.ltc-lab__key--dot { width: 8px; height: 8px; border-radius: 50%; background: #2E6DB4; }
+.ltc-lab__key--band { height: 0.8rem; background: rgba(46, 109, 180, 0.12); }
+
+.ltc-lab__chart-wrap {
+  position: relative;
+}
+
+.ltc-lab__chart svg {
+  display: block;
+  touch-action: pan-y;
+}
+
+.ltc-lab__tooltip {
+  position: absolute;
+  pointer-events: none;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--ltc-ink);
+  background: #fff;
+  border: 1px solid var(--ltc-line);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(11, 30, 61, 0.08);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+main.content dl.ltc-lab__readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.6rem 1rem;
+  margin: 0.8rem 0;
+}
+
+main.content .ltc-lab__readout dt {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ltc-muted);
+  margin: 0;
+}
+
+main.content .ltc-lab__readout dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+main.content .ltc-lab__noscript {
+  font-size: 0.92rem;
+  color: var(--ltc-muted);
+}
+
+/* La tabla del simulador tiene cuatro columnas numéricas cortas: caben sin el ancho mínimo global */
+main.content .ltc-lab table th,
+main.content .ltc-lab table td {
+  min-width: 0;
+  padding: 0.4rem 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ltc-lab *,
+  .ltc-details * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 767.98px) {
