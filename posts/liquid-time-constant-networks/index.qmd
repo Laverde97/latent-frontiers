@@ -72,7 +72,7 @@ Una precisión sobre su narración: hacia el minuto 06:48 dice que las LTC "arra
 <div class="ltc-stat"><div class="ltc-stat__value">6</div><div class="ltc-stat__label">pasos de solver por entrada</div></div>
 </div>
 <div class="ltc-actions">
-<a class="lf-btn lf-btn--primary" href="#abstract">Leer el análisis</a>
+<a class="lf-btn lf-btn--primary" href="#ruta">Empezar la lectura</a>
 <a class="lf-btn" href="slides.html">Abrir presentación</a>
 <a class="lf-btn" href="https://arxiv.org/pdf/2006.04439">Paper (PDF)</a>
 </div>
@@ -81,6 +81,140 @@ Una precisión sobre su narración: hacia el minuto 06:48 dice que las LTC "arra
 Este texto recorre, casi sección por sección, el artículo *Liquid Time-constant Networks* [@hasani2021ltc]. Está pensado para quien ya conoce lo básico de Deep Learning —redes recurrentes, retropropagación, optimizadores— pero todavía no se siente cómodo con las Neural ODE ni con las redes recurrentes de tiempo continuo. La fuente primaria es la versión 4 de arXiv (14 de diciembre de 2020), que incluye el material suplementario con las demostraciones y el montaje experimental. Se cotejó con la versión publicada en las actas de AAAI; el resultado de esa comparación está en [Versiones del paper](#versiones).
 
 El objetivo no es resumir, sino entender **qué** hicieron los autores, **por qué**, **cómo** las matemáticas llevan a los algoritmos, cómo los algoritmos llevan a los experimentos, **qué sostienen realmente** los resultados y cómo podríamos reproducir o extender hoy el mismo trabajo sin confundir la ciencia original con el software actual.
+
+## Ruta de aprendizaje {#ruta}
+
+El artículo se puede leer de corrido, pero no hace falta. Está organizado en tres niveles que se apoyan unos en otros; el material más técnico de cada sección queda en bloques desplegables.
+
+::: {.ltc-route}
+1. **Comprender** — qué es una LTC y por qué se propuso, sin requisitos previos más allá de saber qué es una red neuronal. [¿Qué son las redes líquidas?](#que-son) → [Conceptos previos](#conceptos-previos) → [De una RNN a una LTC](#rnn-a-ltc).
+2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Fused ODE Solver](#fused-solver) → [Algorithm 1 hoy](#algorithm-1-hoy) → [BPTT](#bptt).
+3. **Profundizar** — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
+:::
+
+## ¿Qué son las redes neuronales líquidas? {#que-son}
+
+**Una red neuronal recurrente (RNN)** es una red que procesa una secuencia elemento a elemento y lleva consigo una memoria: un vector de números, el **estado oculto**, que resume lo que ha visto hasta ese momento. Cada nueva observación modifica el estado, y la predicción se calcula a partir de él.
+
+**¿Por qué memoria?** Porque en una serie temporal el significado de un dato depende de los anteriores. Una lectura de 25 °C no dice lo mismo si la temperatura venía subiendo desde 15 °C que si venía bajando desde 35 °C. Un modelo sin memoria ve dos lecturas idénticas; un modelo recurrente ve dos historias distintas.
+
+**Tiempo discreto y tiempo continuo.** Una RNN clásica avanza a saltos: paso 1, paso 2, paso 3. No sabe si entre dos pasos pasó un segundo o una hora. Un modelo de **tiempo continuo** describe en cambio cómo *varía* el estado en cada instante $t$, y el estado en cualquier momento se obtiene acumulando esos cambios. Es la forma natural de describir sistemas físicos, que no esperan a que llegue el siguiente dato para evolucionar.
+
+**Constante de tiempo.** Muchos sistemas físicos tienen una escala temporal característica, que se representa con $\tau$ (tau). Una taza de café caliente se enfría hacia la temperatura ambiente: con $\tau$ grande lo hace despacio, con $\tau$ pequeña lo hace rápido. En una red de tiempo continuo, cada neurona tiene una $\tau$ que fija la rapidez con la que reacciona a lo nuevo y olvida lo anterior.
+
+**¿Por qué una constante de tiempo adaptativa?** Porque la mejor escala temporal no siempre es la misma. Ante un cambio brusco en la entrada puede convenir reaccionar deprisa; ante una señal ruidosa, promediar con calma. En una red de tiempo continuo clásica, $\tau$ se aprende durante el entrenamiento pero después es fija.
+
+**¿Por qué "líquidas"?** En una LTC (*Liquid Time-Constant network*), la rapidez efectiva de cada neurona depende en cada instante de la entrada y del estado: la constante de tiempo "fluye" mientras la red procesa la secuencia. Los pesos **no** cambian durante la inferencia; lo que cambia es la escala temporal efectiva que esos pesos producen. El análisis detallado del nombre está en [¿Por qué "líquida"?](#por-que-liquida).
+
+::: {.ltc-callout .ltc-callout--intuition}
+[Intuición e interpretación]{.ltc-callout__label}
+
+Imagina un sensor que debe vigilar una magnitud que a veces cambia lentamente (la temperatura de una sala a lo largo del día) y a veces de golpe (alguien abre una ventana). Un sensor con respuesta fija debe elegir: si es lento, filtra el ruido pero llega tarde a los cambios bruscos; si es rápido, reacciona a tiempo pero tiembla con cada fluctuación. Una neurona LTC se parece a un sensor cuya rapidez de respuesta depende de lo que está midiendo.
+
+Es una analogía para fijar la idea, no una descripción matemática de la arquitectura: en una LTC la rapidez la decide una función no lineal aprendida, y la analogía no dice nada sobre cómo se entrena ni sobre sus garantías.
+:::
+
+::: {.ltc-key}
+**Idea clave.** Una LTC utiliza una dinámica continua en la que la escala temporal efectiva de cada neurona puede variar con las entradas y el estado oculto.
+:::
+
+<details class="ltc-details ltc-question">
+<summary>Pregunta 1 · ¿Qué significa que una constante de tiempo sea líquida?</summary>
+
+Que no es un número fijo: la constante de tiempo **efectiva** de cada neurona, $\tau_{sys}$, se recalcula en cada instante a partir de la entrada y del estado oculto. Los parámetros aprendidos (incluida la $\tau$ "base") permanecen fijos durante la inferencia; lo que cambia es la rapidez con la que la neurona responde.
+
+</details>
+
+## Conceptos previos {#conceptos-previos}
+
+Lo justo para seguir las ecuaciones, en ocho pasos cortos. Cada paso usa el anterior.
+
+1. **Función y derivada.** Si $T(t)$ es la temperatura de una taza en el minuto $t$, la derivada $dT/dt$ es la velocidad a la que cambia la temperatura. Si $dT/dt = -2$, la taza se enfría 2 °C por minuto en ese instante.
+2. **Ecuación diferencial ordinaria (ODE).** Es una regla que dice cuánto vale la derivada. La ley de enfriamiento de Newton es una:
+   $$
+   \frac{dT}{dt} = -\frac{T(t) - T_{amb}}{\tau}.
+   $$
+   Cuanto más caliente está la taza respecto al ambiente ($T_{amb}$), más rápido se enfría. Resolver la ODE es encontrar la curva $T(t)$ que cumple esa regla.
+3. **Constante de tiempo.** En la ecuación anterior, tras un tiempo $\tau$ la diferencia con el ambiente se ha reducido a $e^{-1} \approx 37\,\%$ de la inicial; tras $3\tau$, a menos del 5 %. Por eso $\tau$ mide la rapidez del sistema.
+4. **Estado oculto.** En una red, el papel de la temperatura lo desempeña el vector $\mathbf{x}(t)$, con un valor por neurona. Un modelo de tiempo continuo describe $d\mathbf{x}/dt$, igual que la ley de Newton describe $dT/dt$.
+5. **Serie temporal.** Una secuencia de observaciones ordenadas en el tiempo, $\mathbf{I}(t_1), \mathbf{I}(t_2), \ldots$: las lecturas de un sensor, el tráfico por hora, la posición de un robot. Es la **entrada** de la red.
+6. **Red recurrente.** Combina el estado actual con la nueva entrada para producir el estado siguiente, y repite. Es lo que permite procesar series de cualquier longitud con los mismos parámetros.
+7. **Función de activación.** La no linealidad de la red. Dos que importan aquí: la **sigmoide**, con valores entre 0 y 1, y la **tanh**, con valores entre −1 y 1. La diferencia de signo será importante: los teoremas del paper suponen una función que nunca es negativa.
+8. **Solver numérico.** Casi ninguna ODE de interés se resuelve con lápiz y papel. Un solver avanza en pasos pequeños de tamaño $\Delta t$; el más simple, Euler, usa $x(t+\Delta t) \approx x(t) + \Delta t \cdot dx/dt$. La [Sección 2](#fused-solver) explica por qué las LTC usan un solver especial.
+
+### Glosario {#glosario}
+
+Red neuronal recurrente (RNN)
+: Un modelo para datos secuenciales que mantiene un **estado oculto**: un vector que resume lo visto hasta ahora y que se actualiza con cada nueva entrada.
+
+Estado oculto $\mathbf{x}(t)$
+: La "memoria de trabajo" de la red. En una RNN clásica se actualiza en pasos discretos; en una red de tiempo continuo es una función del tiempo.
+
+Tiempo continuo (*time-continuous*)
+: El modelo no define directamente el siguiente estado, sino la **velocidad de cambio** del estado en cada instante.
+
+ODE (ecuación diferencial ordinaria)
+: Una ecuación que relaciona una función con su derivada, por ejemplo $d\mathbf{x}/dt = \ldots$ Resolverla significa encontrar la trayectoria $\mathbf{x}(t)$ a partir de un estado inicial.
+
+Constante de tiempo $\tau$
+: Un parámetro que fija la escala temporal de un sistema: cuánto tarda en responder o en "olvidar". Los autores la describen como el parámetro que caracteriza la velocidad y la sensibilidad de acoplamiento de una ODE [@hasani2021ltc].
+
+Constante de tiempo efectiva $\tau_{sys}$
+: En una LTC, la escala temporal que resulta de combinar $\tau$ con la salida de la red no lineal en cada instante. Se define en [la ecuación central](#liquid-time-constant).
+
+Solver numérico y paso $\Delta t$
+: Procedimiento que aproxima la solución de una ODE avanzando en pasos de duración $\Delta t$. Cada paso introduce un pequeño error.
+
+Expresividad
+: Qué tan complejas son las funciones (o trayectorias) que una arquitectura puede representar.
+
+Estabilidad
+: En este paper, que el estado y la constante de tiempo permanezcan dentro de un rango finito aunque las entradas crezcan sin límite. Más adelante se precisa qué demuestra y qué no demuestra esa propiedad.
+
+BPTT (*backpropagation through time*)
+: Cálculo de gradientes de una red recurrente desenrollándola en el tiempo y aplicando la regla de la cadena hacia atrás. Se explica en la [Sección 3](#bptt).
+
+## De una RNN tradicional a una LTC {#rnn-a-ltc}
+
+Cuatro modelos, cada uno con un cambio respecto al anterior. Aquí va la versión breve; la presentación rigurosa, con las ecuaciones tal como las escribe el paper y sus citas, está en la [Sección 1](#introduction).
+
+<figure class="ltc-figure">
+<img src="images/rnn-a-ltc.svg" alt="Cuatro cajas en secuencia: RNN discreta, Neural ODE, CT-RNN y LTC, cada una con su ecuación de actualización del estado" loading="lazy">
+<figcaption>Diagrama original. La progresión es conceptual: cada modelo modifica la forma en que se define la evolución del estado oculto.</figcaption>
+</figure>
+
+**RNN discreta.** *Idea:* el siguiente estado se calcula directamente a partir del estado actual y la entrada.
+$$
+\mathbf{x}_{t+1} = f(\mathbf{x}_t, \mathbf{I}_t, \theta)
+$$
+$\mathbf{x}_t$ es el estado en el paso $t$ (un entero), $\mathbf{I}_t$ la entrada y $\theta$ los parámetros de la red $f$.
+
+**Neural ODE.** *Idea:* la red ya no da el estado siguiente, sino su velocidad de cambio; para conocer el estado hay que integrar.
+$$
+\frac{d\mathbf{x}(t)}{dt} = f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)
+$$
+*Qué cambia:* $t$ pasa a ser continuo y hace falta un solver.
+
+**CT-RNN.** *Idea:* se añade una fuga que, sin estímulo, devuelve el estado a cero con constante de tiempo $\tau$.
+$$
+\frac{d\mathbf{x}(t)}{dt} = -\frac{\mathbf{x}(t)}{\tau} + f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)
+$$
+*Qué cambia:* aparece $\tau$, aprendida pero fija.
+
+**LTC.** *Idea:* la misma salida de $f$ modula también el coeficiente de la fuga, y por tanto la rapidez.
+$$
+\frac{d\mathbf{x}(t)}{dt} = -\left[\frac{1}{\tau} + f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)\right]\mathbf{x}(t) + f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)\,A
+$$
+*Qué cambia:* $f$ aparece dos veces, y la constante de tiempo efectiva depende de la entrada y del estado. $A$ es un vector de parámetros entrenable hacia el que $f$ empuja al estado.
+
+| Modelo | Qué define la red | Escala temporal | Necesita solver |
+|---|---|---|---|
+| RNN discreta | El estado siguiente | Implícita en el paso entero | No |
+| Neural ODE | La derivada del estado | Ninguna explícita | Sí |
+| CT-RNN | La derivada, con fuga | $\tau$ fija tras el entrenamiento | Sí |
+| LTC | La derivada, con fuga modulada por $f$ | $\tau_{sys}$ variable con entrada y estado | Sí |
+
+: Resumen de los cuatro modelos. Ninguno es superior en todos los problemas: la tabla describe su estructura, no su rendimiento.
 
 ## Cómo leer este artículo {#como-leer}
 
@@ -141,6 +275,9 @@ Además, cada cambio "moderno" se clasifica en una de cuatro clases:
 
 ### Versiones del paper: arXiv v4 y actas de AAAI {#versiones}
 
+<details class="ltc-details">
+<summary>Ver la comparación entre versiones</summary>
+
 ::: {.ltc-callout .ltc-callout--note}
 [Nota de lectura]{.ltc-callout__label}
 
@@ -160,6 +297,8 @@ Las diferencias de redacción con algún contenido son cuatro. La pregunta abier
 **Consecuencia para este artículo:** todo lo que aquí se atribuye al "suplemento" procede de arXiv v4 y no puede comprobarse en el PDF de AAAI. Las paráfrasis siguen la redacción de arXiv v4.
 :::
 
+</details>
+
 ## Abstract — Explicación {#abstract}
 
 ### ¿Qué dicen los autores?
@@ -178,15 +317,9 @@ En su resumen, los autores afirman que [@hasani2021ltc]:
 
 ### Vocabulario mínimo
 
-- **Red neuronal recurrente (RNN).** Un modelo para datos secuenciales que mantiene un **estado oculto**: un vector que resume lo visto hasta ahora y que se actualiza con cada nueva entrada.
-- **Estado oculto** $\mathbf{x}(t)$. La "memoria de trabajo" de la red. En una RNN clásica se actualiza en pasos discretos; en una red de tiempo continuo es una función del tiempo.
-- **Tiempo continuo (*time-continuous*).** El modelo no define directamente el siguiente estado, sino la **velocidad de cambio** del estado en cada instante.
-- **ODE (ecuación diferencial ordinaria).** Una ecuación que relaciona una función con su derivada, por ejemplo $d\mathbf{x}/dt = \ldots$ Resolverla significa encontrar la trayectoria $\mathbf{x}(t)$ a partir de un estado inicial.
-- **Constante de tiempo** $\tau$. Un parámetro que fija la escala temporal de un sistema: cuánto tarda en responder o en "olvidar". Los autores la describen como el parámetro que caracteriza la velocidad y la sensibilidad de acoplamiento de una ODE [@hasani2021ltc].
-- **Expresividad.** Qué tan complejas son las funciones (o trayectorias) que una arquitectura puede representar.
-- **Estabilidad.** En este paper, que el estado y la constante de tiempo permanezcan dentro de un rango finito aunque las entradas crezcan sin límite. Más adelante se precisa qué demuestra y qué no demuestra esa propiedad.
+Las definiciones básicas (RNN, estado oculto, tiempo continuo, ODE, constante de tiempo, expresividad y estabilidad) están reunidas en el [Glosario](#glosario).
 
-### ¿Por qué "líquida"?
+### ¿Por qué "líquida"? {#por-que-liquida}
 
 En una red de tiempo continuo clásica, cada neurona tiene una constante de tiempo $\tau$ **fija**: se aprende durante el entrenamiento, pero una vez aprendida es la misma para cualquier entrada. En una LTC, la constante de tiempo efectiva depende del estado y de la entrada en cada instante. Cambia mientras la red procesa la secuencia: por eso "líquida". No significa que el modelo sea un líquido ni que los pesos cambien durante la inferencia; lo que varía es la escala temporal efectiva de cada neurona.
 

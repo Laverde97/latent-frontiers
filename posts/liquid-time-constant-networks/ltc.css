@@ -440,6 +440,51 @@ main.content h2.ltc-video-heading {
   margin-bottom: 1rem;
 }
 
+/* ---------- Capa didáctica ---------- */
+
+/* Ruta de aprendizaje: lista numerada con los tres niveles */
+.ltc-route ol {
+  padding-left: 1.3rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.ltc-route li {
+  margin-bottom: 0.7rem;
+}
+
+/* Idea clave: una sola frase destacada, sin color adicional */
+.ltc-key {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.2rem;
+  border-top: 2px solid var(--ltc-navy);
+  border-bottom: 1px solid var(--ltc-line);
+  font-family: var(--ltc-serif);
+}
+
+.ltc-key p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--ltc-ink);
+}
+
+/* Preguntas de autoevaluación */
+.ltc-question > summary {
+  color: var(--ltc-ink);
+}
+
+/* Glosario (lista de definiciones de Pandoc) */
+main.content dl dt {
+  font-weight: 600;
+  color: var(--ltc-ink);
+  margin-top: 0.9rem;
+}
+
+main.content dl dd {
+  margin-left: 1.2rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 767.98px) {
