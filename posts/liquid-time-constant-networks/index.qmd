@@ -7,7 +7,7 @@ lang: es
 categories: [Deep Learning, RNN, Neural ODE, Modelos de tiempo continuo, Series de tiempo, Reproducibilidad científica]
 description: "Una lectura guiada, sección por sección, de 'Liquid Time-constant Networks' (Hasani et al., AAAI 2021): de la ecuación diferencial al Fused ODE Solver, el entrenamiento con BPTT, las cotas de estabilidad, la longitud de trayectoria y los experimentos, separando siempre el paper original de cómo implementaríamos hoy las mismas ideas."
 image: "images/ltc-cover.svg"
-reading-time-display: "110 minutos"
+reading-time-display: "145 minutos"
 toc: true
 toc-depth: 3
 toc-title: "Contenido"
@@ -89,9 +89,9 @@ El objetivo no es resumir, sino entender **qué** hicieron los autores, **por qu
 El artículo se puede leer de corrido, pero no hace falta. Está organizado en tres niveles que se apoyan unos en otros; el material más técnico de cada sección queda en bloques desplegables.
 
 ::: {.ltc-route}
-1. **Comprender** — qué es una LTC y por qué se propuso, sin requisitos previos más allá de saber qué es una red neuronal. [¿Qué son las redes líquidas?](#que-son) → [Conceptos previos](#conceptos-previos) → [De una RNN a una LTC](#rnn-a-ltc).
-2. **Implementar** — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Laboratorio](#laboratorio) → [Fused ODE Solver](#solver-intro) → [Código paso a paso](#codigo-progresivo) → [BPTT](#bptt).
-3. **Profundizar** — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) y [gráficas](#resultados-graficas) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
+1. **Comprender** (≈ 10 min) — qué es una LTC y por qué se propuso, sin requisitos previos más allá de saber qué es una red neuronal. [¿Qué son las redes líquidas?](#que-son) → [Conceptos previos](#conceptos-previos) → [De una RNN a una LTC](#rnn-a-ltc).
+2. **Implementar** (≈ 70 min) — la ecuación central, ejemplos con números, el solver y el código en Python y PyTorch. [La ecuación de las LTC](#liquid-time-constant) → [Laboratorio](#laboratorio) → [Fused ODE Solver](#solver-intro) → [Código paso a paso](#codigo-progresivo) → [BPTT](#bptt).
+3. **Profundizar** (≈ 50 min) — teoremas, expresividad, experimentos, limitaciones y reproducibilidad. [Cotas](#bounds) → [Poder expresivo](#expressive-power) → [Experimentos](#experimentos) y [gráficas](#resultados-graficas) → [Limitaciones](#limitaciones) → [Reproducción](#reproduccion).
 :::
 
 ## ¿Qué son las redes neuronales líquidas? {#que-son}
