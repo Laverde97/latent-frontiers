@@ -291,6 +291,12 @@ main.content pre {
   -webkit-overflow-scrolling: touch;
 }
 
+/* El código en línea largo, como una forma de tensor, puede partirse en pantallas estrechas */
+main.content :not(pre) > code {
+  white-space: pre-wrap;  /* el tema usa white-space: pre, que impide partir la línea */
+  overflow-wrap: anywhere;
+}
+
 main.content pre code {
   white-space: pre;
   font-size: 0.85rem;
@@ -338,8 +344,56 @@ main.content table caption {
 
 /* ---------- Video y diapositivas ---------- */
 
+/* El video va justo después del título y el subtítulo, sin nada entre ellos */
+.ltc-hero--title {
+  margin-bottom: 1rem;
+}
+
+/* ---------- Desplegables (<details>) ---------- */
+
+.ltc-details {
+  margin: 1rem 0 1.4rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+  padding: 0 1.1rem;
+}
+
+.ltc-details > summary {
+  cursor: pointer;
+  padding: 0.7rem 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ltc-blue);
+}
+
+.ltc-details > summary:focus-visible {
+  outline: 2px solid var(--ltc-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.ltc-details[open] {
+  padding-bottom: 0.6rem;
+}
+
+.ltc-details[open] > summary {
+  border-bottom: 1px solid var(--ltc-line);
+  margin-bottom: 0.8rem;
+}
+
+.ltc-hero--meta {
+  margin-top: 2rem;
+}
+
+.ltc-video-note p {
+  font-size: 0.9rem;
+  color: var(--ltc-muted);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+
 .ltc-video {
-  margin: 1.2rem 0 0.4rem;
+  margin: 0 0 0.8rem;
 }
 
 .ltc-video video {
@@ -385,6 +439,436 @@ main.content table caption {
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+}
+
+/* ---------- Capa didáctica ---------- */
+
+/* Ruta de aprendizaje: lista numerada con los tres niveles */
+.ltc-route ol {
+  padding-left: 1.3rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.ltc-route li {
+  margin-bottom: 0.7rem;
+}
+
+/* Idea clave: una sola frase destacada, sin color adicional */
+.ltc-key {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.2rem;
+  border-top: 2px solid var(--ltc-navy);
+  border-bottom: 1px solid var(--ltc-line);
+  font-family: var(--ltc-serif);
+}
+
+.ltc-key p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--ltc-ink);
+}
+
+/* Ejemplo numérico: mismo patrón que los callouts, en tono neutro */
+.ltc-example {
+  margin: 1.5rem 0;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--ltc-line);
+  border-left: 4px solid var(--ltc-navy);
+  border-radius: 0 8px 8px 0;
+}
+
+.ltc-example__label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ltc-navy);
+  margin-bottom: 0.4rem;
+}
+
+.ltc-example > :last-child {
+  margin-bottom: 0;
+}
+
+/* Preguntas de autoevaluación */
+.ltc-question > summary {
+  color: var(--ltc-ink);
+}
+
+/* Glosario (lista de definiciones de Pandoc) */
+main.content dl dt {
+  font-weight: 600;
+  color: var(--ltc-ink);
+  margin-top: 0.9rem;
+}
+
+main.content dl dd {
+  margin-left: 1.2rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+
+/* ---------- Laboratorio interactivo ---------- */
+
+.ltc-lab {
+  margin: 1.2rem 0 2rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+}
+
+.ltc-lab__panel {
+  margin-top: 1rem;
+}
+
+.ltc-lab__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.9rem 1.4rem;
+}
+
+.ltc-lab__control {
+  display: block;
+  margin: 0;
+}
+
+/* Bloque (no flex): así los <i> del nombre no se separan como elementos flex */
+.ltc-lab__name {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--ltc-ink);
+}
+
+.ltc-lab__name output {
+  float: right;
+  margin-left: 0.5rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.ltc-lab input[type="range"] {
+  width: 100%;
+  accent-color: var(--ltc-blue);
+}
+
+.ltc-lab input:focus-visible,
+.ltc-lab button:focus-visible {
+  outline: 2px solid var(--ltc-blue);
+  outline-offset: 2px;
+}
+
+.ltc-lab input[type="range"]:disabled {
+  opacity: 0.45;
+}
+
+main.content .ltc-lab__help,
+main.content .ltc-lab__muted {
+  font-size: 0.85rem;
+  color: var(--ltc-muted);
+}
+
+.ltc-lab__result {
+  margin: 1rem 0;
+}
+
+main.content .ltc-lab__big {
+  font-family: var(--ltc-serif);
+  font-size: 1.35rem;
+  color: var(--ltc-ink);
+  margin-bottom: 0.6rem;
+}
+
+.ltc-lab__bars {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  max-width: 32rem;
+}
+
+.ltc-lab__bar-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--ltc-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ltc-lab__track {
+  display: block;
+  height: 14px;
+  background: var(--ltc-surface);
+  border-radius: 4px;
+}
+
+.ltc-lab__bar {
+  display: block;
+  height: 100%;
+  background: #2E6DB4;
+  border-radius: 0 4px 4px 0;
+}
+
+.ltc-lab__bar--base {
+  background: #9CA3AF;
+}
+
+.ltc-lab__toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  font-size: 0.9rem;
+  margin: 0.6rem 0 0.8rem;
+}
+
+main.content .ltc-lab__chart-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  margin: 0.8rem 0 0.3rem;
+}
+
+.ltc-lab__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.4rem;
+}
+
+main.content .ltc-lab__legend li {
+  font-size: 0.82rem;
+  color: var(--ltc-muted);
+  line-height: 1.5;
+}
+
+.ltc-lab__key {
+  display: inline-block;
+  width: 1.4rem;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+.ltc-lab__key--ltc { border-top: 2px solid #2E6DB4; }
+.ltc-lab__key--ctrnn { border-top: 2px dashed #C2410C; }
+.ltc-lab__key--dot { width: 8px; height: 8px; border-radius: 50%; background: #2E6DB4; }
+.ltc-lab__key--band { height: 0.8rem; background: rgba(46, 109, 180, 0.12); }
+
+.ltc-lab__chart-wrap {
+  position: relative;
+}
+
+.ltc-lab__chart svg {
+  display: block;
+  touch-action: pan-y;
+}
+
+.ltc-lab__tooltip {
+  position: absolute;
+  pointer-events: none;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--ltc-ink);
+  background: #fff;
+  border: 1px solid var(--ltc-line);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(11, 30, 61, 0.08);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+main.content dl.ltc-lab__readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.6rem 1rem;
+  margin: 0.8rem 0;
+}
+
+main.content .ltc-lab__readout dt {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ltc-muted);
+  margin: 0;
+}
+
+main.content .ltc-lab__readout dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+main.content .ltc-lab__noscript {
+  font-size: 0.92rem;
+  color: var(--ltc-muted);
+}
+
+/* La tabla del simulador tiene cuatro columnas numéricas cortas: caben sin el ancho mínimo global */
+main.content .ltc-lab table th,
+main.content .ltc-lab table td {
+  min-width: 0;
+  padding: 0.4rem 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Gráficas de puntos de resultados (HTML/CSS, sin JS) ---------- */
+
+.ltc-dots {
+  margin: 1.5rem 0 1rem;
+  padding: 1rem 1.2rem 0.8rem;
+  border: 1px solid var(--ltc-line);
+  border-radius: var(--ltc-radius);
+  --ltc-dots-name: 8.5rem;
+  --ltc-dots-value: 7.5rem;
+}
+
+main.content .ltc-dots__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ltc-ink);
+  text-align: left;
+  margin: 0 0 0.8rem;
+}
+
+.ltc-dots__title span {
+  display: block;
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--ltc-muted);
+}
+
+.ltc-dots__plot {
+  position: relative;
+}
+
+/* Rejilla vertical: alineada con la columna de la pista */
+.ltc-dots__grid {
+  position: absolute;
+  top: 0;
+  bottom: 1.6rem;
+  left: calc(var(--ltc-dots-name) + 0.6rem);
+  right: calc(var(--ltc-dots-value) + 0.6rem);
+}
+
+.ltc-dots__grid span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--ltc-line);
+}
+
+.ltc-dots__row,
+.ltc-dots__axis {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--ltc-dots-name) 1fr var(--ltc-dots-value);
+  gap: 0.6rem;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.ltc-dots__name {
+  font-size: 0.85rem;
+  color: var(--ltc-body);
+  line-height: 1.25;
+}
+
+.ltc-dots__row--ltc .ltc-dots__name {
+  font-weight: 600;
+  color: var(--ltc-ink);
+}
+
+.ltc-dots__track {
+  position: relative;
+  height: 1.4rem;
+}
+
+.ltc-dots__err {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: #9CA3AF;
+  border-radius: 1px;
+}
+
+.ltc-dots__dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: #6B7280;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.ltc-dots__row--ltc .ltc-dots__err { background: #2E6DB4; }
+.ltc-dots__row--ltc .ltc-dots__dot { background: #2E6DB4; }
+
+.ltc-dots__value {
+  font-size: 0.8rem;
+  color: var(--ltc-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ltc-dots__ticks {
+  position: relative;
+  height: 1.2rem;
+}
+
+.ltc-dots__ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--ltc-muted);
+  white-space: nowrap;
+}
+
+main.content .ltc-dots__note {
+  font-size: 0.78rem;
+  color: var(--ltc-muted);
+  line-height: 1.5;
+  margin: 0.6rem 0 0;
+}
+
+/* En móvil cada fila se apila: nombre y valor arriba, pista a todo el ancho debajo */
+@media (max-width: 575.98px) {
+  .ltc-dots {
+    padding: 0.8rem 0.8rem 0.6rem;
+  }
+
+  .ltc-dots__row,
+  .ltc-dots__axis {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name value" "track track";
+    row-gap: 0;
+    min-height: 0;
+    margin-bottom: 0.35rem;
+  }
+
+  .ltc-dots__name { grid-area: name; }
+  .ltc-dots__value { grid-area: value; }
+  .ltc-dots__track,
+  .ltc-dots__ticks { grid-area: track; }
+
+  .ltc-dots__grid {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ltc-lab *,
+  .ltc-details * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 /* ---------- Responsive ---------- */

@@ -7,6 +7,8 @@ Este archivo empieza por `_`, así que Quarto no lo renderiza ni lo lista.
 
 - **`index.qmd`** — el artículo. `engine: markdown`: no ejecuta código durante el render, así que CI no necesita Python.
 - **`ltc.css`** — estilos propios (namespace `.ltc-`, más reglas sobre `main.content`). El contenido **no** va envuelto en un div para que los encabezados entren en la tabla de contenido de Quarto.
+- **`ltc-lab.js`** — laboratorio interactivo (Simulador 1: τ_sys; Simulador 2: trayectorias con *f* congelada y pasos de la Ec. 3). JavaScript sin dependencias, cargado con un `<script>` al final del Simulador 2 (no con `include-after-body`, para no sustituir el include global del selector de idioma). Los controles van en bloques `{=html}` sin matemáticas; las fórmulas, en Markdown para que MathJax las procese. Hay alternativa `<noscript>`.
+- **`analysis/ltc_intro.ipynb`** — cuaderno introductorio (CPU, semilla fija, datos sintéticos). Quarto lo publica como `.ipynb` y como página HTML con las salidas guardadas (no lo ejecuta); `writings.qmd` lo excluye del listado, igual que los cuadernos del artículo de metilación.
 - **`slides.qmd`**, **`slides.scss`** — presentación RevealJS de 16 diapositivas.
 - **`timer.html`** — temporizador de la presentación, incluido con `include-after-body`.
 - **`references.bib`** — metadatos tomados de Crossref (DOI), arXiv, PMLR y la documentación oficial de cada librería.
@@ -61,7 +63,7 @@ La salida va a `_site/posts/liquid-time-constant-networks/` (`index.html`, `slid
 - Las tasas de aprendizaje por modelo (0,01–0,02 para LTC; 0,001 para los demás) proceden del **README del repositorio**, no del paper. El artículo las mantiene en una columna aparte.
 - Las «Notas de lectura» describen qué escribe la versión consultada y qué lectura se adopta; no corrigen la notación original.
 - **Video:** la primera versión se auditó (narración transcrita y fotogramas) y necesitaba revisión. Se sustituyó por una versión corregida, revisada del mismo modo: los problemas graves están resueltos. Queda un exceso verbal en 06:48 ("arrasan"), que el artículo señala en una frase, y detalles menores sin nota (p. ej., la Ec. (3) se describe pero no se muestra).
-- Tiempo de lectura: ~17.400 palabras, 22 ecuaciones en bloque y ~160 líneas de código y pseudocódigo; a 200 palabras por minuto más el tiempo de ecuaciones y código, unos 110 minutos.
+- Tiempo de lectura: regla calibrada con la versión original (200 palabras por minuto + 0,5 min por ecuación en bloque + 0,075 min por línea de código), que da 109 min para la versión de octubre de 2026 (~17.400 palabras, 22 ecuaciones, ~150 líneas). Con la capa didáctica: ~21.800 palabras, 39 ecuaciones en bloque y ~200 líneas → **145 minutos**; por nivel de la ruta, ≈ 10 (Comprender), ≈ 70 (Implementar) y ≈ 50 (Profundizar).
 
 ## Validación aplicada
 
@@ -71,3 +73,12 @@ Con Chromium headless (Playwright) sobre el sitio renderizado:
 - Diapositivas: 16 diapositivas, ecuaciones y código renderizados, sin contenido fuera del marco.
 - Temporizador: no arranca solo; `T` y clic inician y pausan; persiste entre diapositivas; `Shift`+`T` y doble clic reinician; se detiene en 00:00; oculto en impresión y en `?print-pdf`.
 - Fidelidad: cada fila de las Tablas 2–6 del paper se comparó automáticamente con la fuente LaTeX de arXiv.
+
+## Capa didáctica (rama `feature/ltc-didactic-video-first`)
+
+- **Orden de la portada:** título y subtítulo → reproductor (`<figure id="video">`, sin encabezado ni párrafo antes) → texto introductorio → nota y precisión de 06:48 (desplegable) → enlaces al MP4 → metadatos, estadísticas y botones → ruta de aprendizaje. Hay un único `<video>`.
+- **Secciones nuevas:** `#ruta`, `#que-son`, `#conceptos-previos` (con `#glosario`, que absorbe literalmente el antiguo «Vocabulario mínimo»), `#rnn-a-ltc`, `#ec1-por-capas`, `#laboratorio`, `#solver-intro`, `#codigo-progresivo`, `#resultados-graficas`; guías de lectura de los Teoremas 1–5 (callouts de intuición con clase `.ltc-guide`) y cinco preguntas de autoevaluación (`<details class="ltc-question">`).
+- **Matemáticas dentro de HTML:** nunca dentro de `{=html}` ni en `<summary>`; dentro de `<details>` solo con líneas en blanco alrededor del Markdown. Las ecuaciones nuevas están partidas (`aligned`) para caber a 375 px sin desplazamiento.
+- **Gráficas de resultados:** HTML/CSS generado por script a partir de las filas de las Tablas 3 y 6 de este mismo archivo (no se teclean cifras). Si cambian las tablas, hay que regenerarlas.
+- **Fragmentos de código de los niveles 1 y 2:** ejecutados; la salida se copia literalmente. El nivel 3 es `analysis/ltc_manual.py` sin cambios.
+- **Validación de esta rama** (Chromium headless, sitio servido bajo `/latent-frontiers/`, contexto sin caché a 1280 px y 375 px): MathJax sin errores ni LaTeX visible con todos los desplegables abiertos; ecuaciones nuevas sin desplazamiento en móvil; anclas internas resueltas; sin desbordamiento horizontal; video con HTTP 200 y metadatos cargados; 18 pruebas del laboratorio (valores 1,00 y 0,250 de los ejemplos, teclado, botones de restablecer, restricción de x(0) al intervalo del Teorema 2, trayectoria dentro del intervalo en 5 combinaciones, tooltip); conservación literal de las Tablas 1–6, Algorithm 1–2, Ec. (1)–(9), citas y encabezados originales. El cuaderno se ejecutó de principio a fin sin errores (~20 s en CPU).
