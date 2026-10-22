@@ -201,9 +201,9 @@ $$
 $$
 *Qué cambia:* aparece $\tau$, aprendida pero fija.
 
-**LTC.** *Idea:* la misma salida de $f$ modula también el coeficiente de la fuga, y por tanto la rapidez.
+**LTC.** *Idea:* la misma salida de $f$ modula también el coeficiente de la fuga, y por tanto la rapidez. Abreviando $f = f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)$:
 $$
-\frac{d\mathbf{x}(t)}{dt} = -\left[\frac{1}{\tau} + f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)\right]\mathbf{x}(t) + f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)\,A
+\frac{d\mathbf{x}(t)}{dt} = -\left[\frac{1}{\tau} + f\right]\mathbf{x}(t) + f\,A
 $$
 *Qué cambia:* $f$ aparece dos veces, y la constante de tiempo efectiva depende de la entrada y del estado. $A$ es un vector de parámetros entrenable hacia el que $f$ empuja al estado.
 
@@ -446,6 +446,8 @@ Es la **Ec. (1) del artículo**.
 |---|---|---|
 | $\mathbf{x}(t)$ | Estado oculto de las neuronas. | $N$ |
 | $\mathbf{I}(t)$ | Entrada externa. | $M$ |
+| $t$ | Tiempo, variable continua. | escalar |
+| $d\mathbf{x}(t)/dt$ | Velocidad de cambio del estado: es lo que define la Ec. (1). | $N$ |
 | $\tau$ | Constante de tiempo "base" de cada neurona, entrenable. | $N \times 1$ |
 | $f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)$ | Red no lineal que depende del estado y la entrada. El ejemplo del paper es $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$. | $N$ |
 | $\theta$ | Parámetros de $f$: pesos de entrada $\gamma$, pesos recurrentes $\gamma_r$, sesgos $\mu$ (y $\tau$). | — |
@@ -495,11 +497,78 @@ Cuando $f$ es grande y positiva, $\tau_{sys}$ se hace más pequeña: la neurona 
 Si —solo como experimento mental— congeláramos $f$ en un valor constante, la ecuación sería lineal y el estado tendería exponencialmente, con constante de tiempo $\tau_{sys}$, hacia el punto $\tau_{sys}\, f A = \dfrac{\tau f}{1 + \tau f}A$. En la red real $f$ nunca está congelada: cambia con el estado y la entrada, así que tanto el "destino" como la "rapidez" se desplazan continuamente.
 :::
 
-::: {.ltc-callout .ltc-callout--limit}
+::: {#tanh-limit .ltc-callout .ltc-callout--limit}
 [Limitación]{.ltc-callout__label}
 
 La lectura "$f$ grande → reacción rápida" presupone $f \geq 0$, que es el caso que analizan los Teoremas 1 y 2 del paper (una sigmoide entre 0 y 1). Con una activación que toma valores negativos, como la $\tanh$ del ejemplo de la Sección 2, $1 + \tau f$ puede ser menor que 1 y $\tau_{sys}$ puede **superar** a $\tau$. El paper no establece que $\tau_{sys}$ se "adapte de forma óptima" a la tarea: establece su expresión y, bajo supuestos, sus cotas.
 :::
+
+#### La Ec. (1) por capas {#ec1-por-capas}
+
+Lo que sigue es una lectura pedagógica de este artículo: no añade nada al paper, descompone su Ec. (1) en cinco niveles.
+
+**Nivel A — Intuición.** La Ec. (1) no dice cuánto vale el estado, sino a qué velocidad cambia. Sobre cada neurona actúan dos fuerzas: una **fuga**, que la devuelve hacia cero, y un **empuje** hacia el valor $A$. La red no lineal $f$, que depende de la entrada y del estado, decide cuánto empuje hay en cada instante. Es no lineal para que la respuesta dependa del contexto: la misma entrada puede tener efectos distintos según el estado en que se encuentre la neurona. Y aparece en dos términos porque, al empujar hacia $A$, también acelera la dinámica: en una LTC, **hacia dónde** va el estado y **con qué rapidez** llega están ligados por la misma $f$.
+
+**Nivel B — Descomposición.** Cada símbolo está en la tabla anterior. Conviene fijarse en tres: $\tau$ (la rapidez de la fuga cuando $f = 0$), $f$ (la parte que cambia con la entrada y el estado) y $A$ (el valor hacia el que $f$ empuja).
+
+**Nivel C — Cuándo $\tau_{sys}$ es una constante de tiempo.** La expresión
+
+$$
+\tau_{sys} = \frac{\tau}{1 + \tau f}
+$$
+
+describe una constante de tiempo positiva —una escala de decaimiento— si $\tau > 0$ y $1 + \tau f > 0$, es decir, si $f > -1/\tau$. Con una $f$ no negativa, como la sigmoide de los Teoremas 1 y 2, ambas condiciones se cumplen siempre y además $\tau_{sys} \leq \tau$. Con una $f$ que puede ser negativa, como $\tanh$, no está garantizado: si $\tau > 1$ y $f$ se acerca a $-1$, el denominador puede anularse o hacerse negativo, y entonces la expresión deja de describir un decaimiento. Toda esta lectura trata $f$ como si estuviera fija en un instante dado.
+
+::: {.ltc-example}
+[Ejemplo numérico · valores hipotéticos]{.ltc-example__label}
+
+Los números son elegidos a mano para seguir el cálculo; **no** son parámetros obtenidos mediante entrenamiento. Tomamos $\tau = 2$, $f = 0{,}5$, $A = 1$ y $x(0) = 0$.
+
+**Paso 1 — coeficiente de la fuga** en la Ec. (1):
+
+$$
+\frac{1}{\tau} + f = \frac{1}{2} + 0{,}5 = 1.
+$$
+
+**Paso 2 — constante de tiempo efectiva**, con la fórmula:
+
+$$
+\begin{aligned}
+\tau_{sys} &= \frac{\tau}{1 + \tau f} = \frac{2}{1 + 2(0{,}5)} \\
+&= \frac{2}{2} = 1.
+\end{aligned}
+$$
+
+Es el inverso del coeficiente del paso 1, como debe ser.
+
+**Paso 3 — velocidad de cambio** en $t = 0$:
+
+$$
+\begin{aligned}
+\frac{dx}{dt}\bigg|_{t=0} &= -1 \cdot 0 + 0{,}5 \cdot 1 \\
+&= 0{,}5.
+\end{aligned}
+$$
+
+**Paso 4 — trayectoria con $f$ congelada.** Si $f$ se mantuviera en $0{,}5$ (un experimento mental: en la red real cambia), la ecuación sería lineal y el estado tendería a
+
+$$
+\begin{aligned}
+x^{*} &= \tau_{sys}\, f A = 1 \cdot 0{,}5 \cdot 1 \\
+&= 0{,}5,
+\end{aligned}
+$$
+
+siguiendo la curva
+
+$$
+x(t) = 0{,}5\left(1 - e^{-t/\tau_{sys}}\right).
+$$
+
+En $t = 1$, $x(1) = 0{,}5\,(1 - e^{-1}) \approx 0{,}316$: el 63 % del camino hacia $x^{*}$ tras una constante de tiempo.
+:::
+
+**Nivel E — Interpretación.** Con estos valores, la constante de tiempo efectiva es la mitad de la base: mientras $f = 0{,}5$, la neurona responde el doble de rápido que si $f$ fuera $0$, en cuyo caso $\tau_{sys} = \tau = 2$. Que $\tau_{sys}$ cambie significa que la misma neurona puede comportarse como una unidad lenta o rápida según la entrada. Estas conclusiones dependen de las hipótesis del ejemplo ($f \geq 0$ y fija); en la red real $f$ varía en cada instante, y con $\tanh$ se aplica la [limitación](#tanh-limit) indicada arriba.
 
 ### Why this specific formulation? — la motivación biológica {#motivacion-biologica}
 

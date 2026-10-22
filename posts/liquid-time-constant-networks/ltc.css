@@ -467,6 +467,29 @@ main.content h2.ltc-video-heading {
   color: var(--ltc-ink);
 }
 
+/* Ejemplo numérico: mismo patrón que los callouts, en tono neutro */
+.ltc-example {
+  margin: 1.5rem 0;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--ltc-line);
+  border-left: 4px solid var(--ltc-navy);
+  border-radius: 0 8px 8px 0;
+}
+
+.ltc-example__label {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ltc-navy);
+  margin-bottom: 0.4rem;
+}
+
+.ltc-example > :last-child {
+  margin-bottom: 0;
+}
+
 /* Preguntas de autoevaluación */
 .ltc-question > summary {
   color: var(--ltc-ink);
