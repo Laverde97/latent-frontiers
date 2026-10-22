@@ -344,9 +344,9 @@ main.content table caption {
 
 /* ---------- Video y diapositivas ---------- */
 
-/* El video va justo después del título: sin hueco grande entre ambos */
+/* El video va justo después del título y el subtítulo, sin nada entre ellos */
 .ltc-hero--title {
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
 }
 
 /* ---------- Desplegables (<details>) ---------- */
@@ -381,11 +381,6 @@ main.content table caption {
   margin-bottom: 0.8rem;
 }
 
-main.content h2.ltc-video-heading {
-  margin-top: 0.4rem;
-  font-size: 1.3rem;
-}
-
 .ltc-hero--meta {
   margin-top: 2rem;
 }
@@ -398,7 +393,7 @@ main.content h2.ltc-video-heading {
 }
 
 .ltc-video {
-  margin: 1.2rem 0 0.8rem;
+  margin: 0 0 0.8rem;
 }
 
 .ltc-video video {

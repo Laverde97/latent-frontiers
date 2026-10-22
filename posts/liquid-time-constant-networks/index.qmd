@@ -33,12 +33,8 @@ format:
 <p class="ltc-hero__subtitle">Lectura guiada de Hasani et al.: fundamentos matemáticos, Fused ODE Solver, BPTT, estabilidad, experimentos y reproducción actual.</p>
 </section>
 
-## Antes de comenzar: explicación audiovisual {#video .ltc-video-heading}
-
-Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente nueve minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles fueron los principales resultados del trabajo original.
-
 ```{=html}
-<figure class="ltc-video">
+<figure class="ltc-video" id="video">
 <video controls playsinline preload="metadata" width="1280" height="720"
        title="Video explicativo sobre Liquid Time-Constant Networks"
        aria-label="Video explicativo de unos nueve minutos sobre Liquid Time-Constant Networks">
@@ -48,6 +44,8 @@ Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-ana
 <figcaption>Video educativo complementario sobre los conceptos principales de Liquid Time-Constant Networks (8 min 46 s).</figcaption>
 </figure>
 ```
+
+Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente nueve minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles fueron los principales resultados del trabajo original.
 
 ::: {.ltc-video-note}
 Este video es un recurso audiovisual complementario, de unos 9 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática. El artículo escrito es autosuficiente y puede leerse completo sin verlo; donde el video y este texto difieran en algún matiz, prevalece el texto.

@@ -76,7 +76,7 @@ Con Chromium headless (Playwright) sobre el sitio renderizado:
 
 ## Capa didáctica (rama `feature/ltc-didactic-video-first`)
 
-- **Orden de la portada:** título y subtítulo → video (`#video`) → nota y precisión de 06:48 (desplegable) → enlaces al MP4 → metadatos, estadísticas y botones → ruta de aprendizaje. Hay un único `<video>`.
+- **Orden de la portada:** título y subtítulo → reproductor (`<figure id="video">`, sin encabezado ni párrafo antes) → texto introductorio → nota y precisión de 06:48 (desplegable) → enlaces al MP4 → metadatos, estadísticas y botones → ruta de aprendizaje. Hay un único `<video>`.
 - **Secciones nuevas:** `#ruta`, `#que-son`, `#conceptos-previos` (con `#glosario`, que absorbe literalmente el antiguo «Vocabulario mínimo»), `#rnn-a-ltc`, `#ec1-por-capas`, `#laboratorio`, `#solver-intro`, `#codigo-progresivo`, `#resultados-graficas`; guías de lectura de los Teoremas 1–5 (callouts de intuición con clase `.ltc-guide`) y cinco preguntas de autoevaluación (`<details class="ltc-question">`).
 - **Matemáticas dentro de HTML:** nunca dentro de `{=html}` ni en `<summary>`; dentro de `<details>` solo con líneas en blanco alrededor del Markdown. Las ecuaciones nuevas están partidas (`aligned`) para caber a 375 px sin desplazamiento.
 - **Gráficas de resultados:** HTML/CSS generado por script a partir de las filas de las Tablas 3 y 6 de este mismo archivo (no se teclean cifras). Si cambian las tablas, hay que regenerarlas.
