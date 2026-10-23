@@ -38,8 +38,8 @@ format:
 <video controls playsinline preload="metadata" width="1280" height="720"
        title="Video explicativo sobre Liquid Time-Constant Networks"
        aria-label="Video explicativo de unos trece minutos sobre Liquid Time-Constant Networks">
-<source src="media/redes-ltc-analisis.mp4" type="video/mp4">
-Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-analisis.mp4">descargarlo aquí</a>.
+<source src="media/redes-ltc-analisis.mp4?v=4fd4e82" type="video/mp4">
+Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-analisis.mp4?v=4fd4e82">descargarlo aquí</a>.
 </video>
 <figcaption>Video educativo complementario sobre los conceptos principales de Liquid Time-Constant Networks (13 min 17 s).</figcaption>
 </figure>
@@ -52,8 +52,8 @@ Este video es un recurso audiovisual complementario, de unos 13 minutos. Lleva l
 :::
 
 <div class="ltc-actions ltc-actions--left">
-<a class="lf-btn" href="media/redes-ltc-analisis.mp4" target="_blank" rel="noopener">Abrir el video en una pestaña nueva</a>
-<a class="lf-btn" href="media/redes-ltc-analisis.mp4" download>Descargar el video (MP4)</a>
+<a class="lf-btn" href="media/redes-ltc-analisis.mp4?v=4fd4e82" target="_blank" rel="noopener">Abrir el video en una pestaña nueva</a>
+<a class="lf-btn" href="media/redes-ltc-analisis.mp4?v=4fd4e82" download>Descargar el video (MP4)</a>
 </div>
 
 <section class="ltc-hero ltc-hero--meta">
