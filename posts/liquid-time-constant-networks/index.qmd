@@ -45,7 +45,7 @@ Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-ana
 </figure>
 ```
 
-Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente trece minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles fueron los principales resultados del trabajo original.
+Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente trece minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles son las principales propiedades y aportes de estas redes.
 
 ::: {.ltc-video-note}
 Este video es un recurso audiovisual complementario, de unos 13 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática. El artículo escrito es autosuficiente y puede leerse completo sin verlo; donde el video y este texto difieran en algún matiz, prevalece el texto.
