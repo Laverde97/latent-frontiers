@@ -37,26 +37,19 @@ format:
 <figure class="ltc-video" id="video">
 <video controls playsinline preload="metadata" width="1280" height="720"
        title="Video explicativo sobre Liquid Time-Constant Networks"
-       aria-label="Video explicativo de unos nueve minutos sobre Liquid Time-Constant Networks">
+       aria-label="Video explicativo de unos trece minutos sobre Liquid Time-Constant Networks">
 <source src="media/redes-ltc-analisis.mp4" type="video/mp4">
 Tu navegador no puede reproducir este video. Puedes <a href="media/redes-ltc-analisis.mp4">descargarlo aquí</a>.
 </video>
-<figcaption>Video educativo complementario sobre los conceptos principales de Liquid Time-Constant Networks (8 min 46 s).</figcaption>
+<figcaption>Video educativo complementario sobre los conceptos principales de Liquid Time-Constant Networks (13 min 17 s).</figcaption>
 </figure>
 ```
 
-Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente nueve minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles fueron los principales resultados del trabajo original.
+Antes de profundizar en las ecuaciones y los algoritmos, te invito a ver este video introductorio. En aproximadamente trece minutos conocerás el problema que motivó las redes LTC, cómo funcionan sus constantes de tiempo y cuáles son las principales propiedades y aportes de estas redes.
 
 ::: {.ltc-video-note}
-Este video es un recurso audiovisual complementario, de unos 9 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática. El artículo escrito es autosuficiente y puede leerse completo sin verlo; donde el video y este texto difieran en algún matiz, prevalece el texto.
+Este video es un recurso audiovisual complementario, de unos 13 minutos. Lleva la marca de agua «Gemini Notebook»: se generó de forma automática. El artículo escrito es autosuficiente y puede leerse completo sin verlo; donde el video y este texto difieran en algún matiz, prevalece el texto.
 :::
-
-<details class="ltc-details">
-<summary>Precisión sobre la narración (minuto 06:48)</summary>
-
-Una precisión sobre su narración: hacia el minuto 06:48 dice que las LTC "arrasan" en la tarea Half-Cheetah. Los valores que muestra en pantalla son los del paper (2,308 frente a 2,500 de la LSTM), es decir, un error alrededor de un 8 % menor en esa tarea.
-
-</details>
 
 <div class="ltc-actions ltc-actions--left">
 <a class="lf-btn" href="media/redes-ltc-analisis.mp4" target="_blank" rel="noopener">Abrir el video en una pestaña nueva</a>
