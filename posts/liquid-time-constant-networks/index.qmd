@@ -7,7 +7,7 @@ lang: es
 categories: [Deep Learning, RNN, Neural ODE, Modelos de tiempo continuo, Series de tiempo, Reproducibilidad científica]
 description: "Una lectura guiada, sección por sección, de 'Liquid Time-constant Networks' (Hasani et al., AAAI 2021): de la ecuación diferencial al Fused ODE Solver, el entrenamiento con BPTT, las cotas de estabilidad, la longitud de trayectoria y los experimentos, separando siempre el paper original de cómo implementaríamos hoy las mismas ideas."
 image: "images/ltc-cover.svg"
-reading-time-display: "145 minutos"
+reading-time-display: "145 minutos · 3 laboratorios interactivos"
 toc: true
 toc-depth: 3
 toc-title: "Contenido"
@@ -17,13 +17,17 @@ bibliography: references.bib
 resources:
   - media/redes-ltc-analisis.mp4
   - ltc-lab.js
+  - ltc-expressivity.js
+  - ltc-expressivity.css
   - analysis/ltc_manual.py
   - analysis/smoke_test.py
   - analysis/ncps_example.py
   - analysis/ltc_intro.ipynb
 format:
   html:
-    css: ltc.css
+    css:
+      - ltc.css
+      - ltc-expressivity.css
     code-copy: true
 ---
 
@@ -292,7 +296,12 @@ Las diferencias de redacción con algún contenido son cuatro. La pregunta abier
 
 </details>
 
-## Abstract — Explicación {#abstract}
+
+::: {.callout-tip}
+**Guía para navegar esta revisión:** el índice conserva las secciones originales del artículo de Hasani et al., desde *Abstract* hasta *Acknowledgments*. Los ejemplos de código, los laboratorios y los comentarios sobre bibliotecas actuales se distinguen de los resultados reportados en 2021. Las simulaciones se ejecutan en el navegador y no modifican los resultados publicados por los autores.
+:::
+
+## Abstract — Resumen científico explicado {#abstract}
 
 ### ¿Qué dicen los autores?
 
@@ -324,7 +333,7 @@ Las Neural ODE habían mostrado que una red puede definir la derivada de un esta
 
 > Una LTC es una red recurrente de tiempo continuo en la que una misma red no lineal determina tanto hacia dónde se mueve el estado como la rapidez con la que lo hace, de modo que la constante de tiempo de cada neurona varía con el estado y la entrada; el paper demuestra que, bajo sus supuestos, esa constante y el estado permanecen acotados.
 
-## 1. Introduction — el problema y la propuesta {#introduction}
+## 1. Introduction — Introducción y problema de investigación {#introduction}
 
 ### ¿Qué problema plantea?
 
@@ -778,7 +787,7 @@ La expresividad importa porque fija el techo de lo que un modelo puede represent
 
 Por eso los autores añaden una segunda medida. Si se alimenta una red con una trayectoria de entrada sencilla (un círculo), los **estados ocultos** describen a su vez una trayectoria en un **espacio latente**. La **longitud de trayectoria** mide cuánto se "estira y retuerce" esa curva: una curva más larga indica una transformación más compleja [@raghu2017expressive]. La Sección 5 la desarrolla.
 
-## 2. LTCs forward-pass by a fused ODE solvers — el paso hacia adelante {#fused-solver}
+## 2. LTCs forward-pass by a fused ODE solvers — Propagación mediante el Fused ODE Solver {#fused-solver}
 
 Esta sección responde a una pregunta práctica: dada la Ec. (1), ¿cómo se calcula realmente el estado?
 
@@ -1008,7 +1017,7 @@ El nuevo estado es una mezcla del estado anterior, del valor $A$ y de cero (el r
 La complejidad del algoritmo para una secuencia de longitud $T$ es $O(L \times T)$, con $L$ el número de pasos de discretización. Intuitivamente, dicen los autores, una versión densa de una LTC con $N$ neuronas y una LSTM densa con $N$ celdas tendrían la misma complejidad [@hasani2021ltc].
 :::
 
-## Algorithm 1 — Actualización LTC mediante Fused ODE Solver {#algorithm-1}
+### Algorithm 1 — Actualización LTC mediante Fused ODE Solver {#algorithm-1}
 
 ### El algoritmo tal como aparece en el paper
 
@@ -1094,7 +1103,7 @@ Dos observaciones sobre el Algorithm 1, que aparece compuesto igual en arXiv v4 
 Son observaciones de lectura, no modificaciones del algoritmo.
 :::
 
-## ¿Cómo desarrollaríamos Algorithm 1 hoy? {#algorithm-1-hoy}
+### ¿Cómo desarrollaríamos Algorithm 1 hoy? {#algorithm-1-hoy}
 
 :::: {.ltc-compare}
 ::: {.ltc-compare__col}
@@ -1410,7 +1419,7 @@ parámetros de la celda (M=7, N=32): 1344  [input_weights 224, recurrent_weights
 Estas pruebas demuestran que el código **funciona y respeta el álgebra** de la Ec. (3). **No** demuestran que reproduzca los resultados del paper: no se ha entrenado sobre ninguno de sus datasets ni se ha comparado con sus tablas. La tarea de juguete del script ajusta una sinusoide sobre sus propios datos de entrenamiento y solo confirma que los gradientes permiten aprender.
 :::
 
-## Implementación mediante librerías actuales {#librerias}
+### Implementación mediante librerías actuales {#librerias}
 
 Una vez entendido el algoritmo, tiene sentido mirar qué existe ya hecho.
 
@@ -1460,7 +1469,7 @@ Se instala con `pip install ncps`. El argumento `units` admite un entero (red to
 La documentación de `ncps` describe también una API para TensorFlow/Keras. **No se verificó la API actual** de esa variante para este artículo, por lo que no se muestra código.
 :::
 
-## 3. Training LTC networks by BPTT — el entrenamiento {#bptt}
+## 3. Training LTC networks by BPTT — Entrenamiento y diferenciación automática {#bptt}
 
 ### ¿Qué plantea esta sección?
 
@@ -1507,7 +1516,7 @@ Imagina que subes una montaña y luego tienes que bajar por el mismo camino.
 Los autores resumen: logran un alto grado de precisión en las trayectorias de integración hacia adelante y hacia atrás, con una complejidad computacional similar, **a costa de un gran consumo de memoria** [@hasani2021ltc].
 :::
 
-## Algorithm 2 — Entrenamiento de LTC mediante BPTT {#algorithm-2}
+### Algorithm 2 — Entrenamiento de LTC mediante BPTT {#algorithm-2}
 
 ```text
 Algorithm 2 — Training LTC by BPTT                    (pseudocódigo fiel al paper; no es ejecutable)
@@ -1592,7 +1601,7 @@ El autograd moderno no hizo desaparecer BPTT: lo hizo invisible. La memoria sigu
 
 El mismo principio vale para otros entornos: en TensorFlow las operaciones se registran para derivarlas después, y en JAX se transforma una función en la función que calcula su gradiente. En todos los casos, derivar un cálculo recurrente desenrollado equivale a BPTT. **No se verificó la API actual** de TensorFlow ni de JAX para este artículo, por lo que se mencionan únicamente como equivalentes conceptuales.
 
-## Adjoint vs. BPTT — entonces y ahora {#adjoint-vs-bptt}
+### Adjoint vs. BPTT — entonces y ahora {#adjoint-vs-bptt}
 
 | Dimensión | BPTT | Método de sensibilidad adjunta |
 |---|---|---|
@@ -1628,7 +1637,7 @@ Ambos calculan gradientes de un modelo definido por una ODE. **BPTT** guarda tod
 
 </details>
 
-## ODE Solvers: 2021 vs. herramientas actuales {#ode-solvers}
+### ODE Solvers: 2021 vs. herramientas actuales {#ode-solvers}
 
 ### Los solvers que aparecen en el paper
 
@@ -1665,7 +1674,7 @@ De ahí la regla de clasificación que se usa en el resto del artículo:
 | Misma Ec. (1), pero integrada con otro solver o entrenada con el adjunto | [C]{.ltc-tag .ltc-tag--c} **Experimento modificado** |
 | Otra arquitectura continua en lugar de la LTC | [D]{.ltc-tag .ltc-tag--d} Modelo posterior |
 
-## 4. Bounds on τ and neural state of LTCs — cotas y estabilidad {#bounds}
+## 4. Bounds on τ and neural state of LTCs — Cotas y estabilidad {#bounds}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1823,7 +1832,7 @@ Como interpretación: para una aplicación que recibe datos de sensores, esta pr
 - **Acotado no significa útil.** Un estado que satura en $A$ está acotado, pero puede haber dejado de transportar información.
 :::
 
-## 5. On the expressive power of LTCs — poder expresivo {#expressive-power}
+## 5. On the expressive power of LTCs — Poder expresivo {#expressive-power}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1947,6 +1956,59 @@ Para una capa oculta de $f$ en una red continua, la **profundidad computacional*
 
 Como lectura de la tabla: con un solver de paso variable, las LTC dan en promedio más pasos de integración por muestra que los otros dos modelos. La diferencia es muy grande con ReLU y Hard-tanh; con tanh es de aproximadamente el doble respecto a la CT-RNN, y con sigmoide las desviaciones estándar se solapan. Esto es coherente con la observación de la Sección 2 sobre el coste de integrar LTC con métodos Runge-Kutta adaptativos.
 
+
+### Laboratorio interactivo 3 — Trayectorias latentes y expresividad {#lab-expressividad}
+
+La **Figura 1** introduce la transformación de una entrada circular hacia un espacio latente; la **Figura 2** compara las trayectorias de Neural ODE, CT-RNN y LTC; la **Figura 3** estudia la sensibilidad de la longitud de trayectoria frente a las propiedades del modelo. El siguiente laboratorio permite experimentar con esas tres ideas sin salir de este artículo.
+
+::: {.callout-note}
+**Alcance del simulador.** Es una **demostración didáctica basada en las ecuaciones de las arquitecturas**, no una reproducción numérica exacta de las figuras ni de las cotas teóricas del paper. Usa Euler explícito en Neural ODE y CT-RNN y una actualización semiimplícita inspirada en el Fused Solver para LTC. Los pesos son aleatorios, no entrenados; los tres modelos comparten la semilla, pero no parámetros idénticos. La proyección PCA se ajusta por separado en cada representación, así que las longitudes proyectadas dependen de su escala. En LTC, la puerta se restringe a valores no negativos para conservar la interpretación de la constante de tiempo.
+:::
+
+<div id="ltc-expressivity-lab" role="region" aria-label="Laboratorio interactivo de expresividad LTC">
+  <div class="lab-eyebrow">Laboratorio científico · interactivo · ejecución local en tu navegador</div>
+  <h3>De una circunferencia a trayectorias latentes</h3>
+  <p>La entrada común es <code>I(t) = [sin(t), cos(t)]</code>. Modifica los controles y observa cómo evolucionan las tres redes; las gráficas se recalculan sin Python, Colab, conexión externa ni backend.</p>
+  <div class="lab-controls">
+    <label>Neuronas <span id="ltc-width-v">32</span><input id="ltc-width" type="range" min="8" max="72" step="8" value="32"></label>
+    <label>Escala de pesos <span id="ltc-scale-v">1.5</span><input id="ltc-scale" type="range" min=".25" max="3" step=".25" value="1.5"></label>
+    <label>Constante τ <span id="ltc-tau-v">1.5</span><input id="ltc-tau" type="range" min=".5" max="5" step=".5" value="1.5"></label>
+    <label>Semilla <span id="ltc-seed-v">42</span><input id="ltc-seed" type="range" min="1" max="250" value="42"></label>
+    <label>Activación<select id="ltc-activation"><option value="tanh">tanh</option><option value="relu">ReLU</option><option value="hardtanh">Hard-tanh</option><option value="sigmoid">sigmoide</option></select></label>
+    <button type="button" id="ltc-rerun">Otra inicialización</button>
+  </div>
+  <div class="lab-chart">
+    <p><strong>Experimento A · Figuras 1 y 2.</strong> Trayectorias en las dos primeras componentes principales (cada panel usa sus propios límites).</p>
+    <svg id="ltc-svg" viewBox="0 0 770 265" role="img" aria-label="Tres trayectorias latentes calculadas por PCA"></svg>
+  </div>
+  <div class="lab-values" id="ltc-length" aria-live="polite"></div>
+  <div class="lab-chart">
+    <p><strong>Experimento B · Figura 3.</strong> Longitud de trayectoria proyectada frente al número de neuronas. <span style="color:#3882bc">● Neural ODE</span> · <span style="color:#d18b36">● CT-RNN</span> · <span style="color:#9262ba">● LTC</span>.</p>
+    <svg id="ltc-sensitivity-svg" viewBox="0 0 780 180" role="img" aria-label="Curvas de longitud de trayectoria frente a anchura"></svg>
+    <p class="lab-footnote">Eje horizontal: número de neuronas. Eje vertical: longitud de trayectoria PCA 2D (escala visual relativa, sin graduación). Una sola inicialización por punto; no es inferencia estadística.</p>
+  </div>
+  <p class="lab-note" id="ltc-summary" aria-live="polite"></p>
+  <p class="lab-footnote">Para comparar rigurosamente la expresividad, repite cada configuración con múltiples semillas, conserva las convenciones de escala del paper, utiliza el mismo solver y reporta distribuciones e intervalos, no un único trazado. Una trayectoria mayor no implica mejor exactitud de predicción.</p>
+</div>
+
+<script src="ltc-expressivity.js" defer></script>
+
+#### Cómo se implementa esta idea con bibliotecas actuales
+
+Con **NumPy** se puede integrar la dinámica de una neurona; **SciPy** ofrece \`solve_ivp\` para comparar integradores; **scikit-learn** proporciona \`PCA(n_components=2)\`, y para redes entrenables se utilizan **PyTorch** y las celdas LTC de **ncps**, verificando las versiones y firmas de API antes de ejecutar ejemplos. En una reproducción exacta deben recuperarse las inicializaciones, la configuración de activaciones, los integradores y las repeticiones de Hasani et al.
+
+~~~python
+import numpy as np
+from sklearn.decomposition import PCA
+
+def longitud_trayectoria(estados):
+    """estados: matriz (tiempos, neuronas)"""
+    z = PCA(n_components=2).fit_transform(estados)
+    return np.linalg.norm(np.diff(z, axis=0), axis=1).sum()
+~~~
+
+El laboratorio en la página hace un cálculo equivalente de PCA en JavaScript para visualizar la intuición; **el bloque Python de arriba es el camino recomendado para el análisis reproducible y cuantitativo**.
+
 ### Theorems 4 y 5 — cotas inferiores de la longitud de trayectoria
 
 ::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
@@ -2017,7 +2079,7 @@ No. La longitud de trayectoria mide la capacidad de una red con pesos aleatorios
 
 </details>
 
-## 6. Experimental Evaluation — evaluación experimental {#experimentos}
+## 6. Experimental Evaluation — Evaluación experimental {#experimentos}
 
 ### Protocolo experimental
 
@@ -2297,7 +2359,7 @@ Este resultado muestra que, en **esta** tarea de predicción sobre datos simulad
 - **En Ozone**, los autores advierten de que poner a cero las características faltantes puede perjudicar a las RNN frente a otros enfoques.
 :::
 
-## 7. Related Works — trabajos relacionados {#related-works}
+## 7. Related Works — Trabajos relacionados {#related-works}
 
 El paper sitúa su contribución entre dos líneas.
 
@@ -2307,7 +2369,7 @@ El paper sitúa su contribución entre dos líneas.
 
 En el mapa general: las LTC son **redes recurrentes** (mantienen un estado), de **tiempo continuo** (definidas por una ODE), emparentadas con las **CT-RNN** [@funahashi1993ctrnn] por su término de fuga y con las **Neural ODE** por entrenarse a través de un solver, y analizadas con herramientas de la investigación sobre **expresividad**.
 
-## ¿Qué concluyen realmente los autores? {#conclusiones}
+## 8. Conclusions, Scope and Limitations — Conclusiones, alcance y limitaciones {#conclusiones}
 
 La última sección del paper se titula *Conclusions, Scope and Limitations*. El resumen que sigue parafrasea la redacción de arXiv v4; la versión de AAAI abre la sección con una frase más breve (*"We introduced liquid time-constant networks"*) y mantiene el resto.
 
@@ -2321,7 +2383,7 @@ Los autores concluyen que [@hasani2021ltc]:
 3. Demostraron su dinámica acotada y estable, su mayor expresividad y un rendimiento superior en tareas supervisadas de predicción de series de tiempo frente a modelos estándar y modernos.
 :::
 
-## ¿Qué NO podemos concluir? {#no-concluir}
+### Qué no podemos concluir {#no-concluir}
 
 Esta lista es una valoración de este artículo sobre el alcance de la evidencia, no una afirmación de los autores.
 
@@ -2332,7 +2394,7 @@ Esta lista es una valoración de este artículo sobre el alcance de la evidencia
 - **Que el resultado del Half-Cheetah se traslade a robots reales.**
 - **Que "inspirado en la biología" signifique "biológicamente plausible".**
 
-## Limitaciones {#limitaciones}
+### Limitaciones {#limitaciones}
 
 ### Limitaciones indicadas por los autores
 
@@ -2357,7 +2419,13 @@ Las siguientes observaciones son propias de esta lectura. **No** son limitacione
 - **El coste de memoria del BPTT** crece con $L \times T$. Con $L = 6$ y secuencias de 32 pasos es manejable; con secuencias largas puede dejar de serlo.
 - **La complejidad del entrenamiento** incluye hiperparámetros que una RNN discreta no tiene: el número de pasos del solver y el tamaño de paso.
 
-## Apéndice técnico del paper {#apendice}
+## Acknowledgments — Agradecimientos y reconocimiento de autoría {#agradecimientos}
+
+Esta publicación es una **lectura crítica, reconstrucción didáctica y análisis de implementación**, basada en el trabajo original de Ramin Hasani, Mathias Lechner, Alexander Amini, Daniela Rus y Radu Grosu. El reconocimiento de financiación y apoyos institucionales del artículo original corresponde exclusivamente a los autores, tal como se documenta en su sección *Acknowledgments*. Agradezco asimismo el acceso abierto al manuscrito, código y materiales suplementarios, que hacen posible esta revisión independiente.
+
+## Material suplementario, implementación moderna y recursos {#material-suplementario}
+
+### Apéndice técnico del paper {#apendice}
 
 El material suplementario solo está en la versión de arXiv (v4), donde ocupa de la página 10 a la 25: más que el artículo principal. El PDF de las actas de AAAI no lo incluye. Este mapa indica dónde encontrar cada pieza.
 
@@ -2376,7 +2444,7 @@ El material suplementario solo está en la versión de arXiv (v4), donde ocupa d
 
 <div class="ltc-divider">A partir de aquí, el contenido ya no forma parte del paper original: es análisis de implementación, reproducibilidad e investigación posterior.</div>
 
-## Del paper original a las herramientas actuales {#paper-vs-hoy}
+### Del paper original a las herramientas actuales {#paper-vs-hoy}
 
 Esta sección reúne en una sola tabla todo lo que cambiaría —y lo que no— al llevar el trabajo a un entorno actual.
 
@@ -2394,7 +2462,7 @@ Esta sección reúne en una sola tabla todo lo que cambiaría —y lo que no— 
 | Método adjunto para los gradientes | Descartado explícitamente por los autores | `odeint_adjoint` y similares | [C]{.ltc-tag .ltc-tag--c} Sí: cambia cómo se calculan los gradientes. |
 | Arquitectura posterior | No es la LTC original | Modelo continuo publicado después | [D]{.ltc-tag .ltc-tag--d} Sí. |
 
-## ¿Qué ocurrió después de LTC? {#despues-de-ltc}
+### ¿Qué ocurrió después de LTC? {#despues-de-ltc}
 
 ::: {.ltc-callout .ltc-callout--extension}
 [Extensión posterior]{.ltc-callout__label}
@@ -2434,7 +2502,7 @@ En términos de diseño experimental:
 
 Sustituir LTC por CfC y llamarlo "reproducción del paper de LTC" sería un error de método.
 
-## Conexión con el módulo Deep Learning I {#deep-learning-i}
+### Conexión con el módulo Deep Learning I {#deep-learning-i}
 
 Las LTC son un buen caso de estudio para un primer módulo de Deep Learning porque obligan a usar casi todas sus herramientas básicas sin depender de arquitecturas especializadas.
 
@@ -2458,7 +2526,7 @@ Las LTC son un buen caso de estudio para un primer módulo de Deep Learning porq
 
 Quedan deliberadamente fuera los temas del módulo que no guardan relación con este paper.
 
-## ¿Cómo reproduciríamos el paper hoy? {#reproduccion}
+### ¿Cómo reproduciríamos el paper hoy? {#reproduccion}
 
 <figure class="ltc-figure">
 <img src="images/reproduccion-pipeline.svg" alt="Doce etapas en dos filas: paper y apéndice, datasets, preprocesamiento, modelos baseline, celda LTC, Fused ODE Solver, desenrollado en T pasos, pérdida, BPTT, optimizador Adam, evaluación con n igual a 5 y comparación con lo reportado" loading="lazy">
@@ -2503,7 +2571,7 @@ Este artículo **prepara** ese trabajo; no lo realiza. Un cuaderno de reproducci
 - **Modelo posterior:** LTC frente a CfC en las mismas tareas.
 - **Secuencias largas:** aumentar la longitud de BPTT para observar el desvanecimiento del gradiente que los autores reconocen.
 
-## Presentación {#presentacion}
+### Presentación {#presentacion}
 
 Una versión resumida de este artículo en 16 diapositivas, pensada para una exposición de 15 minutos. Incluye un temporizador discreto en la esquina superior derecha: se inicia y se pausa con un clic o con la tecla `T`, y se reinicia con `Shift` + `T` o con doble clic. La portada de la presentación recuerda estos controles.
 
@@ -2515,7 +2583,7 @@ Una versión resumida de este artículo en 16 diapositivas, pensada para una exp
 <iframe src="slides.html" title="Vista previa de la presentación sobre Liquid Time-Constant Networks" loading="lazy" allowfullscreen></iframe>
 </div>
 
-## Artículo original {#articulo-original}
+### Artículo original {#articulo-original}
 
 <div class="ltc-citation">
 Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>. 2021;35(9):7657–7666. doi:<a href="https://doi.org/10.1609/aaai.v35i9.16936">10.1609/aaai.v35i9.16936</a>. Versión con material suplementario: <a href="https://arxiv.org/abs/2006.04439">arXiv:2006.04439</a>.
@@ -2530,4 +2598,4 @@ Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. <em
 
 Este texto no reproduce figuras del paper. Todos los diagramas del artículo y de la presentación son originales y se elaboraron a partir de la información publicada. Las ecuaciones, los algoritmos y las tablas de resultados se transcriben del artículo y de su suplemento, citándolos como fuente; el código Python es propio y se ejecutó para este artículo.
 
-## Referencias
+### Referencias
