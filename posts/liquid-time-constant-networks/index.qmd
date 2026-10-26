@@ -23,6 +23,7 @@ resources:
   - analysis/smoke_test.py
   - analysis/ncps_example.py
   - analysis/ltc_intro.ipynb
+  - analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb
 format:
   html:
     css:
@@ -2007,7 +2008,7 @@ def longitud_trayectoria(estados):
     return np.linalg.norm(np.diff(z, axis=0), axis=1).sum()
 ~~~
 
-El laboratorio en la página hace un cálculo equivalente de PCA en JavaScript para visualizar la intuición; **el bloque Python de arriba es el camino recomendado para el análisis reproducible y cuantitativo**.
+El laboratorio en la página hace un cálculo equivalente de PCA en JavaScript para visualizar la intuición; **el bloque Python de arriba es el camino recomendado para el análisis reproducible y cuantitativo**. En el [laboratorio de reproducción y aplicaciones](#colab-reproduccion), la sección 9 del cuaderno amplía estas ideas en Python con varias semillas y una traducción parcial del código MATLAB.
 
 ### Theorems 4 y 5 — cotas inferiores de la longitud de trayectoria
 
@@ -2538,7 +2539,29 @@ Paper y suplemento → datasets → preprocesamiento → modelos baseline → ce
 → desenrollado de la secuencia → pérdida → BPTT → optimizador → evaluación → comparación con los resultados reportados
 ```
 
-Este artículo **prepara** ese trabajo; no lo realiza. Un cuaderno de reproducción debería declarar desde el principio a cuál de estos tres niveles aspira.
+Este artículo describe el protocolo de reproducción y enlaza un cuaderno complementario con ejercicios, ejecuciones piloto y adaptaciones. **No reivindica haber reproducido todos los experimentos del paper.** Para interpretar los resultados, conviene distinguir tres niveles de alcance:
+
+### Laboratorio complementario en Google Colab — reproducción y aplicaciones {#colab-reproduccion}
+
+El cuaderno **«Redes líquidas (LTC): laboratorio reproducible y aplicaciones»**, elaborado para Deep Learning I por Sebastián Laverde y Claudio de la Rosa, complementa los simuladores que funcionan dentro de esta página. Contiene **47 celdas** con explicaciones y ejemplos ejecutables en Python. A diferencia del laboratorio interactivo del navegador, este recurso permite explorar datos, ejecutar scripts y conservar resultados de entrenamiento.
+
+<div class="ltc-actions ltc-actions--left">
+<a class="lf-btn lf-btn--primary" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" target="_blank" rel="noopener">Abrir laboratorio en Google Colab</a>
+<a class="lf-btn" href="analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" download>Descargar cuaderno .ipynb</a>
+<a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" target="_blank" rel="noopener">Ver código fuente en GitHub</a>
+</div>
+
+| Apartado del cuaderno | Relación con este artículo |
+|---|---|
+| Secciones 1–2 | Vocabulario, constantes de tiempo y estabilidad (Introducción, sección 4). |
+| Secciones 3–7 | Código original y entorno legado TensorFlow 1.14/Python 3.7, descarga de datasets y entrenamiento (secciones 2, 3 y 6). |
+| Secciones 8–9 | Comparación de métricas, curvas de aprendizaje y trayectorias latentes mediante NumPy/SciPy (secciones 5 y 6). |
+| Secciones 10–14 | Aplicaciones didácticas en áreas distintas, imágenes sintéticas, series temporales y líneas base. |
+| Secciones 15–16 y anexos | Interpretación crítica, reproducibilidad, límites, fuentes y atribución. |
+
+::: {.callout-important}
+**Alcance y ejecución.** El cuaderno combina ejercicios didácticos, una **reproducción parcial** y propuestas de adaptación; no constituye la reproducción certificada de los once experimentos del artículo original. Para entrenar con el código legado descarga software y datasets, lo que requiere conexión a Internet y un entorno compatible. Las imágenes de lesiones son **sintéticas**, no datos clínicos reales ni un sistema diagnóstico. Por claridad y mantenimiento, la versión guardada en este repositorio conserva todas las celdas de código y texto, pero no las salidas de ejecución anteriores: deberás ejecutar las celdas para regenerar gráficos y métricas.
+:::
 
 ### Reproducción mínima
 
@@ -2596,6 +2619,6 @@ Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. <em
 <a class="lf-btn" href="https://github.com/raminmh/liquid_time_constant_networks">Código original</a>
 </div>
 
-Este texto no reproduce figuras del paper. Todos los diagramas del artículo y de la presentación son originales y se elaboraron a partir de la información publicada. Las ecuaciones, los algoritmos y las tablas de resultados se transcriben del artículo y de su suplemento, citándolos como fuente; el código Python es propio y se ejecutó para este artículo.
+Los diagramas explicativos de esta página y la presentación se elaboraron para esta revisión; las simulaciones didácticas no son reproducciones numéricas de las figuras del paper. Las ecuaciones, algoritmos y tablas se atribuyen a Hasani et al. (2021). El nuevo cuaderno vinculado distingue implementaciones didácticas propias de la ejecución de scripts del repositorio original, y conserva sus atribuciones en la sección 16.
 
 ### Referencias
