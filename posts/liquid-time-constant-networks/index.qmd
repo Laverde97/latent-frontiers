@@ -7,7 +7,7 @@ lang: es
 categories: [Deep Learning, RNN, Neural ODE, Modelos de tiempo continuo, Series de tiempo, Reproducibilidad científica]
 description: "Una lectura guiada, sección por sección, de 'Liquid Time-constant Networks' (Hasani et al., AAAI 2021): de la ecuación diferencial al Fused ODE Solver, el entrenamiento con BPTT, las cotas de estabilidad, la longitud de trayectoria y los experimentos, separando siempre el paper original de cómo implementaríamos hoy las mismas ideas."
 image: "images/ltc-cover.svg"
-reading-time-display: "145 minutos · 3 laboratorios interactivos"
+reading-time-display: "145 minutos"
 toc: true
 toc-depth: 3
 toc-title: "Contenido"
@@ -61,6 +61,7 @@ Este video es un recurso audiovisual complementario, de unos 13 minutos. Lleva l
 <a class="lf-btn" href="media/redes-ltc-analisis.mp4?v=4fd4e82" download>Descargar el video (MP4)</a>
 </div>
 
+```{=html}
 <section class="ltc-hero ltc-hero--meta">
 <p class="ltc-hero__meta"><strong>Paper original:</strong> Ramin Hasani, Mathias Lechner, Alexander Amini, Daniela Rus y Radu Grosu. <em>Liquid Time-constant Networks</em>. Proceedings of the AAAI Conference on Artificial Intelligence, 35(9), 7657–7666, 2021. arXiv:2006.04439 · doi:10.1609/aaai.v35i9.16936</p>
 <div class="ltc-stats">
@@ -69,12 +70,14 @@ Este video es un recurso audiovisual complementario, de unos 13 minutos. Lleva l
 <div class="ltc-stat"><div class="ltc-stat__value">32</div><div class="ltc-stat__label">unidades ocultas por modelo</div></div>
 <div class="ltc-stat"><div class="ltc-stat__value">6</div><div class="ltc-stat__label">pasos de solver por entrada</div></div>
 </div>
-<div class="ltc-actions">
+<nav class="ltc-actions ltc-actions--hero" aria-label="Accesos principales">
 <a class="lf-btn lf-btn--primary" href="#ruta">Empezar la lectura</a>
 <a class="lf-btn" href="slides.html">Abrir presentación</a>
-<a class="lf-btn" href="https://arxiv.org/pdf/2006.04439">Paper (PDF)</a>
-</div>
+<a class="lf-btn" href="https://arxiv.org/pdf/2006.04439" target="_blank" rel="noopener">Paper (PDF)</a>
+<a class="lf-btn ltc-btn-colab" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" target="_blank" rel="noopener"><svg class="ltc-colab-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M11.54 8.46A5 5 0 1 0 11.54 15.54" fill="none" stroke="#F9AB00" stroke-width="3" stroke-linecap="round"/><path d="M12.46 8.46A5 5 0 1 1 12.46 15.54" fill="none" stroke="#E8710A" stroke-width="3" stroke-linecap="round"/></svg><span>Google Colab · Laboratorio LTC</span></a>
+</nav>
 </section>
+```
 
 Este texto recorre, casi sección por sección, el artículo *Liquid Time-constant Networks* [@hasani2021ltc]. Está pensado para quien ya conoce lo básico de Deep Learning —redes recurrentes, retropropagación, optimizadores— pero todavía no se siente cómodo con las Neural ODE ni con las redes recurrentes de tiempo continuo. La fuente primaria es la versión 4 de arXiv (14 de diciembre de 2020), que incluye el material suplementario con las demostraciones y el montaje experimental. Se cotejó con la versión publicada en las actas de AAAI; el resultado de esa comparación está en [Versiones del paper](#versiones).
 
@@ -178,7 +181,7 @@ Cuatro modelos, cada uno con un cambio respecto al anterior. Aquí va la versió
 
 <figure class="ltc-figure">
 <img src="images/rnn-a-ltc.svg" alt="Cuatro cajas en secuencia: RNN discreta, Neural ODE, CT-RNN y LTC, cada una con su ecuación de actualización del estado" loading="lazy">
-<figcaption>Diagrama original. La progresión es conceptual: cada modelo modifica la forma en que se define la evolución del estado oculto.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> La progresión es conceptual: cada modelo modifica la forma en que se define la evolución del estado oculto.</figcaption>
 </figure>
 
 **RNN discreta.** *Idea:* el siguiente estado se calcula directamente a partir del estado actual y la entrada.
@@ -284,7 +287,7 @@ El paper existe en dos versiones públicas. Para este artículo se extrajo el te
 | Aspecto | arXiv v4 (14 dic. 2020) | Actas de AAAI-21 (2021) |
 |---|---|---|
 | Extensión | 25 páginas: el artículo y, desde la página 10, el suplemento S1–S9 | 10 páginas (7657–7666), sin suplemento |
-| Ecuaciones (1)–(9), Algorithm 1 y 2, enunciados de los Teoremas 1–5 | Coinciden | Coinciden |
+| Ecuaciones (1)–(9), Algoritmo 1 y 2, enunciados de los Teoremas 1–5 | Coinciden | Coinciden |
 | Valores numéricos de las Tablas 1–6 | Coinciden | Coinciden |
 | Demostraciones, montaje experimental, hiperparámetros, recuento de parámetros, mención de TensorFlow 1.14 | En el suplemento | No están en el PDF, aunque el texto remite a un *Appendix* y a *supplements* |
 | Enlace al código | Nota al pie de la primera página | No aparece en el texto del PDF |
@@ -299,10 +302,10 @@ Las diferencias de redacción con algún contenido son cuatro. La pregunta abier
 
 
 ::: {.callout-tip}
-**Guía para navegar esta revisión:** el índice conserva las secciones originales del artículo de Hasani et al., desde *Abstract* hasta *Acknowledgments*. Los ejemplos de código, los laboratorios y los comentarios sobre bibliotecas actuales se distinguen de los resultados reportados en 2021. Las simulaciones se ejecutan en el navegador y no modifican los resultados publicados por los autores.
+**Guía para navegar esta revisión:** el índice conserva las secciones originales del artículo de Hasani et al., desde el Resumen hasta los Agradecimientos, con sus títulos traducidos al español. Los ejemplos de código, los laboratorios y los comentarios sobre bibliotecas actuales se distinguen de los resultados reportados en 2021. Las simulaciones se ejecutan en el navegador y no modifican los resultados publicados por los autores.
 :::
 
-## Abstract — Resumen científico explicado {#abstract}
+## Resumen {#abstract}
 
 ### ¿Qué dicen los autores?
 
@@ -330,11 +333,11 @@ En una red de tiempo continuo clásica, cada neurona tiene una constante de tiem
 
 Las Neural ODE habían mostrado que una red puede definir la derivada de un estado en vez del estado mismo [@chen2018neuralode]. El paper de LTC plantea una pregunta de seguimiento: **¿cuán expresivas son las Neural ODE en su forma actual y se puede mejorar su estructura?** Su respuesta combina tres piezas que rara vez aparecen juntas en un mismo artículo: una propuesta de arquitectura, un análisis teórico (cotas, aproximación universal, longitud de trayectoria) y una evaluación empírica en varias tareas.
 
-### El Abstract en una frase
+### El resumen en una frase
 
 > Una LTC es una red recurrente de tiempo continuo en la que una misma red no lineal determina tanto hacia dónde se mueve el estado como la rapidez con la que lo hace, de modo que la constante de tiempo de cada neurona varía con el estado y la entrada; el paper demuestra que, bajo sus supuestos, esa constante y el estado permanecen acotados.
 
-## 1. Introduction — Introducción y problema de investigación {#introduction}
+## 1. Introducción {#introduction}
 
 ### ¿Qué problema plantea?
 
@@ -350,7 +353,7 @@ Para llegar a su propuesta conviene recorrer cuatro modelos. No son el mismo mod
 
 <figure class="ltc-figure">
 <img src="images/rnn-a-ltc.svg" alt="Cuatro cajas en secuencia: RNN discreta, Neural ODE, CT-RNN y LTC, cada una con su ecuación de actualización del estado" loading="lazy">
-<figcaption>Diagrama original. La progresión es conceptual: cada modelo modifica la forma en que se define la evolución del estado oculto.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> La progresión es conceptual: cada modelo modifica la forma en que se define la evolución del estado oculto.</figcaption>
 </figure>
 
 ### RNN discretas
@@ -423,7 +426,7 @@ Esto es una lectura válida **dentro de los supuestos del modelo** (un término 
 
 En una CT-RNN, $\tau$ es un parámetro: puede aprenderse, pero no depende de la entrada.
 
-### Liquid time-constant — ¿qué significa realmente? {#liquid-time-constant}
+### La constante de tiempo líquida: ¿qué significa realmente? {#liquid-time-constant}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -445,7 +448,7 @@ Es la **Ec. (1) del artículo**.
 
 #### ¿Qué significa cada término?
 
-| Símbolo | Significado | Dimensión (según el Algorithm 1) |
+| Símbolo | Significado | Dimensión (según el Algoritmo 1) |
 |---|---|---|
 | $\mathbf{x}(t)$ | Estado oculto de las neuronas. | $N$ |
 | $\mathbf{I}(t)$ | Entrada externa. | $M$ |
@@ -454,15 +457,15 @@ Es la **Ec. (1) del artículo**.
 | $\tau$ | Constante de tiempo "base" de cada neurona, entrenable. | $N \times 1$ |
 | $f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)$ | Red no lineal que depende del estado y la entrada. El ejemplo del paper es $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$. | $N$ |
 | $\theta$ | Parámetros de $f$: pesos de entrada $\gamma$, pesos recurrentes $\gamma_r$, sesgos $\mu$ (y $\tau$). | — |
-| $A$ | Vector de parámetros entrenable: el valor hacia el que $f$ empuja al estado. El Algorithm 1 lo llama *bias vector*. | $N \times 1$ |
-| $\odot$ | Producto de Hadamard (elemento a elemento), que el Algorithm 1 usa en $f \odot A$. | — |
+| $A$ | Vector de parámetros entrenable: el valor hacia el que $f$ empuja al estado. El Algoritmo 1 lo llama *bias vector*. | $N \times 1$ |
+| $\odot$ | Producto de Hadamard (elemento a elemento), que el Algoritmo 1 usa en $f \odot A$. | — |
 
 Lo decisivo es que **$f$ aparece dos veces**: multiplicando a $\mathbf{x}(t)$ dentro del corchete y multiplicando a $A$. En una CT-RNN, $f$ solo se suma. Aquí, además, modula el coeficiente del término de fuga.
 
 ::: {.ltc-callout .ltc-callout--note}
 [Nota de lectura]{.ltc-callout__label}
 
-La introducción del paper usa letras distintas para las dimensiones ($\mathbf{x}(t) \in \mathbb{R}^D$ y $\mathbf{S}(t) \in \mathbb{R}^M$), mientras que el Algorithm 1 usa $N$ para el número de neuronas y $M$ para la dimensión de la entrada. En este artículo se sigue la convención del Algorithm 1.
+La introducción del paper usa letras distintas para las dimensiones ($\mathbf{x}(t) \in \mathbb{R}^D$ y $\mathbf{S}(t) \in \mathbb{R}^M$), mientras que el Algoritmo 1 usa $N$ para el número de neuronas y $M$ para la dimensión de la entrada. En este artículo se sigue la convención del Algoritmo 1.
 :::
 
 #### De la Ec. (1) a $\tau_{sys}$
@@ -489,7 +492,7 @@ Matemáticamente, $\tau_{sys}$ cambia por tres vías: porque $f$ depende del **e
 
 <figure class="ltc-figure">
 <img src="images/tau-sys-flujo.svg" alt="Diagrama de flujo: la entrada y el estado actual alimentan la red no lineal f; f determina la rapidez efectiva tau_sys y el término f por A; ambos definen dx/dt y de ahí el nuevo estado, que realimenta el siguiente paso" loading="lazy">
-<figcaption>Diagrama original. La misma salida de <em>f</em> influye en la rapidez efectiva y en el valor hacia el que se empuja el estado.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> La misma salida de <em>f</em> influye en la rapidez efectiva y en el valor hacia el que se empuja el estado.</figcaption>
 </figure>
 
 ::: {.ltc-callout .ltc-callout--intuition}
@@ -580,6 +583,8 @@ Dos simuladores para experimentar con la ecuación sin instalar nada. Ambos usan
 #### Simulador 1 · Constante de tiempo efectiva {#lab-tau}
 
 ::: {.ltc-lab}
+[Simulación propia · relacionada con la [Ec. (1)](#liquid-time-constant), la definición de $\tau_{sys}$ y el [Teorema 1](#bounds)]{.ltc-lab-link}
+
 Mueve $\tau$ y $f$ y observa cómo cambia
 
 $$
@@ -618,6 +623,8 @@ Aquí $f$ es un **control** entre 0 y 1 —el rango de una sigmoide, el caso que
 #### Simulador 2 · Evolución del estado neuronal {#lab-estado}
 
 ::: {.ltc-lab}
+[Simulación propia · relacionada con la Ec. (1), la [Ec. (3)](#fused-derivacion) y el [Algoritmo 1](#algorithm-1)]{.ltc-lab-link}
+
 Este simulador **congela $f$** en el valor elegido durante toda la simulación. Con esa simplificación las dos ecuaciones son lineales y tienen solución exacta, que es la que se dibuja:
 
 **CT-RNN:**
@@ -699,7 +706,7 @@ Disminuye. Como $\tau_{sys} = \tau / (1 + \tau f)$ y el denominador crece con $f
 
 </details>
 
-### Why this specific formulation? — la motivación biológica {#motivacion-biologica}
+### ¿Por qué esta formulación? La motivación biológica {#motivacion-biologica}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -752,7 +759,7 @@ La introducción termina con una lista de características que sirve de índice 
 
 A continuación se introduce cada idea a nivel conceptual. El detalle técnico llega en la sección correspondiente.
 
-#### Reverse-mode automatic differentiation of LTCs
+#### Diferenciación automática en modo inverso
 
 **¿Qué es la diferenciación automática en modo inverso?** Es la técnica con la que se calculan los gradientes en Deep Learning [@rumelhart1986backprop]. Se ejecuta el cálculo hacia adelante guardando las operaciones realizadas y después se recorre ese registro hacia atrás aplicando la regla de la cadena:
 
@@ -770,7 +777,7 @@ Para una Neural ODE hay dos caminos. El **método adjunto** resuelve una segunda
 Los autores deciden *cambiar memoria por precisión numérica* durante el paso hacia atrás y usan un algoritmo estándar de **BPTT** en lugar de un método de optimización basado en el adjunto [@hasani2021ltc]. La razón, desarrollada en la Sección 3, es el error numérico que aparece al reconstruir la trayectoria integrando hacia atrás.
 :::
 
-#### Bounded dynamics — stability
+#### Dinámica acotada: estabilidad
 
 **¿Qué significa "acotado"?** Que una cantidad nunca sale de un intervalo finito. Si la constante de tiempo depende de la entrada, surge una preocupación legítima: ¿podría una entrada enorme hacer que $\tau_{sys}$ se anule o que el estado crezca sin control? Un ejemplo cotidiano de sistema acotado es un depósito con rebosadero: por mucho caudal que entre, el nivel no supera el borde.
 
@@ -782,13 +789,13 @@ La introducción anuncia que el estado y la constante de tiempo de las LTC está
 
 El sentido de "estabilidad" aquí es específico: **estado acotado frente a entradas no acotadas**. No es estabilidad asintótica ni estabilidad del entrenamiento. Los teoremas se revisan en la Sección 4.
 
-#### Superior expressivity
+#### Mayor expresividad
 
 La expresividad importa porque fija el techo de lo que un modelo puede representar. La herramienta clásica es la **aproximación universal**: el modelo puede aproximar cualquier función de cierta clase con la precisión que se quiera. Pero casi todas las arquitecturas razonables son aproximadores universales, así que ese resultado no sirve para **compararlas**.
 
 Por eso los autores añaden una segunda medida. Si se alimenta una red con una trayectoria de entrada sencilla (un círculo), los **estados ocultos** describen a su vez una trayectoria en un **espacio latente**. La **longitud de trayectoria** mide cuánto se "estira y retuerce" esa curva: una curva más larga indica una transformación más compleja [@raghu2017expressive]. La Sección 5 la desarrolla.
 
-## 2. LTCs forward-pass by a fused ODE solvers — Propagación mediante el Fused ODE Solver {#fused-solver}
+## 2. Propagación hacia adelante mediante el Fused ODE Solver {#fused-solver}
 
 Esta sección responde a una pregunta práctica: dada la Ec. (1), ¿cómo se calcula realmente el estado?
 
@@ -850,9 +857,9 @@ entrada I(t) y estado x(t)  →  red no lineal f(x, I)  →  numerador y denomin
                             →  nuevo estado x(t + Δt)  →  siguiente paso del solver
 ```
 
-**5. El número de pasos $L$.** Por cada observación de la secuencia, el Algorithm 1 repite ese paso $L$ veces con la entrada fija, reevaluando $f$ en cada repetición con el estado actualizado. En los experimentos del paper, $L = 6$ y $\Delta t$ es 1/6 del periodo de muestreo. Más pasos integran con más precisión, pero el coste crece con $L \times T$.
+**5. El número de pasos $L$.** Por cada observación de la secuencia, el Algoritmo 1 repite ese paso $L$ veces con la entrada fija, reevaluando $f$ en cada repetición con el estado actualizado. En los experimentos del paper, $L = 6$ y $\Delta t$ es 1/6 del periodo de muestreo. Más pasos integran con más precisión, pero el coste crece con $L \times T$.
 
-**6. La implementación.** El pseudocódigo está en el [Algorithm 1](#algorithm-1) y el código paso a paso en [¿Cómo desarrollaríamos Algorithm 1 hoy?](#algorithm-1-hoy).
+**6. La implementación.** El pseudocódigo está en el [Algoritmo 1](#algorithm-1) y el código paso a paso en [¿Cómo desarrollaríamos Algoritmo 1 hoy?](#algorithm-1-hoy).
 
 <details class="ltc-details ltc-question">
 <summary>Pregunta 3 · ¿Por qué una LTC necesita un solver numérico?</summary>
@@ -881,7 +888,7 @@ ecuación diferencial continua  →  discretización del tiempo  →  estado sig
 - **Integrar** es acumular la velocidad de cambio a lo largo del tiempo para obtener el estado.
 - **Aproximación numérica** significa que el resultado no es exacto: cada paso introduce un pequeño error que depende de $\Delta t$ y del método.
 
-### Stiffness: ecuaciones rígidas
+### Rigidez (*stiffness*): ecuaciones rígidas
 
 Un sistema es **rígido** (*stiff*) cuando combina dinámicas muy rápidas con otras lentas. Los métodos explícitos solo son estables si el paso es más pequeño que la escala temporal más rápida del sistema, aunque esa componente rápida ya se haya extinguido y no aporte nada a la solución. Un solver adaptativo, que ajusta $\Delta t$ para controlar el error, se ve entonces obligado a dar muchísimos pasos diminutos.
 
@@ -953,7 +960,7 @@ El paper pasa de la Ec. (2) a la Ec. (3) en una frase: aplica el solver a la LTC
 
 <figure class="ltc-figure">
 <img src="images/fused-solver-derivacion.svg" alt="Cinco pasos encadenados: la EDO original, la discretización del tiempo, la fusión que coloca x lineal en t más delta t, la agrupación de términos y el despeje que produce la Ec. 3" loading="lazy">
-<figcaption>Diagrama original. Resumen de la derivación desarrollada a continuación.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Resumen de la derivación desarrollada a continuación.</figcaption>
 </figure>
 
 **Paso 1 — La ecuación de partida.** Con $f \equiv f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)$ para abreviar, la Ec. (1) es
@@ -1018,9 +1025,12 @@ El nuevo estado es una mezcla del estado anterior, del valor $A$ y de cero (el r
 La complejidad del algoritmo para una secuencia de longitud $T$ es $O(L \times T)$, con $L$ el número de pasos de discretización. Intuitivamente, dicen los autores, una versión densa de una LTC con $N$ neuronas y una LSTM densa con $N$ celdas tendrían la misma complejidad [@hasani2021ltc].
 :::
 
-### Algorithm 1 — Actualización LTC mediante Fused ODE Solver {#algorithm-1}
+### Algoritmo 1 — Actualización LTC mediante el Fused ODE Solver {#algorithm-1}
 
-### El algoritmo tal como aparece en el paper
+#### El algoritmo tal como aparece en el paper
+
+::: {.ltc-algorithm}
+[Pseudocódigo original · Hasani et al. (2021), Algorithm 1]{.ltc-algorithm__label}
 
 ```text
 Algorithm 1 — LTC update by fused ODE Solver          (pseudocódigo fiel al paper; no es ejecutable)
@@ -1044,8 +1054,9 @@ para i = 1 … L:
 fin para
 devolver x_{t+Δt}
 ```
+:::
 
-### Anatomía del algoritmo
+#### Anatomía del algoritmo
 
 | Categoría | Elementos | Comentario |
 |---|---|---|
@@ -1058,7 +1069,7 @@ devolver x_{t+Δt}
 
 El paper lista todos estos elementos bajo *Parameters*, *Inputs* y *Output*. La separación entre parámetros entrenables e hiperparámetros es una clasificación de este artículo.
 
-### Qué significa cada símbolo
+#### Qué significa cada símbolo
 
 | Símbolo | Definición en el paper *(aclaración de este artículo)* | Forma |
 |---|---|---|
@@ -1076,11 +1087,11 @@ El paper lista todos estos elementos bajo *Parameters*, *Inputs* y *Output*. La 
 
 El paper indica que $f$ puede tener una activación arbitraria y da como ejemplo $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$ [@hasani2021ltc].
 
-### Algorithm 1 paso a paso
+#### Algoritmo 1 paso a paso
 
 <figure class="ltc-figure">
-<img src="images/algorithm1-flujo.svg" alt="Flujo del Algorithm 1: entradas I(t) y x(t), evaluación de la red f, FusedStep según la Ec. 3, actualización del estado, repetición L veces y salida x(t más delta t)" loading="lazy">
-<figcaption>Diagrama original del flujo del Algorithm 1.</figcaption>
+<img src="images/algorithm1-flujo.svg" alt="Flujo del Algoritmo 1: entradas I(t) y x(t), evaluación de la red f, FusedStep según la Ec. 3, actualización del estado, repetición L veces y salida x(t más delta t)" loading="lazy">
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Flujo del Algoritmo 1.</figcaption>
 </figure>
 
 | Operación | Recibe | Calcula | Ecuación | Por qué es necesaria | Devuelve |
@@ -1090,12 +1101,12 @@ El paper indica que $f$ puede tener una activación arbitraria y da como ejemplo
 | Numerador | $\mathbf{x}$, $f$, $A$, $\Delta t$ | $\mathbf{x} + \Delta t\, f \odot A$ | Numerador de la Ec. (3) | Reúne el estado anterior y el empuje hacia $A$. | Vector de $N$. |
 | Denominador | $f$, $\tau$, $\Delta t$ | $1 + \Delta t\,(1/\tau + f)$ | Denominador de la Ec. (3) | Contiene la parte implícita: la fuga y la modulación de $f$. | Vector de $N$. |
 | Dividir | Numerador, denominador | Cociente elemento a elemento | Ec. (3) | Es el despeje de $\mathbf{x}(t+\Delta t)$. | Nuevo estado. |
-| Repetir | Nuevo estado | Las cuatro operaciones anteriores, $L$ veces | Bucle del Algorithm 1 | Un único paso grande sería impreciso; $L$ pasos pequeños refinan la integración. | $\mathbf{x}_{t+\Delta t}$ final. |
+| Repetir | Nuevo estado | Las cuatro operaciones anteriores, $L$ veces | Bucle del Algoritmo 1 | Un único paso grande sería impreciso; $L$ pasos pequeños refinan la integración. | $\mathbf{x}_{t+\Delta t}$ final. |
 
 ::: {.ltc-callout .ltc-callout--note}
 [Nota de lectura]{.ltc-callout__label}
 
-Dos observaciones sobre el Algorithm 1, que aparece compuesto igual en arXiv v4 y en AAAI.
+Dos observaciones sobre el Algoritmo 1, que aparece compuesto igual en arXiv v4 y en AAAI.
 
 **Argumento del bucle.** La versión consultada escribe `FusedStep(x(t), I(t), Δt, θ)` en todas las iteraciones, es decir, con el mismo argumento $\mathbf{x}(t)$. Leído literalmente, las $L$ iteraciones darían el mismo resultado, lo que parece entrar en tensión con el propósito de un bucle de $L$ pasos de solver. Para la explicación adoptamos la lectura en la que cada paso recibe la salida del anterior, que es además lo que hace el código oficial [@hasani2020ltcrepo]. La entrada $\mathbf{I}(t)$ se mantiene constante durante los $L$ pasos.
 
@@ -1104,7 +1115,7 @@ Dos observaciones sobre el Algorithm 1, que aparece compuesto igual en arXiv v4 
 Son observaciones de lectura, no modificaciones del algoritmo.
 :::
 
-### ¿Cómo desarrollaríamos Algorithm 1 hoy? {#algorithm-1-hoy}
+### ¿Cómo desarrollaríamos hoy el Algoritmo 1? {#algorithm-1-hoy}
 
 :::: {.ltc-compare}
 ::: {.ltc-compare__col}
@@ -1242,7 +1253,7 @@ Son tres cosas distintas, y en este artículo **no** se ha establecido que sean 
 
 | | Implementación manual de este artículo | Repositorio oficial del paper | Librería `ncps` 1.0.1 |
 |---|---|---|---|
-| Qué sigue | La Ec. (3) y el Algorithm 1 tal como están escritos, con el ejemplo $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$ | Una parametrización por sinapsis (TensorFlow 1.14) | La misma parametrización por sinapsis (PyTorch) |
+| Qué sigue | La Ec. (3) y el Algoritmo 1 tal como están escritos, con el ejemplo $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$ | Una parametrización por sinapsis (TensorFlow 1.14) | La misma parametrización por sinapsis (PyTorch) |
 | Cómo entra la no linealidad | Una $f$ por neurona | Una sigmoide, un peso y un valor de reversión **por conexión** | Igual que el repositorio, más mapeos afines de entrada y salida |
 | Parámetros para $M = 7$, $N = 32$ | 1.344 (medido) | No medido aquí | 5.166 (medido) |
 | Relación con las tablas del paper | Ninguna: no se ha entrenado con sus datos | Es el código que los autores publican junto al paper | Librería posterior de los mismos autores; no es el código de los experimentos |
@@ -1345,22 +1356,22 @@ Cinco correspondencias merecen comentario:
 
 **La red no lineal.** El paper escribe $f = \tanh(\gamma_r \mathbf{x} + \gamma \mathbf{I} + \mu)$. El código escribe `self.activation(x @ self.recurrent_weights + input_t @ self.input_weights + self.bias)`. Son la misma operación: el producto matricial `x @ recurrent_weights` suma, para cada neurona, las contribuciones de todas las neuronas; `input_t @ input_weights` hace lo mismo con las entradas; y el sesgo se suma por difusión (*broadcasting*) a todo el lote.
 
-**La orientación de las matrices.** El código trata cada estado como un vector fila dentro de un lote, de forma `(batch, N)`, y por eso multiplica por la derecha: `input_t @ input_weights`, con `input_weights` de forma `(M, N)`. Es la orientación que encaja con la forma $M \times N$ que el Algorithm 1 asigna a $\gamma$. El paper escribe $\gamma \mathbf{I}$ sin precisar la convención; la elegida aquí es una decisión de implementación.
+**La orientación de las matrices.** El código trata cada estado como un vector fila dentro de un lote, de forma `(batch, N)`, y por eso multiplica por la derecha: `input_t @ input_weights`, con `input_weights` de forma `(M, N)`. Es la orientación que encaja con la forma $M \times N$ que el Algoritmo 1 asigna a $\gamma$. El paper escribe $\gamma \mathbf{I}$ sin precisar la convención; la elegida aquí es una decisión de implementación.
 
 **El argumento $t$.** El paper escribe $f(\mathbf{x}(t), \mathbf{I}(t), t, \theta)$, pero en su ejemplo con $\tanh$ el tiempo solo interviene a través de $\mathbf{x}(t)$ e $\mathbf{I}(t)$. Por eso `f(x, input_t)` no recibe $t$ como argumento aparte.
 
 **El producto de Hadamard.** $f \odot A$ es `f_val * self.A`. En PyTorch, `*` entre tensores es el producto elemento a elemento, y `self.A`, de forma `(N,)`, se difunde sobre la dimensión del lote.
 
-**La división elemento a elemento.** `numerator / denominator` implementa la advertencia del Algorithm 1 de que todas las divisiones se aplican elemento a elemento. No hay inversión de matrices: cada neurona resuelve su propia ecuación escalar.
+**La división elemento a elemento.** `numerator / denominator` implementa la advertencia del Algoritmo 1 de que todas las divisiones se aplican elemento a elemento. No hay inversión de matrices: cada neurona resuelve su propia ecuación escalar.
 
 ::: {.ltc-callout .ltc-callout--modern}
 [Modernización]{.ltc-callout__label}
 
 Cuatro decisiones del código **no** vienen dictadas por el paper y son elecciones propias de esta implementación:
 
-- **$\tau > 0$ por construcción.** Se entrena `log_tau` y se usa $\tau = e^{\text{log\_tau}}$. El Algorithm 1 no especifica cómo mantener $\tau$ positiva; el repositorio oficial define una operación que recorta los parámetros a un rango permitido [@hasani2020ltcrepo].
+- **$\tau > 0$ por construcción.** Se entrena `log_tau` y se usa $\tau = e^{\text{log\_tau}}$. El Algoritmo 1 no especifica cómo mantener $\tau$ positiva; el repositorio oficial define una operación que recorta los parámetros a un rango permitido [@hasani2020ltcrepo].
 - **Inicialización.** Pesos uniformes en $\pm 1/\sqrt{N}$, $\tau = 1$, $A$ uniforme en $[-1, 1]$.
-- **Estado inicial.** $\mathbf{x}(0) = \mathbf{0}$. El Algorithm 2 lo muestrea de una distribución $p(x_{t_0})$ que no detalla.
+- **Estado inicial.** $\mathbf{x}(0) = \mathbf{0}$. El Algoritmo 2 lo muestrea de una distribución $p(x_{t_0})$ que no detalla.
 - **Activación seleccionable.** `"tanh"` reproduce el ejemplo del paper; `"sigmoid"` reproduce el supuesto de los Teoremas 1 y 2.
 
 Los valores por defecto `unfolds=6` y `dt=1/6` sí vienen del paper: el paso del solver es 1/6 del periodo de muestreo de la entrada, de modo que cada paso de la RNN consta de 6 pasos del solver.
@@ -1386,7 +1397,7 @@ Tiene la misma estructura que la Ec. (3) —estado anterior más empuje en el nu
 
 El suplemento del paper da para una LTC el recuento $4nk^2 + 3nk$. Con una capa ($n = 1$) y $k = 32$ son 4.192 parámetros, que coincide con la parte recurrente y por neurona del recuento de `ncps` ($4096 + 96$). Esa fórmula no incluye los pesos de entrada ni los mapeos afines. La coincidencia es un indicio de que el recuento del paper corresponde a la parametrización por sinapsis; no se ha ejecutado el código original en TensorFlow 1.14 para confirmarlo.
 
-Por tanto, la implementación manual de este artículo es **fiel a la Ec. (3) y al Algorithm 1 tal como están escritos**, no al código con el que se obtuvieron las tablas.
+Por tanto, la implementación manual de este artículo es **fiel a la Ec. (3) y al Algoritmo 1 tal como están escritos**, no al código con el que se obtuvieron las tablas.
 :::
 
 ### Validación de la implementación
@@ -1470,7 +1481,7 @@ Se instala con `pip install ncps`. El argumento `units` admite un entero (red to
 La documentación de `ncps` describe también una API para TensorFlow/Keras. **No se verificó la API actual** de esa variante para este artículo, por lo que no se muestra código.
 :::
 
-## 3. Training LTC networks by BPTT — Entrenamiento y diferenciación automática {#bptt}
+## 3. Entrenamiento de redes LTC mediante BPTT {#bptt}
 
 ### ¿Qué plantea esta sección?
 
@@ -1482,12 +1493,12 @@ Una vez definido el paso hacia adelante, falta decidir cómo se calculan los gra
 - Se propuso entrenar las Neural ODE con un coste de memoria constante mediante el **método de sensibilidad adjunta** [@chen2018neuralode].
 - El método adjunto, sin embargo, conlleva **errores numéricos** al ejecutarse en modo inverso. Esto ocurre porque el método *olvida* las trayectorias computacionales del paso hacia adelante, algo señalado repetidamente por la comunidad [@gholami2019anode; @zhuang2020aca].
 - Por el contrario, el **BPTT directo** cambia memoria por una recuperación precisa del paso hacia adelante durante la integración en modo inverso.
-- Por ello, los autores diseñan un algoritmo de BPTT estándar: la salida de un solver (un vector de estados neuronales) puede *plegarse recursivamente* para construir una RNN, a la que se aplica el Algorithm 2 [@hasani2021ltc].
+- Por ello, los autores diseñan un algoritmo de BPTT estándar: la salida de un solver (un vector de estados neuronales) puede *plegarse recursivamente* para construir una RNN, a la que se aplica el Algoritmo 2 [@hasani2021ltc].
 :::
 
 <figure class="ltc-figure">
 <img src="images/bptt-vs-adjunto.svg" alt="Dos filas. Arriba, BPTT: los estados x0 a x4 se guardan y los gradientes regresan por los mismos estados. Abajo, método adjunto: los estados intermedios no se guardan y se reconstruyen integrando hacia atrás, con puntos que se alejan de los originales" loading="lazy">
-<figcaption>Diagrama conceptual original. La desviación de los estados reconstruidos está exagerada para ilustrar la idea; no representa una medición.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Diagrama conceptual. La desviación de los estados reconstruidos está exagerada para ilustrar la idea; no representa una medición.</figcaption>
 </figure>
 
 ::: {.ltc-callout .ltc-callout--intuition}
@@ -1517,7 +1528,10 @@ Imagina que subes una montaña y luego tienes que bajar por el mismo camino.
 Los autores resumen: logran un alto grado de precisión en las trayectorias de integración hacia adelante y hacia atrás, con una complejidad computacional similar, **a costa de un gran consumo de memoria** [@hasani2021ltc].
 :::
 
-### Algorithm 2 — Entrenamiento de LTC mediante BPTT {#algorithm-2}
+### Algoritmo 2 — Entrenamiento de redes LTC mediante BPTT {#algorithm-2}
+
+::: {.ltc-algorithm}
+[Pseudocódigo original · Hasani et al. (2021), Algorithm 2]{.ltc-algorithm__label}
 
 ```text
 Algorithm 2 — Training LTC by BPTT                    (pseudocódigo fiel al paper; no es ejecutable)
@@ -1535,6 +1549,7 @@ para i = 1 … número de pasos de entrenamiento:
 fin para
 devolver θ
 ```
+:::
 
 La lógica es la de cualquier entrenamiento supervisado de una RNN:
 
@@ -1546,7 +1561,7 @@ secuencia de entrada → paso hacia adelante → predicciones → pérdida → B
 |---|---|
 | Muestrear un lote | Toma un conjunto de secuencias $(I_b, y_b)$ del dataset. |
 | Inicializar $x$ | El estado inicial se extrae de una distribución $p(x_{t_0})$. |
-| $x = f(I(t), x)$ | Aquí `RNNcell` es la celda completa: el Algorithm 1 con sus $L$ pasos de solver. |
+| $x = f(I(t), x)$ | Aquí `RNNcell` es la celda completa: el Algoritmo 1 con sus $L$ pasos de solver. |
 | $\hat{y}(t) = W_{out}\, x + b_{out}$ | Una capa lineal proyecta el estado oculto a la dimensión de salida. |
 | $L_{total}$ | La pérdida se suma sobre los $T$ instantes de la secuencia. |
 | $\nabla L(\theta)$ | Gradiente de la pérdida total respecto a todos los parámetros. Calcularlo exige propagar derivadas hacia atrás por todos los pasos de tiempo: eso es BPTT. |
@@ -1555,7 +1570,7 @@ secuencia de entrada → paso hacia adelante → predicciones → pérdida → B
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
 
-El Algorithm 2 usa SGD estándar. Los autores señalan que puede sustituirse por una variante con mejor rendimiento, como **Adam** [@kingma2014adam], que es la que usan en sus experimentos [@hasani2021ltc].
+El Algoritmo 2 usa SGD estándar. Los autores señalan que puede sustituirse por una variante con mejor rendimiento, como **Adam** [@kingma2014adam], que es la que usan en sus experimentos [@hasani2021ltc].
 :::
 
 ::: {.ltc-callout .ltc-callout--note}
@@ -1564,7 +1579,7 @@ El Algorithm 2 usa SGD estándar. Los autores señalan que puede sustituirse por
 La versión consultada (igual en arXiv v4 y en AAAI) compone la pérdida total, el gradiente y la actualización de $\theta$ **dentro** del bucle sobre $j$. Esto parece entrar en tensión con la propia definición de $L_{total}$, que es una suma sobre $j = 1 \ldots T$ y por tanto solo está completa al terminar ese bucle. Para la explicación adoptamos la lectura habitual de BPTT: desenrollar los $T$ pasos, calcular la pérdida total, retropropagar una vez y actualizar una vez por lote. Es la que encaja con la "longitud de BPTT" de 32 pasos de la tabla de hiperparámetros del suplemento. No afirmamos que el pseudocódigo sea erróneo: puede tratarse solo de cómo se compuso la sangría, y con el texto del paper no puede descartarse una lectura literal. Es una observación de lectura, no una modificación del algoritmo.
 :::
 
-### Algorithm 2: original frente a moderno
+#### Algoritmo 2: original frente a moderno
 
 | Concepto del paper | Código actual (PyTorch) | Qué ocurre |
 |---|---|---|
@@ -1574,6 +1589,8 @@ La versión consultada (igual en arXiv v4 y en AAAI) compone la pérdida total, 
 | Actualización: $\theta = \theta - \alpha \nabla L(\theta)$ | `optimizer.step()` | El optimizador aplica la regla de actualización. |
 
 El bucle correspondiente, tomado de `analysis/smoke_test.py`:
+
+[Implementación moderna ilustrativa · no es el código de los autores]{.ltc-modern-label}
 
 ```python
 model = LTCNetwork(input_size=2, hidden_size=32, output_size=1)
@@ -1590,7 +1607,7 @@ for step in range(300):
     losses.append(loss.item())
 ```
 
-Los valores `betas=(0.9, 0.999)` y `eps=1e-8` son los de la tabla de hiperparámetros del suplemento. La tasa de aprendizaje `lr=0.01` es una elección para este ejemplo, dentro del rango 0,001–0,02 que da el paper. La tarea es un ejemplo de juguete que no pertenece al paper, y el optimizador es Adam, como en los experimentos, no el SGD del Algorithm 2.
+Los valores `betas=(0.9, 0.999)` y `eps=1e-8` son los de la tabla de hiperparámetros del suplemento. La tasa de aprendizaje `lr=0.01` es una elección para este ejemplo, dentro del rango 0,001–0,02 que da el paper. La tarea es un ejemplo de juguete que no pertenece al paper, y el optimizador es Adam, como en los experimentos, no el SGD del Algoritmo 2.
 
 ::: {.ltc-callout .ltc-callout--impl}
 [Implementación actual]{.ltc-callout__label}
@@ -1602,7 +1619,7 @@ El autograd moderno no hizo desaparecer BPTT: lo hizo invisible. La memoria sigu
 
 El mismo principio vale para otros entornos: en TensorFlow las operaciones se registran para derivarlas después, y en JAX se transforma una función en la función que calcula su gradiente. En todos los casos, derivar un cálculo recurrente desenrollado equivale a BPTT. **No se verificó la API actual** de TensorFlow ni de JAX para este artículo, por lo que se mencionan únicamente como equivalentes conceptuales.
 
-### Adjoint vs. BPTT — entonces y ahora {#adjoint-vs-bptt}
+### Método adjunto frente a BPTT: entonces y ahora {#adjoint-vs-bptt}
 
 | Dimensión | BPTT | Método de sensibilidad adjunta |
 |---|---|---|
@@ -1638,13 +1655,13 @@ Ambos calculan gradientes de un modelo definido por una ODE. **BPTT** guarda tod
 
 </details>
 
-### ODE Solvers: 2021 vs. herramientas actuales {#ode-solvers}
+### Solvers de ODE: 2021 frente a las herramientas actuales {#ode-solvers}
 
 ### Los solvers que aparecen en el paper
 
 | Uso en el paper | Solver | Tipo |
 |---|---|---|
-| LTC en los experimentos de la Sección 6 | **Fused ODE Solver** (Algorithm 1) | Paso fijo, semi-implícito |
+| LTC en los experimentos de la Sección 6 | **Fused ODE Solver** (Algoritmo 1) | Paso fijo, semi-implícito |
 | CT-RNN en los experimentos | Euler explícito | Paso fijo |
 | Neural ODE en los experimentos | Runge-Kutta de 4.º orden | Paso fijo |
 | Todas las redes en el análisis de trayectorias de la Sección 5 | Dormand–Prince RK(4,5) [@dormand1980family] | Paso variable |
@@ -1663,7 +1680,7 @@ En los experimentos, todos los solvers son de paso fijo y el paso es 1/6 del per
 ::: {.ltc-callout .ltc-callout--limit}
 [Limitación]{.ltc-callout__label}
 
-**Un solver genérico moderno no es automáticamente equivalente al Fused ODE Solver.** La Ec. (3) no es "Euler con otro nombre": trata de forma implícita una parte concreta de la Ec. (1). Sustituir el Algorithm 1 por `dopri5`, `rk4` o un método implícito genérico cambia el número de evaluaciones de $f$, el error numérico y los gradientes, y por tanto puede cambiar el experimento: es un cambio de clase [C]{.ltc-tag .ltc-tag--c}, no una modernización. Los propios autores advierten que el rendimiento de las LTC se ve muy afectado cuando se usan métodos de Euler explícito estándar.
+**Un solver genérico moderno no es automáticamente equivalente al Fused ODE Solver.** La Ec. (3) no es "Euler con otro nombre": trata de forma implícita una parte concreta de la Ec. (1). Sustituir el Algoritmo 1 por `dopri5`, `rk4` o un método implícito genérico cambia el número de evaluaciones de $f$, el error numérico y los gradientes, y por tanto puede cambiar el experimento: es un cambio de clase [C]{.ltc-tag .ltc-tag--c}, no una modernización. Los propios autores advierten que el rendimiento de las LTC se ve muy afectado cuando se usan métodos de Euler explícito estándar.
 :::
 
 De ahí la regla de clasificación que se usa en el resto del artículo:
@@ -1675,7 +1692,7 @@ De ahí la regla de clasificación que se usa en el resto del artículo:
 | Misma Ec. (1), pero integrada con otro solver o entrenada con el adjunto | [C]{.ltc-tag .ltc-tag--c} **Experimento modificado** |
 | Otra arquitectura continua en lugar de la LTC | [D]{.ltc-tag .ltc-tag--d} Modelo posterior |
 
-## 4. Bounds on τ and neural state of LTCs — Cotas y estabilidad {#bounds}
+## 4. Cotas de la constante de tiempo y del estado neuronal {#bounds}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1685,10 +1702,10 @@ Las LTC se representan mediante una ODE que varía su constante de tiempo según
 
 <figure class="ltc-figure">
 <img src="images/cotas-teoremas.svg" alt="Dos rectas numéricas. La primera muestra el intervalo de la constante de tiempo efectiva entre tau sobre uno más tau por W y tau. La segunda muestra el intervalo del estado entre el mínimo de cero y A mínimo, y el máximo de cero y A máximo" loading="lazy">
-<figcaption>Diagrama original de los intervalos que establecen los Teoremas 1 y 2.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Intervalos que establecen los Teoremas 1 y 2.</figcaption>
 </figure>
 
-### Theorem 1 — cotas de la constante de tiempo
+### Teorema 1 — Cotas de la constante de tiempo
 
 ::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
 [Guía de lectura · Teorema 1]{.ltc-callout__label}
@@ -1755,7 +1772,7 @@ Porque responde a la preocupación de la introducción: una constante de tiempo 
 - **No implica mejor rendimiento.** Es una propiedad de la dinámica, no del error de predicción.
 :::
 
-### Theorem 2 — cotas del estado neuronal
+### Teorema 2 — Cotas del estado neuronal
 
 ::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
 [Guía de lectura · Teorema 2]{.ltc-callout__label}
@@ -1833,7 +1850,7 @@ Como interpretación: para una aplicación que recibe datos de sensores, esta pr
 - **Acotado no significa útil.** Un estado que satura en $A$ está acotado, pero puede haber dejado de transportar información.
 :::
 
-## 5. On the expressive power of LTCs — Poder expresivo {#expressive-power}
+## 5. Capacidad expresiva de las redes LTC {#expressive-power}
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
@@ -1841,7 +1858,7 @@ Como interpretación: para una aplicación que recibe datos de sensores, esta pr
 Entender cómo las propiedades estructurales de una red determinan qué funciones puede calcular se conoce como el **problema de la expresividad** [@hasani2021ltc].
 :::
 
-### Theorem 3 — aproximación universal
+### Teorema 3 — Aproximación universal
 
 ::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
 [Guía de lectura · Teorema 3]{.ltc-callout__label}
@@ -1893,11 +1910,23 @@ La idea principal de la demostración es definir un sistema dinámico $n$-dimens
 
 Los autores son explícitos sobre este último punto: el teorema de aproximación universal explora de forma amplia el poder expresivo de un modelo, pero **no proporciona una medida de dónde está la separación entre arquitecturas**. Por eso buscan una medida más fina.
 
-### Measuring expressivity by trajectory length
+### Medición de la expresividad mediante la longitud de trayectoria {#longitud-trayectoria}
+
+La Figura 1 del paper resume la idea antes de cualquier fórmula: se toma una curva de entrada sencilla, se hace pasar por la red y se observa cómo se deforma en el espacio de estados ocultos.
+
+::: {#hasani-fig1 .ltc-paper-fig}
+[Figura original del paper · Figura 1]{.ltc-paper-fig__label}
+
+![**Figura 1.** El espacio latente de la trayectoria se vuelve más complejo a medida que la entrada atraviesa las capas ocultas.](images/paper/hasani2021-fig1.png){.lightbox group="hasani2021" fig-alt="Figura 1 original del paper: una trayectoria de entrada circular atraviesa una red de seis capas de anchura 100 con activaciones tanh; las activaciones de cada capa se proyectan con PCA a dos dimensiones y las trayectorias latentes se vuelven cada vez más largas y enredadas"}
+
+**Cómo leerla.** Una entrada circular —$x(t) = \sin(t)$, $y(t) = \cos(t)$— atraviesa una red estática (*FFN*) de seis capas, anchura 100 y activaciones tanh. Las activaciones de cada capa (L1–L6) se proyectan con **PCA** sobre sus dos primeras componentes principales: cada panel es la «sombra» bidimensional de la trayectoria en esa capa. El círculo rojo es la entrada, con $l(\text{input}) = 6{,}2768$; la curva negra es la trayectoria latente, cuya longitud $l(\text{FFN})$ crece de capa en capa, de 45,56 en la primera a 1584,69 en la sexta. Las proyecciones no son el estado completo, sino una vista 2D que conserva la mayor parte de la varianza: sirven para **ver** cuánto estira y pliega la red una curva simple. Es la idea que la Sección 5 extiende a modelos de tiempo continuo.
+
+[Fuente: Hasani et al. (2021), *Liquid Time-constant Networks*, arXiv:2006.04439v4, fig. 1, p. 3. Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reproducida sin modificaciones, salvo el recorte de los márgenes.]{.ltc-paper-fig__source} [Ver en resolución completa](images/paper/hasani2021-fig1.png){.ltc-paper-fig__full target="_blank" rel="noopener"}
+:::
 
 <figure class="ltc-figure">
 <img src="images/trayectoria-latente.svg" alt="Una entrada circular pasa por una red continua; las activaciones ocultas se proyectan con PCA a dos componentes y dan una trayectoria latente más retorcida, cuya longitud se mide" loading="lazy">
-<figcaption>Esquema ilustrativo original del procedimiento. No reproduce datos ni figuras del paper.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Esquema ilustrativo del procedimiento. No reproduce datos ni figuras del paper; la figura original es la Figura 1, más arriba.</figcaption>
 </figure>
 
 El procedimiento es:
@@ -1938,6 +1967,18 @@ Los autores enumeran nueve observaciones. Agrupadas:
 | Solver | El paper escribe que la longitud de trayectoria es *"reluctant to the choice of ODE solver"*, que aquí se lee como poco sensible a la elección del solver (VIII). |
 | Activaciones | Las activaciones diversifican los patrones; ReLU y Hard-tanh muestran mayor complejidad en las LTC, y una razón clave es la presencia de enlaces recurrentes entre las celdas de cada capa (IX). |
 
+La Figura 2 muestra estas observaciones directamente sobre las trayectorias latentes de los tres modelos.
+
+::: {#hasani-fig2 .ltc-paper-fig .ltc-paper-fig--wide}
+[Figura original del paper · Figura 2]{.ltc-paper-fig__label}
+
+![**Figura 2.** Deformación de la longitud de trayectoria: A) en las capas de una red con activaciones Hard-tanh; B) en función del factor de escala de la distribución de los pesos; C) en función de la anchura de la red (ReLU); D) en las capas de una red con activaciones sigmoide logística, y E) en función de la anchura (Hard-tanh).](images/paper/hasani2021-fig2.png){.lightbox group="hasani2021" fig-alt="Figura 2 original del paper con cinco paneles A a E de trayectorias latentes en dos dimensiones para Neural ODE, CT-RNN y LTC, con las longitudes de trayectoria impresas sobre cada panel"}
+
+**Cómo leerla.** Cada panel proyecta con PCA las trayectorias latentes de tres redes con la misma $f$ y la misma entrada circular: Neural ODE (azul), CT-RNN (verde) y LTC (negro); la entrada aparece en rojo. Sobre cada gráfico se imprime la longitud $l(\cdot)$ de cada modelo, y a la derecha de cada grupo la configuración (solver RK45, activación, profundidad, anchura, $\sigma_w^2$, $\sigma_b^2$). **Capas (A, D):** con Hard-tanh (A), la longitud de Neural ODE y CT-RNN crece de forma explosiva de capa en capa (de 108 a 255 299 en la Neural ODE), como describe la observación (I), mientras que la LTC ya es larga en la primera capa (12 481) y crece más despacio (observación II). En D la longitud apenas cambia con la profundidad, en línea con la observación (IV). El pie original atribuye al panel D activaciones sigmoide logística, pero el rótulo interno del panel dice *tanh*; ambos se transcriben tal como aparecen. **Distribución de pesos (B):** al pasar de $\sigma_w^2 = 1$ a $4$, la trayectoria LTC pasa de 3052 a 276 980, mucho más rápido que las otras dos (observación VII). **Anchura y activación (C, E):** con ReLU (C) y Hard-tanh (E), duplicar la anchura de 100 a 200 alarga las tres trayectorias, y la de la LTC es la mayor en ambos casos. Los números están en la propia figura: amplíala para leerlos.
+
+[Fuente: Hasani et al. (2021), *Liquid Time-constant Networks*, arXiv:2006.04439v4, fig. 2, p. 5. Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reproducida sin modificaciones, salvo el recorte de los márgenes.]{.ltc-paper-fig__source} [Ver en resolución completa](images/paper/hasani2021-fig2.png){.ltc-paper-fig__full target="_blank" rel="noopener"}
+:::
+
 #### Profundidad computacional
 
 ::: {.ltc-callout .ltc-callout--paper}
@@ -1946,71 +1987,19 @@ Los autores enumeran nueve observaciones. Agrupadas:
 Para una capa oculta de $f$ en una red continua, la **profundidad computacional** $L$ es el número medio de pasos de integración que da el solver por cada muestra de entrada. Para una $f$ con $n$ capas, la profundidad total es $n \times L$.
 
 | Activación | Neural ODE | CT-RNN | LTC |
-|---|---|---|---|
+|:---|---:|---:|---:|
 | tanh | 0,56 ± 0,016 | 4,13 ± 2,19 | 9,19 ± 2,92 |
 | sigmoid | 0,56 ± 0,00 | 5,33 ± 3,76 | 7,00 ± 5,36 |
 | ReLU | 1,29 ± 0,10 | 4,31 ± 2,05 | 56,9 ± 9,03 |
 | Hard-tanh | 0,61 ± 0,02 | 4,05 ± 2,17 | 81,01 ± 10,05 |
 
-: Tabla 2 del paper: profundidad computacional de los modelos. 100 repeticiones; $\Delta t = 0{,}01$ en las muestras de entrada; secuencia de longitud $T = 100$; una capa de anchura 100; $\sigma_w^2 = 2$, $\sigma_b^2 = 1$.
+: Tabla 2 del paper: profundidad computacional de los modelos, en pasos de integración medios por muestra de entrada (media ± desviación estándar). No es una métrica de calidad: un valor mayor indica más cómputo. 100 repeticiones; $\Delta t = 0{,}01$ en las muestras de entrada; secuencia de longitud $T = 100$; una capa de anchura 100; $\sigma_w^2 = 2$, $\sigma_b^2 = 1$.
 :::
 
 Como lectura de la tabla: con un solver de paso variable, las LTC dan en promedio más pasos de integración por muestra que los otros dos modelos. La diferencia es muy grande con ReLU y Hard-tanh; con tanh es de aproximadamente el doble respecto a la CT-RNN, y con sigmoide las desviaciones estándar se solapan. Esto es coherente con la observación de la Sección 2 sobre el coste de integrar LTC con métodos Runge-Kutta adaptativos.
 
 
-### Laboratorio interactivo 3 — Trayectorias latentes y expresividad {#lab-expressividad}
-
-La **Figura 1** introduce la transformación de una entrada circular hacia un espacio latente; la **Figura 2** compara las trayectorias de Neural ODE, CT-RNN y LTC; la **Figura 3** estudia la sensibilidad de la longitud de trayectoria frente a las propiedades del modelo. El siguiente laboratorio permite experimentar con esas tres ideas sin salir de este artículo.
-
-::: {.callout-note}
-**Alcance del simulador.** Es una **demostración didáctica basada en las ecuaciones de las arquitecturas**, no una reproducción numérica exacta de las figuras ni de las cotas teóricas del paper. Usa Euler explícito en Neural ODE y CT-RNN y una actualización semiimplícita inspirada en el Fused Solver para LTC. Los pesos son aleatorios, no entrenados; los tres modelos comparten la semilla, pero no parámetros idénticos. La proyección PCA se ajusta por separado en cada representación, así que las longitudes proyectadas dependen de su escala. En LTC, la puerta se restringe a valores no negativos para conservar la interpretación de la constante de tiempo.
-:::
-
-<div id="ltc-expressivity-lab" role="region" aria-label="Laboratorio interactivo de expresividad LTC">
-  <div class="lab-eyebrow">Laboratorio científico · interactivo · ejecución local en tu navegador</div>
-  <h3>De una circunferencia a trayectorias latentes</h3>
-  <p>La entrada común es <code>I(t) = [sin(t), cos(t)]</code>. Modifica los controles y observa cómo evolucionan las tres redes; las gráficas se recalculan sin Python, Colab, conexión externa ni backend.</p>
-  <div class="lab-controls">
-    <label>Neuronas <span id="ltc-width-v">32</span><input id="ltc-width" type="range" min="8" max="72" step="8" value="32"></label>
-    <label>Escala de pesos <span id="ltc-scale-v">1.5</span><input id="ltc-scale" type="range" min=".25" max="3" step=".25" value="1.5"></label>
-    <label>Constante τ <span id="ltc-tau-v">1.5</span><input id="ltc-tau" type="range" min=".5" max="5" step=".5" value="1.5"></label>
-    <label>Semilla <span id="ltc-seed-v">42</span><input id="ltc-seed" type="range" min="1" max="250" value="42"></label>
-    <label>Activación<select id="ltc-activation"><option value="tanh">tanh</option><option value="relu">ReLU</option><option value="hardtanh">Hard-tanh</option><option value="sigmoid">sigmoide</option></select></label>
-    <button type="button" id="ltc-rerun">Otra inicialización</button>
-  </div>
-  <div class="lab-chart">
-    <p><strong>Experimento A · Figuras 1 y 2.</strong> Trayectorias en las dos primeras componentes principales (cada panel usa sus propios límites).</p>
-    <svg id="ltc-svg" viewBox="0 0 770 265" role="img" aria-label="Tres trayectorias latentes calculadas por PCA"></svg>
-  </div>
-  <div class="lab-values" id="ltc-length" aria-live="polite"></div>
-  <div class="lab-chart">
-    <p><strong>Experimento B · Figura 3.</strong> Longitud de trayectoria proyectada frente al número de neuronas. <span style="color:#3882bc">● Neural ODE</span> · <span style="color:#d18b36">● CT-RNN</span> · <span style="color:#9262ba">● LTC</span>.</p>
-    <svg id="ltc-sensitivity-svg" viewBox="0 0 780 180" role="img" aria-label="Curvas de longitud de trayectoria frente a anchura"></svg>
-    <p class="lab-footnote">Eje horizontal: número de neuronas. Eje vertical: longitud de trayectoria PCA 2D (escala visual relativa, sin graduación). Una sola inicialización por punto; no es inferencia estadística.</p>
-  </div>
-  <p class="lab-note" id="ltc-summary" aria-live="polite"></p>
-  <p class="lab-footnote">Para comparar rigurosamente la expresividad, repite cada configuración con múltiples semillas, conserva las convenciones de escala del paper, utiliza el mismo solver y reporta distribuciones e intervalos, no un único trazado. Una trayectoria mayor no implica mejor exactitud de predicción.</p>
-</div>
-
-<script src="ltc-expressivity.js" defer></script>
-
-#### Cómo se implementa esta idea con bibliotecas actuales
-
-Con **NumPy** se puede integrar la dinámica de una neurona; **SciPy** ofrece \`solve_ivp\` para comparar integradores; **scikit-learn** proporciona \`PCA(n_components=2)\`, y para redes entrenables se utilizan **PyTorch** y las celdas LTC de **ncps**, verificando las versiones y firmas de API antes de ejecutar ejemplos. En una reproducción exacta deben recuperarse las inicializaciones, la configuración de activaciones, los integradores y las repeticiones de Hasani et al.
-
-~~~python
-import numpy as np
-from sklearn.decomposition import PCA
-
-def longitud_trayectoria(estados):
-    """estados: matriz (tiempos, neuronas)"""
-    z = PCA(n_components=2).fit_transform(estados)
-    return np.linalg.norm(np.diff(z, axis=0), axis=1).sum()
-~~~
-
-El laboratorio en la página hace un cálculo equivalente de PCA en JavaScript para visualizar la intuición; **el bloque Python de arriba es el camino recomendado para el análisis reproducible y cuantitativo**. En el [laboratorio de reproducción y aplicaciones](#colab-reproduccion), la sección 9 del cuaderno amplía estas ideas en Python con varias semillas y una traducción parcial del código MATLAB.
-
-### Theorems 4 y 5 — cotas inferiores de la longitud de trayectoria
+### Teoremas 4 y 5 — Cotas inferiores de la longitud de trayectoria {#teoremas-4-5}
 
 ::: {.ltc-callout .ltc-callout--intuition .ltc-guide}
 [Guía de lectura · Teorema 4 y 5]{.ltc-callout__label}
@@ -2062,6 +2051,18 @@ Guía de lectura de este artículo, para no perderse en la notación. Son cotas 
 En su discusión, los autores señalan que: (I) la cota de las Neural ODE es muy similar a la de una red estática profunda, salvo por la dependencia exponencial del número de pasos del solver; (II) la cota de las CT-RNN sugiere una longitud menor que la de las Neural ODE, en consonancia con sus experimentos; (III) las figuras muestran un crecimiento más rápido que lineal de la longitud de trayectoria de las LTC en función de la varianza de los pesos, confirmado por la cota del Teorema 5; (IV) la cota de las LTC refleja el crecimiento lineal con la anchura $k$; y (V) dada la profundidad computacional de la Tabla 2 para Hard-tanh, las cotas justifican una mayor longitud de trayectoria de las LTC en sus experimentos [@hasani2021ltc].
 :::
 
+La Figura 3 reúne las dependencias empíricas a las que remite esa discusión.
+
+::: {#hasani-fig3 .ltc-paper-fig .ltc-paper-fig--wide}
+[Figura original del paper · Figura 3]{.ltc-paper-fig__label}
+
+![**Figura 3.** Dependencias de la medida de longitud de trayectoria. A) Longitud de trayectoria frente a distintos solvers (de paso variable). RK2(3): Runge-Kutta de Bogacki-Shampine (2,3). RK4(5): RK explícito de Dormand-Prince (4,5). ABM1(13): Adams-Bashforth-Moulton. TR-BDF2: solver RK implícito con una primera etapa de regla trapezoidal y una segunda de diferenciación hacia atrás. B) Arriba: longitud de trayectoria frente a la anchura de la red. Abajo: varianza explicada por las componentes principales (barras moradas) y su valor acumulado (línea negra continua). C) Longitud de trayectoria frente a la varianza de la distribución de los pesos. D) Longitud de trayectoria frente al número de capas. (Más resultados en el suplemento.)](images/paper/hasani2021-fig3.png){.lightbox group="hasani2021" fig-alt="Figura 3 original del paper con cuatro paneles: A longitud de trayectoria frente a cuatro solvers ODE; B longitud frente a la anchura de la red y, debajo, varianza explicada por las componentes principales; C longitud frente a la varianza de los pesos; D longitud frente al número de capas"}
+
+**Cómo leerla.** Los paneles A–D son diagramas de caja sobre 100 muestras, con el eje vertical en escala logarítmica salvo en A; LTC en celeste con línea amarilla, Neural ODE (N-ODE) en azul medio y CT-RNN en azul oscuro. **Solvers (A):** con ReLU, la longitud de cada modelo es prácticamente la misma con los cuatro solvers de paso variable, salvo la LTC con RK2(3), que queda algo por encima; es la observación (VIII): la medida es poco sensible al solver. **Neuronas (B, arriba):** con tanh, la longitud crece con la anchura $k$ en los tres modelos y la LTC queda siempre por encima, como anticipa el factor lineal en $k$ de la cota del Teorema 5. **Varianza de pesos (C):** al aumentar $\sigma_w^2$ de 1 a 8, la longitud de la LTC crece más deprisa que la de los otros modelos: es el punto (III) de la discusión de los Teoremas 4 y 5. **Profundidad (D):** con sigmoide y seis capas, la longitud se mantiene prácticamente constante de L1 a L6, la observación (IV). **Varianza explicada (B y C, abajo):** las barras muestran la varianza que captura cada componente principal y la línea negra, el acumulado. Con dos componentes se retiene la mayor parte de la varianza —el paper declara una media superior al 80 %—, aunque en la LTC el acumulado queda por debajo del de Neural ODE y CT-RNN. Por eso las trayectorias se analizan en 2D.
+
+[Fuente: Hasani et al. (2021), *Liquid Time-constant Networks*, arXiv:2006.04439v4, fig. 3, p. 6. Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reproducida sin modificaciones, salvo el recorte de los márgenes.]{.ltc-paper-fig__source} [Ver en resolución completa](images/paper/hasani2021-fig3.png){.ltc-paper-fig__full target="_blank" rel="noopener"}
+:::
+
 ::: {.ltc-callout .ltc-callout--limit}
 [Limitación]{.ltc-callout__label}
 
@@ -2080,7 +2081,62 @@ No. La longitud de trayectoria mide la capacidad de una red con pesos aleatorios
 
 </details>
 
-## 6. Experimental Evaluation — Evaluación experimental {#experimentos}
+### Laboratorio interactivo 3 — Trayectorias latentes y expresividad {#lab-expressividad}
+
+[Simulación propia · relacionada con las [Figuras 1](#hasani-fig1), [2](#hasani-fig2) y [3](#hasani-fig3) y con los [Teoremas 4 y 5](#teoremas-4-5)]{.ltc-lab-link}
+
+La **Figura 1** introduce la transformación de una entrada circular hacia un espacio latente; la **Figura 2** compara las trayectorias de Neural ODE, CT-RNN y LTC; la **Figura 3** estudia la sensibilidad de la longitud de trayectoria frente a las propiedades del modelo. El siguiente laboratorio permite experimentar con esas tres ideas sin salir de este artículo.
+
+::: {.callout-note}
+**Alcance del simulador.** Es una **demostración didáctica basada en las ecuaciones de las arquitecturas**, no una reproducción numérica exacta de las figuras ni de las cotas teóricas del paper. Usa Euler explícito en Neural ODE y CT-RNN y una actualización semiimplícita inspirada en el Fused Solver para LTC. Los pesos son aleatorios, no entrenados; los tres modelos comparten la semilla, pero no parámetros idénticos. La proyección PCA se ajusta por separado en cada representación, así que las longitudes proyectadas dependen de su escala. En LTC, la puerta se restringe a valores no negativos para conservar la interpretación de la constante de tiempo.
+:::
+
+```{=html}
+<div id="ltc-expressivity-lab" role="region" aria-label="Laboratorio interactivo de expresividad LTC">
+  <div class="lab-eyebrow">Laboratorio científico · interactivo · ejecución local en tu navegador</div>
+  <h3>De una circunferencia a trayectorias latentes</h3>
+  <p>La entrada común es <code>I(t) = [sin(t), cos(t)]</code>. Modifica los controles y observa cómo evolucionan las tres redes; las gráficas se recalculan sin Python, Colab, conexión externa ni backend.</p>
+  <div class="lab-controls">
+    <label>Neuronas <span id="ltc-width-v">32</span><input id="ltc-width" type="range" min="8" max="72" step="8" value="32"></label>
+    <label>Escala de pesos <span id="ltc-scale-v">1.5</span><input id="ltc-scale" type="range" min=".25" max="3" step=".25" value="1.5"></label>
+    <label>Constante τ <span id="ltc-tau-v">1.5</span><input id="ltc-tau" type="range" min=".5" max="5" step=".5" value="1.5"></label>
+    <label>Semilla <span id="ltc-seed-v">42</span><input id="ltc-seed" type="range" min="1" max="250" value="42"></label>
+    <label>Activación<select id="ltc-activation"><option value="tanh">tanh</option><option value="relu">ReLU</option><option value="hardtanh">Hard-tanh</option><option value="sigmoid">sigmoide</option></select></label>
+    <button type="button" id="ltc-rerun">Otra inicialización</button>
+  </div>
+  <div class="lab-chart">
+    <p><strong>Experimento A · Figuras 1 y 2.</strong> Trayectorias en las dos primeras componentes principales (cada panel usa sus propios límites).</p>
+    <svg id="ltc-svg" viewBox="0 0 770 265" role="img" aria-label="Tres trayectorias latentes calculadas por PCA"></svg>
+  </div>
+  <div class="lab-values" id="ltc-length" aria-live="polite"></div>
+  <div class="lab-chart">
+    <p><strong>Experimento B · Figura 3.</strong> Longitud de trayectoria proyectada frente al número de neuronas. <span style="color:#3882bc">● Neural ODE</span> · <span style="color:#d18b36">● CT-RNN</span> · <span style="color:#9262ba">● LTC</span>.</p>
+    <svg id="ltc-sensitivity-svg" viewBox="0 0 780 180" role="img" aria-label="Curvas de longitud de trayectoria frente a anchura"></svg>
+    <p class="lab-footnote">Eje horizontal: número de neuronas. Eje vertical: longitud de trayectoria PCA 2D (escala visual relativa, sin graduación). Una sola inicialización por punto; no es inferencia estadística.</p>
+  </div>
+  <p class="lab-note" id="ltc-summary" aria-live="polite"></p>
+  <p class="lab-footnote">Para comparar rigurosamente la expresividad, repite cada configuración con múltiples semillas, conserva las convenciones de escala del paper, utiliza el mismo solver y reporta distribuciones e intervalos, no un único trazado. Una trayectoria mayor no implica mejor exactitud de predicción.</p>
+</div>
+<script src="ltc-expressivity.js" defer></script>
+```
+
+#### Cómo se implementa esta idea con bibliotecas actuales
+
+Con **NumPy** se puede integrar la dinámica de una neurona; **SciPy** ofrece `solve_ivp` para comparar integradores; **scikit-learn** proporciona `PCA(n_components=2)`, y para redes entrenables se utilizan **PyTorch** y las celdas LTC de **ncps**, verificando las versiones y firmas de API antes de ejecutar ejemplos. En una reproducción exacta deben recuperarse las inicializaciones, la configuración de activaciones, los integradores y las repeticiones de Hasani et al.
+
+~~~python
+import numpy as np
+from sklearn.decomposition import PCA
+
+def longitud_trayectoria(estados):
+    """estados: matriz (tiempos, neuronas)"""
+    z = PCA(n_components=2).fit_transform(estados)
+    return np.linalg.norm(np.diff(z, axis=0), axis=1).sum()
+~~~
+
+El laboratorio en la página hace un cálculo equivalente de PCA en JavaScript para visualizar la intuición; **el bloque Python de arriba es el camino recomendado para el análisis reproducible y cuantitativo**. En el [laboratorio de reproducción y aplicaciones](#colab-reproduccion), la sección 9 del cuaderno amplía estas ideas en Python con varias semillas y una traducción parcial del código MATLAB.
+
+## 6. Evaluación experimental {#experimentos}
 
 ### Protocolo experimental
 
@@ -2139,11 +2195,11 @@ La configuración de un experimento puede venir de tres lugares distintos. La ta
 **El desglose de la tasa de aprendizaje por modelo procede del README del repositorio, no del paper.** El paper solo da el rango 0,001–0,02. Ninguna de las dos fuentes describe cómo se eligieron esos valores. Cualquier reproducción debe decir cuál de las dos fuentes sigue.
 :::
 
-### Datasets
+### Conjuntos de datos
 
 No hay una única configuración para todas las tareas: la longitud de secuencia de 32 pasos es común a casi todas, pero la partición, la normalización y la pérdida cambian.
 
-| Dataset | Tipo de problema | Entrada | Salida | Métrica | Detalles reportados |
+| Conjunto de datos | Tipo de problema | Entrada | Salida | Métrica | Detalles reportados |
 |---|---|---|---|---|---|
 | **Gesture** (segmentación de gestos) | Clasificación por instante | 32 valores de un sensor de movimiento | 1 de 5 gestos | Exactitud | 7 grabaciones; subsecuencias solapadas de 32 pasos; partición aleatoria 75/10/15; entradas normalizadas |
 | **Occupancy** (ocupación de una sala) | Clasificación binaria | 5 flujos de sensores (temperatura, humedad, CO₂…), cada minuto | Sala ocupada o no | Exactitud | Partición predefinida entrenamiento/prueba; subsecuencias de 32 pasos; 10 % del entrenamiento para validación |
@@ -2156,9 +2212,9 @@ No hay una única configuración para todas las tareas: la longitud de secuencia
 | **Person activity, 2.º montaje** | Igual | Igual | Igual | Exactitud | Mismos conjuntos de entrenamiento y prueba que Rubanova et al. [@rubanova2019latentode]; 10 % para validación; 400 épocas |
 | **Half-Cheetah** | Modelado autorregresivo de secuencias | Vector de observación de 17 dimensiones | Siguiente observación | MSE | 25 trayectorias de 1.000 pasos de un controlador preentrenado; 5 % de acciones aleatorias; partición 2:2:1 |
 
-: Datasets y tareas del paper, según su suplemento.
+: Conjuntos de datos y tareas del paper, según su suplemento.
 
-### Baselines
+### Modelos de referencia (*baselines*)
 
 | Modelo | Qué es | Por qué es una comparación pertinente *(lectura de este artículo)* |
 |---|---|---|
@@ -2171,13 +2227,13 @@ Los autores señalan que la arquitectura CT-RNN es equivalente a la ODE-RNN de R
 
 ### Resultados
 
-#### 6.1 Time series predictions
+#### 6.1 Predicción de series temporales
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
 
-| Dataset | Métrica | LSTM | CT-RNN | Neural ODE | CT-GRU | LTC |
-|---|---|---|---|---|---|---|
+| Conjunto de datos | Métrica | LSTM | CT-RNN | Neural ODE | CT-GRU | LTC |
+|:---|:---|---:|---:|---:|---:|---:|
 | Gesture | exactitud ↑ | 64,57 % ± 0,59 | 59,01 % ± 1,22 | 46,97 % ± 3,03 | 68,31 % ± 1,78 | **69,55 % ± 1,13** |
 | Occupancy | exactitud ↑ | 93,18 % ± 1,66 | 94,54 % ± 0,54 | 90,15 % ± 1,71 | 91,44 % ± 1,67 | **94,63 % ± 0,17** |
 | Activity recognition | exactitud ↑ | 95,85 % ± 0,29 | 95,73 % ± 0,47 | **97,26 % ± 0,10** | 96,16 % ± 0,39 | 95,67 % ± 0,575 |
@@ -2186,7 +2242,7 @@ Los autores señalan que la arquitectura CT-RNN es equivalente a la ODE-RNN de R
 | Power | error cuadrático ↓ | 0,628 ± 0,003 | 0,742 ± 0,005 | 1,254 ± 0,149 | **0,586 ± 0,003** | 0,642 ± 0,021 |
 | Ozone | F1 ↑ | 0,284 ± 0,025 | 0,236 ± 0,011 | 0,168 ± 0,006 | 0,260 ± 0,024 | **0,302 ± 0,0155** |
 
-: Tabla 3 del paper: predicción de series de tiempo. Media y desviación estándar, $n = 5$. En negrita, el mejor valor de cada fila.
+: Tabla 3 del paper: predicción de series de tiempo. Media y desviación estándar, $n = 5$. En negrita, el mejor valor de cada fila. ↑ = mayor es mejor (exactitud en %, F1 entre 0 y 1); ↓ = menor es mejor (error cuadrático).
 
 Los autores resumen que observan entre un 5 % y un 70 % de mejora de rendimiento de las LTC respecto a otros modelos RNN en **cuatro de los siete** experimentos y un rendimiento comparable en los otros tres [@hasani2021ltc].
 :::
@@ -2244,23 +2300,23 @@ Las gráficas muestran los mismos valores de la tabla; no añaden datos. Cada un
 
 **¿Qué no podemos concluir?** Ni que la LTC sea en general peor que la Neural ODE, ni lo contrario: es un único dataset con una única configuración. Lo que sí muestra es que los resultados del paper no son uniformes, y por eso conviene leerlos tarea por tarea.
 
-#### 6.2 Person activity dataset
+#### 6.2 Conjunto de datos de actividad humana
 
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
 
-| Algoritmo | Exactitud (1.er montaje) |
-|---|---|
+| Algoritmo | Exactitud (1.er montaje) ↑ |
+|:---|---:|
 | LSTM | 83,59 % ± 0,40 |
 | CT-RNN | 81,54 % ± 0,33 |
 | Latent ODE | 76,48 % ± 0,56 |
 | CT-GRU | 85,27 % ± 0,39 |
 | LTC | **85,48 % ± 0,40** |
 
-: Tabla 4 del paper: *Person activity*, primer montaje, $n = 5$.
+: Tabla 4 del paper: *Person activity*, primer montaje, $n = 5$. Exactitud de clasificación en %; mayor es mejor (↑).
 
-| Algoritmo | Exactitud (2.º montaje) |
-|---|---|
+| Algoritmo | Exactitud (2.º montaje) ↑ |
+|:---|---:|
 | RNN Δt \* | 0,797 ± 0,003 |
 | RNN-Decay \* | 0,800 ± 0,010 |
 | RNN GRU-D \* | 0,806 ± 0,007 |
@@ -2270,7 +2326,7 @@ Las gráficas muestran los mismos valores de la tabla; no añaden datos. Cada un
 | Latent ODE (codificador ODE) \* | 0,846 ± 0,013 |
 | LTC | **0,882 ± 0,005** |
 
-: Tabla 5 del paper: *Person activity*, segundo montaje, $n = 5$. Los valores marcados con \* se toman directamente de Rubanova et al. [@rubanova2019latentode].
+: Tabla 5 del paper: *Person activity*, segundo montaje, $n = 5$. Exactitud como proporción entre 0 y 1; mayor es mejor (↑). Los valores marcados con \* se toman directamente de Rubanova et al. [@rubanova2019latentode].
 :::
 
 En el primer montaje, los autores advierten de que usan semillas distintas para la partición y una representación de entrada diferente, por lo que sus resultados **no son directamente trasladables** a los de Rubanova et al. En ese primer montaje, la diferencia entre LTC y CT-GRU (85,48 % frente a 85,27 %) es menor que sus desviaciones estándar. En el segundo montaje, que los autores diseñan para permitir la comparación directa, la LTC obtiene 0,882 frente a 0,846 del mejor modelo de la tabla. Hay que leer esa comparación con una cautela: solo la fila de LTC fue entrenada por los autores; las demás cifras proceden de otro artículo y, por tanto, de otra implementación.
@@ -2285,7 +2341,7 @@ En el primer montaje, los autores advierten de que usan semillas distintas para 
 Son observaciones de lectura, no modificaciones de los resultados.
 :::
 
-#### 6.3 Half-Cheetah kinematic modeling
+#### 6.3 Modelado cinemático de Half-Cheetah {#half-cheetah}
 
 Este experimento merece un comentario aparte porque es el más cercano a la idea de "sistema dinámico físico".
 
@@ -2295,18 +2351,28 @@ Este experimento merece un comentario aparte porque es el más cercano a la idea
 - **Dificultad añadida.** El 5 % de las acciones del controlador se sustituye por acciones aleatorias.
 - **Métrica.** Error cuadrático medio (MSE), tanto como pérdida de entrenamiento como métrica de prueba.
 
+::: {#hasani-fig4 .ltc-paper-fig}
+[Figura original del paper · Figura 4]{.ltc-paper-fig__label}
+
+![**Figura 4.** Simulación física del Half-Cheetah.](images/paper/hasani2021-fig4.png){.lightbox group="hasani2021" fig-alt="Figura 4 original del paper: silueta articulada del robot Half-Cheetah en varias posturas sucesivas a lo largo del tiempo, con seis articulaciones numeradas, curvas de colores de los ángulos articulares y el rótulo 17 observaciones de entrada, 6 salidas de control y phi igual a ángulo articular"}
+
+**Cómo leerla.** El Half-Cheetah es un robot bípedo planar simulado con el motor de física MuJoCo. La figura lo muestra en posturas sucesivas mientras avanza (flecha *Time*); los números 1–6 marcan sus **seis articulaciones**, y las curvas de colores, la evolución de sus ángulos $\phi$ (con el sentido positivo y negativo indicado por las flechas moradas). El rótulo inferior resume el problema: en cada instante el sistema ofrece **17 observaciones de entrada** (posiciones y velocidades) y recibe **6 salidas de control**, una por articulación. En el experimento, los modelos deben predecir la serie de observaciones de forma autorregresiva; no controlan el robot.
+
+[Fuente: Hasani et al. (2021), *Liquid Time-constant Networks*, arXiv:2006.04439v4, fig. 4, p. 7. Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reproducida sin modificaciones, salvo el recorte de los márgenes.]{.ltc-paper-fig__source} [Ver en resolución completa](images/paper/hasani2021-fig4.png){.ltc-paper-fig__full target="_blank" rel="noopener"}
+:::
+
 ::: {.ltc-callout .ltc-callout--paper}
 [Paper original]{.ltc-callout__label}
 
 | Algoritmo | MSE ↓ |
-|---|---|
+|:---|---:|
 | LSTM | 2,500 ± 0,140 |
 | CT-RNN | 2,838 ± 0,112 |
 | Neural ODE | 3,805 ± 0,313 |
 | CT-GRU | 3,014 ± 0,134 |
 | LTC | **2,308 ± 0,015** |
 
-: Tabla 6 del paper: modelado de secuencias, dinámica del Half-Cheetah, $n = 5$.
+: Tabla 6 del paper: modelado de secuencias, dinámica del Half-Cheetah, $n = 5$. Error cuadrático medio sin unidades; menor es mejor (↓).
 
 Los autores escriben que estos resultados "abogan por la superioridad" (*root for the superiority*) del rendimiento de las LTC frente a los otros modelos [@hasani2021ltc].
 :::
@@ -2360,7 +2426,7 @@ Este resultado muestra que, en **esta** tarea de predicción sobre datos simulad
 - **En Ozone**, los autores advierten de que poner a cero las características faltantes puede perjudicar a las RNN frente a otros enfoques.
 :::
 
-## 7. Related Works — Trabajos relacionados {#related-works}
+## 7. Trabajos relacionados {#related-works}
 
 El paper sitúa su contribución entre dos líneas.
 
@@ -2370,7 +2436,7 @@ El paper sitúa su contribución entre dos líneas.
 
 En el mapa general: las LTC son **redes recurrentes** (mantienen un estado), de **tiempo continuo** (definidas por una ODE), emparentadas con las **CT-RNN** [@funahashi1993ctrnn] por su término de fuga y con las **Neural ODE** por entrenarse a través de un solver, y analizadas con herramientas de la investigación sobre **expresividad**.
 
-## 8. Conclusions, Scope and Limitations — Conclusiones, alcance y limitaciones {#conclusiones}
+## 8. Conclusiones, alcance y limitaciones {#conclusiones}
 
 La última sección del paper se titula *Conclusions, Scope and Limitations*. El resumen que sigue parafrasea la redacción de arXiv v4; la versión de AAAI abre la sección con una frase más breve (*"We introduced liquid time-constant networks"*) y mantiene el resto.
 
@@ -2416,13 +2482,18 @@ El cuarto apartado de esa sección, **Causalidad**, no es una limitación sino u
 Las siguientes observaciones son propias de esta lectura. **No** son limitaciones indicadas por los autores.
 
 - **Paper y código no coinciden línea a línea.** La Ec. (3) con $f = \tanh(\cdot)$ y la celda del repositorio (parametrización por sinapsis) son formulaciones distintas de la misma idea. Quien reproduzca el trabajo debe decidir cuál sigue y decirlo.
-- **Los teoremas de cotas y el ejemplo del algoritmo usan activaciones distintas.** Las cotas suponen una sigmoide en $(0, 1)$; el ejemplo del Algorithm 1 usa $\tanh$.
+- **Los teoremas de cotas y el ejemplo del algoritmo usan activaciones distintas.** Las cotas suponen una sigmoide en $(0, 1)$; el ejemplo del Algoritmo 1 usa $\tanh$.
 - **El coste de memoria del BPTT** crece con $L \times T$. Con $L = 6$ y secuencias de 32 pasos es manejable; con secuencias largas puede dejar de serlo.
 - **La complejidad del entrenamiento** incluye hiperparámetros que una RNN discreta no tiene: el número de pasos del solver y el tamaño de paso.
 
-## Acknowledgments — Agradecimientos y reconocimiento de autoría {#agradecimientos}
+## Agradecimientos {#agradecimientos}
 
 Esta publicación es una **lectura crítica, reconstrucción didáctica y análisis de implementación**, basada en el trabajo original de Ramin Hasani, Mathias Lechner, Alexander Amini, Daniela Rus y Radu Grosu. El reconocimiento de financiación y apoyos institucionales del artículo original corresponde exclusivamente a los autores, tal como se documenta en su sección *Acknowledgments*. Agradezco asimismo el acceso abierto al manuscrito, código y materiales suplementarios, que hacen posible esta revisión independiente.
+
+## Referencias {#referencias}
+
+::: {#refs}
+:::
 
 ## Material suplementario, implementación moderna y recursos {#material-suplementario}
 
@@ -2443,6 +2514,18 @@ El material suplementario solo está en la versión de arXiv (v4), donde ocupa d
 | Resultados adicionales de longitud de trayectoria | Suplemento S8, Figura S1 | Gráficas complementarias a la Figura 3. |
 | Código y datos | Suplemento S9 | Enlace al repositorio oficial [@hasani2020ltcrepo]. |
 
+La única figura del suplemento amplía el análisis de la [Figura 3](#hasani-fig3):
+
+::: {#hasani-figS1 .ltc-paper-fig .ltc-paper-fig--wide}
+[Figura original del paper · Figura S1]{.ltc-paper-fig__label}
+
+![**Figura S1.** Resultados adicionales de longitud de trayectoria.](images/paper/hasani2021-figS1.png){.lightbox group="hasani2021" fig-alt="Figura S1 original del suplemento del paper: cinco gráficos de longitud de trayectoria de LTC, Neural ODE y CT-RNN frente al número de capas, la anchura de la red, la varianza de los pesos y el tamaño de paso de la entrada, con distintas activaciones"}
+
+**Cómo leerla.** Complementa la Figura 3 con el mismo formato (diagramas de caja sobre 100 muestras, escala logarítmica, LTC en celeste con línea amarilla). Arriba a la izquierda, con Hard-tanh y cuatro capas, la longitud de Neural ODE y CT-RNN crece exponencialmente con la profundidad y supera a la de la LTC a partir de la segunda y la tercera capa, respectivamente: es la excepción de los modelos continuos multicapa con Hard-tanh que recoge la observación (III). En los otros cuatro paneles —anchura $k$ con Hard-tanh, $\sigma_w^2$ de 1 a 32, **tamaño de paso de la entrada** (de 0,1 a 0,001) y anchura con sigmoide— la LTC queda por encima o a la par de los otros dos modelos. Frente al tamaño de paso, las tres curvas son prácticamente planas.
+
+[Fuente: Hasani et al. (2021), *Liquid Time-constant Networks*, arXiv:2006.04439v4, fig. S1, p. 25 (suplemento S8). Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reproducida sin modificaciones, salvo el recorte de los márgenes.]{.ltc-paper-fig__source} [Ver en resolución completa](images/paper/hasani2021-figS1.png){.ltc-paper-fig__full target="_blank" rel="noopener"}
+:::
+
 <div class="ltc-divider">A partir de aquí, el contenido ya no forma parte del paper original: es análisis de implementación, reproducibilidad e investigación posterior.</div>
 
 ### Del paper original a las herramientas actuales {#paper-vs-hoy}
@@ -2452,14 +2535,14 @@ Esta sección reúne en una sola tabla todo lo que cambiaría —y lo que no— 
 | Componente | Paper original *(y su código, cuando se indica)* | Implementación actual | ¿Cambia la metodología? |
 |---|---|---|---|
 | Celda LTC | Ec. (1) y Ec. (3) en el paper; parametrización por sinapsis en el repositorio | Módulo propio de PyTorch (`nn.Module`) | [A]{.ltc-tag .ltc-tag--a} No, si se conservan las ecuaciones **y** se declara qué parametrización se sigue. |
-| Fused ODE Solver | Algorithm 1 | Operaciones tensoriales vectorizadas sobre el lote | [A]{.ltc-tag .ltc-tag--a} No, si es matemáticamente equivalente (mismos $L$ y $\Delta t$). |
-| BPTT | Algorithm 2; implementado en TensorFlow 1.14 según el suplemento | Autograd dinámico: `loss.backward()` | [A]{.ltc-tag .ltc-tag--a} No: es el mismo cálculo de gradientes con otra herramienta. |
+| Fused ODE Solver | Algoritmo 1 | Operaciones tensoriales vectorizadas sobre el lote | [A]{.ltc-tag .ltc-tag--a} No, si es matemáticamente equivalente (mismos $L$ y $\Delta t$). |
+| BPTT | Algoritmo 2; implementado en TensorFlow 1.14 según el suplemento | Autograd dinámico: `loss.backward()` | [A]{.ltc-tag .ltc-tag--a} No: es el mismo cálculo de gradientes con otra herramienta. |
 | Optimizador | Adam con $\beta_1 = 0{,}9$, $\beta_2 = 0{,}999$, $\hat{\epsilon} = 10^{-8}$ | `torch.optim.Adam` con los mismos valores | [A]{.ltc-tag .ltc-tag--a} No, si se conservan los hiperparámetros. |
 | Pipeline de datos | Un script por dataset, según el repositorio | `Dataset` y `DataLoader` | [B]{.ltc-tag .ltc-tag--b} Normalmente no, si se replican particiones, ventanas y normalización. Una partición aleatoria distinta sí cambia los números. |
 | Hardware | No se especifica en el paper | GPU de Colab | [B]{.ltc-tag .ltc-tag--b} No. Puede haber diferencias numéricas mínimas. |
 | Seguimiento de experimentos | Resultados en archivos CSV, según el README del repositorio | TensorBoard u otra herramienta de registro | [B]{.ltc-tag .ltc-tag--b} No. |
 | Precisión mixta, compilación del modelo | No se mencionan | Disponibles en los marcos actuales | [B]{.ltc-tag .ltc-tag--b} En principio no, pero conviene verificar que no alteran la división de la Ec. (3). |
-| Solver genérico moderno | Estrategia de integración distinta a la del Algorithm 1 | `torchdiffeq`, Diffrax | [C]{.ltc-tag .ltc-tag--c} Potencialmente sí. |
+| Solver genérico moderno | Estrategia de integración distinta a la del Algoritmo 1 | `torchdiffeq`, Diffrax | [C]{.ltc-tag .ltc-tag--c} Potencialmente sí. |
 | Método adjunto para los gradientes | Descartado explícitamente por los autores | `odeint_adjoint` y similares | [C]{.ltc-tag .ltc-tag--c} Sí: cambia cómo se calculan los gradientes. |
 | Arquitectura posterior | No es la LTC original | Modelo continuo publicado después | [D]{.ltc-tag .ltc-tag--d} Sí. |
 
@@ -2479,7 +2562,7 @@ Nada de lo que sigue forma parte del paper de LTC. Son trabajos de la misma lín
 
 Para este apartado se consultaron el resumen del preprint de CfC y la documentación de `ncps`; el texto completo del artículo de 2022 no se revisó.
 
-La diferencia metodológica es precisa: la LTC **define** una ODE y la **integra numéricamente** en cada paso (Algorithm 1). La CfC **sustituye** esa integración por una expresión aproximada en forma cerrada. No es una versión actualizada del Algorithm 1: es otro modelo, en el que desaparecen el Fused ODE Solver, $L$ y el $\Delta t$ del solver.
+La diferencia metodológica es precisa: la LTC **define** una ODE y la **integra numéricamente** en cada paso (Algoritmo 1). La CfC **sustituye** esa integración por una expresión aproximada en forma cerrada. No es una versión actualizada del Algoritmo 1: es otro modelo, en el que desaparecen el Fused ODE Solver, $L$ y el $\Delta t$ del solver.
 
 ### LTC frente a CfC
 
@@ -2517,7 +2600,7 @@ Las LTC son un buen caso de estudio para un primer módulo de Deep Learning porq
 | **Capas y módulos personalizados** | `LTCCell` es una celda recurrente propia; es el ejercicio clásico de escribir una capa que no existe en el marco. |
 | **Funciones de activación** | La elección entre sigmoide, tanh, ReLU o Hard-tanh determina si se cumplen las hipótesis de los teoremas y cambia la longitud de trayectoria. |
 | **Funciones de pérdida** | Entropía cruzada (también ponderada, en Ozone) para clasificación y error cuadrático para regresión. |
-| **Optimizadores** | Algorithm 2 con SGD; los experimentos con Adam y sus hiperparámetros. |
+| **Optimizadores** | Algoritmo 2 con SGD; los experimentos con Adam y sus hiperparámetros. |
 | **Diferenciación automática** | `loss.backward()` sobre un grafo recurrente desenrollado es BPTT. |
 | **Desvanecimiento del gradiente** | La limitación sobre dependencias de largo plazo que reconocen los autores. |
 | **GPU** | Operaciones vectorizadas sobre el lote; el bucle temporal sigue siendo secuencial. |
@@ -2531,7 +2614,7 @@ Quedan deliberadamente fuera los temas del módulo que no guardan relación con 
 
 <figure class="ltc-figure">
 <img src="images/reproduccion-pipeline.svg" alt="Doce etapas en dos filas: paper y apéndice, datasets, preprocesamiento, modelos baseline, celda LTC, Fused ODE Solver, desenrollado en T pasos, pérdida, BPTT, optimizador Adam, evaluación con n igual a 5 y comparación con lo reportado" loading="lazy">
-<figcaption>Diagrama original del pipeline de reproducción.</figcaption>
+<figcaption><span class="ltc-own-label">Diagrama propio</span> Pipeline de reproducción.</figcaption>
 </figure>
 
 ```text
@@ -2547,7 +2630,7 @@ El cuaderno **«Redes líquidas (LTC): laboratorio reproducible y aplicaciones»
 
 <div class="ltc-actions ltc-actions--left">
 <a class="lf-btn lf-btn--primary" href="https://colab.research.google.com/github/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" target="_blank" rel="noopener">Abrir laboratorio en Google Colab</a>
-<a class="lf-btn" href="analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" download>Descargar cuaderno .ipynb</a>
+<a class="lf-btn" href="analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb?download=1" download="LTC_laboratorio_reproduccion_y_aplicaciones.ipynb">Descargar cuaderno .ipynb</a>
 <a class="lf-btn" href="https://github.com/Laverde97/latent-frontiers/blob/main/posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb" target="_blank" rel="noopener">Ver código fuente en GitHub</a>
 </div>
 
@@ -2560,7 +2643,7 @@ El cuaderno **«Redes líquidas (LTC): laboratorio reproducible y aplicaciones»
 | Secciones 15–16 y anexos | Interpretación crítica, reproducibilidad, límites, fuentes y atribución. |
 
 ::: {.callout-important}
-**Alcance y ejecución.** El cuaderno combina ejercicios didácticos, una **reproducción parcial** y propuestas de adaptación; no constituye la reproducción certificada de los once experimentos del artículo original. Para entrenar con el código legado descarga software y datasets, lo que requiere conexión a Internet y un entorno compatible. Las imágenes de lesiones son **sintéticas**, no datos clínicos reales ni un sistema diagnóstico. Por claridad y mantenimiento, la versión guardada en este repositorio conserva todas las celdas de código y texto, pero no las salidas de ejecución anteriores: deberás ejecutar las celdas para regenerar gráficos y métricas.
+**Alcance y ejecución.** El cuaderno combina ejercicios didácticos, una **reproducción parcial** y propuestas de adaptación; no constituye la reproducción certificada de los once experimentos del artículo original. Para entrenar con el código legado descarga software y datasets, lo que requiere conexión a Internet y un entorno compatible. Las imágenes de lesiones son **sintéticas**, no datos clínicos reales ni un sistema diagnóstico. La versión guardada en este repositorio es el archivo original, sin modificaciones: conserva las celdas de código y texto, las salidas, las imágenes y los gráficos de su última ejecución. Volver a ejecutar las celdas puede producir valores distintos si cambian las versiones del software o los datos descargados.
 :::
 
 ### Reproducción mínima
@@ -2619,6 +2702,4 @@ Hasani R, Lechner M, Amini A, Rus D, Grosu R. Liquid Time-constant Networks. <em
 <a class="lf-btn" href="https://github.com/raminmh/liquid_time_constant_networks">Código original</a>
 </div>
 
-Los diagramas explicativos de esta página y la presentación se elaboraron para esta revisión; las simulaciones didácticas no son reproducciones numéricas de las figuras del paper. Las ecuaciones, algoritmos y tablas se atribuyen a Hasani et al. (2021). El nuevo cuaderno vinculado distingue implementaciones didácticas propias de la ejecución de scripts del repositorio original, y conserva sus atribuciones en la sección 16.
-
-### Referencias
+Los diagramas explicativos de esta página y la presentación se elaboraron para esta revisión; las simulaciones didácticas no son reproducciones numéricas de las figuras del paper. Las Figuras 1–4 y S1 son las originales de Hasani et al. (2021), recortadas del PDF de arXiv v4 sin otras modificaciones y reproducidas bajo la licencia CC BY 4.0 con la que se distribuye el preprint; sus pies en español son traducciones e interpretaciones de esta revisión. Las ecuaciones, algoritmos y tablas se atribuyen a Hasani et al. (2021). El nuevo cuaderno vinculado distingue implementaciones didácticas propias de la ejecución de scripts del repositorio original, y conserva sus atribuciones en la sección 16.
