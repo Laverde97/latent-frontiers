@@ -12,7 +12,9 @@ Este archivo empieza por `_`, así que Quarto no lo renderiza ni lo lista.
 - **`slides.qmd`**, **`slides.scss`** — presentación RevealJS de 16 diapositivas.
 - **`timer.html`** — temporizador de la presentación, incluido con `include-after-body`.
 - **`references.bib`** — metadatos tomados de Crossref (DOI), arXiv, PMLR y la documentación oficial de cada librería.
-- **`images/*.svg`** — diagramas originales generados por script y validados como XML.
+- **`images/*.svg`** — diagramas propios generados por script y validados como XML. En el artículo se rotulan «Diagrama propio».
+- **`images/paper/hasani2021-*.png`** — Figuras 1–4 y S1 **originales** del paper, recortadas del PDF de arXiv v4 (pp. 3, 5, 6, 7 y 25) con PyMuPDF (`get_pixmap(clip=…)`): 400 dpi (Figs. 2 y 3, 600 dpi). Solo se recortan los márgenes; el pie en inglés queda fuera y se traduce en el pie externo. Se descartó SVG porque las Figs. 1 y 2 contienen rásters incrustados (la Fig. 2 pesaba 12,6 MB en SVG). El preprint se distribuye con licencia **CC BY 4.0**: cada pie lleva la atribución y el enlace a la licencia. Se abren en *lightbox* (clase `.lightbox` por imagen, GLightbox de Quarto) y tienen enlace «Ver en resolución completa»; en móvil las Figs. 2, 3 y S1 (`.ltc-paper-fig--wide`) se desplazan en horizontal a 760 px.
+- **`analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb`** — cuaderno de Colab **original, byte a byte, con sus salidas** (1.029.939 bytes, SHA-256 `9b020cde3ddcac39b7ac513f0292899b0a8ab5b6ab9b4a98d132576b60ba9a52`). No se ejecuta, limpia ni reserializa: `.gitattributes` lo marca `-text`. Para sustituirlo, copiar con `cp` y comprobar el SHA-256 en el original, en `git show :ruta | sha256sum` y en `_site`. Quarto reescribe los enlaces a `.ipynb` hacia la página `.html`; la descarga directa usa `?download=1` (mismo patrón que el artículo de metilación).
 - **`analysis/`** — el código Python que se muestra en el artículo.
 - **`media/redes-ltc-analisis.mp4`** — video complementario (42.371.015 bytes, 1280×720, 8 min 46 s). Es la segunda versión; sustituye a la original en la misma ruta.
 
@@ -82,3 +84,33 @@ Con Chromium headless (Playwright) sobre el sitio renderizado:
 - **Gráficas de resultados:** HTML/CSS generado por script a partir de las filas de las Tablas 3 y 6 de este mismo archivo (no se teclean cifras). Si cambian las tablas, hay que regenerarlas.
 - **Fragmentos de código de los niveles 1 y 2:** ejecutados; la salida se copia literalmente. El nivel 3 es `analysis/ltc_manual.py` sin cambios.
 - **Validación de esta rama** (Chromium headless, sitio servido bajo `/latent-frontiers/`, contexto sin caché a 1280 px y 375 px): MathJax sin errores ni LaTeX visible con todos los desplegables abiertos; ecuaciones nuevas sin desplazamiento en móvil; anclas internas resueltas; sin desbordamiento horizontal; video con HTTP 200 y metadatos cargados; 18 pruebas del laboratorio (valores 1,00 y 0,250 de los ejemplos, teclado, botones de restablecer, restricción de x(0) al intervalo del Teorema 2, trayectoria dentro del intervalo en 5 combinaciones, tooltip); conservación literal de las Tablas 1–6, Algorithm 1–2, Ec. (1)–(9), citas y encabezados originales. El cuaderno se ejecutó de principio a fin sin errores (~20 s en CPU).
+
+## Rediseño editorial (rama `feature/ltc-editorial-redesign`)
+
+- **Títulos** en español, con los mismos `{#id}` (no cambia ningún enlace directo). Nuevos anclajes: `#longitud-trayectoria`, `#teoremas-4-5`, `#half-cheetah`, `#referencias` y `#hasani-fig1` … `#hasani-figS1`.
+- **Referencias** antes del material suplementario (`## Referencias` + `::: {#refs}`).
+- **Laboratorio 3:** su HTML va en un bloque `{=html}`. Antes estaba en Markdown con sangría de cuatro espacios y Pandoc lo convertía en bloques de código: los controles se veían como texto y el simulador no funcionaba en el sitio publicado.
+- **Justificado** solo en párrafos de prosa (`text-align: justify; hyphens: auto`, con `lang: es`); pies, tablas, código, ecuaciones, laboratorios y portada quedan alineados a la izquierda o al centro.
+- **Comprobación de contenido:** un inventario automático (ecuaciones `$$`, bloques de código, números de las tablas, `\tag{1–9}`, `<details>`, párrafos) se comparó antes y después del rediseño: nada se pierde.
+
+## Publicación del sitio
+
+El sitio **no** se publica desde los archivos `.qmd` por sí solos. GitHub Pages está configurado con `build_type: workflow`: el flujo `.github/workflows/publish-quarto.yml` se dispara con cada `push` a `main` (y a mano con `workflow_dispatch`), ejecuta `quarto render`, sube `_site` como artefacto y lo despliega. `_site` no está versionado.
+
+Después de fusionar un PR:
+
+```bash
+gh run list --workflow publish-quarto.yml --limit 3   # debe aparecer una ejecución para el commit fusionado
+gh run watch <id>                                      # esperar a que termine en verde
+# si no se lanzó o falló por algo transitorio:
+gh workflow run publish-quarto.yml --ref main
+```
+
+Y comprobar el resultado publicado (puede tardar unos minutos por la caché de GitHub Pages):
+
+```bash
+BASE=https://laverde97.github.io/latent-frontiers/posts/liquid-time-constant-networks
+curl -s $BASE/ | grep -c "Google Colab · Laboratorio LTC"      # 1
+curl -s https://laverde97.github.io/latent-frontiers/writings.html | grep -o "145 minutos[^<]*"   # 145 minutos
+curl -s $BASE/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb | sha256sum        # 9b020cde…
+```
