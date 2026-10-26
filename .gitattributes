@@ -2,3 +2,6 @@
 *.jpg  binary
 *.jpeg binary
 *.png  binary
+
+# Notebook original del artículo LTC: se versiona byte a byte, sin normalizar finales de línea
+posts/liquid-time-constant-networks/analysis/LTC_laboratorio_reproduccion_y_aplicaciones.ipynb -text

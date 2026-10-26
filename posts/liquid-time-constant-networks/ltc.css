@@ -110,31 +110,45 @@ main.content h4 {
   color: var(--ltc-muted);
   line-height: 1.6;
   max-width: 44rem;
-  margin: 0 auto 1.6rem;
+  margin: 0 auto 1.4rem;
 }
 
+/* Indicadores: cuatro columnas iguales separadas por filetes, sin cajas */
 .ltc-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  padding: 1.2rem 0;
-  margin: 0 auto 1.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 44rem;
+  padding: 1rem 0;
+  margin: 0 auto 1.5rem;
   border-top: 1px solid var(--ltc-line);
   border-bottom: 1px solid var(--ltc-line);
 }
 
+.ltc-stat {
+  padding: 0.2rem 0.75rem;
+}
+
+.ltc-stat + .ltc-stat {
+  border-left: 1px solid var(--ltc-line);
+}
+
 .ltc-stat__value {
   font-family: var(--ltc-serif);
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 600;
+  font-variant-numeric: lining-nums tabular-nums;
   color: var(--ltc-navy);
   line-height: 1.1;
 }
 
 .ltc-stat__label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--ltc-muted);
-  margin-top: 0.25rem;
+  line-height: 1.35;
+  margin-top: 0.35rem;
 }
 
 /* Botones: reutilizan .lf-btn / .lf-btn--primary del tema global */
@@ -152,6 +166,32 @@ main.content h4 {
 
 main.content .lf-btn {
   text-decoration: none;
+}
+
+/* Portada: cuatro accesos del mismo tamaño, en el orden del documento */
+.ltc-actions--hero {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0;
+}
+
+.ltc-actions--hero .lf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ltc-colab-icon {
+  flex: none;
 }
 
 /* ---------- Figuras ---------- */
@@ -897,5 +937,334 @@ main.content .ltc-dots__note {
 
   main.content table caption {
     max-width: calc(100vw - 3.5rem);
+  }
+}
+
+/* =====================================================================
+   Rediseño editorial: lectura, jerarquía, figuras del paper y tablas
+   ===================================================================== */
+
+/* ---------- Texto narrativo justificado ---------- */
+
+/* Solo párrafos de prosa. Pies, tablas, código, ecuaciones, controles y la portada
+   quedan fuera (sus propias reglas fijan la alineación). */
+main.content > p,
+main.content > section > p,
+main.content section.level2 > p,
+main.content section.level3 > p,
+main.content section.level4 > p,
+main.content .ltc-callout > p,
+main.content .ltc-details > p,
+main.content .ltc-paper-fig > p:not(.ltc-paper-fig__label) {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+main.content p {
+  margin-bottom: 1rem;
+}
+
+/* Nunca se justifica lo que pierde legibilidad al estirarse */
+main.content figcaption,
+main.content table,
+main.content pre,
+main.content .math.display,
+main.content .ltc-lab p,
+main.content .ltc-dots p,
+main.content #ltc-expressivity-lab p,
+main.content .ltc-actions,
+main.content .ltc-hero p {
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+main.content figcaption,
+main.content .ltc-lab p,
+main.content #ltc-expressivity-lab p {
+  text-align: left;
+}
+
+main.content .ltc-hero p {
+  text-align: center;
+}
+
+/* ---------- Jerarquía de títulos ---------- */
+
+main.content h2 {
+  margin-top: 3.4rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--ltc-line);
+  font-size: clamp(1.45rem, 1.3rem + 0.6vw, 1.75rem);
+  line-height: 1.25;
+}
+
+main.content h3 {
+  margin-top: 2.2rem;
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.15rem, 1.08rem + 0.3vw, 1.3rem);
+  line-height: 1.3;
+}
+
+main.content h4 {
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ltc-blue);
+}
+
+/* ---------- Diagramas propios frente a figuras originales ---------- */
+
+.ltc-own-label,
+.ltc-paper-fig__label,
+.ltc-algorithm__label,
+.ltc-modern-label,
+.ltc-lab-link {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.ltc-own-label {
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px dashed var(--ltc-muted);
+  border-radius: 4px;
+  color: var(--ltc-muted);
+}
+
+.ltc-figure img {
+  border-style: dashed;
+}
+
+.ltc-paper-fig {
+  margin: 2rem 0 2.2rem;
+  padding: 1rem 1.1rem 0.9rem;
+  border: 1px solid var(--ltc-line);
+  border-top: 3px solid var(--ltc-paper);
+  border-radius: var(--ltc-radius);
+  background: #fff;
+}
+
+main.content .ltc-paper-fig__label {
+  color: var(--ltc-paper);
+  margin: 0 0 0.6rem;
+}
+
+.ltc-paper-fig .quarto-figure,
+.ltc-paper-fig figure {
+  margin: 0;
+}
+
+.ltc-paper-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  cursor: zoom-in;
+  background: #fff;
+}
+
+.ltc-paper-fig figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ltc-ink);
+}
+
+main.content .ltc-paper-fig > p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  margin: 0.7rem 0 0;
+}
+
+main.content .ltc-paper-fig > p:last-child {
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--ltc-muted);
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--ltc-line);
+}
+
+.ltc-paper-fig__full {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.ltc-paper-fig__full::after {
+  content: " ↗";
+}
+
+/* ---------- Algoritmos: pseudocódigo original frente a código moderno ---------- */
+
+.ltc-algorithm {
+  margin: 1.4rem 0 1.8rem;
+  padding: 0.9rem 1rem 0.2rem;
+  border: 1px solid var(--ltc-line);
+  border-left: 4px solid var(--ltc-paper);
+  border-radius: 0 var(--ltc-radius) var(--ltc-radius) 0;
+  background: var(--ltc-surface);
+}
+
+main.content .ltc-algorithm__label {
+  color: var(--ltc-paper);
+  margin: 0 0 0.5rem;
+}
+
+.ltc-algorithm pre {
+  background: #fff;
+  border: 1px solid var(--ltc-line);
+}
+
+main.content .ltc-modern-label {
+  margin: 0.4rem 0 -0.3rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px 4px 0 0;
+  background: var(--ltc-impl);
+  color: #fff;
+}
+
+/* ---------- Laboratorios: vínculo con el paper ---------- */
+
+main.content .ltc-lab-link {
+  margin: 0 0 0.7rem;
+  padding: 0.15rem 0.55rem;
+  border: 1px dashed var(--ltc-impl);
+  border-radius: 4px;
+  color: var(--ltc-impl);
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.8rem;
+}
+
+.ltc-lab-link a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------- Tablas ---------- */
+
+main.content table td {
+  font-variant-numeric: tabular-nums;
+}
+
+main.content table td strong {
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  background: rgba(29, 78, 137, 0.08);
+  color: var(--ltc-navy);
+}
+
+main.content th[style*="right"],
+main.content td[style*="right"] {
+  text-align: right !important;
+}
+
+main.content table caption {
+  caption-side: bottom;
+  padding-top: 0.6rem;
+  line-height: 1.5;
+}
+
+main.content thead th {
+  border-bottom: 2px solid var(--ltc-ink);
+}
+
+/* ---------- Referencias en el cuerpo del artículo ---------- */
+
+/* La bibliografía va antes del material suplementario; sus URL y DOI largos se parten */
+main.content #refs .csl-entry {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin-bottom: 0.6rem;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Adaptación a tabletas y móviles ---------- */
+
+@media (max-width: 1199.98px) {
+  .ltc-actions--hero {
+    grid-template-columns: repeat(2, minmax(0, 15rem));
+  }
+}
+
+/* Hasta 1199 px la columna de lectura es estrecha: las tablas anchas se desplazan
+   dentro de su caja, nunca la página */
+@media (max-width: 1199.98px) {
+  main.content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ltc-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0.9rem;
+  }
+
+  .ltc-stat:nth-child(3) {
+    border-left: 0;
+  }
+
+  main.content h2 {
+    margin-top: 2.6rem;
+  }
+
+  /* Figuras con muchos paneles: en móvil se leen deslizando en horizontal a un ancho legible;
+     tocar la imagen la abre a pantalla completa con zoom */
+  .ltc-paper-fig--wide figure > p {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ltc-paper-fig--wide img {
+    width: 760px;
+    max-width: none;
+  }
+
+  .ltc-paper-fig--wide .ltc-paper-fig__label::after {
+    content: " · desliza para ver todos los paneles";
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--ltc-muted);
+  }
+
+  .ltc-paper-fig {
+    margin-left: -0.4rem;
+    margin-right: -0.4rem;
+    padding: 0.8rem 0.7rem 0.7rem;
+  }
+
+  main.content th[style*="right"],
+  main.content td[style*="right"] {
+    min-width: 6.5rem;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .ltc-actions--hero {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .ltc-actions--hero .lf-btn {
+    white-space: normal;
+  }
+
+  main.content > p,
+  main.content section > p {
+    -webkit-hyphens: auto;
+    hyphens: auto;
   }
 }
