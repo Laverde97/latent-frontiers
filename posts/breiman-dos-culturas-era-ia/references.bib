@@ -1,0 +1,624 @@
+% Referencias verificadas el 2026-11-05 contra Crossref (DOI), arXiv, PubMed/Europe PMC o la página oficial.
+% Este archivo lo usan tanto index.qmd (citeproc) como paper.tex (biblatex + biber).
+
+% ---------------------------------------------------------------- Fuente principal y contexto histórico
+@article{breiman2001,
+  author  = {Breiman, Leo},
+  title   = {Statistical Modeling: The Two Cultures (with comments and a rejoinder by the author)},
+  journal = {Statistical Science},
+  year    = {2001},
+  volume  = {16},
+  number  = {3},
+  pages   = {199--231},
+  doi     = {10.1214/ss/1009213726}
+}
+
+@article{breiman2001rf,
+  author  = {Breiman, Leo},
+  title   = {Random Forests},
+  journal = {Machine Learning},
+  year    = {2001},
+  volume  = {45},
+  number  = {1},
+  pages   = {5--32},
+  doi     = {10.1023/A:1010933404324}
+}
+
+@article{breiman1996bagging,
+  author  = {Breiman, Leo},
+  title   = {Bagging predictors},
+  journal = {Machine Learning},
+  year    = {1996},
+  volume  = {24},
+  number  = {2},
+  pages   = {123--140},
+  doi     = {10.1007/BF00058655}
+}
+
+@article{breiman1996instab,
+  author  = {Breiman, Leo},
+  title   = {Heuristics of instability and stabilization in model selection},
+  journal = {The Annals of Statistics},
+  year    = {1996},
+  volume  = {24},
+  number  = {6},
+  pages   = {2350--2383},
+  doi     = {10.1214/aos/1032181158}
+}
+
+@article{stone1974,
+  author  = {Stone, M.},
+  title   = {Cross-Validatory Choice and Assessment of Statistical Predictions},
+  journal = {Journal of the Royal Statistical Society: Series B (Methodological)},
+  year    = {1974},
+  volume  = {36},
+  number  = {2},
+  pages   = {111--133},
+  doi     = {10.1111/j.2517-6161.1974.tb00994.x}
+}
+
+@book{vapnik1995,
+  author    = {Vapnik, Vladimir N.},
+  title     = {The Nature of Statistical Learning Theory},
+  publisher = {Springer},
+  address   = {New York},
+  year      = {1995},
+  doi       = {10.1007/978-1-4757-2440-0}
+}
+
+@book{bellman1957,
+  author    = {Bellman, Richard},
+  title     = {Dynamic Programming},
+  publisher = {Princeton University Press},
+  address   = {Princeton, NJ},
+  year      = {1957}
+}
+
+@book{hastie2009,
+  author    = {Hastie, Trevor and Tibshirani, Robert and Friedman, Jerome},
+  title     = {The Elements of Statistical Learning: Data Mining, Inference, and Prediction},
+  edition   = {2},
+  publisher = {Springer},
+  address   = {New York},
+  year      = {2009},
+  doi       = {10.1007/978-0-387-84858-7}
+}
+
+% ---------------------------------------------------------------- Lecturas posteriores sobre predicción, explicación y Rashomon
+@article{shmueli2010,
+  author  = {Shmueli, Galit},
+  title   = {To Explain or to Predict?},
+  journal = {Statistical Science},
+  year    = {2010},
+  volume  = {25},
+  number  = {3},
+  pages   = {289--310},
+  doi     = {10.1214/10-STS330}
+}
+
+@article{efron2020,
+  author  = {Efron, Bradley},
+  title   = {Prediction, Estimation, and Attribution},
+  journal = {Journal of the American Statistical Association},
+  year    = {2020},
+  volume  = {115},
+  number  = {530},
+  pages   = {636--655},
+  doi     = {10.1080/01621459.2020.1762613}
+}
+
+@article{donoho2017,
+  author  = {Donoho, David},
+  title   = {50 Years of Data Science},
+  journal = {Journal of Computational and Graphical Statistics},
+  year    = {2017},
+  volume  = {26},
+  number  = {4},
+  pages   = {745--766},
+  doi     = {10.1080/10618600.2017.1384734}
+}
+
+@article{rudin2019,
+  author  = {Rudin, Cynthia},
+  title   = {Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead},
+  journal = {Nature Machine Intelligence},
+  year    = {2019},
+  volume  = {1},
+  number  = {5},
+  pages   = {206--215},
+  doi     = {10.1038/s42256-019-0048-x}
+}
+
+@article{fisher2019,
+  author  = {Fisher, Aaron and Rudin, Cynthia and Dominici, Francesca},
+  title   = {All Models are Wrong, but Many are Useful: Learning a Variable's Importance by Studying an Entire Class of Prediction Models Simultaneously},
+  journal = {Journal of Machine Learning Research},
+  year    = {2019},
+  volume  = {20},
+  number  = {177},
+  pages   = {1--81},
+  url     = {https://jmlr.org/papers/v20/18-760.html}
+}
+
+@inproceedings{semenova2022,
+  author    = {Semenova, Lesia and Rudin, Cynthia and Parr, Ronald},
+  title     = {On the Existence of Simpler Machine Learning Models},
+  booktitle = {Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency (FAccT '22)},
+  year      = {2022},
+  pages     = {1827--1858},
+  doi       = {10.1145/3531146.3533232}
+}
+
+@article{damour2022,
+  author  = {D'Amour, Alexander and Heller, Katherine and Moldovan, Dan and Adlam, Ben and others},
+  title   = {Underspecification Presents Challenges for Credibility in Modern Machine Learning},
+  journal = {Journal of Machine Learning Research},
+  year    = {2022},
+  volume  = {23},
+  number  = {226},
+  pages   = {1--61},
+  url     = {https://jmlr.org/papers/v23/20-1335.html}
+}
+
+@article{belkin2019,
+  author  = {Belkin, Mikhail and Hsu, Daniel and Ma, Siyuan and Mandal, Soumik},
+  title   = {Reconciling modern machine-learning practice and the classical bias--variance trade-off},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {2019},
+  volume  = {116},
+  number  = {32},
+  pages   = {15849--15854},
+  doi     = {10.1073/pnas.1903070116}
+}
+
+@inproceedings{zhang2017,
+  author    = {Zhang, Chiyuan and Bengio, Samy and Hardt, Moritz and Recht, Benjamin and Vinyals, Oriol},
+  title     = {Understanding deep learning requires rethinking generalization},
+  booktitle = {International Conference on Learning Representations (ICLR 2017)},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1611.03530}
+}
+
+% ---------------------------------------------------------------- Incertidumbre, calibración, causalidad e interpretación
+@inproceedings{guo2017,
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title     = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {70},
+  year      = {2017},
+  pages     = {1321--1330},
+  url       = {https://proceedings.mlr.press/v70/guo17a.html}
+}
+
+@article{angelopoulos2023,
+  author  = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  title   = {Conformal Prediction: A Gentle Introduction},
+  journal = {Foundations and Trends in Machine Learning},
+  year    = {2023},
+  volume  = {16},
+  number  = {4},
+  pages   = {494--591},
+  doi     = {10.1561/2200000101}
+}
+
+@article{vancalster2019,
+  author  = {Van Calster, Ben and McLernon, David J. and van Smeden, Maarten and Wynants, Laure and Steyerberg, Ewout W. and {Topic Group `Evaluating diagnostic tests and prediction models' of the STRATOS initiative}},
+  title   = {Calibration: the {Achilles} heel of predictive analytics},
+  journal = {BMC Medicine},
+  year    = {2019},
+  volume  = {17},
+  number  = {1},
+  pages   = {230},
+  doi     = {10.1186/s12916-019-1466-7}
+}
+
+@book{pearl2009,
+  author    = {Pearl, Judea},
+  title     = {Causality: Models, Reasoning, and Inference},
+  edition   = {2},
+  publisher = {Cambridge University Press},
+  address   = {Cambridge},
+  year      = {2009},
+  doi       = {10.1017/CBO9780511803161}
+}
+
+@article{hernan2019,
+  author  = {Hern{\'a}n, Miguel A. and Hsu, John and Healy, Brian},
+  title   = {A Second Chance to Get Causal Inference Right: A Classification of Data Science Tasks},
+  journal = {CHANCE},
+  year    = {2019},
+  volume  = {32},
+  number  = {1},
+  pages   = {42--49},
+  doi     = {10.1080/09332480.2019.1579578}
+}
+
+@book{hernan2020,
+  author    = {Hern{\'a}n, Miguel A. and Robins, James M.},
+  title     = {Causal Inference: What If},
+  publisher = {Chapman \& Hall/CRC},
+  address   = {Boca Raton},
+  year      = {2020},
+  url       = {https://miguelhernan.org/whatifbook}
+}
+
+@inproceedings{lundberg2017,
+  author    = {Lundberg, Scott M. and Lee, Su-In},
+  title     = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year      = {2017},
+  url       = {https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html}
+}
+
+@inproceedings{ribeiro2016,
+  author    = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  title     = {``{Why} Should {I} Trust You?'': Explaining the Predictions of Any Classifier},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  year      = {2016},
+  pages     = {1135--1144},
+  doi       = {10.1145/2939672.2939778}
+}
+
+% ---------------------------------------------------------------- Deep learning, transformers y modelos fundacionales
+@article{lecun2015,
+  author  = {LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  title   = {Deep learning},
+  journal = {Nature},
+  year    = {2015},
+  volume  = {521},
+  number  = {7553},
+  pages   = {436--444},
+  doi     = {10.1038/nature14539}
+}
+
+@inproceedings{vaswani2017,
+  author    = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  title     = {Attention Is All You Need},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS 2017)},
+  year      = {2017},
+  url       = {https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html}
+}
+
+@misc{bommasani2021,
+  author        = {Bommasani, Rishi and Hudson, Drew A. and Adeli, Ehsan and others},
+  title         = {On the Opportunities and Risks of Foundation Models},
+  year          = {2021},
+  eprint        = {2108.07258},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2108.07258}
+}
+
+@inproceedings{brown2020,
+  author    = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and others},
+  title     = {Language Models are Few-Shot Learners},
+  booktitle = {Advances in Neural Information Processing Systems 33 (NeurIPS 2020)},
+  year      = {2020},
+  url       = {https://proceedings.neurips.cc/paper/2020/hash/1457c0d6bfcb4967418bfb8ac142f64a-Abstract.html}
+}
+
+@article{jumper2021,
+  author  = {Jumper, John and Evans, Richard and Pritzel, Alexander and Green, Tim and others},
+  title   = {Highly accurate protein structure prediction with {AlphaFold}},
+  journal = {Nature},
+  year    = {2021},
+  volume  = {596},
+  number  = {7873},
+  pages   = {583--589},
+  doi     = {10.1038/s41586-021-03819-2}
+}
+
+@book{hutter2019,
+  editor    = {Hutter, Frank and Kotthoff, Lars and Vanschoren, Joaquin},
+  title     = {Automated Machine Learning: Methods, Systems, Challenges},
+  series    = {The Springer Series on Challenges in Machine Learning},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2019},
+  doi       = {10.1007/978-3-030-05318-5}
+}
+
+% ---------------------------------------------------------------- Agentes de programación e investigación asistida
+@misc{chen2021,
+  author        = {Chen, Mark and Tworek, Jerry and Jun, Heewoo and others},
+  title         = {Evaluating Large Language Models Trained on Code},
+  year          = {2021},
+  eprint        = {2107.03374},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2107.03374}
+}
+
+@inproceedings{jimenez2024,
+  author    = {Jimenez, Carlos E. and Yang, John and Wettig, Alexander and Yao, Shunyu and Pei, Kexin and Press, Ofir and Narasimhan, Karthik},
+  title     = {{SWE-bench}: Can Language Models Resolve Real-World {GitHub} Issues?},
+  booktitle = {International Conference on Learning Representations (ICLR 2024)},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2310.06770}
+}
+
+@misc{yang2024,
+  author        = {Yang, John and Jimenez, Carlos E. and Wettig, Alexander and Lieret, Kilian and Yao, Shunyu and Narasimhan, Karthik and Press, Ofir},
+  title         = {{SWE-agent}: Agent-Computer Interfaces Enable Automated Software Engineering},
+  year          = {2024},
+  eprint        = {2405.15793},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2405.15793}
+}
+
+@misc{peng2023,
+  author        = {Peng, Sida and Kalliamvakou, Eirini and Cihon, Peter and Demirer, Mert},
+  title         = {The Impact of {AI} on Developer Productivity: Evidence from {GitHub} {Copilot}},
+  year          = {2023},
+  eprint        = {2302.06590},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2302.06590}
+}
+
+@misc{becker2025,
+  author        = {Becker, Joel and Rush, Nate and Barnes, Elizabeth and Rein, David},
+  title         = {Measuring the Impact of Early-2025 {AI} on Experienced Open-Source Developer Productivity},
+  year          = {2025},
+  eprint        = {2507.09089},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2507.09089}
+}
+
+@inproceedings{perry2023,
+  author    = {Perry, Neil and Srivastava, Megha and Kumar, Deepak and Boneh, Dan},
+  title     = {Do Users Write More Insecure Code with {AI} Assistants?},
+  booktitle = {Proceedings of the 2023 ACM SIGSAC Conference on Computer and Communications Security (CCS '23)},
+  year      = {2023},
+  pages     = {2785--2799},
+  doi       = {10.1145/3576915.3623157}
+}
+
+@inproceedings{spracklen2025,
+  author    = {Spracklen, Joseph and Wijewickrama, Raveen and Sakib, A. H. M. Nazmus and Maiti, Anindya and Viswanath, Bimal and Jadliwala, Murtuza},
+  title     = {We Have a Package for You! {A} Comprehensive Analysis of Package Hallucinations by Code Generating {LLMs}},
+  booktitle = {34th USENIX Security Symposium (USENIX Security 25)},
+  year      = {2025},
+  url       = {https://www.usenix.org/conference/usenixsecurity25/presentation/spracklen}
+}
+
+@article{walters2023,
+  author  = {Walters, William H. and Wilder, Esther Isabelle},
+  title   = {Fabrication and errors in the bibliographic citations generated by {ChatGPT}},
+  journal = {Scientific Reports},
+  year    = {2023},
+  volume  = {13},
+  pages   = {14045},
+  doi     = {10.1038/s41598-023-41032-5}
+}
+
+@article{ji2023,
+  author  = {Ji, Ziwei and Lee, Nayeon and Frieske, Rita and Yu, Tiezheng and others},
+  title   = {Survey of Hallucination in Natural Language Generation},
+  journal = {ACM Computing Surveys},
+  year    = {2023},
+  volume  = {55},
+  number  = {12},
+  pages   = {1--38},
+  doi     = {10.1145/3571730}
+}
+
+@inproceedings{greshake2023,
+  author    = {Greshake, Kai and Abdelnabi, Sahar and Mishra, Shailesh and Endres, Christoph and Holz, Thorsten and Fritz, Mario},
+  title     = {Not What You've Signed Up For: Compromising Real-World {LLM}-Integrated Applications with Indirect Prompt Injection},
+  booktitle = {Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security (AISec '23)},
+  year      = {2023},
+  pages     = {79--90},
+  doi       = {10.1145/3605764.3623985}
+}
+
+@article{kapoor2023,
+  author  = {Kapoor, Sayash and Narayanan, Arvind},
+  title   = {Leakage and the reproducibility crisis in machine-learning-based science},
+  journal = {Patterns},
+  year    = {2023},
+  volume  = {4},
+  number  = {9},
+  pages   = {100804},
+  doi     = {10.1016/j.patter.2023.100804}
+}
+
+@misc{lu2024,
+  author        = {Lu, Chris and Lu, Cong and Lange, Robert Tjarko and Foerster, Jakob and Clune, Jeff and Ha, David},
+  title         = {The {AI} Scientist: Towards Fully Automated Open-Ended Scientific Discovery},
+  year          = {2024},
+  eprint        = {2408.06292},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2408.06292}
+}
+
+@misc{yamada2025,
+  author        = {Yamada, Yutaro and Lange, Robert Tjarko and Lu, Cong and others},
+  title         = {The {AI} Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search},
+  year          = {2025},
+  eprint        = {2504.08066},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2504.08066}
+}
+
+@misc{gottweis2025,
+  author        = {Gottweis, Juraj and Weng, Wei-Hung and Daryin, Alexander and others},
+  title         = {Accelerating scientific discovery with {Co-Scientist}},
+  year          = {2025},
+  eprint        = {2502.18864},
+  archivePrefix = {arXiv},
+  note          = {La versión 1 se tituló \emph{Towards an AI co-scientist}},
+  url           = {https://arxiv.org/abs/2502.18864}
+}
+
+@misc{schmidgall2025,
+  author        = {Schmidgall, Samuel and Su, Yusheng and Wang, Ze and others},
+  title         = {Agent Laboratory: Using {LLM} Agents as Research Assistants},
+  year          = {2025},
+  eprint        = {2501.04227},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2501.04227}
+}
+
+@article{messeri2024,
+  author  = {Messeri, Lisa and Crockett, M. J.},
+  title   = {Artificial intelligence and illusions of understanding in scientific research},
+  journal = {Nature},
+  year    = {2024},
+  volume  = {627},
+  number  = {8002},
+  pages   = {49--58},
+  doi     = {10.1038/s41586-024-07146-0}
+}
+
+% ---------------------------------------------------------------- Oncología y genómica
+@article{vantveer2002,
+  author  = {{van 't Veer}, Laura J. and Dai, Hongyue and van de Vijver, Marc J. and He, Yudong D. and others},
+  title   = {Gene expression profiling predicts clinical outcome of breast cancer},
+  journal = {Nature},
+  year    = {2002},
+  volume  = {415},
+  number  = {6871},
+  pages   = {530--536},
+  doi     = {10.1038/415530a}
+}
+
+@article{cardoso2016,
+  author  = {Cardoso, Fatima and van't Veer, Laura J. and Bogaerts, Jan and Slaets, Leen and others},
+  title   = {70-Gene Signature as an Aid to Treatment Decisions in Early-Stage Breast Cancer},
+  journal = {New England Journal of Medicine},
+  year    = {2016},
+  volume  = {375},
+  number  = {8},
+  pages   = {717--729},
+  doi     = {10.1056/NEJMoa1602253}
+}
+
+@article{paik2004,
+  author  = {Paik, Soonmyung and Shak, Steven and Tang, Gong and Kim, Chungyeul and others},
+  title   = {A Multigene Assay to Predict Recurrence of Tamoxifen-Treated, Node-Negative Breast Cancer},
+  journal = {New England Journal of Medicine},
+  year    = {2004},
+  volume  = {351},
+  number  = {27},
+  pages   = {2817--2826},
+  doi     = {10.1056/NEJMoa041588}
+}
+
+@article{sparano2018,
+  author  = {Sparano, Joseph A. and Gray, Robert J. and Makower, Della F. and Pritchard, Kathleen I. and others},
+  title   = {Adjuvant Chemotherapy Guided by a 21-Gene Expression Assay in Breast Cancer},
+  journal = {New England Journal of Medicine},
+  year    = {2018},
+  volume  = {379},
+  number  = {2},
+  pages   = {111--121},
+  doi     = {10.1056/NEJMoa1804710}
+}
+
+@article{simon2009,
+  author  = {Simon, Richard M. and Paik, Soonmyung and Hayes, Daniel F.},
+  title   = {Use of Archived Specimens in Evaluation of Prognostic and Predictive Biomarkers},
+  journal = {Journal of the National Cancer Institute},
+  year    = {2009},
+  volume  = {101},
+  number  = {21},
+  pages   = {1446--1452},
+  doi     = {10.1093/jnci/djp335}
+}
+
+@article{michiels2005,
+  author  = {Michiels, Stefan and Koscielny, Serge and Hill, Catherine},
+  title   = {Prediction of cancer outcome with microarrays: a multiple random validation strategy},
+  journal = {The Lancet},
+  year    = {2005},
+  volume  = {365},
+  number  = {9458},
+  pages   = {488--492},
+  doi     = {10.1016/S0140-6736(05)17866-0}
+}
+
+@article{eindor2005,
+  author  = {Ein-Dor, Liat and Kela, Itai and Getz, Gad and Givol, David and Domany, Eytan},
+  title   = {Outcome signature genes in breast cancer: is there a unique set?},
+  journal = {Bioinformatics},
+  year    = {2005},
+  volume  = {21},
+  number  = {2},
+  pages   = {171--178},
+  doi     = {10.1093/bioinformatics/bth469}
+}
+
+@article{venet2011,
+  author  = {Venet, David and Dumont, Jacques E. and Detours, Vincent},
+  title   = {Most Random Gene Expression Signatures Are Significantly Associated with Breast Cancer Outcome},
+  journal = {PLoS Computational Biology},
+  year    = {2011},
+  volume  = {7},
+  number  = {10},
+  pages   = {e1002240},
+  doi     = {10.1371/journal.pcbi.1002240}
+}
+
+@article{kather2019,
+  author  = {Kather, Jakob Nikolas and Pearson, Alexander T. and Halama, Niels and J{\"a}ger, Dirk and others},
+  title   = {Deep learning can predict microsatellite instability directly from histology in gastrointestinal cancer},
+  journal = {Nature Medicine},
+  year    = {2019},
+  volume  = {25},
+  number  = {7},
+  pages   = {1054--1056},
+  doi     = {10.1038/s41591-019-0462-y}
+}
+
+@article{lipkova2022,
+  author  = {Lipkova, Jana and Chen, Richard J. and Chen, Bowen and Lu, Ming Y. and others},
+  title   = {Artificial intelligence for multimodal data integration in oncology},
+  journal = {Cancer Cell},
+  year    = {2022},
+  volume  = {40},
+  number  = {10},
+  pages   = {1095--1110},
+  doi     = {10.1016/j.ccell.2022.09.012}
+}
+
+@article{obermeyer2019,
+  author  = {Obermeyer, Ziad and Powers, Brian and Vogeli, Christine and Mullainathan, Sendhil},
+  title   = {Dissecting racial bias in an algorithm used to manage the health of populations},
+  journal = {Science},
+  year    = {2019},
+  volume  = {366},
+  number  = {6464},
+  pages   = {447--453},
+  doi     = {10.1126/science.aax2342}
+}
+
+@article{zech2018,
+  author  = {Zech, John R. and Badgeley, Marcus A. and Liu, Manway and Costa, Anthony B. and Titano, Joseph J. and Oermann, Eric Karl},
+  title   = {Variable generalization performance of a deep learning model to detect pneumonia in chest radiographs: A cross-sectional study},
+  journal = {PLOS Medicine},
+  year    = {2018},
+  volume  = {15},
+  number  = {11},
+  pages   = {e1002683},
+  doi     = {10.1371/journal.pmed.1002683}
+}
+
+@article{collins2024,
+  author  = {Collins, Gary S. and Moons, Karel G. M. and Dhiman, Paula and Riley, Richard D. and Beam, Andrew L. and Van Calster, Ben and others},
+  title   = {{TRIPOD+AI} statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods},
+  journal = {BMJ},
+  year    = {2024},
+  volume  = {385},
+  pages   = {e078378},
+  doi     = {10.1136/bmj-2023-078378}
+}
+
+@article{liu2020,
+  author  = {Liu, Xiaoxuan and Cruz Rivera, Samantha and Moher, David and Calvert, Melanie J. and Denniston, Alastair K. and {SPIRIT-AI and CONSORT-AI Working Group}},
+  title   = {Reporting guidelines for clinical trial reports for interventions involving artificial intelligence: the {CONSORT-AI} extension},
+  journal = {Nature Medicine},
+  year    = {2020},
+  volume  = {26},
+  number  = {9},
+  pages   = {1364--1374},
+  doi     = {10.1038/s41591-020-1034-x}
+}

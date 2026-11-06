@@ -1,0 +1,54 @@
+/* Estilos locales del artículo «Anatomía de un artículo científico».
+   Reutiliza los tokens globales --lf-* (theme.scss) con fallback en hex.
+   Solo afecta a esta página (se carga desde su YAML). */
+
+main.content figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+main.content .quarto-figure figcaption,
+main.content figure figcaption {
+  font-size: 0.9rem;
+  color: var(--lf-muted, #6B7280);
+}
+
+main.content table {
+  font-size: 0.92rem;
+}
+
+/* Tabla comparativa de cinco disciplinas: celdas compactas */
+.lf-wide-table table {
+  font-size: 0.86rem;
+}
+
+.lf-wide-table th:first-child,
+.lf-wide-table td:first-child {
+  min-width: 8.5rem;
+}
+
+/* En pantallas pequeñas, todas las tablas se desplazan en horizontal */
+@media (max-width: 991.98px) {
+  main.content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .lf-wide-table table td,
+  .lf-wide-table table th {
+    min-width: 10rem;
+  }
+}
+
+/* Diagramas SVG en móviles: se conservan a un ancho legible (720 px) con
+   desplazamiento horizontal; al tocarlos se abren ampliados (lightbox). */
+@media (max-width: 767.98px) {
+  main.content figure.figure > div[aria-describedby] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  main.content figure.figure img.figure-img[src$=".svg"] {
+    max-width: none;
+    width: 720px;
+  }
+}

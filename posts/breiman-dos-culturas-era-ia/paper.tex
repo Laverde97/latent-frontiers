@@ -1,0 +1,637 @@
+% !TEX program = xelatex
+% ---------------------------------------------------------------------------
+% Más allá de las dos culturas: Estadística, Machine Learning y agentes de IA
+% después de Breiman.  Juan Sebastián Laverde Chunza, 2026.
+%
+% Compilación:  latexmk -xelatex paper.tex      (biber se ejecuta automáticamente)
+% Bibliografía: references.bib (compartida con index.qmd).
+% El contenido es equivalente a index.qmd; cualquier cambio debe hacerse en ambos.
+% ---------------------------------------------------------------------------
+\documentclass[11pt,a4paper]{article}
+
+% --- Idioma, tipografía y microtipografía -----------------------------------
+\usepackage{amsmath,amssymb}
+\usepackage[sc]{mathpazo}             % matemáticas Palatino (Type 1)
+\usepackage[no-math]{fontspec}
+% Fuentes cargadas por nombre de archivo (TeX Live/TinyTeX), sin depender de fontconfig.
+\setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,
+  ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,
+  ItalicFont=*-italic,BoldItalicFont=*-bolditalic,Scale=MatchLowercase]
+\setmonofont{lmmono10}[Extension=.otf,UprightFont=*-regular,ItalicFont=*-italic,
+  BoldFont=lmmonolt10-bold,Scale=MatchLowercase]
+\usepackage[spanish,es-tabla,es-noshorthands,es-nodecimaldot]{babel}
+\usepackage{csquotes}
+\usepackage[final]{microtype}
+
+% --- Página -----------------------------------------------------------------
+\usepackage[a4paper,top=2.6cm,bottom=2.6cm,left=2.5cm,right=2.5cm,headheight=14pt]{geometry}
+\usepackage{setspace}
+\setstretch{1.12}
+\setlength{\emergencystretch}{2.5em}  % evita líneas desbordadas en párrafos cortos con citas
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{1.2em}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Más allá de las dos culturas}
+\fancyhead[R]{\small J.\,S. Laverde Chunza}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Colores (paleta de Latent Frontiers) ------------------------------------
+\usepackage[dvipsnames]{xcolor}
+\definecolor{lfnavy}{HTML}{0B1E3D}
+\definecolor{lfdeep}{HTML}{12305C}
+\definecolor{lfblue}{HTML}{1D4E89}
+\definecolor{lfsky}{HTML}{4FA3D1}
+\definecolor{lfindigo}{HTML}{4C4A7D}
+\definecolor{lfgreen}{HTML}{2F7D6B}
+\definecolor{lfmuted}{HTML}{6B7280}
+\definecolor{lfline}{HTML}{E2E8F0}
+\definecolor{lfsurface}{HTML}{F7F9FC}
+\definecolor{lfamber}{HTML}{B45309}
+
+% --- Títulos de sección -----------------------------------------------------
+\usepackage{titlesec}
+\usepackage{needspace,etoolbox}
+\pretocmd{\section}{\Needspace{5\baselineskip}}{}{}
+\pretocmd{\subsection}{\Needspace{4\baselineskip}}{}{}
+\titleformat{\section}{\normalfont\Large\bfseries\color{lfnavy}}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{lfdeep}}{\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.4em}
+
+% --- Tablas, figuras, listas ------------------------------------------------
+\usepackage{array,longtable,booktabs,calc}
+\usepackage{caption}
+\captionsetup{font=small,labelfont={bf,color=lfnavy},format=hang,margin=0.5em}
+\captionsetup[table]{position=top}
+\usepackage{enumitem}
+\setlist{itemsep=0.25em,topsep=0.4em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,shapes.misc}
+\usepackage[most]{tcolorbox}
+\newtcolorbox{recuadro}[1][Nota]{enhanced,breakable,colback=lfsurface,colframe=lfblue,
+  boxrule=0.6pt,arc=2pt,left=8pt,right=8pt,top=5pt,bottom=5pt,
+  fonttitle=\bfseries\small,coltitle=white,colbacktitle=lfblue,title={#1}}
+
+% --- Bibliografía ------------------------------------------------------------
+\usepackage[backend=biber,style=authoryear,maxcitenames=2,maxbibnames=7,minbibnames=3,
+  giveninits=true,uniquename=false,uniquelist=false,dashed=false,
+  doi=true,url=true,eprint=true,isbn=false]{biblatex}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{\step[fieldsource=doi,final]\step[fieldset=url,null]}
+    \map{\step[fieldsource=eprint,final]\step[fieldset=url,null]}
+  }
+}
+\setlength{\bibitemsep}{0.35em}
+% Permite cortar URL y DOI largos en la bibliografía (evita cajas desbordadas).
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\setcounter{biburlnumpenalty}{9000}
+\renewcommand*{\bibfont}{\small\raggedright}
+\addbibresource{references.bib}
+
+% --- Hipervínculos (al final) -----------------------------------------------
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=lfblue,citecolor=lfblue,urlcolor=lfblue,
+  pdftitle={Más allá de las dos culturas: Estadística, Machine Learning y agentes de IA después de Breiman},
+  pdfauthor={Juan Sebastián Laverde Chunza},
+  pdfsubject={Revisión crítica de Breiman (2001), Statistical Modeling: The Two Cultures},
+  pdfkeywords={dos culturas, Breiman, inferencia estadística, aprendizaje automático, modelos fundacionales, agentes de programación, oncología, genómica},
+  pdflang={es}}
+\urlstyle{same}
+
+% --- Figuras en TikZ (equivalentes a images/*.svg) --------------------------
+\tikzset{
+  caja/.style={draw=none,rounded corners=3pt,minimum height=1.05cm,text=white,font=\small\bfseries,align=center},
+  flecha/.style={-{Stealth[length=2.2mm]},thick,color=lfnavy},
+  panel/.style={draw=lfline,fill=lfsurface,rounded corners=4pt,line width=0.6pt}
+}
+\newcommand{\FiguraDosCulturas}{%
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \node[font=\small\bfseries] at (7.9,4.55) {Punto de partida común: la naturaleza asocia $\mathbf{x}$ con $y$};
+  \node[caja,fill=lfnavy,minimum width=3.2cm] (nat) at (7.9,3.6) {naturaleza};
+  \node (yn) at (5.5,3.6) {$y$}; \node (xn) at (10.3,3.6) {$\mathbf{x}$};
+  \draw[flecha] (nat.west) -- (yn); \draw[flecha] (xn) -- (nat.east);
+  % Panel izquierdo
+  \draw[panel] (0,-3.0) rectangle (7.6,2.6);
+  \node[font=\bfseries,text=lfblue] at (3.8,2.2) {Cultura de modelos de datos};
+  \node[caja,fill=lfblue,minimum width=3.4cm,font=\footnotesize\bfseries] (dm) at (3.8,1.05) {regresión lineal\\regresión logística\\modelo de Cox};
+  \node (yd) at (1.45,1.05) {$y$}; \node (xd) at (6.15,1.05) {$\mathbf{x}$};
+  \draw[flecha] (dm.west) -- (yd); \draw[flecha] (xd) -- (dm.east);
+  \node[anchor=north west,align=left,font=\footnotesize,text width=7.1cm,execute at begin node={\hyphenpenalty=10000\relax}] at (0.25,-0.3)
+   {Supuesto: $y=f(\mathbf{x},\text{ruido},\text{parámetros})$\\
+    Objetivo: estimar parámetros e interpretarlos\\
+    Validación: sí/no con bondad de ajuste y examen de residuos\\
+    Estimación de Breiman:\\ «98\,\% de los estadísticos»};
+  % Panel derecho
+  \draw[panel] (8.2,-3.0) rectangle (15.8,2.6);
+  \node[font=\bfseries,text=lfindigo] at (12.0,2.2) {Cultura de modelos algorítmicos};
+  \node[caja,fill=black!75,minimum width=3.4cm] (al) at (12.0,1.25) {desconocido};
+  \node (ya) at (9.65,1.25) {$y$}; \node (xa) at (14.35,1.25) {$\mathbf{x}$};
+  \draw[flecha] (al.west) -- (ya); \draw[flecha] (xa) -- (al.east);
+  \draw[-{Stealth[length=2mm]},thick,lfindigo] (10.2,0.62) .. controls (11.0,0.2) and (13.0,0.2) .. (13.8,0.62);
+  \node[font=\footnotesize\bfseries,text=lfindigo] at (12.0,-0.05) {$f(\mathbf{x})$: árboles, redes neuronales};
+  \node[anchor=north west,align=left,font=\footnotesize,text width=7.1cm,execute at begin node={\hyphenpenalty=10000\relax}] at (8.45,-0.45)
+   {Supuesto: datos i.i.d. de una distribución\\ desconocida\\
+    Objetivo: un $f(\mathbf{x})$ que prediga bien\\
+    Validación: precisión predictiva en test\\
+    Estimación de Breiman:\\ «2\,\%, muchos fuera»};
+\end{tikzpicture}}
+\newcommand{\FiguraTerceraCultura}{%
+\begin{tikzpicture}[x=1cm,y=1cm,node distance=0.4cm,
+    paso/.style={caja,text width=2.3cm,minimum height=2.3cm}]
+  \node[paso,fill=lfmuted!80] (c1) {Corpus amplio\\[2pt]{\footnotesize\mdseries texto, código, imágenes, ómicas}};
+  \node[paso,fill=lfnavy,right=of c1] (c2) {Modelo fundacional\\[2pt]{\footnotesize\mdseries preentrenado con datos amplios}};
+  \node[paso,fill=lfblue,right=of c2] (c3) {Adaptación\\[2pt]{\footnotesize\mdseries ajuste fino, \emph{prompts}, RAG}};
+  \node[paso,fill=white,draw=lfindigo,dashed,line width=1pt,text=lfindigo,right=of c3] (c4) {Agente (opcional)\\[2pt]{\footnotesize\mdseries escribe y ejecuta código; propone experimentos}};
+  \node[paso,fill=lfgreen,right=of c4] (c5) {Evaluación técnica\\[2pt]{\footnotesize\mdseries \emph{benchmarks}, test, calibración, robustez}};
+  \draw[flecha] (c1) -- (c2); \draw[flecha] (c2) -- (c3);
+  \draw[flecha,dashed] (c3) -- (c4); \draw[flecha,dashed] (c4) -- (c5);
+  \draw[flecha,dashed,lfmuted] (c3.north) to[out=35,in=145] node[above,font=\footnotesize\itshape,text=lfmuted]{camino sin agente} (c5.north);
+  \node[font=\footnotesize,align=center,text width=12cm,below=0.25cm of c3] (n) {Componentes separables: puede haber modelos fundacionales sin agentes\\ y automatización del análisis sin modelos fundacionales (por ejemplo, AutoML).};
+  \node[draw=lfamber,dashed,line width=0.9pt,fill=lfsurface,rounded corners=4pt,text width=11.6cm,align=center,
+        font=\footnotesize,below=0.35cm of n] (v)
+   {{\small\bfseries\color{lfamber!85!black} Responsabilidades que requieren supervisión humana}\\{\itshape\color{lfamber!85!black}interpretación científica de los resultados, distinta de su evaluación técnica}\\[3pt]
+    pregunta científica · diseño y procedencia de los datos · fuga de información\\
+    supuestos causales · incertidumbre · ética · responsabilidad por la conclusión};
+  \draw[-{Stealth[length=2.2mm]},thick,lfamber] (c5.south) |- (v.east);
+  \draw[-{Stealth[length=2.2mm]},thick,lfamber] (v.west) -| (c1.south);
+\end{tikzpicture}}
+
+% --- Título ---------------------------------------------------------------
+\begin{document}
+
+\thispagestyle{plain}
+\begin{center}
+  {\color{lfnavy}\rule{\linewidth}{0.8pt}}\\[0.9em]
+  {\LARGE\bfseries\color{lfnavy} Más allá de las dos culturas:\\[0.25em]
+   Estadística, Machine Learning y agentes\\[0.1em] de IA después de Breiman\par}
+  \vspace{0.7em}
+  {\large\itshape Una revisión crítica de \emph{Statistical Modeling: The Two Cultures} (2001)\par}
+  \vspace{1.1em}
+  {\large Juan Sebastián Laverde Chunza\par}
+  \vspace{0.25em}
+  {\small Doctorado en Ciencia de Datos e Inteligencia Artificial, Universidad El Bosque, Bogotá, Colombia\par}
+  \vspace{0.35em}
+  {\small 5 de noviembre de 2026 \quad·\quad Documento de trabajo: ensayo de revisión crítica\par}
+  \vspace{0.6em}
+  {\color{lfnavy}\rule{\linewidth}{0.8pt}}
+\end{center}
+
+\begin{abstract}
+\noindent En 2001, Leo Breiman sostuvo que la Estadística se había comprometido casi en exclusiva con una «cultura de modelos de datos», que supone un mecanismo estocástico conocido salvo por sus parámetros, y que debía abrirse a una «cultura algorítmica», que trata ese mecanismo como desconocido y juzga los modelos por su precisión predictiva fuera de la muestra. Este ensayo reconstruye su argumento y la discusión con Cox, Efron, Hoadley y Parzen. Sostiene que Breiman acertó en la centralidad de la validación fuera de la muestra, en la multiplicidad de modelos casi igual de buenos y en el valor de la alta dimensionalidad, y que sus límites aparecen en la causalidad, el cambio de distribución y la noción de importancia de variables. El deep learning, los modelos fundacionales y los agentes de programación desplazan el centro del debate: la pregunta ya no es solo qué modelo usar, sino quién o qué construye el análisis y cómo se verifica. Se propone, como hipótesis debatible, una «tercera cultura» cuyo rasgo definitorio sería una nueva división del trabajo, no una nueva epistemología. En oncología y genómica se distingue la utilidad predictiva de la evidencia clínica suficiente, y se defiende que la inferencia estadística sigue siendo indispensable para pasar de una a otra.
+
+\medskip
+\noindent\textbf{Palabras clave:} dos culturas; Breiman; inferencia estadística; aprendizaje automático; modelos fundacionales; agentes de programación; validación; causalidad; oncología; genómica.
+\end{abstract}
+
+\begin{recuadro}[Tipo de texto]
+Esta es una \textbf{revisión crítica y un ensayo argumentativo}, no una investigación empírica: no presenta experimentos ni datos propios. El ensayo distingue entre lo que \textbf{Breiman afirmó en 2001}, lo que \textbf{sostuvieron sus comentaristas} y las \textbf{lecturas posteriores}. Las posiciones que defiende son \textbf{propuestas argumentativas del ensayo}. La «tercera cultura» de la sección~\ref{sec-tercera} es una hipótesis conceptual, no una clasificación establecida.
+\end{recuadro}
+
+\noindent{\small Versión web, tras su publicación:\\
+\url{https://laverde97.github.io/latent-frontiers/posts/breiman-dos-culturas-era-ia/}.}
+
+
+\section{Introducción y contexto histórico}\label{sec-intro}
+
+\emph{Statistical Modeling: The Two Cultures} apareció en \emph{Statistical Science} en 2001 como artículo de discusión, con comentarios de D. R. Cox, Bradley Efron, Bruce Hoadley y Emanuel Parzen y una réplica del autor \autocite{breiman2001}. Fue escrito para provocar. El propio Efron esperaba que se hubiera escrito más como recurso de defensa de una postura que como la confesión de un converso a las cajas negras \autocite[219]{breiman2001}.
+
+Breiman escribe desde su biografía. Tras siete años como probabilista, trabajó trece como consultor antes de volver a Berkeley en 1980, donde encontró una investigación en la que los artículos «empiezan y terminan con modelos de datos» \autocite[200]{breiman2001}. Sus proyectos de consultoría eran de predicción. El del ozono en Los Ángeles, con más de 450 variables, lo describe como un fracaso por su tasa de falsas alarmas. El de detección de cloro en espectros de masas, con 30.000 compuestos, se resolvió con un árbol de decisión que incorporaba conocimiento químico en 1.500 preguntas y alcanzó un 95\,\% de acierto \autocite[200--201]{breiman2001}. De ahí extrae su programa: buscar una buena solución, convivir con los datos, usar el modelo que funcione y juzgarlo por su precisión en datos de prueba \autocite[201]{breiman2001}.
+
+La validación cruzada tenía antecedentes estadísticos \autocite{stone1974}. Breiman ya había desarrollado \emph{bagging} y ese mismo año publicó los bosques aleatorios \autocite{breiman1996bagging,breiman2001rf}, y Vapnik había formulado cotas de generalización \autocite{vapnik1995}. Lo nuevo fue la tesis sociológica: la Estadística académica se aislaba de los problemas más interesantes, mientras una comunidad joven de informáticos, físicos e ingenieros, el \emph{machine learning}, los resolvía \autocite[205]{breiman2001}.
+
+\section{Las dos culturas}\label{sec-culturas}
+
+Breiman imagina la naturaleza como una caja negra que transforma entradas \(\mathbf{x}\) en respuestas \(y\). Analizar datos persigue dos fines: la \textbf{predicción} y la \textbf{información} sobre esa asociación \autocite[199]{breiman2001}. Las culturas difieren en cómo llenan la caja (figura~\ref{fig-culturas}).
+
+\begin{figure}[htbp]
+\centering
+\FiguraDosCulturas
+\caption{Diagrama propio basado en Breiman (2001, sec.~1). Los porcentajes son estimaciones retóricas del autor, no datos.}\label{fig-culturas}
+\end{figure}
+
+La \textbf{cultura de modelos de datos} supone que los datos provienen de un modelo estocástico, \emph{respuesta = f(predictores, ruido, parámetros)}, cuyos parámetros se estiman e interpretan. Se valida con pruebas de bondad de ajuste y residuos, y Breiman la atribuye, sin datos, al «98\,\% de los estadísticos». Su ejemplo canónico es
+
+\begin{equation}\label{eq-lineal}
+y = b_0 + \sum_{m=1}^{M} b_m x_m + \varepsilon, \qquad \varepsilon \sim N(0,\sigma^2),
+\end{equation}
+
+que permite derivar pruebas e intervalos \emph{siempre que} los datos se hayan generado así \autocite[202]{breiman2001}. La \textbf{cultura algorítmica} considera el interior de la caja desconocido y busca una función \(f(\mathbf{x})\) (un árbol, una red, un bosque, una SVM) que prediga bien. Su único supuesto es que los datos son i.i.d. de una distribución desconocida \autocite[205]{breiman2001}. La primera confía en que el modelo \textbf{representa} el mecanismo; la segunda solo pide que lo \textbf{emule} (tabla~\ref{tbl-culturas}).
+
+\begingroup\small
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.22}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.39}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.39}}@{}}
+\caption{Contraste entre las dos culturas según Breiman (2001). Síntesis propia.}\label{tbl-culturas}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dimensión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelos de datos
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cultura algorítmica
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dimensión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelos de datos
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cultura algorítmica
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Pregunta típica & ¿Cuál es el efecto de \(x_j\) y con qué incertidumbre? & ¿Qué \(y\) cabe esperar para un \(\mathbf{x}\) nuevo? \\
+Supuestos & Forma funcional y error especificados & Datos i.i.d. de una distribución desconocida \\
+Validación & Bondad de ajuste y residuos & Error en prueba o validación cruzada \\
+Interpretabilidad & Directa, por los coeficientes & Indirecta: importancia, dependencia parcial \\
+Riesgo característico & Conclusiones sobre el modelo, no sobre la naturaleza & Predicción sin comprensión del mecanismo \\
+\end{longtable}
+\endgroup
+
+\section{Las principales aportaciones de Breiman}\label{sec-aportes}
+
+\subsection{Precisión predictiva y validación fuera de la muestra}
+
+El punto de partida es una advertencia: cuando se ajusta un modelo, \textbf{las conclusiones son sobre el mecanismo del modelo, no sobre el de la naturaleza} \autocite[202]{breiman2001}. Su ejemplo es un estudio de discriminación salarial en el que un coeficiente significativo al 5\,\% se aceptó como prueba sin cuestionar el diseño. Las herramientas habituales no detectan el problema: las pruebas ómnibus de bondad de ajuste tienen poca potencia, y Breiman cuenta que William Cleveland admitió que el análisis de residuos no detecta falta de ajuste por encima de cuatro o cinco dimensiones \autocite[203]{breiman2001}. La alternativa es medir el error en datos no usados para ajustar:
+
+\begin{equation}\label{eq-riesgo}
+R(f) = \mathbb{E}\big[L\big(Y, f(\mathbf{X})\big)\big],
+\qquad
+\widehat{R}_{\text{test}}(f) = \frac{1}{m}\sum_{i=1}^{m} L\big(y_i, f(\mathbf{x}_i)\big),
+\end{equation}
+
+que se estima con datos de prueba reservados o mediante validación cruzada \autocites[204, 214]{breiman2001}{stone1974}.
+
+\subsection{Modelos algorítmicos y complejidad de los datos}
+
+Breiman sostiene que imponer modelos paramétricos simples a datos de sistemas complejos, como los médicos o los financieros, cuesta precisión \emph{e} información \autocite[204]{breiman2001}. Como evidencia, compara un árbol único con un bosque aleatorio en diez conjuntos de datos: el bosque reduce el error en todos, por ejemplo del 5,9\,\% al 2,9\,\% en cáncer de mama \autocite[207]{breiman2001}.
+
+\subsection{Rashomon: la multiplicidad de buenos modelos}
+
+Con el nombre de la película de Kurosawa, Breiman llama \textbf{efecto Rashomon} a la existencia de muchas funciones distintas con aproximadamente el mismo error mínimo \autocite[206]{breiman2001}. Con 30 variables hay unos 140.000 subconjuntos de cinco, y muchos quedan a menos de un 1\,\% de la suma de cuadrados residual mínima contando historias distintas. Quitar un 2--3\,\% de los datos cambia el árbol resultante. Cien ejecuciones de una red pequeña dieron 32 mínimos con error similar. El fenómeno se conecta con la inestabilidad \autocite{breiman1996instab} y se mitiga agregando modelos \autocite{breiman1996bagging}. La formalización actual es posterior:
+
+\begin{equation}\label{eq-rashomon}
+\mathcal{R}(\epsilon) = \big\{ f \in \mathcal{F} : \widehat{R}(f) \le \widehat{R}(f^{\ast}) + \epsilon \big\}.
+\end{equation}
+
+Este \textbf{conjunto de Rashomon} se usa para medir la importancia de una variable en toda una clase de modelos casi óptimos \autocite{fisher2019} o para mostrar que, si es grande, suele contener modelos simples \autocite{semenova2022}. La \textbf{subespecificación} muestra que predictores equivalentes en validación pueden divergir al desplegarse \autocite{damour2022}. Breiman no usó esos términos.
+
+\subsection{Occam y Bellman}
+
+Para Breiman, en predicción \textbf{precisión e interpretabilidad entran en conflicto}. Los árboles merecen A+ en interpretabilidad y B en predicción, y los bosques al revés, A+ y F \autocite[206--208]{breiman2001}. Recomienda buscar primero la precisión y luego entender por qué funciona el modelo. Respecto de la «maldición de la dimensionalidad», atribuida a Bellman \autocite{bellman1957}, invierte la receta clásica: propone \emph{añadir} funciones de los predictores y extraer la información dispersa entre ellas \autocite[208]{breiman2001}. Para las SVM cita una cota de Vapnik \autocites[209]{breiman2001}{vapnik1995}:
+
+\begin{equation}\label{eq-vapnik}
+\mathbb{E}[\text{GE}] \;\le\; \frac{\mathbb{E}[\text{número de vectores de soporte}]}{N-1}.
+\end{equation}
+
+\subsection{Información de una caja negra}
+
+La sección 11 de Breiman suele malinterpretarse. No dice que la interpretación no importe, sino que \textbf{«el objetivo no es la interpretabilidad, sino la información precisa»}, y que un modelo que predice mejor puede dar información más fiable que uno simple que predice mal \autocite[210]{breiman2001}. Su herramienta es la importancia por permutación:
+
+\begin{equation}\label{eq-vi}
+\mathrm{VI}_j = \widehat{R}\big(f;\, \mathbf{X}^{(\pi_j)}\big) - \widehat{R}\big(f;\, \mathbf{X}\big),
+\end{equation}
+
+con la columna \(j\) permutada \autocites[211]{breiman2001}{breiman2001rf}. Con datos de hepatitis (155 pacientes, 19 covariables), la regresión logística erraba un 17,4\,\%, apenas por debajo de la tasa de base de 20,6\,\%, y señalaba las variables 7 y 11. El bosque bajaba al 12,3\,\% y señalaba las variables 12 y 17, sustitutas entre sí, lo que explica la inestabilidad que había encontrado un análisis \emph{bootstrap} previo \autocite[210--213]{breiman2001}. Breiman añade un ejemplo con \emph{microarrays} (81 muestras, 4.682 genes) \autocite[213]{breiman2001}.
+
+\subsection{Qué dijo Breiman y qué leemos hoy}
+
+\begingroup\small
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.19}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.36}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.45}}@{}}
+\caption{Afirmaciones explícitas frente a interpretaciones posteriores.}\label{tbl-lecturas}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tema
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lo que Breiman afirmó en 2001
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lecturas posteriores (no atribuibles al texto)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tema
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lo que Breiman afirmó en 2001
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lecturas posteriores (no atribuibles al texto)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Validación & El error en prueba es el criterio preferible & Estándar en ML; se discuten la fuga de información y el cambio de distribución \autocite{kapoor2023,damour2022} \\
+Rashomon & Muchos modelos casi igual de buenos cuentan historias distintas & Conjuntos de Rashomon y subespecificación \autocite{fisher2019,semenova2022,damour2022} \\
+Occam & Precisión e interpretabilidad suelen chocar & En decisiones de alto riesgo, el conflicto es a menudo aparente \autocite{rudin2019} \\
+Dimensionalidad & Más variables pueden ser una bendición & Sobreparametrización y doble descenso \autocite{belkin2019,zhang2017} \\
+Cajas negras & Se puede extraer información fiable & Explicaciones \emph{post hoc} y sus límites \autocite{lundberg2017,ribeiro2016,rudin2019} \\
+Bosques & «Random forests does not overfit» \autocite[213]{breiman2001} & Añadir árboles no sobreajusta, pero el límite del bosque sí puede hacerlo \autocite[596--597]{hastie2009} \\
+Modelos de datos & No está contra ellos «per se» \autocite[214]{breiman2001} & Se le lee a menudo, erróneamente, como un rechazo de la inferencia \\
+\end{longtable}
+\endgroup
+
+\section{Reflexión crítica}\label{sec-critica}
+
+\subsection{Las objeciones de 2001}
+
+\textbf{Cox} acepta que a veces el enfoque empírico es mejor, pero hace tres objeciones \autocite[216--218]{breiman2001}. Prefiere partir de una pregunta y no de los datos. Recuerda que los sesgos de selección, los errores de medición y los datos faltantes requieren algún modelo probabilístico. Y, sobre todo, señala que mucha predicción ocurre \textbf{en condiciones distintas de las de los datos}, como el efecto de reducir el uso médico de rayos X sobre la incidencia de cáncer, y que ahí predecir sin comprender el proceso es cada vez más especulativo. \textbf{Efron} observa que los nuevos algoritmos funcionan porque introducen sesgo, que «tiene que estar escondido en algún lugar de la teoría». Advierte además que los métodos nuevos siempre parecen mejores y que los complicados son más difíciles de criticar \autocite[218--219]{breiman2001}. \textbf{Hoadley}, desde el \emph{credit scoring}, señala que el rendimiento en prueba no garantiza el futuro, que ajustar mirando la muestra de prueba sesga el error estimado y que la importancia de variables es ambigua cuando otro conjunto de variables predice igual de bien \autocite[220--224]{breiman2001}. \textbf{Parzen} sostiene que hay muchas culturas \autocite[224--226]{breiman2001}. En la réplica, Breiman concede que los modelos de datos son útiles cuando se conoce el mecanismo, que los modelos deben rehacerse en contextos nuevos y que la «importancia» carece de una definición teórica satisfactoria \autocite[226--231]{breiman2001}.
+
+\subsection{¿En qué acertó y qué limitaciones tiene?}
+
+Desde la perspectiva de este ensayo, Breiman acertó en cuatro cosas. Primero, la \textbf{validación fuera de la muestra} se volvió norma, y las guías clínicas la exigen \autocite{collins2024}. Segundo, el \textbf{efecto Rashomon} anticipó la subespecificación \autocite{damour2022}. Tercero, la \textbf{alta dimensionalidad} resultó ser una ventaja, como muestran las redes sobreparametrizadas que interpolan y aun así generalizan \autocite{belkin2019,zhang2017}. Cuarto, su \textbf{diagnóstico sociológico}: la ciencia de datos creció en buena parte fuera de los departamentos de Estadística \autocite{donoho2017}.
+
+Sus limitaciones también son cuatro:
+
+\begin{itemize}
+\item
+  \textbf{La causalidad queda en segundo plano.} En su réplica a Efron, Breiman sugiere que cuanto más preciso es un modelo, más confianza merecen las variables que señala como importantes \autocite[229]{breiman2001}. Conviene distinguir tres cosas: la \textbf{importancia predictiva}, es decir, cuánto depende la predicción de una variable, que es lo que mide la importancia por permutación (ecuación~\eqref{eq-vi}); la \textbf{asociación estadística} entre la variable y el desenlace; y la \textbf{interpretación causal}, es decir, qué ocurriría si se interviniera sobre ella. Las dos primeras no implican la tercera. En la notación de Pearl, son cantidades distintas,
+
+  \begin{equation}\label{eq-do}
+  \mathbb{E}[Y \mid X = x] \qquad \text{y} \qquad \mathbb{E}[Y \mid \mathrm{do}(X = x)],
+  \end{equation}
+
+  y ninguna precisión predictiva convierte la primera en la segunda sin supuestos causales \autocite{pearl2009,hernan2020}.
+\item
+  \textbf{El supuesto i.i.d. es el talón de Aquiles de su propia cultura.} Es justamente el que falla al desplegar un modelo en otro hospital, con otro escáner o en otra época. Hoadley y Cox lo advirtieron, y la literatura sobre fuga de información lo confirma \autocite{kapoor2023,damour2022}.
+\item
+  \textbf{La importancia de variables es frágil.} Si el conjunto de Rashomon es grande, la importancia depende del modelo elegido \autocite{fisher2019}.
+\item
+  \textbf{El dilema de Occam no es universal.} En datos tabulares bien construidos suele haber modelos interpretables igual de precisos \autocite{rudin2019}.
+\end{itemize}
+
+Además, la «cultura del 98\,\%» es retórica. Cox la llamó una caricatura \autocite[216]{breiman2001}.
+
+\subsection{¿Qué papel conserva la inferencia y puede la predicción sustituir a la causalidad?}
+
+Este ensayo plantea que la inferencia tiene hoy un papel \textbf{mayor}, no menor. La predicción a gran escala multiplica las preguntas inferenciales: la incertidumbre del error estimado, la significación de las diferencias entre modelos o la estabilidad entre cohortes. Efron examinó después las discrepancias entre predicción, estimación y atribución, y mostró que el éxito predictivo no se traslada automáticamente a esas tareas \autocite{efron2020}. Shmueli mostró que explicar y predecir exigen criterios distintos \autocite{shmueli2010}.
+
+Que la predicción baste depende del uso. Para un uso en apariencia \textbf{pasivo}, como clasificar o priorizar, una predicción bien validada en la población de uso puede bastar para afirmar que el modelo discrimina. Pero incluso una predicción utilizada para priorizar pacientes modifica decisiones y tiene consecuencias causales, de modo que su efecto sobre los pacientes vuelve a ser una pregunta causal. Para un uso \textbf{intervencionista}, como decidir un tratamiento, la afirmación causal es necesaria desde el principio. Hernán, Hsu y Healy distinguen entre descripción, predicción y predicción contrafactual, que incluye la inferencia causal, y argumentan que el análisis causal requiere, además de datos y algoritmos, conocimiento experto del dominio \autocite{hernan2019}. El algoritmo estudiado por Obermeyer y colaboradores predecía el \textbf{coste} sanitario y se usó como medida de \textbf{necesidad}, lo que produjo un sesgo racial porque el coste refleja un acceso desigual a la atención \autocite{obermeyer2019}. La predicción era buena y la decisión, mala.
+
+\subsection{Incertidumbre, calibración, robustez y generalización}
+
+Conviene separar cuatro conceptos. La \textbf{generalización} es el rendimiento en nuevos datos de la \emph{misma} distribución (ecuación~\eqref{eq-riesgo}). La \textbf{robustez} es su estabilidad cuando la distribución cambia. La \textbf{calibración} es la concordancia entre probabilidad predicha y frecuencia observada, \(\Pr(Y=1 \mid \hat p(\mathbf{X})=p)=p\), cuya violación se resume con
+
+\begin{equation}\label{eq-ece}
+\mathrm{ECE} = \sum_{b=1}^{B} \frac{n_b}{n}\,\big|\,\bar y_b - \bar p_b\,\big|.
+\end{equation}
+
+Las redes modernas pueden discriminar bien y estar mal calibradas \autocite{guo2017}, y en medicina la calibración es «el talón de Aquiles» de la analítica predictiva \autocite{vancalster2019}. La \textbf{incertidumbre} puede cuantificarse sin suponer un modelo correcto mediante la predicción conformal:
+
+\begin{equation}\label{eq-conformal}
+\widehat{C}(\mathbf{x}) = \{\, y : s(\mathbf{x}, y) \le \hat q \,\},
+\qquad
+\Pr\big(Y_{n+1} \in \widehat{C}(\mathbf{X}_{n+1})\big) \ge 1-\alpha,
+\end{equation}
+
+con \(\hat q\) el cuantil empírico de orden \(\lceil (n+1)(1-\alpha) \rceil / n\) de las puntuaciones de no conformidad \(s\) en un conjunto de calibración. La garantía solo exige intercambiabilidad \autocite{angelopoulos2023}. Es una síntesis notable de las dos culturas, un procedimiento algorítmico con garantía inferencial, pero falla cuando falla la intercambiabilidad, que es lo que suele pasar al desplegar un modelo.
+
+\section{La era de la inteligencia artificial}\label{sec-ia}
+
+Breiman escribió antes del \emph{deep learning} moderno, así que atribuirle opiniones sobre lo posterior sería anacrónico. Sí puede preguntarse cómo afecta cada desarrollo a su argumento.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Deep learning.} Confirmó la tesis algorítmica en percepción y lenguaje \autocite{lecun2015}, pero planteó un enigma teórico: modelos con más parámetros que datos que generalizan \autocite{zhang2017,belkin2019}. La intuición de Efron, que ese sesgo está escondido en la teoría, sigue siendo la mejor guía.
+\item
+  \textbf{Transformers y modelos fundacionales.} El \emph{transformer} \autocite{vaswani2017} permitió preentrenar sobre corpus enormes. Bommasani y colaboradores llamaron \textbf{modelos fundacionales} a los modelos entrenados con datos amplios y adaptables a muchas tareas, y advirtieron sobre la \textbf{homogeneización}: los defectos del modelo base los heredan todos sus derivados \autocite{bommasani2021}. Esto tensiona un supuesto de ambas culturas, que el modelo se estima a partir de los datos del problema: un modelo fundacional se preentrena con otros datos y después puede adaptarse a ellos, por ejemplo mediante ajuste fino.
+\item
+  \textbf{LLM e IA generativa.} Un mismo modelo resuelve tareas con pocos ejemplos \autocite{brown2020}. La salida es una distribución sobre textos o código, no siempre hay una respuesta correcta única y los conjuntos de evaluación pueden estar contaminados.
+\item
+  \textbf{AlphaFold.} Es un caso límite: un modelo algorítmico produjo conocimiento científico de primer orden, validado contra estructuras experimentales \autocite{jumper2021}. Muestra que la predicción puede ser ciencia cuando existen un criterio externo de verdad y una evaluación ciega.
+\item
+  \textbf{AutoML.} Automatiza la búsqueda de modelos \autocite{hutter2019} y amplifica el dilema de Hoadley: cuantas más configuraciones se prueban, más fácil es sobreajustar la propia validación.
+\end{itemize}
+
+\section{Los agentes de programación}\label{sec-agentes}
+
+Un \textbf{agente de programación} es un sistema basado en un LLM que, además de generar texto, ejecuta acciones: edita archivos, corre código y pruebas e itera sobre los errores. La evidencia sobre su utilidad es reciente, heterogénea y cambia rápido. Cada cifra corresponde a un modelo, una fecha y un diseño concretos, y no debe extrapolarse.
+
+\begingroup\small
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.08}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.17}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.17}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.32}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.26}}@{}}
+\caption{Evidencia empírica seleccionada sobre asistentes y agentes de programación.}\label{tbl-agentes}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Año
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Estudio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Diseño
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Hallazgo principal
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Alcance
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Año
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Estudio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Diseño
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Hallazgo principal
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Alcance
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+2021 & \textcite{chen2021} & \emph{Benchmark} HumanEval & Codex resolvió el 28,8\,\% con una muestra y el 70,2\,\% con 100 muestras & Funciones cortas en Python \\
+2023 & \textcite{peng2023} & Experimento controlado & El grupo con Copilot terminó un 55,8\,\% más rápido & Una sola tarea en JavaScript \\
+2023 & \textcite{perry2023} & Estudio con usuarios & Con asistente se escribió código menos seguro, con más confianza en su seguridad & Tareas de seguridad \\
+2024 & \textcite{jimenez2024} & \emph{Benchmark} SWE-bench & En 2.294 problemas reales, el mejor modelo de entonces resolvió el 1,96\,\% & Python; estado del arte de 2023 \\
+2025 & \textcite{becker2025} & Ensayo aleatorizado & 16 desarrolladores expertos tardaron un 19\,\% \textbf{más} con IA, aunque esperaban ir un 24\,\% más rápido & 246 tareas en proyectos maduros \\
+2025 & \textcite{spracklen2025} & 576.000 muestras de código & Proporción media de paquetes inexistentes: al menos 5,2\,\% (comerciales) y 21,7\,\% (abiertos) & 16 LLM; Python y JavaScript \\
+2023 & \textcite{walters2023} & Auditoría de citas & Inventadas: 55\,\% (GPT-3.5) y 18\,\% (GPT-4) & 84 revisiones en 42 temas \\
+\end{longtable}
+\endgroup
+
+Con esa cautela, los agentes pueden \textbf{crear y depurar código}, y SWE-agent mostró que la interfaz con el entorno importa tanto como el modelo \autocite{yang2024}. También pueden \textbf{construir \emph{pipelines}}, \textbf{proponer y ejecutar experimentos} y \textbf{redactar manuscritos}. \emph{The AI Scientist} produce un artículo completo por menos de 15 dólares, evaluado por un revisor automático \autocite{lu2024}, y su segunda versión informa que uno de tres manuscritos enviados a un taller de ICLR superó el umbral medio de aceptación \autocite{yamada2025}. El \emph{co-scientist} de Google propuso candidatos de reposicionamiento de fármacos para la leucemia mieloide aguda que se validaron \emph{in vitro} \autocite{gottweis2025}, y otros sistemas se presentan como asistentes para revisión de literatura y redacción \autocite{schmidgall2025}. Son resultados informados por los propios desarrolladores, con evaluaciones en parte automáticas.
+
+Los riesgos son concretos:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Código incorrecto pero plausible.} El error más peligroso en análisis de datos es el resultado silenciosamente equivocado: una unión que duplica pacientes o una normalización calculada antes de partir los datos.
+\item
+  \textbf{Alucinaciones} \autocite{ji2023}, incluidos paquetes inexistentes que abren un riesgo en la cadena de suministro de software \autocite{spracklen2025}.
+\item
+  \textbf{Referencias inventadas} \autocite{walters2023}, que obligan a verificar cada cita.
+\item
+  \textbf{Fuga de información}, estadística, cuando se usa el conjunto de prueba sin advertirlo \autocite{kapoor2023}, y de seguridad, cuando instrucciones incrustadas en el contenido procesado llevan al agente a exfiltrar datos \autocite{greshake2023}. Con datos clínicos o genómicos, ambas son inaceptables.
+\item
+  \textbf{Validaciones deficientes}, con pruebas débiles o escritas por el propio agente.
+\item
+  \textbf{Sesgos heredados y homogeneizados} \autocite{bommasani2021}.
+\item
+  \textbf{Dependencia excesiva.} Se observa más confianza con código menos seguro \autocite{perry2023} y una brecha entre la productividad percibida y la medida \autocite{becker2025}. Messeri y Crockett advierten sobre \textbf{ilusiones de comprensión}, es decir, producir más y entender menos \autocite{messeri2024}.
+\end{enumerate}
+
+\section{¿Existe una tercera cultura? Una hipótesis debatible}\label{sec-tercera}
+
+\begin{recuadro}[Hipótesis conceptual]
+Lo que sigue es una \textbf{propuesta conceptual} del ensayo, formulada para discutirla, no una clasificación establecida.
+\end{recuadro}
+
+\textbf{La hipótesis.} Este ensayo plantea, como hipótesis de trabajo, que podría estar emergiendo una \textbf{tercera cultura de modelado}, para la que propone la etiqueta conceptual provisional \emph{fundacional-agéntica}. Es una conjetura conceptual, no un fenómeno sociológico demostrado empíricamente. Su unidad de trabajo ya no sería solo un modelo estimado desde cero con los datos del problema, sino una \textbf{cadena} que puede combinar un modelo preentrenado con datos amplios, su adaptación a los datos específicos (por ejemplo, mediante ajuste fino) y, en algunos casos, un agente que escribe, ejecuta y verifica el análisis (figura~\ref{fig-tercera}). Los dos componentes son separables: no todo modelo fundacional se usa a través de un agente, ni toda automatización del análisis depende de un modelo fundacional, como muestra el AutoML \autocite{hutter2019}. La hipótesis admite dos versiones. La \textbf{versión fuerte} plantea la posibilidad de una nueva epistemología científica: los modelos fundacionales y los agentes cambiarían el criterio de validez, porque buena parte de lo que el modelo aprende procedería de otros datos, aunque después se adapte a los del problema, y se evaluaría con criterios nuevos. La \textbf{versión débil} plantea, en cambio, que los modelos fundacionales y los agentes de IA transforman la división del trabajo científico y los procesos de investigación, automatización, construcción, ejecución y verificación de modelos, pero no demuestran por sí mismos la existencia de una nueva epistemología científica.
+
+\begin{figure}[htbp]
+\centering
+\FiguraTerceraCultura
+\caption{Esquema propio de la hipótesis. El agente es un componente opcional. Es una propuesta conceptual debatible, no una clasificación establecida.}\label{fig-tercera}
+\end{figure}
+
+\textbf{A favor.}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Cambia lo que se ajusta}: el modelo se preentrena con otros datos y luego se adapta a los del problema, lo que tensiona el supuesto i.i.d. entre entrenamiento y uso.
+\item
+  \emph{Cambia el criterio de validación}: aparecen \emph{benchmarks}, preferencias humanas y revisores automáticos \autocite{lu2024}, con riesgos de contaminación y circularidad.
+\item
+  \emph{Cambia quién analiza}: la búsqueda de modelos puede ejecutarla un sistema automatizado o un agente \autocite{hutter2019,yang2024}, y el investigador pasa a supervisar.
+\item
+  \emph{Cambia la independencia de los errores}: si muchos grupos usan el mismo modelo base, sus errores se correlacionan \autocite{bommasani2021,messeri2024}.
+\item
+  \emph{Cambia lo que significa validar}: algunas tareas de un LLM admiten respuestas comprobables con pruebas automáticas, como el código evaluado con pruebas unitarias en HumanEval o SWE-bench \autocite{chen2021,jimenez2024}; otras, como una síntesis bibliográfica o una interpretación, no tienen una única respuesta correcta y requieren evaluación contextual, humana o basada en múltiples criterios \autocite{ji2023}.
+\end{itemize}
+
+\textbf{En contra.}
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{El criterio epistémico no cambia}: Breiman distinguía las culturas por si se modela el interior de la caja \autocite[231]{breiman2001}. Un modelo fundacional emula, así que sería la segunda cultura a mayor escala.
+\item
+  \emph{Un agente es una herramienta, no una epistemología}: un análisis es correcto por razones estadísticas, no por quién lo escribió.
+\item
+  \emph{«Cultura» es una categoría sociológica}: aún no hay una comunidad estable con valores propios en torno a los agentes.
+\item
+  \emph{Ya hay nombres para este cambio}, como la «ciencia de datos» de Donoho \autocite{donoho2017}.
+\end{itemize}
+
+\textbf{Interpretación más defendible en este ensayo.} Con la evidencia disponible, la versión débil parece la más defendible, y la razón puede expresarse con dos ejes. El \textbf{primer eje} es el de Breiman: modelar el mecanismo que genera los datos o usar modelos algorítmicos para predecir \autocite[231]{breiman2001}. El \textbf{segundo eje} no procede de Breiman, sino que es una propuesta conceptual de este ensayo: quién o qué construye, ejecuta y verifica el análisis. Un agente de IA podría implementar tanto una regresión de Cox como un bosque aleatorio; por eso la automatización no constituye necesariamente una tercera posición dentro de la clasificación original de Breiman, sino un desplazamiento en el segundo eje. Del mismo modo, los \emph{benchmarks}, las evaluaciones humanas y los verificadores automáticos amplían los mecanismos de evaluación, pero eso no implica necesariamente que hayan cambiado los criterios fundamentales de validez científica. Lo que cambia no es el criterio de verdad, sino el lugar donde puede fallar el análisis, que se traslada de la elección del modelo a la construcción y la verificación del \emph{pipeline}. De ahí que, si esta cultura tiene un valor propio, deba ser la \textbf{verificación} (sección~\ref{sec-posicion}): cada resultado producido por un agente debe poder auditarse, reproducirse y defenderse por alguien que responda por él.
+
+\section{Aplicación a la oncología y la genómica}\label{sec-oncologia}
+
+\textbf{Rashomon genómico.} En genómica del cáncer, el efecto Rashomon está documentado. Ein-Dor y colaboradores mostraron que la lista de genes pronósticos del cáncer de mama no es única y que muchas listas igual de predictivas dependen de qué pacientes se usan para seleccionarlas \autocite{eindor2005}. Michiels y colaboradores encontraron firmas inestables, y en cinco de siete estudios la clasificación no superaba al azar \autocite{michiels2005}. Venet y colaboradores mostraron que la mayoría de las firmas \emph{aleatorias} se asociaban con el desenlace, en gran parte a través de la proliferación \autocite{venet2011}. La alta dimensión puede ser una bendición para predecir y una trampa para interpretar.
+
+\textbf{Dos sentidos de «predictivo».} En oncología, un biomarcador \textbf{pronóstico} informa sobre la evolución de la enfermedad, y uno \textbf{predictivo} informa sobre el beneficio de un tratamiento, es decir, sobre una interacción entre tratamiento y biomarcador. Lo segundo es una afirmación causal. Un clasificador puede predecir muy bien el desenlace y no decir nada sobre quién se beneficia de la quimioterapia.
+
+\Needspace{12\baselineskip}  % evita que la tabla empiece al pie de página con una sola fila
+\begingroup\small
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.30}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.35}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.35}}@{}}
+\caption{Distancia entre una firma predictiva y la evidencia para decidir tratamientos en cáncer de mama.}\label{tbl-firmas}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Etapa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Firma de 70 genes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Firma de 21 genes
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Etapa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Firma de 70 genes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Firma de 21 genes
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Asociación pronóstica & \textcite{vantveer2002} & --- \\
+Validación con muestras de archivo de un ensayo & --- & \textcite{paik2004}, con el ensayo NSABP B-14; diseño prospectivo-retrospectivo \autocite{simon2009} \\
+Ensayo prospectivo aleatorizado & Ensayo MINDACT \autocite{cardoso2016} & Ensayo TAILORx \autocite{sparano2018} \\
+\end{longtable}
+\endgroup
+
+Entre la primera publicación y el ensayo que respalda la decisión clínica pasaron más de diez años. Ninguna validación cruzada sustituyó a la aleatorización.
+
+\textbf{Multimodalidad, validación y explicabilidad.} La integración de histopatología, radiología, genómica y datos clínicos es una promesa central de la IA en oncología \autocite{lipkova2022}. Kather y colaboradores predijeron la inestabilidad de microsatélites directamente a partir de láminas teñidas con hematoxilina y eosina \autocite{kather2019}, lo que deja pendiente si el resultado se mantiene con otros centros, escáneres y tinciones, porque los modelos pueden aprender la señal del hospital en lugar de la de la enfermedad \autocite{zech2018}. TRIPOD+AI \autocite{collins2024} y CONSORT-AI \autocite{liu2020} son la respuesta institucional a las objeciones de Cox y Hoadley. Y, siguiendo a Rudin \autocite{rudin2019}, si un modelo interpretable rinde igual, la carga de la prueba recae en la caja negra.
+
+\textbf{De la utilidad predictiva a la evidencia clínica.} Como síntesis conceptual basada en principios existentes de validación predictiva, evaluación clínica y diseño de estudios \autocite{collins2024,liu2020}, este ensayo propone distinguir cuatro niveles de evidencia:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Rendimiento predictivo interno}, con partición por paciente.
+\item
+  \textbf{Generalización y calibración externa} en otras cohortes.
+\item
+  \textbf{Utilidad clínica} frente a la práctica estándar.
+\item
+  \textbf{Evidencia de impacto} en estudios prospectivos, idealmente aleatorizados.
+\end{enumerate}
+
+No son una secuencia universal estricta ni un modelo obligatorio, sino dimensiones de evidencia relacionadas: no toda investigación tiene que recorrerlas en un único orden, aunque la evidencia de impacto difícilmente se sostiene sin las demás. La cuantificación de la incertidumbre es relevante desde el primer nivel, con intervalos para las métricas, evaluación de la calibración y comparación entre cohortes. La evaluación de efectos causales y del impacto clínico exige, además, diseños y supuestos adicionales.
+
+\section{Posición académica}\label{sec-posicion}
+
+\begin{recuadro}[Propuesta argumentativa]
+Los principios siguientes son una \textbf{propuesta argumentativa} del ensayo para el debate académico.
+\end{recuadro}
+
+Leído veinticinco años después, el artículo de Breiman puede entenderse como un \textbf{alegato por la pluralidad metodológica}: el truco para ser científico, escribe, es estar abierto a una gran variedad de herramientas \autocite[214]{breiman2001}. Este ensayo propone cinco principios:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{La precisión predictiva es fundamental cuando el objetivo es predecir, pero no es suficiente.} Un modelo predictivo que no predice bien fuera de la muestra difícilmente justifica su interpretación. Sin embargo, la exactitud predictiva no es una condición universal para toda investigación explicativa o causal, y predecir bien no prueba causalidad ni utilidad clínica.
+\item
+  \textbf{La incertidumbre forma parte del resultado}: variabilidad, calibración y, cuando sea posible, garantías de cobertura, que en la predicción conformal dependen de sus supuestos, como la intercambiabilidad en sus formulaciones habituales \autocite{angelopoulos2023}.
+\item
+  \textbf{La población de aplicación es una condición decisiva para la generalización.} No es el único supuesto relevante, pero ningún enfoque predictivo puede prescindir de él. La validación externa no equivale a la bondad de ajuste: esta evalúa el modelo frente a los datos con que se ajustó, mientras que aquella evalúa su comportamiento en poblaciones o contextos distintos. Junto con la monitorización, es la comprobación más directa de ese supuesto.
+\item
+  \textbf{La automatización amplía también lo que hay que verificar.} Algunas comprobaciones pueden automatizarse, como las pruebas de código o el contraste de referencias, y otras requieren revisión humana. En ambos casos, cada resultado que sostenga una afirmación debe ser trazable y auditable, con una supervisión proporcional al riesgo.
+\item
+  \textbf{En medicina, el diseño del estudio y la evidencia clínica deben pesar más que las métricas algorítmicas.} Una métrica de rendimiento no sustituye la evidencia sobre el efecto en los pacientes.
+\end{enumerate}
+
+Desde esta perspectiva, la investigación interdisciplinaria en IA aplicada a la oncología podría orientarse por lo que este ensayo propone llamar una \textbf{cultura de la verificación}. Se trata de una propuesta normativa que complementa, sin sustituirla, la evaluación científica habitual; no es una corriente científica establecida ni pretende recuperar el verificacionismo del positivismo lógico. Consiste en verificar de forma sistemática seis aspectos: (1) la procedencia y la calidad de los datos; (2) la corrección y la reproducibilidad del código; (3) los supuestos estadísticos y metodológicos; (4) la incertidumbre, la robustez y la generalización; (5) la validez de las fuentes bibliográficas, y (6) la responsabilidad humana sobre los resultados. En un campo donde convergen estadísticos, especialistas en IA, biólogos y clínicos, y donde las decisiones afectan a pacientes, esa verificación es lo que permite que la automatización contribuya a una aplicación responsable de la IA en lugar de añadir nuevas fuentes de error.
+
+\Needspace{16\baselineskip}  % mantiene la declaración en una sola página
+\begin{recuadro}[Declaración sobre el uso de inteligencia artificial]
+Este artículo y su versión PDF se elaboraron con el apoyo de Claude (Anthropic), un asistente de IA generativa, en la organización del contenido; la redacción de borradores de todas las secciones; el desarrollo inicial de la hipótesis conceptual de la tercera cultura, de los niveles de evidencia y de los principios argumentativos; la consulta y verificación de referencias y cifras con Crossref, arXiv, PubMed o las fuentes originales; la revisión editorial; la elaboración de las figuras y del código LaTeX, y la generación y validación de las versiones HTML y PDF. El autor definió el encargo y los criterios, e indicó y aprobó las correcciones de los apartados revisados. El autor expresó su conformidad con la versión final y aprobó su contenido para publicación. La responsabilidad final del contenido corresponde al autor, y esta declaración queda sujeta a las políticas académicas aplicables.
+\end{recuadro}
+
+\printbibliography[heading=bibintoc,title={Referencias}]
+
+\end{document}

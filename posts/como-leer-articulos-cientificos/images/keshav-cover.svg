@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="keshavc-t keshavc-d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="keshavc-t">Tres hojas superpuestas y tres lupas numeradas 1, 2 y 3</title>
+  <desc id="keshavc-d">Portada conceptual del artículo sobre el método de las tres lecturas de Keshav.</desc>
+  <defs>
+    <marker id="keshavc-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <defs><linearGradient id="keshavc-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1E3D"/><stop offset="1" stop-color="#12305C"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#keshavc-bg)"/>
+  <rect x="330" y="150.0" width="300" height="380" rx="14" fill="#F7F9FC" stroke="none" stroke-width="1.5" opacity="0.55"/>
+  <rect x="365" y="200.0" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="234.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="268.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="302.0" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="336.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="370.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="404.0" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="438.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="365" y="472.0" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="400" y="167.5" width="300" height="380" rx="14" fill="#F7F9FC" stroke="none" stroke-width="1.5" opacity="0.75"/>
+  <rect x="435" y="217.5" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="251.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="285.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="319.5" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="353.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="387.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="421.5" width="160" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="455.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="435" y="489.5" width="230" height="9" rx="4" fill="#E2E8F0"/>
+  <rect x="470" y="185.0" width="300" height="380" rx="14" fill="#F7F9FC" stroke="none" stroke-width="1.5" opacity="1.0"/>
+  <rect x="505" y="235.0" width="160" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="269.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="303.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="337.0" width="160" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="371.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="405.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="439.0" width="160" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="473.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <rect x="505" y="507.0" width="230" height="9" rx="4" fill="#CBD5E1"/>
+  <circle cx="820" cy="250" r="52" fill="none" stroke="#4FA3D1" stroke-width="6" opacity="0.55"/>
+  <text x="820" y="262" font-size="38" fill="#F7F9FC" font-weight="bold" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif">1</text>
+  <circle cx="880" cy="345" r="66" fill="none" stroke="#4FA3D1" stroke-width="8" opacity="0.75"/>
+  <text x="880" y="357" font-size="38" fill="#F7F9FC" font-weight="bold" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif">2</text>
+  <circle cx="930" cy="455" r="80" fill="none" stroke="#4FA3D1" stroke-width="10" opacity="0.9500000000000001"/>
+  <text x="930" y="467" font-size="38" fill="#F7F9FC" font-weight="bold" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif">3</text>
+</svg>

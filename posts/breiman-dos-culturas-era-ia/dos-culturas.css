@@ -1,0 +1,75 @@
+/* Estilos locales del artículo «Más allá de las dos culturas».
+   Namespace .dc- ; reutiliza los tokens globales --lf-* (theme.scss).
+   Solo afecta a esta página (se carga desde su YAML). */
+
+.dc-download {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.dc-download__note {
+  font-size: 0.9rem;
+  color: var(--lf-muted, #6B7280);
+}
+
+.dc-abstract {
+  border-left: 4px solid var(--lf-blue, #1D4E89);
+  background: var(--lf-surface, #F7F9FC);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.dc-abstract p {
+  margin-bottom: 0.6rem;
+}
+
+.dc-abstract p:last-child {
+  margin-bottom: 0;
+}
+
+main.content figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+main.content .quarto-figure figcaption,
+main.content figure figcaption {
+  font-size: 0.9rem;
+  color: var(--lf-muted, #6B7280);
+}
+
+main.content table {
+  font-size: 0.92rem;
+}
+
+/* Ecuaciones largas y tablas: desplazamiento horizontal en móviles */
+main.content .math.display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+@media (max-width: 991.98px) {
+  main.content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Diagramas SVG en móviles: se conservan a un ancho legible (720 px) con
+   desplazamiento horizontal; al tocarlos se abren ampliados (lightbox). */
+@media (max-width: 767.98px) {
+  main.content figure.figure > div[aria-describedby] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  main.content figure.figure img.figure-img[src$=".svg"] {
+    max-width: none;
+    width: 720px;
+  }
+}

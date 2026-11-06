@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="terc-t terc-d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="terc-t">Esquema de la hipótesis de una tercera cultura de modelado basada en modelos fundacionales y, opcionalmente, agentes</title>
+  <desc id="terc-d">Cadena de corpus amplio, modelo fundacional, adaptación, agente opcional (borde punteado) y evaluación técnica, con un camino alternativo sin agente, una nota sobre componentes separables y un recuadro punteado de responsabilidades que requieren supervisión humana para la interpretación científica de los resultados.</desc>
+  <defs>
+    <marker id="terc-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="560" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+  <text x="490.0" y="28" font-size="16" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Hipótesis de una «tercera cultura»: el análisis puede producirlo</text>
+  <text x="490.0" y="50" font-size="16" fill="#1A1A1A" font-weight="bold" text-anchor="middle">una cadena preentrenada y, opcionalmente, agéntica</text>
+  <rect x="20" y="118" width="172" height="140" rx="10" fill="#94A3B8" stroke="none" stroke-width="1.5"/>
+  <text x="106.0" y="146" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Corpus</text>
+  <text x="106.0" y="165" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">amplio</text>
+  <text x="106.0" y="196" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">texto, código,</text>
+  <text x="106.0" y="214" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">imágenes, ómicas</text>
+  <line x1="194" y1="188" x2="208" y2="188" stroke="#1A1A1A" stroke-width="2" marker-end="url(#terc-arr)"/>
+  <rect x="210" y="118" width="172" height="140" rx="10" fill="#0B1E3D" stroke="none" stroke-width="1.5"/>
+  <text x="296.0" y="146" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Modelo</text>
+  <text x="296.0" y="165" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">fundacional</text>
+  <text x="296.0" y="196" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">preentrenado con</text>
+  <text x="296.0" y="214" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">datos amplios</text>
+  <line x1="384" y1="188" x2="398" y2="188" stroke="#1A1A1A" stroke-width="2" marker-end="url(#terc-arr)"/>
+  <rect x="400" y="118" width="172" height="140" rx="10" fill="#1D4E89" stroke="none" stroke-width="1.5"/>
+  <text x="486.0" y="156" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Adaptación</text>
+  <text x="486.0" y="196" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">ajuste fino, prompts,</text>
+  <text x="486.0" y="214" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">recuperación (RAG)</text>
+  <line x1="574" y1="188" x2="588" y2="188" stroke="#1A1A1A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#terc-arr)"/>
+  <rect x="590" y="118" width="172" height="140" rx="10" fill="#FFFFFF" stroke="#4C4A7D" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <text x="676.0" y="146" font-size="15.5" fill="#4C4A7D" font-weight="bold" text-anchor="middle">Agente</text>
+  <text x="676.0" y="165" font-size="15.5" fill="#4C4A7D" font-weight="bold" text-anchor="middle">(opcional)</text>
+  <text x="676.0" y="196" font-size="13" fill="#4C4A7D" font-weight="normal" text-anchor="middle">escribe y ejecuta</text>
+  <text x="676.0" y="214" font-size="13" fill="#4C4A7D" font-weight="normal" text-anchor="middle">código; propone</text>
+  <text x="676.0" y="232" font-size="13" fill="#4C4A7D" font-weight="normal" text-anchor="middle">experimentos</text>
+  <line x1="764" y1="188" x2="778" y2="188" stroke="#1A1A1A" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#terc-arr)"/>
+  <rect x="780" y="118" width="172" height="140" rx="10" fill="#2F7D6B" stroke="none" stroke-width="1.5"/>
+  <text x="866.0" y="146" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Evaluación</text>
+  <text x="866.0" y="165" font-size="15.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">técnica</text>
+  <text x="866.0" y="196" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">benchmarks, test,</text>
+  <text x="866.0" y="214" font-size="13" fill="#FFFFFF" font-weight="normal" text-anchor="middle">calibración, robustez</text>
+  <path d="M486.0,116 C546.0,78 806.0,78 866.0,114" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#terc-arr)"/>
+  <text x="676.0" y="86" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle" font-style="italic">camino sin agente</text>
+  <text x="490.0" y="286" font-size="13.5" fill="#33333A" font-weight="normal" text-anchor="middle">Componentes separables: puede haber modelos fundacionales sin agentes</text>
+  <text x="490.0" y="306" font-size="13.5" fill="#33333A" font-weight="normal" text-anchor="middle">y automatización del análisis sin modelos fundacionales (por ejemplo, AutoML).</text>
+  <rect x="140" y="345" width="700" height="130" rx="12" fill="#F7F9FC" stroke="#B45309" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="490" y="375" font-size="16" fill="#92400E" font-weight="bold" text-anchor="middle">Responsabilidades que requieren supervisión humana</text>
+  <text x="490" y="397" font-size="13.5" fill="#92400E" font-weight="normal" text-anchor="middle" font-style="italic">interpretación científica de los resultados, distinta de su evaluación técnica</text>
+  <text x="490" y="427" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="middle">pregunta científica · diseño y procedencia de los datos · fuga de información</text>
+  <text x="490" y="451" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="middle">supuestos causales · incertidumbre · ética · responsabilidad por la conclusión</text>
+  <path d="M876,260 C900,395 870,415 842,415" fill="none" stroke="#B45309" stroke-width="2" marker-end="url(#terc-arr)"/>
+  <path d="M138,415 C60,415 60,288 100,260" fill="none" stroke="#B45309" stroke-width="2" marker-end="url(#terc-arr)"/>
+  <text x="490.0" y="532" font-size="13.5" fill="#6B7280" font-weight="normal" text-anchor="middle">Diagrama propio. Es una propuesta conceptual debatible, no una clasificación establecida.</text>
+</svg>

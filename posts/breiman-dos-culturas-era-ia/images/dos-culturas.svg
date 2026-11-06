@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 560" role="img" aria-labelledby="cult-t cult-d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="cult-t">Las dos culturas del modelado estadístico según Breiman</title>
+  <desc id="cult-d">Arriba, la caja negra de la naturaleza que asocia x con y. Abajo a la izquierda, la cultura de modelos de datos, que rellena la caja con regresión lineal, logística o Cox y valida con bondad de ajuste. Abajo a la derecha, la cultura algorítmica, que trata la caja como desconocida, ajusta un f(x) y valida con precisión predictiva.</desc>
+  <defs>
+    <marker id="cult-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="560" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+  <text x="490.0" y="36" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Punto de partida común: la naturaleza asocia x con y</text>
+  <text x="335" y="96" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">y</text>
+  <line x1="371" y1="89" x2="347" y2="89" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <rect x="375" y="52" width="230" height="74" rx="8" fill="#0B1E3D" stroke="none" stroke-width="1.5"/>
+  <text x="490" y="90" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle">naturaleza</text>
+  <line x1="645" y1="89" x2="609" y2="89" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <text x="659" y="96" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">x</text>
+  <rect x="20" y="160" width="455" height="330" rx="12" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="247" y="194" font-size="19" fill="#1D4E89" font-weight="bold" text-anchor="middle">Cultura de modelos de datos</text>
+  <text x="90" y="258" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">y</text>
+  <line x1="126" y1="251" x2="102" y2="251" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <rect x="130" y="214" width="230" height="74" rx="8" fill="#1D4E89" stroke="none" stroke-width="1.5"/>
+  <text x="245" y="232" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle">regresión lineal</text>
+  <text x="245" y="252" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle">regresión logística</text>
+  <text x="245" y="272" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle">modelo de Cox</text>
+  <line x1="400" y1="251" x2="364" y2="251" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <text x="414" y="258" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">x</text>
+  <text x="44" y="330" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Supuesto: y = f(x, ruido, parámetros)</text>
+  <text x="44" y="355" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Objetivo: estimar parámetros e interpretarlos</text>
+  <text x="44" y="380" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Validación: sí/no con bondad de ajuste</text>
+  <text x="44" y="405" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">y examen de residuos</text>
+  <text x="44" y="430" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Estimación de Breiman: «98 % de los estadísticos»</text>
+  <rect x="505" y="160" width="455" height="330" rx="12" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="732" y="194" font-size="19" fill="#4C4A7D" font-weight="bold" text-anchor="middle">Cultura de modelos algorítmicos</text>
+  <text x="575" y="258" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">y</text>
+  <line x1="611" y1="251" x2="587" y2="251" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <rect x="615" y="214" width="230" height="74" rx="8" fill="#3A3A46" stroke="none" stroke-width="1.5"/>
+  <text x="730" y="252" font-size="15" fill="#FFFFFF" font-weight="bold" text-anchor="middle">desconocido</text>
+  <line x1="885" y1="251" x2="849" y2="251" stroke="#1A1A1A" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <text x="899" y="258" font-size="24" fill="#1A1A1A" font-weight="normal" text-anchor="middle" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', serif" font-style="italic">x</text>
+  <path d="M660,300 C700,326 780,326 820,300" fill="none" stroke="#4C4A7D" stroke-width="2" marker-end="url(#cult-arr)"/>
+  <text x="740" y="325" font-size="14" fill="#4C4A7D" font-weight="bold" text-anchor="middle">f(x): árboles, redes neuronales</text>
+  <text x="529" y="360" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Supuesto: datos i.i.d. de una distribución</text>
+  <text x="529" y="385" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">desconocida</text>
+  <text x="529" y="410" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Objetivo: un f(x) que prediga bien</text>
+  <text x="529" y="435" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Validación: precisión predictiva en test</text>
+  <text x="529" y="460" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">Estimación de Breiman: «2 %, muchos fuera»</text>
+  <text x="490.0" y="530" font-size="13.5" fill="#6B7280" font-weight="normal" text-anchor="middle">Diagrama propio basado en Breiman (2001, sec. 1). Los porcentajes son estimaciones retóricas del autor, no datos.</text>
+</svg>

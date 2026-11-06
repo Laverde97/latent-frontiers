@@ -1,0 +1,41 @@
+/* Estilos locales del artículo «Cómo leer un artículo científico».
+   Reutiliza los tokens globales --lf-* (theme.scss) con fallback en hex.
+   Solo afecta a esta página (se carga desde su YAML). */
+
+main.content .figure img,
+main.content figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+main.content .quarto-figure figcaption,
+main.content figure figcaption {
+  font-size: 0.9rem;
+  color: var(--lf-muted, #6B7280);
+}
+
+/* Tablas anchas: desplazamiento horizontal en pantallas pequeñas */
+main.content table {
+  font-size: 0.93rem;
+}
+
+@media (max-width: 767.98px) {
+  main.content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Diagramas SVG en móviles: se conservan a un ancho legible (720 px) con
+   desplazamiento horizontal; al tocarlos se abren ampliados (lightbox). */
+@media (max-width: 767.98px) {
+  main.content figure.figure > div[aria-describedby] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  main.content figure.figure img.figure-img[src$=".svg"] {
+    max-width: none;
+    width: 720px;
+  }
+}
