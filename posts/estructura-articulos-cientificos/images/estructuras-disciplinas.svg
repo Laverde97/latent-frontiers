@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img" aria-labelledby="estr-t estr-d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="estr-t">Comparación de las estructuras típicas de artículos en cinco disciplinas</title>
+  <desc id="estr-d">Cinco columnas con la secuencia típica de secciones en Machine Learning, Estadística, Biología, Genómica y Computer Science de sistemas, coloreadas según su función: contexto, método, teoría, resultados, discusión y material de apoyo.</desc>
+  <defs>
+    <marker id="estr-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="660" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+  <text x="111.0" y="34" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Machine Learning</text>
+  <text x="111.0" y="54" font-size="12.5" fill="#6B7280" font-weight="normal" text-anchor="middle">conferencia (NeurIPS, ICML)</text>
+  <rect x="22" y="70" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="101" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Abstract</text>
+  <rect x="22" y="128" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="159" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Introduction</text>
+  <rect x="22" y="186" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="217" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Related Work</text>
+  <rect x="22" y="244" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="275" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Method / Model</text>
+  <rect x="22" y="302" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="333" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Experiments</text>
+  <rect x="22" y="360" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="391" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Results / Ablations</text>
+  <rect x="22" y="418" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="449" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Conclusion</text>
+  <rect x="22" y="476" width="178" height="50" rx="7" fill="#94A3B8" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="111.0" y="507" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Appendix + Checklist</text>
+  <text x="303.0" y="34" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Estadística</text>
+  <text x="303.0" y="54" font-size="12.5" fill="#6B7280" font-weight="normal" text-anchor="middle">revista (JRSS-B, AoS, JASA)</text>
+  <rect x="214" y="70" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="101" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Summary</text>
+  <rect x="214" y="128" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="159" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Introduction</text>
+  <rect x="214" y="186" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="217" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Model / Method</text>
+  <rect x="214" y="244" width="178" height="50" rx="7" fill="#4C4A7D" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="275" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Theory (Theorems)</text>
+  <rect x="214" y="302" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="333" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Simulations</text>
+  <rect x="214" y="360" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="391" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Data example</text>
+  <rect x="214" y="418" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="449" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Discussion</text>
+  <rect x="214" y="476" width="178" height="50" rx="7" fill="#4C4A7D" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="303.0" y="507" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Appendix: Proofs</text>
+  <text x="495.0" y="34" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Biología</text>
+  <text x="495.0" y="54" font-size="12.5" fill="#6B7280" font-weight="normal" text-anchor="middle">revista (Cell, Science)</text>
+  <rect x="406" y="70" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="101" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Summary / Abstract</text>
+  <rect x="406" y="128" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="159" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Introduction</text>
+  <rect x="406" y="186" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="217" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Results</text>
+  <rect x="406" y="244" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="275" font-size="12.2" fill="#FFFFFF" font-weight="bold" text-anchor="middle">(subtítulos = hallazgos)</text>
+  <rect x="406" y="302" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="333" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Discussion</text>
+  <rect x="406" y="360" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="391" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Methods (al final)</text>
+  <rect x="406" y="418" width="178" height="50" rx="7" fill="#94A3B8" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="495.0" y="449" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Supplementary</text>
+  <text x="687.0" y="34" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Genómica</text>
+  <text x="687.0" y="54" font-size="12.5" fill="#6B7280" font-weight="normal" text-anchor="middle">revista (Genome Biol., Nature)</text>
+  <rect x="598" y="70" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="101" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Abstract</text>
+  <rect x="598" y="128" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="159" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Background</text>
+  <rect x="598" y="186" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="217" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Results</text>
+  <rect x="598" y="244" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="275" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Discussion</text>
+  <rect x="598" y="302" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="333" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Conclusions</text>
+  <rect x="598" y="360" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="391" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Methods</text>
+  <rect x="598" y="418" width="178" height="50" rx="7" fill="#94A3B8" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="449" font-size="12.2" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Data / code availability</text>
+  <rect x="598" y="476" width="178" height="50" rx="7" fill="#94A3B8" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="687.0" y="507" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Supplementary</text>
+  <text x="879.0" y="34" font-size="17" fill="#1A1A1A" font-weight="bold" text-anchor="middle">Computer Science</text>
+  <text x="879.0" y="54" font-size="12.5" fill="#6B7280" font-weight="normal" text-anchor="middle">sistemas (OSDI, SOSP)</text>
+  <rect x="790" y="70" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="101" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Abstract</text>
+  <rect x="790" y="128" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="159" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Introduction</text>
+  <rect x="790" y="186" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="217" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Design</text>
+  <rect x="790" y="244" width="178" height="50" rx="7" fill="#4FA3D1" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="275" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Implementation</text>
+  <rect x="790" y="302" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="333" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Evaluation</text>
+  <rect x="790" y="360" width="178" height="50" rx="7" fill="#2F7D6B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="391" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Experience</text>
+  <rect x="790" y="418" width="178" height="50" rx="7" fill="#1D4E89" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="449" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Related Work</text>
+  <rect x="790" y="476" width="178" height="50" rx="7" fill="#8A6D3B" stroke="none" stroke-width="1.5" opacity="0.95"/>
+  <text x="879.0" y="507" font-size="13.5" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Conclusions</text>
+  <rect x="40" y="533" width="20" height="20" rx="4" fill="#1D4E89" stroke="none" stroke-width="1.5"/>
+  <text x="70" y="548" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Contexto y motivación</text>
+  <rect x="355" y="533" width="20" height="20" rx="4" fill="#4FA3D1" stroke="none" stroke-width="1.5"/>
+  <text x="385" y="548" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Método, modelo o diseño</text>
+  <rect x="670" y="533" width="20" height="20" rx="4" fill="#4C4A7D" stroke="none" stroke-width="1.5"/>
+  <text x="700" y="548" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Teoría y pruebas</text>
+  <rect x="40" y="563" width="20" height="20" rx="4" fill="#2F7D6B" stroke="none" stroke-width="1.5"/>
+  <text x="70" y="578" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Resultados y evaluación</text>
+  <rect x="355" y="563" width="20" height="20" rx="4" fill="#8A6D3B" stroke="none" stroke-width="1.5"/>
+  <text x="385" y="578" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Discusión y conclusiones</text>
+  <rect x="670" y="563" width="20" height="20" rx="4" fill="#94A3B8" stroke="none" stroke-width="1.5"/>
+  <text x="700" y="578" font-size="14" fill="#33333A" font-weight="normal" text-anchor="start">Material de apoyo y disponibilidad</text>
+  <text x="500.0" y="636" font-size="13" fill="#6B7280" font-weight="normal" text-anchor="middle">Diagrama propio: estructuras típicas, no plantillas obligatorias. Los nombres de sección se dejan en inglés.</text>
+</svg>

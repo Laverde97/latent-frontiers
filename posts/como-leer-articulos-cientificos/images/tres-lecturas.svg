@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 640" role="img" aria-labelledby="tres-t tres-d" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="tres-t">Diagrama del método de las tres lecturas de Keshav</title>
+  <desc id="tres-d">Tres columnas para la primera, segunda y tercera lectura, con su duración, sus pasos, su producto, una decisión de continuar y un recuadro punteado con la extensión propuesta para IA aplicada a oncología.</desc>
+  <defs>
+    <marker id="tres-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="980" height="640" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+  <rect x="30" y="40" width="280" height="52" rx="10" fill="#1D4E89" stroke="none" stroke-width="1.5"/>
+  <text x="170" y="74" font-size="20" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Primera lectura</text>
+  <rect x="30" y="92" width="280" height="150" rx="0" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="170" y="120" font-size="15" fill="#6B7280" font-weight="bold" text-anchor="middle">5–10 min</text>
+  <text x="50" y="150" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Título, resumen, introducción</text>
+  <text x="50" y="172" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Encabezados (solo títulos)</text>
+  <text x="50" y="194" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Conclusiones</text>
+  <text x="50" y="216" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Referencias conocidas</text>
+  <rect x="350" y="40" width="280" height="52" rx="10" fill="#4FA3D1" stroke="none" stroke-width="1.5"/>
+  <text x="490" y="74" font-size="20" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Segunda lectura</text>
+  <rect x="350" y="92" width="280" height="150" rx="0" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="490" y="120" font-size="15" fill="#6B7280" font-weight="bold" text-anchor="middle">hasta 1 h</text>
+  <text x="370" y="150" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Figuras, ejes, barras de error</text>
+  <text x="370" y="172" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Puntos clave al margen</text>
+  <text x="370" y="194" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Referencias pendientes</text>
+  <text x="370" y="216" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Se omiten pruebas</text>
+  <rect x="670" y="40" width="280" height="52" rx="10" fill="#4C4A7D" stroke="none" stroke-width="1.5"/>
+  <text x="810" y="74" font-size="20" fill="#FFFFFF" font-weight="bold" text-anchor="middle">Tercera lectura</text>
+  <rect x="670" y="92" width="280" height="150" rx="0" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="810" y="120" font-size="15" fill="#6B7280" font-weight="bold" text-anchor="middle">1–5 h</text>
+  <text x="690" y="150" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Reimplementación virtual</text>
+  <text x="690" y="172" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Cuestionar cada supuesto</text>
+  <text x="690" y="194" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Citas y técnicas ausentes</text>
+  <text x="690" y="216" font-size="15" fill="#33333A" font-weight="normal" text-anchor="start">• Ideas de trabajo futuro</text>
+  <line x1="312" y1="66" x2="346" y2="66" stroke="#6B7280" stroke-width="2" marker-end="url(#tres-arr)"/>
+  <line x1="632" y1="66" x2="666" y2="66" stroke="#6B7280" stroke-width="2" marker-end="url(#tres-arr)"/>
+  <rect x="30" y="262" width="280" height="88" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="44" y="286" font-size="13" fill="#6B7280" font-weight="bold" text-anchor="start">Producto</text>
+  <text x="44" y="308" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">Responder las cinco C:</text>
+  <text x="44" y="327" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">Category · Context · Correctness</text>
+  <text x="44" y="346" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">Contributions · Clarity</text>
+  <rect x="350" y="262" width="280" height="88" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="364" y="286" font-size="13" fill="#6B7280" font-weight="bold" text-anchor="start">Producto</text>
+  <text x="364" y="308" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">Poder resumir el argumento</text>
+  <text x="364" y="327" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">y su evidencia a otra</text>
+  <text x="364" y="346" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">persona</text>
+  <rect x="670" y="262" width="280" height="88" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="684" y="286" font-size="13" fill="#6B7280" font-weight="bold" text-anchor="start">Producto</text>
+  <text x="684" y="308" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">Reconstruir el artículo de</text>
+  <text x="684" y="327" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">memoria e identificar fortalezas</text>
+  <text x="684" y="346" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="start">y debilidades</text>
+  <rect x="140" y="380" width="360" height="64" rx="32" fill="#FFFFFF" stroke="#1D4E89" stroke-width="2"/>
+  <text x="320" y="405" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="middle">¿Vale la pena seguir? ¿Tengo el fondo</text>
+  <text x="320" y="424" font-size="14.5" fill="#1A1A1A" font-weight="normal" text-anchor="middle">necesario? ¿Los supuestos parecen válidos?</text>
+  <path d="M170,350 L170,378" fill="none" stroke="#6B7280" stroke-width="2" marker-end="url(#tres-arr)"/>
+  <path d="M500,412 C560,412 560,350 520,352" fill="none" stroke="#1D4E89" stroke-width="2" marker-end="url(#tres-arr)"/>
+  <text x="566" y="396" font-size="14" fill="#1D4E89" font-weight="bold" text-anchor="start">sí</text>
+  <path d="M260,444 L260,488" fill="none" stroke="#6B7280" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#tres-arr)"/>
+  <rect x="40" y="490" width="430" height="58" rx="10" fill="#F7F9FC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="255" y="514" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="middle">No: archivar, leer material de base</text>
+  <text x="255" y="533" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="middle">o volver más tarde (opciones a, b de Keshav)</text>
+  <path d="M810,350 L810,380" fill="none" stroke="#4C4A7D" stroke-width="2" marker-end="url(#tres-arr)"/>
+  <rect x="560" y="382" width="400" height="166" rx="10" fill="#FFFFFF" stroke="#4C4A7D" stroke-width="2" stroke-dasharray="7 6"/>
+  <text x="576" y="408" font-size="14.5" fill="#4C4A7D" font-weight="bold" text-anchor="start">Extensión propuesta (no está en Keshav)</text>
+  <text x="576" y="434" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="start">Auditoría de datos y validación:</text>
+  <text x="576" y="455" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="start">procedencia, partición por paciente,</text>
+  <text x="576" y="476" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="start">fuga de información, validación externa,</text>
+  <text x="576" y="497" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="start">calibración y utilidad clínica</text>
+  <text x="576" y="518" font-size="14.5" fill="#33333A" font-weight="normal" text-anchor="start">(ver protocolo en la sección D)</text>
+  <text x="490" y="600" font-size="13.5" fill="#6B7280" font-weight="normal" text-anchor="middle">Diagrama propio basado en Keshav (2007). El recuadro punteado es una adaptación del autor.</text>
+</svg>
