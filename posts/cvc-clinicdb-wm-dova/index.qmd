@@ -1,0 +1,114 @@
+---
+title: "Antes del deep learning: WM-DOVA, CVC-ClinicDB y el origen de un benchmark en colonoscopia"
+subtitle: "Reseña crítica de Bernal et al. (2015): un método clásico para localizar pólipos y el conjunto de datos anotado que lo sobrevivió."
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-11-17"
+lang: es
+categories: [Inteligencia Artificial, Imagen Médica, Colonoscopia, Investigación, Literatura Científica]
+description: "Qué hicieron Bernal y colaboradores en 2015, qué resultados obtuvieron con WM-DOVA, qué limitaciones tiene su validación y por qué CVC-ClinicDB se convirtió en un conjunto de datos de referencia para la IA en colonoscopia."
+image: "images/cvc-clinicdb-cover.svg"
+image-alt: "Sectores radiales que convergen en el centro de un contorno cerrado, idea del mapa de energía WM-DOVA"
+reading-time-display: "5 minutos"
+toc: false
+title-block-banner: false
+engine: markdown
+canonical-url: true
+include-in-header:
+  - text: |
+      <link rel="alternate" hreflang="es" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/">
+      <link rel="alternate" hreflang="en" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/en/">
+      <link rel="alternate" hreflang="x-default" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/">
+format:
+  html:
+    css: cvc-clinicdb.css
+---
+
+:::: {.cvc-article}
+
+<nav class="cvc-lang" aria-label="Idioma del artículo">
+<a href="./" lang="es" hreflang="es" aria-current="page">Español</a>
+<span class="cvc-lang__sep" aria-hidden="true">|</span>
+<a href="en/" lang="en" hreflang="en">English</a>
+</nav>
+
+<section class="cvc-hero">
+<div class="cvc-hero__eyebrow">Reseña · Datos de colonoscopia</div>
+<h1 class="cvc-hero__title">Antes del deep learning: WM-DOVA, CVC-ClinicDB y el origen de un benchmark en colonoscopia</h1>
+<p class="cvc-hero__subtitle">Un método clásico para localizar pólipos y el conjunto de datos anotado que lo sobrevivió.</p>
+<div class="cvc-hero__meta">Juan Sebastián Laverde Chunza · 17 de noviembre de 2026 · 5 minutos de lectura</div>
+<div class="cvc-stats">
+<div class="cvc-stat"><div class="cvc-stat__value">612</div><div class="cvc-stat__label">imágenes anotadas por expertos</div></div>
+<div class="cvc-stat"><div class="cvc-stat__value">31</div><div class="cvc-stat__label">pólipos, de 23 colonoscopias</div></div>
+<div class="cvc-stat"><div class="cvc-stat__value">70,26&nbsp;%</div><div class="cvc-stat__label">localización correcta (430/612)</div></div>
+</div>
+</section>
+
+## ¿Por qué importa este artículo?
+
+La colonoscopia permite detectar y extirpar pólipos antes de que evolucionen a cáncer colorrectal, pero no es infalible: los autores citan tasas de pólipos no detectados de hasta el 22&nbsp;%, más altas en los pólipos pequeños. Ya existían propuestas de visión por computador para señalar zonas sospechosas, pero casi no había imágenes públicas con el pólipo delimitado, y ninguna con información clínica. Sin datos comunes, cada grupo evaluaba con sus propias imágenes y los resultados no eran comparables.
+
+Bernal y colaboradores (Universitat Autònoma de Barcelona, Computer Vision Center y Hospital Clínic de Barcelona) abordaron en 2015 el método y los datos a la vez. Su método, WM-DOVA, hoy está superado; su conjunto de datos, CVC-ClinicDB, se convirtió en una referencia del campo.
+
+## ¿Qué hicieron los investigadores?
+
+**WM-DOVA** (*Window Median Depth of Valleys Accumulation*) parte de un modelo de apariencia: con la luz del colonoscopio, un pólipo se ve como un relieve más iluminado rodeado por "valles" de intensidad más oscuros. Tras atenuar otras fuentes de valles (reflejos, vasos sanguíneos, el borde negro de la imagen), el método explora 180 direcciones alrededor de cada píxel y acumula evidencia de un borde completo, continuo y cóncavo. El resultado es un mapa de energía cuyo máximo es la ubicación propuesta del pólipo.
+
+<div class="cvc-flow" role="img" aria-label="Esquema: imagen de colonoscopia, análisis WM-DOVA, mapa de energía, localización del pólipo">
+<div class="cvc-flow__step">Imagen de colonoscopia</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">Análisis WM-DOVA</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">Mapa de energía</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">Localización del pólipo</div>
+</div>
+<p class="cvc-flow-caption">Esquema conceptual elaborado para esta reseña.</p>
+
+**CVC-ClinicDB** es el aporte que perduró. Los autores extrajeron de 23 colonoscopias con luz blanca las secuencias en las que aparecía un pólipo: 31 secuencias de 31 pólipos distintos. Tras descartar los fotogramas borrosos o con mala preparación intestinal, quedaron 612 imágenes de 576×768 píxeles. Expertos dibujaron en cada una la máscara del pólipo (y otra de los reflejos especulares) y añadieron tamaño, clasificación de París e histología. Según los autores, era la primera base pública totalmente anotada con metadatos clínicos: por fin, distintos métodos podían medirse sobre el mismo material.
+
+## ¿Qué encontraron?
+
+- WM-DOVA situó el máximo de su mapa dentro del pólipo en el **70,26&nbsp;%** de las imágenes (430 de 612), frente al 57,03&nbsp;% de la mejor variante previa del mismo grupo (MSA-DOVA). En la base anterior, CVC-ColonDB (300 imágenes), alcanzó el 72,33&nbsp;%.
+- En promedio, el **89,28&nbsp;%** de la energía del mapa quedó dentro del pólipo, frente al 27,01&nbsp;% de MSA-DOVA.
+- En un estudio piloto con eye-tracking (22 médicos, 11 videos), los mapas de WM-DOVA no mostraron diferencias estadísticamente significativas con la atención visual de los médicos en las tres métricas analizadas, y, en conjunto, se ajustaron mejor a ella que seis modelos genéricos de saliencia visual.
+
+::: {.cvc-callout}
+**Qué mide y qué no.** "Localización correcta" significa que el punto máximo cae dentro de la máscara en una imagen que *ya contiene* un pólipo. No equivale a sensibilidad clínica, ni a exactitud de clasificación, ni a calidad de segmentación. Tampoco es rendimiento en tiempo real: el método tardaba 10,54&nbsp;s por imagen.
+:::
+
+## ¿Cuáles son sus limitaciones?
+
+::: {.cvc-limitation}
+[Reconocidas por los autores]{.cvc-limitation__label}
+
+Fallos con pólipos vistos de lado, mala preparación intestinal y pliegues o lumen que también generan valles; ausencia de información temporal entre fotogramas; y un coste computacional aún alto.
+:::
+
+::: {.cvc-limitation}
+[Evaluación crítica propia]{.cvc-limitation__label}
+
+- **Muestra efectiva pequeña.** Las 612 imágenes provienen de solo 31 pólipos; los fotogramas de una misma secuencia están fuertemente correlacionados, por lo que la evidencia independiente es mucho menor de lo que sugiere el número de imágenes.
+- **Un solo centro y selección de fotogramas.** Un hospital y una exclusión deliberada de imágenes difíciles limitan la extrapolación a otros equipos, poblaciones y condiciones reales.
+- **Sin falsos positivos.** Todas las imágenes contienen un pólipo, así que el protocolo no mide cuántas falsas alarmas produciría el sistema en mucosa sana.
+- **Ajuste cercano a la prueba.** Un parámetro del método se ajustó con 30 imágenes de los mismos videos, lo que introduce un riesgo de fuga de información leve.
+:::
+
+## ¿Por qué sigue siendo relevante?
+
+Nada indica que WM-DOVA sea competitivo frente a las redes neuronales actuales: lo que perduró fue el dato. CVC-ClinicDB formó parte del reto de detección de pólipos de MICCAI 2015, y conjuntos posteriores como Kvasir-SEG lo citan entre sus antecedentes. Durante la década siguiente se convirtió en uno de los conjuntos habituales para entrenar y comparar modelos de segmentación de pólipos.
+
+Ese éxito exige una lectura crítica: un benchmark pequeño y de un solo centro facilita comparar métodos, pero puede premiar modelos que aprenden sus particularidades y luego rinden menos en otros hospitales. La lección vigente es metodológica: anotar con criterio clínico, separar los datos por paciente o secuencia y exigir validación externa antes de hablar de generalización.
+
+## Referencia y artículo original
+
+<p class="cvc-reference">Bernal, J., Sánchez, F. J., Fernández-Esparrach, G., Gil, D., Rodríguez, C., &amp; Vilariño, F. (2015). WM-DOVA maps for accurate polyp highlighting in colonoscopy: Validation vs. saliency maps from physicians. <em>Computerized Medical Imaging and Graphics, 43</em>, 99–111. <a href="https://doi.org/10.1016/j.compmedimag.2015.02.007">https://doi.org/10.1016/j.compmedimag.2015.02.007</a></p>
+
+<div class="cvc-links">
+<a class="cvc-links__primary" href="https://doi.org/10.1016/j.compmedimag.2015.02.007">Leer el artículo científico original (DOI)</a>
+<a href="https://ddd.uab.cat/pub/artpub/2015/326494/BSF2015.pdf">PDF de acceso abierto (manuscrito aceptado)</a>
+<a href="https://polyp.grand-challenge.org/CVCClinicDB/">Dataset CVC-ClinicDB</a>
+</div>
+
+<p class="cvc-note">El DOI conduce a la versión editorial publicada por Elsevier. El PDF abierto es el manuscrito aceptado, alojado en el repositorio de la Universitat Autònoma de Barcelona; puede diferir de la versión editorial en formato y paginación. Las cifras de esta reseña se verificaron en ese manuscrito.</p>
+
+::::

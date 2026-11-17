@@ -77,14 +77,39 @@
     storeLang(lang);
   }
 
+  /* Posts published as separate per-language pages declare
+     <link rel="alternate" hreflang="xx"> in <head>. On those pages the
+     page's own <html lang> wins over the stored preference, and the navbar
+     toggle navigates to the other-language page instead of toggling
+     [data-lang] blocks. The in-page language link (relative href) is
+     preferred so local previews stay local. Pages without alternates
+     keep the original behaviour. */
+  function alternateHref(lang) {
+    var inPage = document.querySelector('main a[hreflang="' + lang + '"]');
+    if (inPage) { return inPage.getAttribute('href'); }
+    var head = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+    return head ? head.getAttribute('href') : null;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var toggle = document.querySelector('a[href$="#lang-toggle"]');
-    var current = getStoredLang() || 'es';
+    var pageLang = document.documentElement.getAttribute('lang');
+    var hasAlternates = !!document.querySelector('link[rel="alternate"][hreflang="es"]') &&
+      !!document.querySelector('link[rel="alternate"][hreflang="en"]');
+    var current = hasAlternates && (pageLang === 'es' || pageLang === 'en')
+      ? pageLang
+      : (getStoredLang() || 'es');
 
     if (toggle) {
       toggle.addEventListener('click', function (evt) {
         evt.preventDefault();
         current = current === 'es' ? 'en' : 'es';
+        var target = hasAlternates ? alternateHref(current) : null;
+        if (target) {
+          storeLang(current);
+          window.location.href = target;
+          return;
+        }
         applyLang(current);
       });
     }

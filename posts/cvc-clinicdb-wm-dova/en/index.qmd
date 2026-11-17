@@ -1,0 +1,114 @@
+---
+title: "Before Deep Learning: WM-DOVA, CVC-ClinicDB, and the Making of a Colonoscopy Benchmark"
+subtitle: "A critical review of Bernal et al. (2015): a classical method for locating polyps, and the annotated dataset that outlived it."
+author: "Juan Sebastián Laverde Chunza"
+date: "2026-11-17"
+lang: en
+categories: [Artificial Intelligence, Medical Imaging, Colonoscopy, Research, Scientific Literature]
+description: "What Bernal and colleagues did in 2015, what WM-DOVA achieved, where its validation falls short, and why CVC-ClinicDB became a reference dataset for AI in colonoscopy."
+image: "../images/cvc-clinicdb-cover.svg"
+image-alt: "Radial sectors converging on the center of a closed contour, the idea behind the WM-DOVA energy map"
+reading-time-display: "5 minutes"
+toc: false
+title-block-banner: false
+engine: markdown
+canonical-url: true
+include-in-header:
+  - text: |
+      <link rel="alternate" hreflang="es" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/">
+      <link rel="alternate" hreflang="en" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/en/">
+      <link rel="alternate" hreflang="x-default" href="https://laverde97.github.io/latent-frontiers/posts/cvc-clinicdb-wm-dova/">
+format:
+  html:
+    css: ../cvc-clinicdb.css
+---
+
+:::: {.cvc-article}
+
+<nav class="cvc-lang" aria-label="Article language">
+<a href="../" lang="es" hreflang="es">Español</a>
+<span class="cvc-lang__sep" aria-hidden="true">|</span>
+<a href="./" lang="en" hreflang="en" aria-current="page">English</a>
+</nav>
+
+<section class="cvc-hero">
+<div class="cvc-hero__eyebrow">Review · Colonoscopy data</div>
+<h1 class="cvc-hero__title">Before Deep Learning: WM-DOVA, CVC-ClinicDB, and the Making of a Colonoscopy Benchmark</h1>
+<p class="cvc-hero__subtitle">A classical method for locating polyps, and the annotated dataset that outlived it.</p>
+<div class="cvc-hero__meta">Juan Sebastián Laverde Chunza · November 17, 2026 · 5-minute read</div>
+<div class="cvc-stats">
+<div class="cvc-stat"><div class="cvc-stat__value">612</div><div class="cvc-stat__label">expert-annotated images</div></div>
+<div class="cvc-stat"><div class="cvc-stat__value">31</div><div class="cvc-stat__label">polyps, from 23 colonoscopies</div></div>
+<div class="cvc-stat"><div class="cvc-stat__value">70.26%</div><div class="cvc-stat__label">correct localization (430/612)</div></div>
+</div>
+</section>
+
+## Why does this paper matter?
+
+Colonoscopy makes it possible to find and remove polyps before they progress to colorectal cancer, but it is not infallible: the authors cite polyp miss rates of up to 22%, higher for small polyps. Computer-vision approaches for flagging suspicious regions already existed, but there were almost no public images with the polyp outlined, and none with clinical information. Without shared data, each group evaluated on its own images, and results could not be compared.
+
+In 2015, Bernal and colleagues (Universitat Autònoma de Barcelona, Computer Vision Center, and Hospital Clínic de Barcelona) addressed the method and the data together. Their method, WM-DOVA, has since been superseded; their dataset, CVC-ClinicDB, became a reference for the field.
+
+## What did the researchers do?
+
+**WM-DOVA** (*Window Median Depth of Valleys Accumulation*) starts from an appearance model: under the colonoscope's light, a polyp looks like a brighter bump surrounded by darker intensity "valleys". After suppressing other sources of valleys (reflections, blood vessels, the black image border), the method scans 180 directions around each pixel and accumulates evidence of a complete, continuous, and concave boundary. The output is an energy map whose maximum is the proposed polyp location.
+
+<div class="cvc-flow" role="img" aria-label="Diagram: colonoscopy image, WM-DOVA analysis, energy map, polyp localization">
+<div class="cvc-flow__step">Colonoscopy image</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">WM-DOVA analysis</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">Energy map</div>
+<div class="cvc-flow__arrow" aria-hidden="true">→</div>
+<div class="cvc-flow__step">Polyp localization</div>
+</div>
+<p class="cvc-flow-caption">Conceptual diagram prepared for this review.</p>
+
+**CVC-ClinicDB** is the contribution that lasted. From 23 white-light colonoscopies, the authors extracted every sequence showing a polyp: 31 sequences of 31 different polyps. After discarding blurred frames and frames with poor bowel preparation, 612 images of 576×768 pixels remained. Experts drew a polyp mask on each image (plus a mask of specular highlights) and added polyp size, Paris classification, and histology. According to the authors, it was the first fully annotated public database with clinical metadata: different methods could finally be measured on the same material.
+
+## What did they find?
+
+- WM-DOVA placed the maximum of its map inside the polyp in **70.26%** of images (430 of 612), compared with 57.03% for the group's best earlier variant (MSA-DOVA). On the older CVC-ColonDB database (300 images), it reached 72.33%.
+- On average, **89.28%** of the map's energy fell inside the polyp, compared with 27.01% for MSA-DOVA.
+- In a pilot eye-tracking study (22 physicians, 11 videos), WM-DOVA maps showed no statistically significant differences from physicians' visual attention on the three metrics analyzed and, overall, matched it better than six generic visual-saliency models.
+
+::: {.cvc-callout}
+**What this measures, and what it does not.** "Correct localization" means that the peak falls inside the mask in an image that *already contains* a polyp. It is not clinical sensitivity, classification accuracy, or segmentation quality. Nor is it real-time performance: the method took 10.54 s per image.
+:::
+
+## What are its limitations?
+
+::: {.cvc-limitation}
+[Acknowledged by the authors]{.cvc-limitation__label}
+
+Failures with polyps seen from the side, poor bowel preparation, and folds or lumen that also produce valleys; no temporal information across frames; and a still-high computational cost.
+:::
+
+::: {.cvc-limitation}
+[My own critical assessment]{.cvc-limitation__label}
+
+- **Small effective sample.** The 612 images come from only 31 polyps. Frames from the same sequence are strongly correlated, so there is far less independent evidence than the image count suggests.
+- **Single center and frame selection.** One hospital and the deliberate exclusion of difficult frames limit extrapolation to other equipment, populations, and real-world conditions.
+- **No false positives.** Every image contains a polyp, so the protocol cannot measure how many false alarms the system would raise on healthy mucosa.
+- **Tuning close to the test data.** One parameter was tuned on 30 images from the same videos, which introduces a mild risk of information leakage.
+:::
+
+## Why is it still relevant?
+
+There is no evidence that WM-DOVA is competitive with today's neural networks: what lasted was the data. CVC-ClinicDB was part of the MICCAI 2015 polyp-detection challenge, and later datasets such as Kvasir-SEG cite it among their predecessors. Over the following decade it became one of the standard datasets for training and comparing polyp-segmentation models.
+
+That success calls for a critical reading: a small, single-center benchmark makes methods easy to compare, but it can reward models that learn its particularities and then perform worse in other hospitals. The lasting lesson is methodological: annotate with clinical criteria, split data by patient or sequence, and require external validation before claiming generalization.
+
+## Reference and original article
+
+<p class="cvc-reference">Bernal, J., Sánchez, F. J., Fernández-Esparrach, G., Gil, D., Rodríguez, C., &amp; Vilariño, F. (2015). WM-DOVA maps for accurate polyp highlighting in colonoscopy: Validation vs. saliency maps from physicians. <em>Computerized Medical Imaging and Graphics, 43</em>, 99–111. <a href="https://doi.org/10.1016/j.compmedimag.2015.02.007">https://doi.org/10.1016/j.compmedimag.2015.02.007</a></p>
+
+<div class="cvc-links">
+<a class="cvc-links__primary" href="https://doi.org/10.1016/j.compmedimag.2015.02.007">Read the original scientific article (DOI)</a>
+<a href="https://ddd.uab.cat/pub/artpub/2015/326494/BSF2015.pdf">Open-access PDF (accepted manuscript)</a>
+<a href="https://polyp.grand-challenge.org/CVCClinicDB/">CVC-ClinicDB dataset</a>
+</div>
+
+<p class="cvc-note">The DOI resolves to the version of record published by Elsevier. The open PDF is the accepted manuscript, hosted in the Universitat Autònoma de Barcelona repository; it may differ from the version of record in formatting and pagination. The figures in this review were checked against that manuscript.</p>
+
+::::

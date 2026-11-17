@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="cvcc-t cvcc-d">
+  <title id="cvcc-t">Sectores radiales que convergen en el centro de un contorno cerrado, idea del mapa de energía WM-DOVA</title>
+  <desc id="cvcc-d">Portada conceptual original de la reseña sobre WM-DOVA y CVC-ClinicDB (Bernal et al., 2015). No contiene imágenes clínicas.</desc>
+  <defs>
+    <linearGradient id="cvcc-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0B1E3D"/><stop offset="1" stop-color="#12305C"/></linearGradient>
+    <radialGradient id="cvcc-heat" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#4FA3D1" stop-opacity="0.85"/><stop offset="0.55" stop-color="#4FA3D1" stop-opacity="0.25"/><stop offset="1" stop-color="#4FA3D1" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#cvcc-bg)"/>
+  <g>
+        <line x1="670.0" y1="315.0" x2="830.0" y2="315.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="668.9" y1="327.2" x2="826.5" y2="354.9" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="665.8" y1="338.9" x2="816.1" y2="393.7" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="660.6" y1="350.0" x2="799.2" y2="430.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="653.6" y1="360.0" x2="776.2" y2="462.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="645.0" y1="368.6" x2="747.8" y2="491.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="635.0" y1="375.6" x2="715.0" y2="514.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="623.9" y1="380.8" x2="678.7" y2="531.1" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="612.2" y1="383.9" x2="639.9" y2="541.5" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="600.0" y1="385.0" x2="600.0" y2="545.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="587.8" y1="383.9" x2="560.1" y2="541.5" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="576.1" y1="380.8" x2="521.3" y2="531.1" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="565.0" y1="375.6" x2="485.0" y2="514.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="555.0" y1="368.6" x2="452.2" y2="491.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="546.4" y1="360.0" x2="423.8" y2="462.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="539.4" y1="350.0" x2="400.8" y2="430.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="534.2" y1="338.9" x2="383.9" y2="393.7" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="531.1" y1="327.2" x2="373.5" y2="354.9" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="530.0" y1="315.0" x2="370.0" y2="315.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="531.1" y1="302.8" x2="373.5" y2="275.1" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="534.2" y1="291.1" x2="383.9" y2="236.3" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="539.4" y1="280.0" x2="400.8" y2="200.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="546.4" y1="270.0" x2="423.8" y2="167.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="555.0" y1="261.4" x2="452.2" y2="138.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="565.0" y1="254.4" x2="485.0" y2="115.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="576.1" y1="249.2" x2="521.3" y2="98.9" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="587.8" y1="246.1" x2="560.1" y2="88.5" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="600.0" y1="245.0" x2="600.0" y2="85.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="612.2" y1="246.1" x2="639.9" y2="88.5" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="623.9" y1="249.2" x2="678.7" y2="98.9" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="635.0" y1="254.4" x2="715.0" y2="115.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="645.0" y1="261.4" x2="747.8" y2="138.8" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="653.6" y1="270.0" x2="776.2" y2="167.2" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="660.6" y1="280.0" x2="799.2" y2="200.0" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="665.8" y1="291.1" x2="816.1" y2="236.3" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+    <line x1="668.9" y1="302.8" x2="826.5" y2="275.1" stroke="#4FA3D1" stroke-opacity="0.35" stroke-width="2"/>
+  </g>
+  <polygon points="757.0,315.0 758.8,326.4 758.1,337.9 754.8,349.0 749.6,359.6 742.8,369.6 735.0,378.9 726.7,387.7 717.8,396.1 708.6,404.0 698.7,411.5 688.2,418.3 676.8,424.0 664.5,428.4 651.6,431.3 638.4,432.4 625.2,432.1 612.3,430.5 600.0,428.2 588.2,425.6 576.7,423.4 565.1,421.7 553.1,420.6 540.3,419.9 526.8,419.0 512.5,417.4 498.2,414.5 484.4,409.8 472.1,403.0 461.9,394.3 454.5,383.9 449.9,372.4 448.1,360.3 448.7,348.3 450.8,336.6 453.8,325.5 457.0,315.0 460.0,305.0 462.6,295.1 465.1,285.4 467.7,275.5 470.9,265.6 475.2,255.9 480.9,246.6 488.0,237.9 496.4,230.1 505.9,223.0 516.1,216.7 526.7,211.0 537.7,205.5 549.0,200.1 560.7,194.8 573.1,189.8 586.2,185.4 600.0,182.2 614.3,180.6 628.8,181.1 642.8,184.1 655.7,189.5 667.1,197.0 676.7,206.0 684.6,215.9 691.0,226.0 696.6,235.8 701.9,244.9 707.7,253.2 714.3,260.9 721.8,268.4 730.0,276.2 738.4,284.6 746.2,293.9 752.7,304.0" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-opacity="0.9" stroke-linejoin="round"/>
+  <ellipse cx="600" cy="315" rx="120" ry="100" fill="url(#cvcc-heat)"/>
+  <circle cx="600" cy="315" r="11" fill="#FFFFFF"/>
+  <circle cx="600" cy="315" r="24" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+</svg>
