@@ -1,0 +1,323 @@
+/* Namespace: .cvc- (reseña de CVC-ClinicDB / WM-DOVA, Bernal et al. 2015).
+   Mismo patrón editorial que crc-histologia.css: reutiliza los tokens
+   globales --lf-* (theme.scss) con fallback en hex. Compartido por la
+   versión en español (index.qmd) y en inglés (en/index.qmd). */
+
+#title-block-header {
+  display: none;
+}
+
+:root {
+  --cvc-blue: var(--lf-blue, #1D4E89);
+  --cvc-navy: var(--lf-navy, #0B1E3D);
+  --cvc-sky: var(--lf-sky, #4FA3D1);
+  --cvc-ink: var(--lf-ink, #1A1A1A);
+  --cvc-body: var(--lf-body, #33333A);
+  --cvc-muted: var(--lf-muted, #6B7280);
+  --cvc-line: var(--lf-line, #E2E8F0);
+  --cvc-surface: var(--lf-surface, #F7F9FC);
+  --cvc-serif: var(--lf-serif, Georgia, "Iowan Old Style", "Palatino Linotype", serif);
+  --cvc-radius: 10px;
+}
+
+.cvc-article {
+  max-width: 760px;
+  margin-inline: auto;
+  color: var(--cvc-body);
+}
+
+.cvc-article p,
+.cvc-article li {
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.cvc-article h2 {
+  font-family: var(--cvc-serif);
+  color: var(--cvc-ink);
+  margin-top: 2.6rem;
+  margin-bottom: 0.9rem;
+  font-size: 1.5rem;
+}
+
+/* ---------- Selector de idioma ---------- */
+
+.cvc-lang {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.cvc-lang__sep {
+  color: var(--cvc-line);
+}
+
+.cvc-lang a {
+  color: var(--cvc-blue);
+  text-decoration: none;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.cvc-lang a:hover,
+.cvc-lang a:focus-visible {
+  border-color: var(--cvc-blue);
+}
+
+.cvc-lang a[aria-current="page"] {
+  color: #fff;
+  background: var(--cvc-blue);
+  border-color: var(--cvc-blue);
+}
+
+/* ---------- Hero ---------- */
+
+.cvc-hero {
+  margin: 0.5rem auto 2.2rem;
+  text-align: center;
+}
+
+.cvc-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cvc-blue);
+  margin-bottom: 0.7rem;
+}
+
+.cvc-hero__title {
+  font-family: var(--cvc-serif);
+  font-size: clamp(1.8rem, 1.4rem + 2vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cvc-ink);
+  margin: 0 0 0.7rem;
+}
+
+.cvc-hero__subtitle {
+  font-size: clamp(1rem, 0.92rem + 0.3vw, 1.15rem);
+  color: var(--cvc-blue);
+  font-weight: 500;
+  max-width: 40rem;
+  margin: 0 auto 1rem;
+  line-height: 1.5;
+}
+
+.cvc-hero__meta {
+  font-size: 0.85rem;
+  color: var(--cvc-muted);
+  margin-bottom: 1.8rem;
+}
+
+/* ---------- Datos clave ---------- */
+
+.cvc-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.3rem 0;
+  border-top: 1px solid var(--cvc-line);
+  border-bottom: 1px solid var(--cvc-line);
+}
+
+.cvc-stat__value {
+  font-family: var(--cvc-serif);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 1.9rem);
+  font-weight: 600;
+  color: var(--cvc-navy);
+  line-height: 1.1;
+}
+
+.cvc-stat__label {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--cvc-muted);
+  margin-top: 0.35rem;
+}
+
+/* ---------- Esquema conceptual ---------- */
+
+.cvc-flow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.5rem;
+  margin: 1.6rem auto 0.6rem;
+}
+
+.cvc-flow__step {
+  flex: 1 1 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.85rem 0.7rem;
+  border: 1px solid var(--cvc-line);
+  border-radius: var(--cvc-radius);
+  background: #fff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cvc-ink);
+  min-height: 3.4rem;
+}
+
+.cvc-flow__arrow {
+  display: flex;
+  align-items: center;
+  color: var(--cvc-muted);
+  font-size: 1.15rem;
+  flex: 0 0 auto;
+}
+
+.cvc-flow-caption {
+  text-align: center;
+  font-size: 0.85rem !important;
+  color: var(--cvc-muted);
+  margin-bottom: 1.6rem;
+}
+
+/* ---------- Aclaración y limitaciones ---------- */
+
+.cvc-callout,
+.cvc-limitation {
+  margin: 1.4rem 0;
+  padding: 1rem 1.3rem;
+  background: var(--cvc-surface);
+  border-radius: 0 8px 8px 0;
+}
+
+.cvc-callout {
+  border-left: 3px solid var(--cvc-sky);
+}
+
+.cvc-limitation {
+  border-left: 3px solid var(--cvc-muted);
+}
+
+.cvc-limitation__label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cvc-muted);
+  margin-bottom: 0.4rem;
+}
+
+.cvc-callout p,
+.cvc-limitation p,
+.cvc-limitation li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--cvc-body);
+}
+
+.cvc-callout p:last-child,
+.cvc-limitation p:last-child,
+.cvc-limitation ul {
+  margin-bottom: 0;
+}
+
+/* ---------- Referencia y enlaces al original ---------- */
+
+.cvc-reference {
+  margin: 1rem 0 1.4rem;
+  padding: 1rem 1.3rem;
+  border: 1px solid var(--cvc-line);
+  border-radius: var(--cvc-radius);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding-left: 3.3rem;
+  text-indent: -2rem;
+  overflow-wrap: anywhere;
+}
+
+/* Pandoc envuelve los enlaces en un <p>: el flex se aplica a ambos niveles. */
+.cvc-links,
+.cvc-links > p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cvc-links {
+  margin: 0 0 1rem;
+}
+
+.cvc-links > p {
+  width: 100%;
+  margin: 0;
+}
+
+.cvc-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--cvc-blue);
+  color: var(--cvc-blue);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cvc-links a.cvc-links__primary {
+  background: var(--cvc-blue);
+  color: #fff;
+}
+
+.cvc-links a:hover,
+.cvc-links a:focus-visible {
+  background: var(--cvc-navy);
+  border-color: var(--cvc-navy);
+  color: #fff;
+}
+
+.cvc-note {
+  font-size: 0.85rem !important;
+  color: var(--cvc-muted);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 767.98px) {
+  .cvc-stats {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+
+  .cvc-flow {
+    flex-direction: column;
+  }
+
+  .cvc-flow__step {
+    flex: 0 0 auto;
+    min-height: 2.8rem;
+  }
+
+  .cvc-flow__arrow {
+    transform: rotate(90deg);
+    justify-content: center;
+  }
+
+  .cvc-links a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .cvc-reference {
+    padding-left: 2.6rem;
+    text-indent: -1.5rem;
+  }
+}
