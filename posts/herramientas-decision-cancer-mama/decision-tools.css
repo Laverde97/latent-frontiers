@@ -757,3 +757,62 @@
   outline: 2px solid var(--dst-blue);
   outline-offset: 2px;
 }
+
+/* ---------- Conclusiones: hallazgo del estudio frente a interpretación ---------- */
+
+.dst-lessons {
+  display: grid;
+  gap: 1rem;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.dst-lesson {
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--dst-line);
+  border-left: 3px solid var(--dst-blue);
+  border-radius: 0 var(--dst-radius) var(--dst-radius) 0;
+  background: #fff;
+}
+
+#quarto-document-content .dst-lesson h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.08rem;
+  color: var(--dst-navy);
+}
+
+#quarto-document-content .dst-lesson p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  margin-bottom: 0.55rem;
+}
+
+#quarto-document-content .dst-lesson p:last-child {
+  margin-bottom: 0;
+}
+
+.dst-tag {
+  display: inline-block;
+  margin-right: 0.4rem;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  vertical-align: 0.08em;
+}
+
+.dst-tag--study {
+  background: var(--dst-surface);
+  color: var(--dst-blue);
+  border: 1px solid var(--dst-line);
+}
+
+.dst-tag--mine {
+  background: var(--dst-navy);
+  color: #fff;
+}
+
+.dst-details--note table.dst-table--disc {
+  margin-top: 0.4rem;
+}
