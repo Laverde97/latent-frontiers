@@ -176,7 +176,7 @@ Tabla 1: blancas 68,2–83,9 %, casadas 71,1–86,0 %. Tabla 2: blancas 0–93,0
 | 7 | p. 1520 | EE. UU., Europa, Australia, Japón y Corea | La Tabla 2 incluye datos de Harbin (China) | V (el criterio de «país» no está definido) |
 | 8 | Abreviaturas de la Tabla 2 | «AT aromatase inhibitor» | La tabla usa «AI» | E |
 | 9 | Celdas | «PMR», «breast reduction», «Rocket Mountain», «2 of more», «mellitus», «predict future … patients» | Erratas aparentes conservadas | E |
-| 10 | Fig. 1 | Asteriscos * y ** | Notas de la plantilla PRISMA 2020 no reproducidas | E |
+| 10 | Fig. 1 | Asteriscos `*` y `**` | Notas de la plantilla PRISMA 2020 no reproducidas | E |
 
 **No son discrepancias (verificado):** la media IPDAS de 15,57 sobre 51 se redondea correctamente a 16 (solo falta explicitar el denominador); la supervivencia global aparece en 18 herramientas por texto explícito y en 20 si se incluyen las referencias 85 y 86, como hace el artículo; validación, usuarios, raza, factores contextuales y metástasis de la Tabla 2 cuadran; la cita sobre la FDA (ref. 26) es una cita indirecta (*NEJM*).
 
