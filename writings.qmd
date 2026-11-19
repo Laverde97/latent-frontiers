@@ -10,6 +10,7 @@ listing:
     - "!posts/liquid-time-constant-networks/slides.qmd"
     - "!posts/liquid-time-constant-networks/analysis/*.ipynb"
     - "!posts/cvc-clinicdb-wm-dova/en/*"
+    - "!posts/herramientas-decision-cancer-mama/en/*"
   type: table
   sort: "date desc"
   sort-ui: false
