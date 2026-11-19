@@ -80,7 +80,7 @@ Inclusión: (1) adultos ≥ 18 años, mujeres u hombres, con cáncer de mama; (2
 - Duplicados eliminados: 2.292. Registros cribados: 3.017. Excluidos: 2.646.
 - Informes buscados: 371; no recuperados: 0; evaluados: 371; excluidos: 319 (98 contexto, 38 anteriores a 2013, 36 diseño, 36 resúmenes, 27 intervención, 24 herramienta inaccesible, 20 resultados, 17 población, 3 protocolos, 1 vía, 19 prevención y tamizaje).
 - Incluidos: 46 estudios + 8 estudios de validación.
-- Comprobaciones aritméticas: 5.237 + 72 − 2.292 = 3.017 ✔; 3.017 − 2.646 = 371 ✔; la suma de las exclusiones es 319 ✔; **371 − 319 = 52 ≠ 46** ✘.
+- Comprobaciones aritméticas: 5.237 + 72 − 2.292 = 3.017 ✔; 3.017 − 2.646 = 371 ✔; la suma de las exclusiones es 319 ✔; 371 − 319 = **52 informes** frente a **46 estudios** (+8 de validación): diferencia no documentada que requiere verificación (ver §9, clase V).
 
 ### 4.2 Recuentos derivados de las tablas (transcritas íntegramente)
 | Indicador | Tabla 1 (n = 11) | Tabla 2 (n = 43) | Total |
@@ -162,20 +162,25 @@ Tabla 1: blancas 68,2–83,9 %, casadas 71,1–86,0 %. Tabla 2: blancas 0–93,0
 - **América Latina:** ninguna herramienta procede de la región. Cualquier adopción requiere validación externa local y recalibración, además de traducción y adaptación cultural de los componentes comunicativos.
 
 ## 9. Registro de discrepancias (sin corregir el estudio)
-| # | Ubicación | Texto del artículo | Evidencia en el propio artículo |
-|---|---|---|---|
-| 1 | Fig. 1 | 371 evaluados, 319 excluidos, 46 incluidos (+8) | 371 − 319 = 52 |
-| 2 | p. 1499, usuarios en la Tabla 1 | 2 pacientes, 4 médicos y 9 ambos | La Tabla 1 da 2, 4 y 5 (la suma del texto es 15 de 11) |
-| 3 | p. 1505, validación en la Tabla 1 | «three tools did not undergo any validation [17, 45, 49]» | 4 herramientas: Age Gap 1 y 2 comparten la referencia 49 |
-| 4 | p. 1505 | «All tools included individual and clinical characteristics» | BRECONDA aparece con «-» en esa columna |
-| 5 | Tabla 1 frente a p. 1505 | BTxChoice y ROW: «Yes» en usabilidad | El texto dice que no reportaron resultados (en curso) |
-| 6 | p. 1520 | «unable to access 23 tools» | 24 aparecen con «Limited availability» (el criterio podría diferir) |
-| 7 | p. 1520 | Herramientas de EE. UU., Europa, Australia, Japón y Corea | La Tabla 2 incluye el Harbin Medical University Cancer Hospital (China) |
-| 8 | Abreviaturas de la Tabla 2 | «AT aromatase inhibitor» | La tabla usa «AI» |
-| 9 | p. 1518 | Media IPDAS de 16 | 15,57 sobre 51 (denominador no explícito) |
-| 10 | Celdas de las tablas | «PMR», «breast reduction», «Rocket Mountain», «2 of more», «mellitus», «predict future … patients» | Erratas aparentes, conservadas y marcadas en la reseña |
-| 11 | Ref. 26 | «FDA issued a guidance» | Se cita un comentario del *NEJM*, no el documento de la FDA |
-| 12 | Fig. 1 | Asteriscos * y ** | Sin nota explicativa en la leyenda |
+
+*Revisado en la auditoría del 19-11-2026.* Clasificación: **D** = inconsistencia demostrable; **M** = diferencia explicable por criterios metodológicos, definiciones o denominadores; **E** = posible errata editorial; **V** = requiere verificación adicional.
+
+| # | Ubicación | Texto del artículo | Evidencia en el propio artículo | Clase |
+|---|---|---|---|---|
+| 1 | Fig. 1 | 371 informes evaluados, 319 excluidos; 46 estudios (+8) | 371 − 319 = 52 informes; PRISMA 2020 distingue informes de estudios, pero la correspondencia 52 → 46 y el origen de los 8 estudios de validación no se documentan; el texto dice «46 articles» | V |
+| 2 | p. 1499, usuarios de la Tabla 1 | 2 pacientes, 4 médicos y «nine» para ambos [13, 14, 44–46] | Tabla y referencias: 5 para ambos; la suma del texto es 15 de 11 | D (probable errata «nine» por «five») |
+| 3 | p. 1505, validación de la Tabla 1 | «three tools did not undergo any validation [17, 45, 49]» | 4 herramientas; la ref. 49 contiene dos (Age Gap 1 y 2); el resumen (45 validadas) cuadra con las tablas | M (conteo por referencias) |
+| 4 | p. 1505 | «All tools included individual and clinical characteristics» | BRECONDA con «-» en esa columna | D menor / V |
+| 5 | Tabla 1, p. 1505 y resumen | BTxChoice y ROW con «Yes»; «nine had undergone usability testing» | El texto dice que esas dos no reportaron resultados (pruebas en curso) | M (la columna registra la existencia de pruebas) |
+| 6 | p. 1520 | «unable to access 23 tools» | 24 con «Limited availability» (categoría más amplia: investigador principal, suplementos, sección de resultados) | M; no es discrepancia |
+| 7 | p. 1520 | EE. UU., Europa, Australia, Japón y Corea | La Tabla 2 incluye datos de Harbin (China) | V (el criterio de «país» no está definido) |
+| 8 | Abreviaturas de la Tabla 2 | «AT aromatase inhibitor» | La tabla usa «AI» | E |
+| 9 | Celdas | «PMR», «breast reduction», «Rocket Mountain», «2 of more», «mellitus», «predict future … patients» | Erratas aparentes conservadas | E |
+| 10 | Fig. 1 | Asteriscos * y ** | Notas de la plantilla PRISMA 2020 no reproducidas | E |
+
+**No son discrepancias (verificado):** la media IPDAS de 15,57 sobre 51 se redondea correctamente a 16 (solo falta explicitar el denominador); la supervivencia global aparece en 18 herramientas por texto explícito y en 20 si se incluyen las referencias 85 y 86, como hace el artículo; validación, usuarios, raza, factores contextuales y metástasis de la Tabla 2 cuadran; la cita sobre la FDA (ref. 26) es una cita indirecta (*NEJM*).
+
+**Auditoría de transcripción:** la comparación carácter a carácter de las páginas 5–9 y 11–22 del PDF con la extracción no encuentra ningún carácter faltante; los 54 registros limpios coinciden con el texto bruto, salvo la nota «- = None», que se trasladó a las notas al pie.
 
 ## 10. Implicaciones para la IA aplicada a la oncología
 1. **El cuello de botella es la evidencia, no el algoritmo.** Solo 4 de 54 herramientas declaran aprendizaje automático o IA, y no destacan en validación ni en calidad comunicativa.

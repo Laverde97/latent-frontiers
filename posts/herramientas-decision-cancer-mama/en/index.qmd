@@ -25,8 +25,6 @@ format:
     css: ../decision-tools.css
 ---
 
-:::: {.dst-article}
-
 <nav class="dst-lang" aria-label="Article language">
 <a href="../" lang="es" hreflang="es">Español</a>
 <span class="dst-lang__sep" aria-hidden="true">|</span>
@@ -41,7 +39,7 @@ format:
 <div class="dst-stats">
 <div class="dst-stat"><div class="dst-stat__value">54</div><div class="dst-stat__label">personalized web tools (11 for treatment, 43 for other outcomes)</div></div>
 <div class="dst-stat"><div class="dst-stat__value">45</div><div class="dst-stat__label">with some reported validation (internal and/or external)</div></div>
-<div class="dst-stat"><div class="dst-stat__value">9</div><div class="dst-stat__label">with usability, feasibility or acceptability testing</div></div>
+<div class="dst-stat"><div class="dst-stat__value">9</div><div class="dst-stat__label">with reported usability, feasibility or acceptability testing (2 still in progress)</div></div>
 <div class="dst-stat"><div class="dst-stat__value">16<span class="dst-stat__unit">/63</span></div><div class="dst-stat__label">mean IPDAS score (range 6–46; 51 assessed)</div></div>
 </div>
 </section>
@@ -86,9 +84,9 @@ A **scoping review** maps the available evidence on a broad topic: what exists, 
 
 <div class="dst-compare" role="table" aria-label="Comparison of review types">
 <div class="dst-compare__row dst-compare__head" role="row"><div role="columnheader">Type</div><div role="columnheader">Typical question</div><div role="columnheader">Risk-of-bias assessment</div><div role="columnheader">Quantitative synthesis</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Scoping review</strong></div><div role="cell">What exists and how has it been studied?</div><div role="cell">Optional (here, quality was assessed with IPDAS)</div><div role="cell">No; counts and descriptions</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Systematic review</strong></div><div role="cell">What is the effect of X on Y?</div><div role="cell">Required, per study</div><div role="cell">Optional</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Meta-analysis</strong></div><div role="cell">What is the pooled effect and how precise is it?</div><div role="cell">Required</div><div role="cell">Yes; combines estimates with statistical models</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Scoping review</strong></div><div role="cell" data-label="Typical question">What exists and how has it been studied?</div><div role="cell" data-label="Risk-of-bias assessment">Optional (here, quality was assessed with IPDAS)</div><div role="cell" data-label="Quantitative synthesis">No; counts and descriptions</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Systematic review</strong></div><div role="cell" data-label="Typical question">What is the effect of X on Y?</div><div role="cell" data-label="Risk-of-bias assessment">Required, per study</div><div role="cell" data-label="Quantitative synthesis">Optional</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Meta-analysis</strong></div><div role="cell" data-label="Typical question">What is the pooled effect and how precise is it?</div><div role="cell" data-label="Risk-of-bias assessment">Required</div><div role="cell" data-label="Quantitative synthesis">Yes; combines estimates with statistical models</div></div>
 </div>
 <p class="dst-figcaption">Conceptual comparison prepared for this review.</p>
 
@@ -107,7 +105,7 @@ The review followed the framework of Arksey and O'Malley, extended by Levac and 
 ### Search
 
 - **Databases:** PubMed, PsycInfo, Embase, Scopus, Web of Science and the Cochrane Database of Systematic Reviews, plus screening of the reference lists of included articles.
-- **Strategy:** a combination of keywords, synonyms, MeSH and Emtree terms on clinical decision tools, survivorship, treatment, web-based, personalization and breast cancer. An NIH librarian pilot-tested it on 50 articles and refined it. The full strategy is in Supplemental Table 2, which was not reviewed for this article.
+- **Strategy:** a combination of keywords, synonyms, MeSH and Emtree terms on clinical decision tools, survivorship, treatment, web-based, personalization and breast cancer. A trained NIH librarian pilot-tested it on 50 articles and refined it. The full strategy is in Supplemental Table 2, which was not reviewed for this article.
 - **Period:** tools developed between 2013 and 2023; the most recent search was on **May 12, 2023**.
 
 ### Inclusion criteria
@@ -116,7 +114,7 @@ Articles had to meet five conditions: (1) adults (≥ 18 years), female or male,
 
 ### Selection and extraction
 
-Four team members screened titles and abstracts, then full texts, in Covidence; disagreements were resolved by discussion. The article does not report how many reviewers assessed each record or any measure of agreement. One valuable methodological detail: **the authors visited each website and tested the tools with pseudo-patient characteristics** to identify which inputs they used and which outcomes they returned. When there was no public site, they used screenshots and the methods sections of the articles, and they contacted corresponding authors for missing information.
+Four team members (KW, DK, JZ, LS) screened titles and abstracts in Covidence; a second round applied the same criteria to the full texts, and disagreements were resolved by discussion. The article does not report how many reviewers assessed each record or any measure of agreement. One valuable methodological detail: **the authors visited each website and tested the tools with pseudo-patient characteristics** to identify which inputs they used and which outcomes they returned. When there was no public site, they used screenshots and the methods sections of the articles, and they contacted corresponding authors for missing information.
 
 For each tool they extracted the name and purpose, target population, intervention, data source and methods, input factors (individual, clinical, genomic, behavioral, contextual), outcomes, target users and date of last update. From the validation and testing studies they extracted the distribution of race and ethnicity, education, income, marital status and insurance.
 
@@ -139,8 +137,8 @@ The authors applied the **International Patient Decision Aid Standards (IPDAS)**
 ### Figure 1. Study selection
 
 <figure class="dst-figure dst-figure--prisma">
-<img src="../images/prisma-en.svg" alt="PRISMA flow diagram. Identification: 5,237 database records (PubMed 1,957, Embase 862, Cochrane 252, Web of Science 1,238, Scopus 838, PsycINFO 90) and 72 from citation searching; 2,292 duplicates removed. Screening: 3,017 records screened, 2,646 excluded; 371 reports sought, 0 not retrieved; 371 assessed for eligibility and 319 excluded (98 inapplicable setting, 38 tool developed prior to 2013, 36 inapplicable study design, 36 conference abstracts, 27 inapplicable intervention, 24 online tool inaccessible, broken or no link, 20 inapplicable outcomes, 17 inapplicable patient population, 3 protocols, 1 inapplicable route of administration, 19 related to prevention and screening). Included: 46 studies plus 8 validation studies." loading="lazy">
-<figcaption><strong>Figure 1.</strong> Article identification process. Redrawn from Figure 1 of Wojcik et al. (2025), <a href="https://doi.org/10.1007/s11764-024-01567-6">doi:10.1007/s11764-024-01567-6</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; the original template is from Page et al., <em>BMJ</em> 2021;372:n71 (PRISMA 2020). Changes: vector redrawing and a bullet added to "Web of Science", which has none in the original. All numbers, boxes and arrows are kept. The asterisks (* and **) appear in the original without an explanatory note.</figcaption>
+<a href="../images/prisma-en.svg" class="dst-figure__zoom" title="Open the figure at full size"><img src="../images/prisma-en.svg" alt="PRISMA flow diagram. Identification: 5,237 database records (PubMed 1,957, Embase 862, Cochrane 252, Web of Science 1,238, Scopus 838, PsycINFO 90) and 72 from citation searching; 2,292 duplicates removed. Screening: 3,017 records screened, 2,646 excluded; 371 reports sought, 0 not retrieved; 371 assessed for eligibility and 319 excluded (98 inapplicable setting, 38 tool developed prior to 2013, 36 inapplicable study design, 36 conference abstracts, 27 inapplicable intervention, 24 online tool inaccessible, broken or no link, 20 inapplicable outcomes, 17 inapplicable patient population, 3 protocols, 1 inapplicable route of administration, 19 related to prevention and screening). Included: 46 studies plus 8 validation studies." loading="lazy"></a>
+<figcaption><strong>Figure 1.</strong> Article identification process. Redrawn from Figure 1 of Wojcik et al. (2025), <a href="https://doi.org/10.1007/s11764-024-01567-6">doi:10.1007/s11764-024-01567-6</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; the original template is from Page et al., <em>BMJ</em> 2021;372:n71 (PRISMA 2020). Changes: vector redrawing and a bullet added to "Web of Science", which has none in the original. All numbers, boxes and arrows are kept. The asterisks (* and **) are call-outs from the PRISMA 2020 template whose notes are not reproduced in the original caption. Tap or click the figure to view it at full size.</figcaption>
 </figure>
 
 ::: {.dst-interpret}
@@ -148,7 +146,9 @@ The authors applied the **International Patient Decision Aid Standards (IPDAS)**
 
 The funnel is huge: of more than 5,000 records, only 46 articles (plus 8 validation studies) made it to the end. The largest source of full-text exclusion was "inapplicable setting" (98), and 24 reports were dropped because the online tool was **inaccessible, broken or had no link**. That last figure already says something about the problem the review sets out to illuminate: many published tools disappear or are not maintained.
 
-The arithmetic holds for almost the whole diagram: 5,237 + 72 − 2,292 = 3,017, and 3,017 − 2,646 = 371. But **371 − 319 = 52**, not 46. The article does not explain this six-report gap. Several reports may belong to the same study, or the "+ 8 validation studies" may be counted separately, but this is not documented. It is a minor inconsistency that does not change the conclusions, but it does affect traceability.
+The arithmetic holds for almost the whole diagram: 5,237 + 72 − 2,292 = 3,017, and 3,017 − 2,646 = 371. The last step needs careful reading: 371 − 319 = **52 eligible reports**, while the final box counts **46 studies** (and the text, "46 articles") plus 8 validation studies. PRISMA 2020 distinguishes *records* (what databases return), *reports* (documents assessed) and *studies* (investigations, which may have several reports). That 52 reports correspond to 46 studies is therefore possible, but the article neither documents it nor explains where the 8 validation studies come from. This difference is therefore **presented not as an error but as a point that needs further verification** with the authors or the supplementary material.
+
+It also helps to separate three units the article uses at once: **articles** (46 included), **validation studies** (8 additional) and **tools** (54). One article can describe several tools (reference 73, for example, describes three nomograms), and a tool can be validated in a different article.
 :::
 
 ## 4. What did they find?
@@ -177,7 +177,7 @@ This group does incorporate context: **21 tools** use contextual factors (marita
 ### What they use to personalize
 
 <figure class="dst-figure">
-<img src="../images/fig-variables-en.svg" alt="Two-panel bar chart. Table 1 (n = 11): individual and clinical inputs 10, other treatment received 3, genomic 2, health behaviors 2, contextual 0, race and ethnicity 1, preferences and values 2. Table 2 (n = 43): individual and clinical 43, other treatment 28, genomic 0, behaviors 4, contextual 21, race and ethnicity 17, preferences 2." loading="lazy">
+<a href="../images/fig-variables-en.svg" class="dst-figure__zoom" title="Open the figure at full size"><img src="../images/fig-variables-en.svg" alt="Two-panel bar chart. Table 1 (n = 11): individual and clinical inputs 10, other treatment received 3, genomic 2, health behaviors 2, contextual 0, race and ethnicity 1, preferences and values 2. Table 2 (n = 43): individual and clinical 43, other treatment 28, genomic 0, behaviors 4, contextual 21, race and ethnicity 17, preferences 2." loading="lazy"></a>
 <figcaption><strong>Figure 2.</strong> Input categories by group of tools. Own elaboration based on Tables 1 and 2 of Wojcik et al. (2025). The panels use different denominators (11 and 43), and a tool can count in several categories.</figcaption>
 </figure>
 
@@ -186,7 +186,7 @@ The chart shows an asymmetry the article only mentions in passing. The tools tha
 ### Validation
 
 <figure class="dst-figure">
-<img src="../images/fig-validacion-en.svg" alt="Two-panel bar chart with mutually exclusive groups. Table 1 (n = 11): internal validation only 1, internal and external 2, external only 4, no validation reported 4. Table 2 (n = 43): internal only 23, both 12, external only 3, none 5. Overall, 38 tools have internal and 21 external validation; 14 have both." loading="lazy">
+<a href="../images/fig-validacion-en.svg" class="dst-figure__zoom" title="Open the figure at full size"><img src="../images/fig-validacion-en.svg" alt="Two-panel bar chart with mutually exclusive groups. Table 1 (n = 11): internal validation only 1, internal and external 2, external only 4, no validation reported 4. Table 2 (n = 43): internal only 23, both 12, external only 3, none 5. Overall, 38 tools have internal and 21 external validation; 14 have both." loading="lazy"></a>
 <figcaption><strong>Figure 3.</strong> Type of validation reported per tool. Own elaboration based on Tables 1 and 2 of Wojcik et al. (2025). To avoid presenting "internal" and "external" as mutually exclusive, the chart separates out the tools that have both.</figcaption>
 </figure>
 
@@ -212,13 +212,13 @@ Only **9 of 54** tools underwent this kind of testing (5 in Table 1, 4 in Table 
 - **ACESO**: consistency 1.2, stressfulness 1.2 and simplicity 1.4 on a scale where 1 is most positive and 7 most negative.
 - **REACH**: exceeded its feasibility targets (85.4% enrollment and 83.7% of participants completing at least one session, against 80% targets), with mean acceptability of 3.0 (1–4 scale) and 3.4 (1–5 scale).
 - **Graetz et al. 2018**: providers reported that it was easy to implement and did not significantly affect workflow.
-- **BTxChoice** and **Radiotherapy for Older Women** are marked "Yes" in the table, but according to the text they **did not report results**: their authors stated that testing was under way.
+- **BTxChoice** and **Radiotherapy for Older Women** are marked "Yes" in the table and are included in the count of 9, but according to the text they **did not report results**: their authors stated that testing was under way. The column therefore records the *existence* of testing (including testing in progress), not published results. The abstract's statement that "nine had undergone usability testing" should be read with that caveat.
 - **YES** is marked "Yes" in Table 2, but the text does not describe its results.
 
 ### IPDAS quality
 
 <figure class="dst-figure">
-<img src="../images/fig-ipdas-en.svg" alt="Dot plot of IPDAS scores on a 0–63 axis. Table 1 (10 tools): 11, 14, 18, 21, 23, 26, 32, 32, 34 and 46 (BreastCHOICE). Table 2 (41 tools): 34 of them between 10 and 16 points, with 15 tools at 11 points; maximum 29 (METSSS); minimum 6. Vertical line at the mean of 15.6." loading="lazy">
+<a href="../images/fig-ipdas-en.svg" class="dst-figure__zoom" title="Open the figure at full size"><img src="../images/fig-ipdas-en.svg" alt="Dot plot of IPDAS scores on a 0–63 axis. Table 1 (10 tools): 11, 14, 18, 21, 23, 26, 32, 32, 34 and 46 (BreastCHOICE). Table 2 (41 tools): 34 of them between 10 and 16 points, with 15 tools at 11 points; maximum 29 (METSSS); minimum 6. Vertical line at the mean of 15.6." loading="lazy"></a>
 <figcaption><strong>Figure 4.</strong> Distribution of IPDAS scores for the 51 assessed tools. Own elaboration based on Tables 1 and 2 of Wojcik et al. (2025). RSClin, Graetz et al. 2018 and REACH were excluded from the assessment because the authors could not access the full tool.</figcaption>
 </figure>
 
@@ -249,7 +249,7 @@ The 54 tools cannot be ranked from best to worst: they assess different outcomes
 <h3>RSClin</h3>
 <p class="dst-card__kind">Cox regression · chemotherapy benefit</p>
 <p><strong>For whom:</strong> patients with hormone receptor-positive, HER2-negative, node-negative disease.</p>
-<p><strong>How it works:</strong> it combines the 21-gene recurrence score with age, grade and tumor size, using NSABP and TAILORx trial data, to estimate the 10-year risk of distant recurrence according to the planned endocrine therapy.</p>
+<p><strong>How it works:</strong> it combines the 21-gene recurrence score with age, grade and tumor size, and takes into account planned endocrine therapy, radiotherapy and type of surgery. Using NSABP and TAILORx trial data, it estimates the 10-year risk of distant recurrence.</p>
 <p><strong>Evidence:</strong> internal and external validation; <strong>excluded from IPDAS</strong> because a paywall prevented a full assessment.</p>
 <p class="dst-card__lesson">Lesson: limited access restricts independent evaluation, even for tools built on high-quality trials.</p>
 </article>
@@ -307,7 +307,7 @@ Drawing on the article's criteria and on the methodological literature, I sugges
 One finding the article does not emphasize, but which follows from its tables, is that **almost all of the "personalization" described is classical statistics**.
 
 <figure class="dst-figure">
-<img src="../images/fig-metodos-en.svg" alt="Bar chart of the 54 tools: Cox or competing-risks regression 32; other regression (logistic, GLM, simple) 11; machine learning or AI as reported 4; tailored information without a predictive model 3; Markov simulation or Bayesian analysis 2; t-tests, chi-square or fractional logit 2." loading="lazy">
+<a href="../images/fig-metodos-en.svg" class="dst-figure__zoom" title="Open the figure at full size"><img src="../images/fig-metodos-en.svg" alt="Bar chart of the 54 tools: Cox or competing-risks regression 32; other regression (logistic, GLM, simple) 11; machine learning or AI as reported 4; tailored information without a predictive model 3; Markov simulation or Bayesian analysis 2; t-tests, chi-square or fractional logit 2." loading="lazy"></a>
 <figcaption><strong>Figure 5.</strong> Methods reported to estimate outcomes, using my own grouping of the "Methods" column of Tables 1 and 2 of Wojcik et al. (2025). The article itself does not use this grouping.</figcaption>
 </figure>
 
@@ -319,10 +319,10 @@ One finding the article does not emphasize, but which follows from its tables, i
 
 ### What this difference means (and what it does not)
 
-The predominance of statistical methods **is not a flaw**. For tabular data with a dozen clinical variables, well-specified regression usually offers discrimination comparable to machine learning, with advantages in interpretability and in calibration at moderate sample sizes. The risks that matter lie elsewhere and affect both approaches:
+The predominance of statistical methods **is not a flaw**. For tabular data with a dozen clinical variables, a systematic review found no performance benefit of machine learning over logistic regression for clinical prediction models (Christodoulou et al., 2019). Well-specified regression also offers advantages in interpretability and in stability at moderate sample sizes. The risks that matter lie elsewhere and affect both approaches:
 
 - **Overfitting and optimism.** Selecting variables and estimating coefficients on the same data inflates apparent performance. LASSO mitigates it, internal validation corrects part of the optimism, and only external validation really puts it to the test.
-- **Dependence on one source.** 28 of the 54 tools use SEER. A large population registry provides power, but it also passes on shared biases: it does not capture detailed comorbidities or, completely, systemic treatments, and it reflects US practice.
+- **Dependence on one source.** 28 of the 54 tools use SEER. A large population registry provides power, but it also passes on shared biases: it does not capture detailed comorbidities, its chemotherapy and radiotherapy variables have limited sensitivity compared with other sources (Noone et al., 2016), and it reflects US practice.
 - **Interpretability.** A nomogram shows how much each variable weighs, and an ADTree is also fairly readable. An opaque model requires explaining to the patient why her risk is what it is, and the table does not indicate that any machine-learning tool does so.
 - **Causality.** The Table 1 tools estimate outcomes "with and without treatment". If those contrasts come from observational data rather than trials, they may reflect who received the treatment rather than its effect. The article does not discuss this point.
 
@@ -331,6 +331,29 @@ The predominance of statistical methods **is not a flaw**. For tabular data with
 :::
 
 ## 7. Validation, quality and usability
+
+### Concepts for appraising a predictive model
+
+This section is explanatory: it summarizes standard methodological concepts that **Wojcik et al. neither apply nor report**, but which are needed to understand what it means for a tool to be "validated".
+
+<div class="dst-defs">
+<dl>
+<dt>Discrimination</dt><dd>Does the model rank patients correctly? It is measured with the C-index (or the area under the ROC curve): 0.5 is chance and 1 is perfect separation. It says nothing about whether the probabilities are correct.</dd>
+<dt>Calibration</dt><dd>Do the probabilities match what is observed? It is examined through calibration-in-the-large (mean predicted versus observed risk), the calibration slope (a slope &lt; 1 indicates predictions that are too extreme, typical of overfitting) and the calibration curve. It matters most when a number is communicated to a patient (Van Calster et al., 2019).</dd>
+<dt>Internal validation</dt><dd>Estimates how optimistic the performance measured on the development data is (bootstrap, cross-validation). It corrects for overfitting but says nothing about how the model will perform elsewhere.</dd>
+<dt>External validation</dt><dd>Testing on independent data: from another period (temporal), other centers or countries (geographic) or another clinical setting (domain). It is what informs <em>transportability</em> (Ramspek et al., 2021). If calibration fails, the model can be recalibrated locally before use.</dd>
+<dt>Uncertainty</dt><dd>Every individual prediction carries a margin of error that depends on sample size, the number of predictors and how atypical the patient is. A tool that only shows "23%" hides that uncertainty.</dd>
+<dt>Interpretability</dt><dd>The ability to explain why the model assigns a given risk. A nomogram provides it by construction; a complex model needs added explanations, which must themselves be validated.</dd>
+<dt>Clinical utility</dt><dd>Does it improve decisions? Decision curve analysis computes the net benefit of acting on the model versus treating everyone or no one (Vickers and Elkin, 2006). Impact studies test whether it changes practice and outcomes.</dd>
+<dt>Risk of bias</dt><dd>PROBAST systematically assesses the risk of bias and applicability of prediction model studies across participants, predictors, outcome and analysis (Wolff et al., 2019).</dd>
+</dl>
+</div>
+
+::: {.dst-concept}
+[Prediction versus causation]{.dst-label}
+
+A **prognostic** model answers "what is likely to happen to a patient like this?". A **treatment decision** tool aims to answer a different question: "what would happen to her *if* she received treatment A rather than treatment B?". That second question is causal. If the treatment effect is estimated from observational data, such as a registry, those who received chemotherapy may differ systematically from those who did not (younger, with more aggressive tumors, with better access), and the model will attribute to treatment differences that are due to those characteristics. That is why it matters where the "with and without treatment" contrasts come from: randomized trials or meta-analyses, or observational comparisons that require explicit causal methods. According to the tables, RSClin uses trial data (NSABP and TAILORx) and BTxChoice combines meta-analysis, trial and observational data; for the others, the table lists hospital units, clinical databases or registries, and, for Radiotherapy for Older Women, an advisory committee. Wojcik et al. do not distinguish between these cases; **this reading is mine**.
+:::
 
 ### Why can a tool with good statistical performance still be unready for the clinic?
 
@@ -428,7 +451,7 @@ What follows are **my own proposals**, supported by recognized methodological gu
 
 - **The unit of analysis mixes different things.** A physician-facing risk calculator and a web-based adherence intervention are each counted as one "tool". Aggregate percentages hide that heterogeneity.
 - **Validation is recorded as present or absent.** Without metrics or design details, a robust validation cannot be told apart from a minimal one.
-- **IPDAS as the only quality measure.** It suits patient decision aids, not the appraisal of predictive models. A complementary risk-of-bias instrument for prediction models, such as PROBAST, was missing.
+- **IPDAS as the only quality measure.** It suits patient decision aids, not the appraisal of predictive models. A complementary risk-of-bias instrument for prediction models, such as PROBAST (Wolff et al., 2019), was missing.
 - **Reliability of extraction.** Independent double extraction, inter-rater agreement and the number of IPDAS raters are not reported.
 - **Internal inconsistencies** (detailed in the verification note at the end). They do not change the overall conclusions, but they do affect the precision of some statements in the text.
 - **Supplementary material.** Search strategies, detailed criteria, the full IPDAS checklist and the demographic tables are in supplements that were not reviewed here.
@@ -450,7 +473,7 @@ Wojcik and colleagues provide the broadest inventory to date of personalized web
 
 1. **54 tools, two families.** 11 estimate outcomes with and without a specific treatment; 43 provide prognosis or other outcomes.
 2. **"Validated" usually means internally validated.** 45 report some validation, but only 21 have external validation.
-3. **Usability is the big gap.** Only 9 of 54 underwent usability, feasibility or acceptability testing, with non-comparable instruments.
+3. **Usability is the big gap.** Only 9 of 54 report usability, feasibility or acceptability testing (two of them still in progress, without results), with non-comparable instruments.
 4. **Communication quality is low.** The mean IPDAS score is 16/63; only BreastCHOICE comes close, at 46.
 5. **Personalization is mostly classical statistics.** 32 tools use Cox regression; only 4 report machine learning or AI.
 6. **Equity is not guaranteed.** Samples were mostly White, married and insured, and no tool comes from Latin America or Africa.
@@ -479,21 +502,31 @@ Wojcik and colleagues provide the broadest inventory to date of personalized web
 
 ## Verification note
 
-Every figure in this review was checked against the published PDF (29 pages). Tables 1 and 2 were transcribed cell by cell from the PDF text and compared visually with the original pages. The following discrepancies are documented **without correcting the study**:
+Every figure in this review was checked against the published PDF (29 pages). Tables 1 and 2 were transcribed cell by cell from the PDF text, compared visually with the original pages and audited character by character: no character of the PDF tables is missing from the transcription. The points below are documented **without correcting the study** and are classified with caution: several differences are explained by definitions, counting units or denominators, and are not scientific errors.
 
-| # | Where | What the article says | What the article's own data show |
-|---|---|---|---|
-| 1 | Figure 1 | 371 reports assessed, 319 excluded, 46 included (+ 8 validation) | 371 − 319 = 52; the 6-report gap is not explained |
-| 2 | Text, treatment tools | 2 for patients, 4 for physicians only and 9 for both (sum 15 of 11) | Table 1: 2 patients, 4 physicians and 5 both |
-| 3 | Text, treatment tools | "Three tools" without validation [17, 45, 49] | Table 1: four (Age Gap 1 and 2 share reference 49) |
-| 4 | Text | All tools use individual and clinical factors | BRECONDA has "—" in that column |
-| 5 | Table 1 vs. text | BTxChoice and Radiotherapy for Older Women: "Yes" for usability | The text says they did not report results (testing in progress) |
-| 6 | Limitations | 23 inaccessible tools | 24 are listed with "limited availability" (the criterion may not be identical) |
-| 7 | Limitations | Tools from the US, Europe, Australia, Japan and Korea | Table 2 includes data from a hospital in Harbin (China) |
-| 8 | Abbreviations, Table 2 | "AT aromatase inhibitor" | The table uses "AI" |
-| 9 | IPDAS results | Mean 16 | 15.57 across the 51 scored tools: the rounding is correct, but the denominator (51, not 54) is not stated in the text |
+```{=html}
+<div class="dst-table-scroll" role="region" aria-label="Documented discrepancies and points, with their classification" tabindex="0">
+<table class="dst-table dst-table--disc"><caption>Documented discrepancies and points, with their classification</caption>
+<thead><tr><th scope="col">#</th><th scope="col">Point</th><th scope="col">What the article says</th><th scope="col">What its own data show</th><th scope="col">Classification</th></tr></thead><tbody>
+<tr><th scope="row" class="dst-num">1</th><td data-label="Point">Figure 1</td><td data-label="What the article says">371 reports assessed, 319 excluded; 46 studies included (+ 8 validation)</td><td data-label="What its own data show">371 − 319 = 52 reports. PRISMA 2020 distinguishes reports from studies, and a study can have several reports, but the article documents neither that correspondence nor the source of the 8 validation studies</td><td data-label="Classification">Needs further verification</td></tr>
+<tr><th scope="row" class="dst-num">2</th><td data-label="Point">Users, Table 1 (text)</td><td data-label="What the article says">2 patients only, 4 physicians only and "nine" for both [13, 14, 44–46]</td><td data-label="What its own data show">Table 1 and the five cited references indicate 5 for both; the text's sum (15) exceeds the 11 tools</td><td data-label="Classification">Demonstrable inconsistency (likely typo: "nine" for "five")</td></tr>
+<tr><th scope="row" class="dst-num">3</th><td data-label="Point">No validation, Table 1 (text)</td><td data-label="What the article says">"Three tools" [17, 45, 49]</td><td data-label="What its own data show">Table 1 shows four: reference 49 describes two tools (Age Gap 1 and 2). The abstract total (45 validated) agrees with the tables</td><td data-label="Classification">Explainable difference (counted by reference, not by tool)</td></tr>
+<tr><th scope="row" class="dst-num">4</th><td data-label="Point">Inputs, Table 1 (text)</td><td data-label="What the article says">All tools used individual and clinical characteristics</td><td data-label="What its own data show">BRECONDA has "—" in that column: it tailors information to preferences</td><td data-label="Classification">Minor text–table inconsistency; needs verification</td></tr>
+<tr><th scope="row" class="dst-num">5</th><td data-label="Point">Usability</td><td data-label="What the article says">Table: "Yes" for BTxChoice and Radiotherapy for Older Women; abstract: nine tools "had undergone" testing</td><td data-label="What its own data show">The text clarifies that those two reported no results (testing in progress)</td><td data-label="Classification">Explainable by criterion: the column records that testing exists, not published results</td></tr>
+<tr><th scope="row" class="dst-num">6</th><td data-label="Point">Accessibility</td><td data-label="What the article says">23 tools could not be assessed because of payment barriers or incomplete screenshots</td><td data-label="What its own data show">24 are listed with "limited availability", a broader category that includes access through the principal investigator, supplements or the results section</td><td data-label="Classification">Explainable by criteria; not a discrepancy</td></tr>
+<tr><th scope="row" class="dst-num">7</th><td data-label="Point">Countries</td><td data-label="What the article says">Tools from the US, Europe, Australia, Japan and Korea</td><td data-label="What its own data show">Table 2 includes a tool with data from Harbin Medical University Cancer Hospital (China)</td><td data-label="Classification">Needs further verification (the "country" criterion is not defined)</td></tr>
+<tr><th scope="row" class="dst-num">8</th><td data-label="Point">Abbreviations, Table 2</td><td data-label="What the article says">"AT aromatase inhibitor"</td><td data-label="What its own data show">The table uses "AI"</td><td data-label="Classification">Possible editorial typo</td></tr>
+<tr><th scope="row" class="dst-num">9</th><td data-label="Point">Table cells</td><td data-label="What the article says">"PMR", "breast reduction", "Rocket Mountain", "2 of more", "mellitus"</td><td data-label="What its own data show">Apparent typographical errors, kept and flagged</td><td data-label="Classification">Possible editorial typo</td></tr>
+<tr><th scope="row" class="dst-num">10</th><td data-label="Point">Figure 1</td><td data-label="What the article says">Asterisks <em> and </em>*</td><td data-label="What its own data show">They are call-outs from the PRISMA 2020 template whose notes are not reproduced in the caption</td><td data-label="Classification">Possible editorial typo</td></tr>
+</tbody></table></div>
+```
 
-Apparent typos within table cells ("PMR", "reduction", "Rocket Mountain", "2 of more", "mellitus") were kept and marked [sic] in the tables.
+**Verified points that are not discrepancies:**
+
+- **IPDAS mean.** The mean of the 51 scored tools is 15.57; the article reports 16, a correct rounding. The only thing missing is an explicit statement that the denominator is 51, not 54, because three tools were excluded.
+- **Overall survival (20 tools in Table 2).** 18 explicitly mention overall survival; the other two cited in the text (references 85 and 86) estimate survival scenarios and 5-year survival. The count is consistent with that criterion.
+- **Table 2 validation** (15 external, 35 internal, 5 none), **users** (4, 31 and 8), **race** (17), **contextual factors** (21; marital status 20, insurance 4) and **bone or lung metastases** (10) all match the table.
+- **FDA citation.** The statement about FDA regulation is supported by an *NEJM* commentary (reference 26), not by the regulatory document itself. It is an indirect citation, not an error.
 
 ## References
 
@@ -501,9 +534,13 @@ Apparent typos within table cells ("PMR", "reduction", "Rocket Mountain", "2 of 
 
 <p class="dst-reference dst-reference--main">Wojcik, K. M., Kamil, D., Zhang, J., Wilson, O. W. A., Smith, L., Butera, G., Isaacs, C., Kurian, A., &amp; Jayasekera, J. (2025). A scoping review of web-based, interactive, personalized decision-making tools available to support breast cancer treatment and survivorship care. <em>Journal of Cancer Survivorship, 19</em>, 1496–1524. <a href="https://doi.org/10.1007/s11764-024-01567-6">https://doi.org/10.1007/s11764-024-01567-6</a> (published online March 28, 2024).</p>
 
+<p class="dst-reference">Christodoulou, E., Ma, J., Collins, G. S., Steyerberg, E. W., Verbakel, J. Y., &amp; Van Calster, B. (2019). A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. <em>Journal of Clinical Epidemiology, 110</em>, 12–22. <a href="https://doi.org/10.1016/j.jclinepi.2019.02.004">https://doi.org/10.1016/j.jclinepi.2019.02.004</a></p>
+
 <p class="dst-reference">Collins, G. S., Moons, K. G. M., Dhiman, P., et al. (2024). TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. <em>BMJ, 385</em>, e078378. <a href="https://doi.org/10.1136/bmj-2023-078378">https://doi.org/10.1136/bmj-2023-078378</a></p>
 
 <p class="dst-reference">Elwyn, G., O'Connor, A., Stacey, D., et al. (2006). Developing a quality criteria framework for patient decision aids: online international Delphi consensus process. <em>BMJ, 333</em>(7565), 417. <a href="https://doi.org/10.1136/bmj.38926.629329.AE">https://doi.org/10.1136/bmj.38926.629329.AE</a></p>
+
+<p class="dst-reference">Noone, A.-M., Lund, J. L., Mariotto, A., Cronin, K., McNeel, T., Deapen, D., &amp; Warren, J. L. (2016). Comparison of SEER treatment data with Medicare claims. <em>Medical Care, 54</em>(9), e55–e64. <a href="https://doi.org/10.1097/MLR.0000000000000073">https://doi.org/10.1097/MLR.0000000000000073</a></p>
 
 <p class="dst-reference">Page, M. J., McKenzie, J. E., Bossuyt, P. M., et al. (2021). The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ, 372</em>, n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a></p>
 
@@ -515,9 +552,12 @@ Apparent typos within table cells ("PMR", "reduction", "Rocket Mountain", "2 of 
 
 <p class="dst-reference">Vickers, A. J., &amp; Elkin, E. B. (2006). Decision curve analysis: a novel method for evaluating prediction models. <em>Medical Decision Making, 26</em>(6), 565–574. <a href="https://doi.org/10.1177/0272989X06295361">https://doi.org/10.1177/0272989X06295361</a></p>
 
+
+<p class="dst-reference">Wolff, R. F., Moons, K. G. M., Riley, R. D., Whiting, P. F., Westwood, M., Collins, G. S., Reitsma, J. B., Kleijnen, J., Mallett, S., &amp; PROBAST Group. (2019). PROBAST: a tool to assess the risk of bias and applicability of prediction model studies. <em>Annals of Internal Medicine, 170</em>(1), 51–58. <a href="https://doi.org/10.7326/M18-1376">https://doi.org/10.7326/M18-1376</a></p>
+
 </div>
 
-<p class="dst-note">DOIs were checked on Crossref. Tool references (bracketed numbers in the tables) point to the original article's list of 156 references. The works by Collins, Van Calster and Vickers are not part of the review; they are cited only to support the proposals in section 9.</p>
+<p class="dst-note">DOIs were checked on Crossref. Tool references (bracketed numbers in the tables) point to the original article's list of 156 references. The works by Christodoulou, Collins, Noone, Ramspek, Van Calster, Vickers and Wolff are not part of the review; they are cited only as methodological support for my own analysis (sections 6, 7, 9 and 10).</p>
 
 <div class="dst-links">
 <a class="dst-links__primary" href="https://doi.org/10.1007/s11764-024-01567-6">Read the original article (DOI)</a>
@@ -528,7 +568,5 @@ Apparent typos within table cells ("PMR", "reduction", "Rocket Mountain", "2 of 
 ::: {.dst-credits}
 **Credits and license.** The article by Wojcik et al. is open access under a [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license. It is also a US Government work, not subject to copyright in the United States. Figure 1 and Tables 1 and 2 are adaptations (redrawing and re-layout) of the originals; Figure 1 is itself based on the PRISMA 2020 template by Page et al. (*BMJ*, CC BY 4.0). Figures 2 to 5 and the cover image are my own elaboration from the table data. None of these adaptations implies endorsement by the original authors.
 
-**Use of artificial intelligence.** This review was prepared with the support of Claude (Anthropic), a generative AI assistant, for extracting and verifying the tables and figures from the PDF, checking references on Crossref, drafting the Spanish and English texts, and producing the figures and tables. The author defined the brief, the standards of rigor and the methodological adjustments. Final responsibility for the content lies with the author.
+**Use of artificial intelligence.** This review was prepared with the support of Claude (Anthropic), a generative AI assistant, for extracting and verifying the tables and figures from the PDF, checking references on Crossref, drafting the Spanish and English texts, producing the figures and tables, and a subsequent verification audit (comparison of the tables with the PDF, consistency of the charts and equivalence between languages). The author defined the brief, the standards of rigor and the methodological adjustments, and requested the audit. Final responsibility for the content lies with the author.
 :::
-
-::::

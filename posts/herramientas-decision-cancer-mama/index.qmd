@@ -25,8 +25,6 @@ format:
     css: decision-tools.css
 ---
 
-:::: {.dst-article}
-
 <nav class="dst-lang" aria-label="Idioma del artículo">
 <a href="./" lang="es" hreflang="es" aria-current="page">Español</a>
 <span class="dst-lang__sep" aria-hidden="true">|</span>
@@ -41,7 +39,7 @@ format:
 <div class="dst-stats">
 <div class="dst-stat"><div class="dst-stat__value">54</div><div class="dst-stat__label">herramientas web personalizadas (11 de tratamiento, 43 de otros resultados)</div></div>
 <div class="dst-stat"><div class="dst-stat__value">45</div><div class="dst-stat__label">con alguna validación reportada (interna y/o externa)</div></div>
-<div class="dst-stat"><div class="dst-stat__value">9</div><div class="dst-stat__label">con pruebas de usabilidad, factibilidad o aceptabilidad</div></div>
+<div class="dst-stat"><div class="dst-stat__value">9</div><div class="dst-stat__label">con pruebas de usabilidad, factibilidad o aceptabilidad reportadas (2 aún en curso)</div></div>
 <div class="dst-stat"><div class="dst-stat__value">16<span class="dst-stat__unit">/63</span></div><div class="dst-stat__label">puntuación IPDAS media (rango 6–46; 51 evaluadas)</div></div>
 </div>
 </section>
@@ -86,9 +84,9 @@ Una **revisión de alcance** (*scoping review*) mapea la evidencia disponible so
 
 <div class="dst-compare" role="table" aria-label="Comparación entre tipos de revisión">
 <div class="dst-compare__row dst-compare__head" role="row"><div role="columnheader">Tipo</div><div role="columnheader">Pregunta típica</div><div role="columnheader">Evaluación del riesgo de sesgo</div><div role="columnheader">Síntesis cuantitativa</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Revisión de alcance</strong></div><div role="cell">¿Qué existe y cómo se ha estudiado?</div><div role="cell">Opcional (aquí, se evaluó la calidad con IPDAS)</div><div role="cell">No; conteos y descripciones</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Revisión sistemática</strong></div><div role="cell">¿Cuál es el efecto de X sobre Y?</div><div role="cell">Obligatoria, por estudio</div><div role="cell">Opcional</div></div>
-<div class="dst-compare__row" role="row"><div role="cell"><strong>Metaanálisis</strong></div><div role="cell">¿Cuál es el efecto combinado y su precisión?</div><div role="cell">Obligatoria</div><div role="cell">Sí; combina estimaciones con modelos estadísticos</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Revisión de alcance</strong></div><div role="cell" data-label="Pregunta típica">¿Qué existe y cómo se ha estudiado?</div><div role="cell" data-label="Evaluación del riesgo de sesgo">Opcional (aquí, se evaluó la calidad con IPDAS)</div><div role="cell" data-label="Síntesis cuantitativa">No; conteos y descripciones</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Revisión sistemática</strong></div><div role="cell" data-label="Pregunta típica">¿Cuál es el efecto de X sobre Y?</div><div role="cell" data-label="Evaluación del riesgo de sesgo">Obligatoria, por estudio</div><div role="cell" data-label="Síntesis cuantitativa">Opcional</div></div>
+<div class="dst-compare__row" role="row"><div role="cell"><strong>Metaanálisis</strong></div><div role="cell" data-label="Pregunta típica">¿Cuál es el efecto combinado y su precisión?</div><div role="cell" data-label="Evaluación del riesgo de sesgo">Obligatoria</div><div role="cell" data-label="Síntesis cuantitativa">Sí; combina estimaciones con modelos estadísticos</div></div>
 </div>
 <p class="dst-figcaption">Comparación conceptual elaborada para esta reseña.</p>
 
@@ -107,7 +105,7 @@ La revisión siguió el marco de Arksey y O'Malley, ampliado por Levac y colabor
 ### Búsqueda
 
 - **Bases de datos:** PubMed, PsycInfo, Embase, Scopus, Web of Science y Cochrane Database of Systematic Reviews, además de una revisión de las listas de referencias de los artículos incluidos.
-- **Estrategia:** combinación de palabras clave, sinónimos, términos MeSH y Emtree sobre herramientas de decisión clínica, supervivencia, tratamiento, web, personalización y cáncer de mama. Una bibliotecaria de los NIH la probó con 50 artículos y la refinó. La estrategia completa está en la Tabla Suplementaria 2, que no se revisó para esta reseña.
+- **Estrategia:** combinación de palabras clave, sinónimos, términos MeSH y Emtree sobre herramientas de decisión clínica, supervivencia, tratamiento, web, personalización y cáncer de mama. Una persona bibliotecaria de los NIH la probó con 50 artículos y la refinó. La estrategia completa está en la Tabla Suplementaria 2, que no se revisó para esta reseña.
 - **Periodo:** herramientas desarrolladas entre 2013 y 2023; la última búsqueda fue el **12 de mayo de 2023**.
 
 ### Criterios de inclusión
@@ -116,7 +114,7 @@ Los artículos debían cumplir cinco condiciones: (1) adultos (≥ 18 años), mu
 
 ### Selección y extracción
 
-Cuatro integrantes del equipo cribaron títulos y resúmenes y, después, textos completos, con Covidence; los desacuerdos se resolvieron por discusión. El artículo no reporta cuántas personas revisaron cada registro ni una medida de concordancia. Un detalle metodológico valioso: **los autores visitaron cada sitio web y probaron las herramientas con pacientes ficticias** para identificar qué entradas usaban y qué resultados devolvían. Cuando no había sitio público, recurrieron a capturas de pantalla y a la sección de métodos de los artículos, y escribieron a los autores correspondientes para pedir la información faltante.
+Cuatro integrantes del equipo (KW, DK, JZ, LS) cribaron títulos y resúmenes en Covidence; una segunda ronda aplicó los mismos criterios al texto completo, y los desacuerdos se resolvieron por discusión. El artículo no reporta cuántas personas revisaron cada registro ni una medida de concordancia. Un detalle metodológico valioso: **los autores visitaron cada sitio web y probaron las herramientas con pacientes ficticias** para identificar qué entradas usaban y qué resultados devolvían. Cuando no había sitio público, recurrieron a capturas de pantalla y a la sección de métodos de los artículos, y escribieron a los autores correspondientes para pedir la información faltante.
 
 Para cada herramienta extrajeron nombre y propósito, población objetivo, intervención, fuente de datos y métodos, variables de entrada (individuales, clínicas, genómicas, conductuales, contextuales), resultados, usuarios destinatarios y fecha de la última actualización. De los estudios de validación y de prueba extrajeron la distribución por raza y etnia, educación, ingresos, estado civil y seguro médico.
 
@@ -139,8 +137,8 @@ Los autores aplicaron la lista de verificación de los **International Patient D
 ### Figura 1. Selección de estudios
 
 <figure class="dst-figure dst-figure--prisma">
-<img src="images/prisma-es.svg" alt="Diagrama de flujo PRISMA. Identificación: 5.237 registros en bases de datos (PubMed 1.957, Embase 862, Cochrane 252, Web of Science 1.238, Scopus 838, PsycINFO 90) y 72 por búsqueda de citas; 2.292 duplicados eliminados. Cribado: 3.017 registros cribados, 2.646 excluidos; 371 informes buscados, 0 no recuperados; 371 evaluados para elegibilidad y 319 excluidos (98 contexto no aplicable, 38 herramienta anterior a 2013, 36 diseño no aplicable, 36 resúmenes de congreso, 27 intervención no aplicable, 24 herramienta inaccesible o sin enlace, 20 resultados no aplicables, 17 población no aplicable, 3 protocolos, 1 vía de administración no aplicable, 19 prevención y tamizaje). Incluidos: 46 estudios más 8 estudios de validación." loading="lazy">
-<figcaption><strong>Figura 1.</strong> Proceso de identificación de artículos. Traducción y redibujo de la Figura 1 de Wojcik et al. (2025), <a href="https://doi.org/10.1007/s11764-024-01567-6">doi:10.1007/s11764-024-01567-6</a>, licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>; la plantilla original procede de Page et al., <em>BMJ</em> 2021;372:n71 (PRISMA 2020). Cambios: traducción al español, redibujo vectorial y viñeta añadida a «Web of Science», que en el original aparece sin ella. Todas las cifras, bloques y flechas se conservan. Los asteriscos (* y **) aparecen en el original sin nota explicativa.</figcaption>
+<a href="images/prisma-es.svg" class="dst-figure__zoom" title="Abrir la figura a tamaño completo"><img src="images/prisma-es.svg" alt="Diagrama de flujo PRISMA. Identificación: 5.237 registros en bases de datos (PubMed 1.957, Embase 862, Cochrane 252, Web of Science 1.238, Scopus 838, PsycINFO 90) y 72 por búsqueda de citas; 2.292 duplicados eliminados. Cribado: 3.017 registros cribados, 2.646 excluidos; 371 informes buscados, 0 no recuperados; 371 evaluados para elegibilidad y 319 excluidos (98 contexto no aplicable, 38 herramienta anterior a 2013, 36 diseño no aplicable, 36 resúmenes de congreso, 27 intervención no aplicable, 24 herramienta inaccesible o sin enlace, 20 resultados no aplicables, 17 población no aplicable, 3 protocolos, 1 vía de administración no aplicable, 19 prevención y tamizaje). Incluidos: 46 estudios más 8 estudios de validación." loading="lazy"></a>
+<figcaption><strong>Figura 1.</strong> Proceso de identificación de artículos. Traducción y redibujo de la Figura 1 de Wojcik et al. (2025), <a href="https://doi.org/10.1007/s11764-024-01567-6">doi:10.1007/s11764-024-01567-6</a>, licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>; la plantilla original procede de Page et al., <em>BMJ</em> 2021;372:n71 (PRISMA 2020). Cambios: traducción al español, redibujo vectorial y viñeta añadida a «Web of Science», que en el original aparece sin ella. Todas las cifras, bloques y flechas se conservan. Los asteriscos (* y **) son llamadas de la plantilla PRISMA 2020 cuyas notas no se reproducen en la leyenda original. Toca o haz clic en la figura para verla a tamaño completo.</figcaption>
 </figure>
 
 ::: {.dst-interpret}
@@ -148,7 +146,9 @@ Los autores aplicaron la lista de verificación de los **International Patient D
 
 El embudo es enorme: de más de 5.000 registros, solo 46 artículos (más 8 de validación) llegaron al final. La mayor fuente de exclusión en texto completo fue el «contexto no aplicable» (98), y 24 informes se descartaron porque la herramienta en línea estaba **inaccesible, rota o sin enlace**. Ese último dato ya dice algo sobre el problema que la revisión quiere iluminar: muchas herramientas publicadas desaparecen o no se mantienen.
 
-Las cuentas casan en casi todo el diagrama: 5.237 + 72 − 2.292 = 3.017, y 3.017 − 2.646 = 371. Pero **371 − 319 = 52**, no 46. El artículo no explica esa diferencia de seis informes. Una posibilidad es que varios informes correspondan al mismo estudio o que «+ 8 estudios de validación» se contabilice aparte, pero no está documentado. Es una inconsistencia menor que no altera las conclusiones, aunque sí afecta la trazabilidad.
+Las cuentas casan en casi todo el diagrama: 5.237 + 72 − 2.292 = 3.017, y 3.017 − 2.646 = 371. El último paso pide una lectura cuidadosa: 371 − 319 = **52 informes** elegibles, mientras que la casilla final cuenta **46 estudios** (y el texto, «46 artículos») más 8 estudios de validación. PRISMA 2020 distingue entre *registros* (lo que devuelven las bases), *informes* (documentos evaluados) y *estudios* (investigaciones, que pueden tener varios informes). Que 52 informes correspondan a 46 estudios es, por tanto, posible, pero el artículo no lo documenta ni aclara de dónde proceden los 8 estudios de validación. Por eso esta diferencia **no se presenta como un error, sino como un punto que requiere verificación** con los autores o con el material suplementario.
+
+Conviene distinguir además tres unidades que el artículo usa a la vez: **artículos** (46 incluidos), **estudios de validación** (8 adicionales) y **herramientas** (54). Un mismo artículo puede describir varias herramientas (por ejemplo, la referencia 73 describe tres nomogramas) y una herramienta puede validarse en otro artículo.
 :::
 
 ## 4. ¿Qué encontraron?
@@ -177,7 +177,7 @@ Este grupo sí incorpora contexto: **21 herramientas** usan factores contextuale
 ### Lo que usan para personalizar
 
 <figure class="dst-figure">
-<img src="images/fig-variables-es.svg" alt="Gráfico de barras en dos paneles. Tabla 1 (n = 11): variables individuales y clínicas 10, otro tratamiento recibido 3, genómicas 2, conductas de salud 2, contextuales 0, raza y etnia 1, preferencias y valores 2. Tabla 2 (n = 43): individuales y clínicas 43, otro tratamiento 28, genómicas 0, conductas 4, contextuales 21, raza y etnia 17, preferencias 2." loading="lazy">
+<a href="images/fig-variables-es.svg" class="dst-figure__zoom" title="Abrir la figura a tamaño completo"><img src="images/fig-variables-es.svg" alt="Gráfico de barras en dos paneles. Tabla 1 (n = 11): variables individuales y clínicas 10, otro tratamiento recibido 3, genómicas 2, conductas de salud 2, contextuales 0, raza y etnia 1, preferencias y valores 2. Tabla 2 (n = 43): individuales y clínicas 43, otro tratamiento 28, genómicas 0, conductas 4, contextuales 21, raza y etnia 17, preferencias 2." loading="lazy"></a>
 <figcaption><strong>Figura 2.</strong> Categorías de variables de entrada por grupo de herramientas. Elaboración propia basada en las Tablas 1 y 2 de Wojcik et al. (2025). Los paneles usan denominadores distintos (11 y 43), y una herramienta puede contar en varias categorías.</figcaption>
 </figure>
 
@@ -186,7 +186,7 @@ El gráfico muestra una asimetría que el texto del artículo menciona solo de p
 ### Validación
 
 <figure class="dst-figure">
-<img src="images/fig-validacion-es.svg" alt="Gráfico de barras en dos paneles con categorías excluyentes. Tabla 1 (n = 11): solo validación interna 1, interna y externa 2, solo externa 4, sin validación reportada 4. Tabla 2 (n = 43): solo interna 23, interna y externa 12, solo externa 3, sin validación 5. En total, 38 herramientas tienen validación interna y 21 externa; 14 tienen ambas." loading="lazy">
+<a href="images/fig-validacion-es.svg" class="dst-figure__zoom" title="Abrir la figura a tamaño completo"><img src="images/fig-validacion-es.svg" alt="Gráfico de barras en dos paneles con categorías excluyentes. Tabla 1 (n = 11): solo validación interna 1, interna y externa 2, solo externa 4, sin validación reportada 4. Tabla 2 (n = 43): solo interna 23, interna y externa 12, solo externa 3, sin validación 5. En total, 38 herramientas tienen validación interna y 21 externa; 14 tienen ambas." loading="lazy"></a>
 <figcaption><strong>Figura 3.</strong> Tipo de validación reportada por herramienta. Elaboración propia basada en las Tablas 1 y 2 de Wojcik et al. (2025). Para no presentar «interna» y «externa» como categorías excluyentes, el gráfico separa explícitamente las herramientas que tienen ambas.</figcaption>
 </figure>
 
@@ -212,13 +212,13 @@ Solo **9 de 54** herramientas tienen pruebas de este tipo (5 en la Tabla 1 y 4 e
 - **ACESO**: consistencia 1,2, estrés 1,2 y simplicidad 1,4 en una escala donde 1 es lo más positivo y 7 lo más negativo.
 - **REACH**: superó sus metas de factibilidad (85,4 % de inscripción y 83,7 % de participantes con al menos una sesión, frente a metas del 80 %), con aceptabilidad media de 3,0 (escala 1–4) y 3,4 (escala 1–5).
 - **Graetz et al. 2018**: los profesionales informaron que era fácil de implementar y no alteraba significativamente el flujo de trabajo.
-- **BTxChoice** y **Radiotherapy for Older Women** figuran con «Sí» en la tabla, pero según el texto **no reportaron resultados**: sus autores indicaron que las pruebas estaban en curso.
+- **BTxChoice** y **Radiotherapy for Older Women** figuran con «Sí» en la tabla y entran en el recuento de 9, pero según el texto **no reportaron resultados**: sus autores indicaron que las pruebas estaban en curso. La columna registra, por tanto, la *existencia* de pruebas (incluidas las que estaban en marcha), no la publicación de resultados. Por eso la frase del resumen («nueve habían pasado por pruebas de usabilidad») debe leerse con esa salvedad.
 - **YES** figura con «Sí» en la Tabla 2, pero el texto no describe sus resultados.
 
 ### Calidad IPDAS
 
 <figure class="dst-figure">
-<img src="images/fig-ipdas-es.svg" alt="Diagrama de puntos de las puntuaciones IPDAS sobre un eje de 0 a 63. Tabla 1 (10 herramientas): 11, 14, 18, 21, 23, 26, 32, 32, 34 y 46 (BreastCHOICE). Tabla 2 (41 herramientas): 34 de ellas entre 10 y 16 puntos, con 15 herramientas en 11 puntos; máximo 29 (METSSS); mínimo 6. Línea vertical en la media de 15,6." loading="lazy">
+<a href="images/fig-ipdas-es.svg" class="dst-figure__zoom" title="Abrir la figura a tamaño completo"><img src="images/fig-ipdas-es.svg" alt="Diagrama de puntos de las puntuaciones IPDAS sobre un eje de 0 a 63. Tabla 1 (10 herramientas): 11, 14, 18, 21, 23, 26, 32, 32, 34 y 46 (BreastCHOICE). Tabla 2 (41 herramientas): 34 de ellas entre 10 y 16 puntos, con 15 herramientas en 11 puntos; máximo 29 (METSSS); mínimo 6. Línea vertical en la media de 15,6." loading="lazy"></a>
 <figcaption><strong>Figura 4.</strong> Distribución de las puntuaciones IPDAS de las 51 herramientas evaluadas. Elaboración propia basada en las Tablas 1 y 2 de Wojcik et al. (2025). RSClin, Graetz et al. 2018 y REACH se excluyeron de la evaluación porque los autores no pudieron acceder a la herramienta completa.</figcaption>
 </figure>
 
@@ -249,7 +249,7 @@ No es posible ordenar las 54 herramientas de mejor a peor: evalúan resultados d
 <h3>RSClin</h3>
 <p class="dst-card__kind">Regresión de Cox · beneficio de la quimioterapia</p>
 <p><strong>Para quién:</strong> pacientes con receptores hormonales positivos, HER2 negativo y ganglios negativos.</p>
-<p><strong>Cómo funciona:</strong> combina la puntuación de recurrencia de 21 genes con la edad, el grado y el tamaño tumoral, usando datos de los ensayos NSABP y TAILORx, para estimar el riesgo de recurrencia a distancia a 10 años según la terapia endocrina planificada.</p>
+<p><strong>Cómo funciona:</strong> combina la puntuación de recurrencia de 21 genes con la edad, el grado y el tamaño tumoral, y tiene en cuenta la terapia endocrina planificada, la radioterapia y el tipo de cirugía. Con datos de los ensayos NSABP y TAILORx estima el riesgo de recurrencia a distancia a 10 años.</p>
 <p><strong>Evidencia:</strong> validación interna y externa; <strong>excluida de IPDAS</strong> porque un muro de pago impidió evaluarla completa.</p>
 <p class="dst-card__lesson">Lección: la accesibilidad limita la evaluación independiente, incluso en herramientas construidas con ensayos de alta calidad.</p>
 </article>
@@ -307,7 +307,7 @@ A partir de los criterios del artículo y de la literatura metodológica, propon
 Un hallazgo que el artículo no subraya, pero que se desprende de sus tablas, es que **casi toda la «personalización» descrita es estadística clásica**.
 
 <figure class="dst-figure">
-<img src="images/fig-metodos-es.svg" alt="Gráfico de barras sobre las 54 herramientas: regresión de Cox o riesgos competitivos 32; otras regresiones (logística, GLM, simple) 11; aprendizaje automático o IA declarado 4; información adaptada sin modelo predictivo 3; simulación de Markov o análisis bayesiano 2; pruebas t, chi cuadrado o logit fraccional 2." loading="lazy">
+<a href="images/fig-metodos-es.svg" class="dst-figure__zoom" title="Abrir la figura a tamaño completo"><img src="images/fig-metodos-es.svg" alt="Gráfico de barras sobre las 54 herramientas: regresión de Cox o riesgos competitivos 32; otras regresiones (logística, GLM, simple) 11; aprendizaje automático o IA declarado 4; información adaptada sin modelo predictivo 3; simulación de Markov o análisis bayesiano 2; pruebas t, chi cuadrado o logit fraccional 2." loading="lazy"></a>
 <figcaption><strong>Figura 5.</strong> Métodos reportados para estimar resultados, en una agrupación propia de la columna «Métodos» de las Tablas 1 y 2 de Wojcik et al. (2025). El artículo no hace esta clasificación.</figcaption>
 </figure>
 
@@ -319,10 +319,10 @@ Un hallazgo que el artículo no subraya, pero que se desprende de sus tablas, es
 
 ### Lo que esta diferencia significa (y lo que no)
 
-Que predominen los métodos estadísticos **no es un defecto**. Para datos tabulares con una decena de variables clínicas, la regresión bien especificada suele ofrecer una discriminación comparable a la del aprendizaje automático, con ventajas en interpretabilidad y en calibración con muestras moderadas. Los riesgos que importan son otros y afectan a ambos enfoques:
+Que predominen los métodos estadísticos **no es un defecto**. Para datos tabulares con una decena de variables clínicas, una revisión sistemática no encontró ventaja de rendimiento del aprendizaje automático sobre la regresión logística en modelos de predicción clínica (Christodoulou et al., 2019). La regresión bien especificada ofrece además ventajas de interpretabilidad y de estabilidad con muestras moderadas. Los riesgos que importan son otros y afectan a ambos enfoques:
 
 - **Sobreajuste y optimismo.** Seleccionar variables y estimar coeficientes con los mismos datos infla el rendimiento aparente. LASSO lo mitiga; la validación interna corrige parte del optimismo; solo la externa lo pone realmente a prueba.
-- **Dependencia de una fuente.** 28 de las 54 herramientas usan SEER. Un registro poblacional grande da potencia, pero también comparte sesgos: no recoge comorbilidades detalladas ni, de forma completa, los tratamientos sistémicos, y refleja la práctica estadounidense.
+- **Dependencia de una fuente.** 28 de las 54 herramientas usan SEER. Un registro poblacional grande da potencia, pero también comparte sesgos: no recoge comorbilidades detalladas, sus variables de quimioterapia y radioterapia tienen sensibilidad limitada frente a otras fuentes (Noone et al., 2016) y refleja la práctica estadounidense.
 - **Interpretabilidad.** Un nomograma muestra cuánto pesa cada variable; un ADTree también es relativamente legible. Un modelo opaco exige explicar a la paciente por qué su riesgo es el que es, y la tabla no indica que alguna herramienta de aprendizaje automático lo haga.
 - **Causalidad.** Las herramientas de la Tabla 1 estiman resultados «con y sin tratamiento». Si esos contrastes se derivan de datos observacionales y no de ensayos, pueden reflejar quién recibió el tratamiento y no su efecto. El artículo no discute este punto.
 
@@ -331,6 +331,29 @@ Que predominen los métodos estadísticos **no es un defecto**. Para datos tabul
 :::
 
 ## 7. Validación, calidad y usabilidad
+
+### Conceptos para evaluar un modelo predictivo
+
+Esta sección es explicativa: resume conceptos metodológicos estándar que **el artículo de Wojcik et al. no aplica ni reporta**, pero que hacen falta para entender qué significa que una herramienta esté «validada».
+
+<div class="dst-defs">
+<dl>
+<dt>Discriminación</dt><dd>¿Ordena bien el modelo a las pacientes? Se mide con el índice C (o el área bajo la curva ROC): 0,5 equivale al azar y 1 a una separación perfecta. No dice nada de si las probabilidades son correctas.</dd>
+<dt>Calibración</dt><dd>¿Coinciden las probabilidades con lo observado? Se examina con la calibración global (riesgo medio predicho frente a observado), la pendiente de calibración (una pendiente &lt; 1 indica predicciones demasiado extremas, típicas del sobreajuste) y la curva de calibración. Es lo que más importa cuando se comunica un número a una paciente (Van Calster et al., 2019).</dd>
+<dt>Validación interna</dt><dd>Estima cuánto optimismo tiene el rendimiento medido en los datos de desarrollo (bootstrap, validación cruzada). Corrige el sobreajuste, pero no dice cómo funcionará el modelo en otro lugar.</dd>
+<dt>Validación externa</dt><dd>Prueba en datos independientes: de otra época (temporal), de otros centros o países (geográfica) o de otro contexto clínico (de dominio). Es la que informa sobre la <em>transportabilidad</em> (Ramspek et al., 2021). Si falla la calibración, el modelo puede recalibrarse localmente antes de usarse.</dd>
+<dt>Incertidumbre</dt><dd>Toda predicción individual tiene un margen de error que depende del tamaño de la muestra, del número de variables y de lo atípica que sea la paciente. Una herramienta que solo muestra «23 %» oculta esa incertidumbre.</dd>
+<dt>Interpretabilidad</dt><dd>Capacidad de explicar por qué el modelo asigna un riesgo. Un nomograma la ofrece por construcción; un modelo complejo necesita explicaciones añadidas, que también deben validarse.</dd>
+<dt>Utilidad clínica</dt><dd>¿Mejora las decisiones? El análisis de curvas de decisión calcula el beneficio neto de actuar según el modelo frente a tratar a todas o a ninguna (Vickers y Elkin, 2006). Los estudios de impacto comprueban si cambia la práctica y los resultados.</dd>
+<dt>Riesgo de sesgo</dt><dd>PROBAST evalúa sistemáticamente el riesgo de sesgo y la aplicabilidad de los estudios de modelos predictivos: participantes, predictores, resultado y análisis (Wolff et al., 2019).</dd>
+</dl>
+</div>
+
+::: {.dst-concept}
+[Predicción frente a causalidad]{.dst-label}
+
+Un modelo **pronóstico** responde a «¿qué le pasará probablemente a una paciente como esta?». Una herramienta de **decisión de tratamiento** pretende responder a otra pregunta: «¿qué le pasaría *si* recibe el tratamiento A frente a si recibe el B?». Esa segunda pregunta es causal. Si el efecto del tratamiento se estima con datos observacionales, como un registro, quienes recibieron quimioterapia pueden diferir sistemáticamente de quienes no la recibieron (más jóvenes, con tumores más agresivos, con mejor acceso), y el modelo atribuirá al tratamiento diferencias que se deben a esas características. Por eso importa de dónde salen los contrastes «con y sin tratamiento»: de ensayos aleatorizados o metaanálisis, o de comparaciones observacionales que requieren métodos causales explícitos. Según las tablas, RSClin usa datos de ensayos (NSABP y TAILORx) y BTxChoice combina metaanálisis, ensayos y datos observacionales; para las demás, la tabla indica unidades hospitalarias, bases de datos clínicas o registros, y en Radiotherapy for Older Women, un comité asesor. El artículo de Wojcik et al. no distingue entre ambos casos; **esta lectura es mía**.
+:::
 
 ### ¿Por qué una herramienta con buen rendimiento estadístico puede no estar lista para la clínica?
 
@@ -428,7 +451,7 @@ Lo que sigue son **propuestas propias**, apoyadas en guías metodológicas recon
 
 - **La unidad de análisis mezcla cosas distintas.** Una calculadora de riesgo para médicos y una intervención web de adherencia se cuentan igual como «herramientas». Los porcentajes agregados ocultan esa heterogeneidad.
 - **La validación se registra como presencia o ausencia.** Sin métricas ni diseño, no se puede distinguir una validación robusta de una mínima.
-- **IPDAS como medida única de calidad.** Es adecuado para ayudas a la decisión de pacientes, pero no para juzgar modelos predictivos. Faltó un instrumento complementario de riesgo de sesgo de modelos de predicción, como PROBAST.
+- **IPDAS como medida única de calidad.** Es adecuado para ayudas a la decisión de pacientes, pero no para juzgar modelos predictivos. Faltó un instrumento complementario de riesgo de sesgo de modelos de predicción, como PROBAST (Wolff et al., 2019).
 - **Fiabilidad de la extracción.** No se reportan la doble extracción independiente, la concordancia entre evaluadores ni el número de personas que puntuaron IPDAS.
 - **Inconsistencias internas** (detalladas en la nota de verificación al final). No cambian las conclusiones generales, pero sí afectan la precisión de algunas frases del texto.
 - **Material suplementario.** Las estrategias de búsqueda, los criterios detallados, la lista IPDAS completa y las tablas demográficas están en suplementos que esta reseña no revisó.
@@ -450,7 +473,7 @@ Wojcik y colaboradores ofrecen el inventario más amplio hasta la fecha de herra
 
 1. **54 herramientas, dos familias.** 11 estiman resultados con y sin un tratamiento concreto; 43 ofrecen pronósticos u otros resultados.
 2. **«Validada» casi siempre significa validación interna.** 45 reportan alguna validación, pero solo 21 la tienen externa.
-3. **La usabilidad es la gran ausente.** Solo 9 de 54 tuvieron pruebas de usabilidad, factibilidad o aceptabilidad, con instrumentos no comparables.
+3. **La usabilidad es la gran ausente.** Solo 9 de 54 reportan pruebas de usabilidad, factibilidad o aceptabilidad (dos de ellas aún en curso y sin resultados), con instrumentos no comparables.
 4. **La calidad comunicativa es baja.** La media IPDAS es de 16/63; solo BreastCHOICE se acerca a 46.
 5. **La personalización es sobre todo estadística clásica.** 32 herramientas usan regresión de Cox; solo 4 declaran aprendizaje automático o IA.
 6. **La equidad no está garantizada.** Las muestras fueron mayoritariamente blancas, casadas y aseguradas, y ninguna herramienta procede de América Latina o África.
@@ -479,21 +502,31 @@ Wojcik y colaboradores ofrecen el inventario más amplio hasta la fecha de herra
 
 ## Nota de verificación
 
-Todas las cifras de esta reseña se contrastaron con el PDF publicado (29 páginas). Las Tablas 1 y 2 se transcribieron celda por celda desde el texto del PDF y se compararon visualmente con las páginas originales. Estas discrepancias se documentan **sin corregir el estudio**:
+Todas las cifras de esta reseña se contrastaron con el PDF publicado (29 páginas). Las Tablas 1 y 2 se transcribieron celda por celda desde el texto del PDF, se compararon visualmente con las páginas originales y se auditaron carácter por carácter: ningún carácter de las tablas del PDF falta en la transcripción. Los puntos siguientes se documentan **sin corregir el estudio** y se clasifican con prudencia: varias diferencias se explican por definiciones, unidades de conteo o denominadores, y no son errores científicos.
 
-| # | Dónde | Qué dice el artículo | Qué muestran los datos del propio artículo |
-|---|---|---|---|
-| 1 | Figura 1 | 371 informes evaluados, 319 excluidos, 46 incluidos (+ 8 de validación) | 371 − 319 = 52; la diferencia de 6 no se explica |
-| 2 | Texto, herramientas de tratamiento | 2 para pacientes, 4 solo para médicos y 9 para ambos (suma 15 de 11) | Tabla 1: 2 pacientes, 4 médicos y 5 ambos |
-| 3 | Texto, herramientas de tratamiento | «Tres herramientas» sin validación [17, 45, 49] | Tabla 1: cuatro (Age Gap 1 y 2 comparten la referencia 49) |
-| 4 | Texto | Todas las herramientas usan factores individuales y clínicos | BRECONDA figura con «—» en esa columna |
-| 5 | Tabla 1 vs. texto | BTxChoice y Radiotherapy for Older Women: «Sí» en usabilidad | El texto dice que no reportaron resultados (pruebas en curso) |
-| 6 | Limitaciones | 23 herramientas inaccesibles | 24 figuran con «disponibilidad limitada» (el criterio puede no ser idéntico) |
-| 7 | Limitaciones | Herramientas de EE. UU., Europa, Australia, Japón y Corea | La Tabla 2 incluye datos de un hospital de Harbin (China) |
-| 8 | Abreviaturas, Tabla 2 | «AT aromatase inhibitor» | En la tabla se usa «AI» |
-| 9 | Resultados IPDAS | Media 16 | 15,57 sobre las 51 puntuadas: el redondeo es correcto, pero el denominador (51, no 54) no se explicita en el texto |
+```{=html}
+<div class="dst-table-scroll" role="region" aria-label="Discrepancias y puntos documentados, con su clasificación" tabindex="0">
+<table class="dst-table dst-table--disc"><caption>Discrepancias y puntos documentados, con su clasificación</caption>
+<thead><tr><th scope="col">#</th><th scope="col">Punto</th><th scope="col">Qué dice el artículo</th><th scope="col">Qué muestran sus propios datos</th><th scope="col">Clasificación</th></tr></thead><tbody>
+<tr><th scope="row" class="dst-num">1</th><td data-label="Punto">Figura 1</td><td data-label="Qué dice el artículo">371 informes evaluados, 319 excluidos; 46 estudios incluidos (+ 8 de validación)</td><td data-label="Qué muestran sus propios datos">371 − 319 = 52 informes. PRISMA 2020 distingue informes de estudios, y un estudio puede tener varios informes, pero el artículo no documenta esa correspondencia ni el origen de los 8 estudios de validación</td><td data-label="Clasificación">Requiere verificación adicional</td></tr>
+<tr><th scope="row" class="dst-num">2</th><td data-label="Punto">Usuarios, Tabla 1 (texto)</td><td data-label="Qué dice el artículo">2 solo pacientes, 4 solo médicos y «nueve» para ambos [13, 14, 44–46]</td><td data-label="Qué muestran sus propios datos">La Tabla 1 y las cinco referencias citadas indican 5 para ambos; la suma del texto (15) supera las 11 herramientas</td><td data-label="Clasificación">Inconsistencia demostrable (probable errata: «nine» por «five»)</td></tr>
+<tr><th scope="row" class="dst-num">3</th><td data-label="Punto">Sin validación, Tabla 1 (texto)</td><td data-label="Qué dice el artículo">«Tres herramientas» [17, 45, 49]</td><td data-label="Qué muestran sus propios datos">La Tabla 1 muestra cuatro: la referencia 49 describe dos herramientas (Age Gap 1 y 2). El total del resumen (45 validadas) concuerda con las tablas</td><td data-label="Clasificación">Diferencia explicable (conteo por referencias, no por herramientas)</td></tr>
+<tr><th scope="row" class="dst-num">4</th><td data-label="Punto">Variables, Tabla 1 (texto)</td><td data-label="Qué dice el artículo">Todas las herramientas usan características individuales y clínicas</td><td data-label="Qué muestran sus propios datos">BRECONDA figura con «—» en esa columna: adapta información a preferencias</td><td data-label="Clasificación">Inconsistencia menor entre texto y tabla; requiere verificación</td></tr>
+<tr><th scope="row" class="dst-num">5</th><td data-label="Punto">Usabilidad</td><td data-label="Qué dice el artículo">Tabla: «Sí» para BTxChoice y Radiotherapy for Older Women; resumen: nueve herramientas «habían pasado» por pruebas</td><td data-label="Qué muestran sus propios datos">El texto aclara que esas dos no reportaron resultados (pruebas en curso)</td><td data-label="Clasificación">Diferencia explicable por criterio: la columna registra la existencia de pruebas, no resultados publicados</td></tr>
+<tr><th scope="row" class="dst-num">6</th><td data-label="Punto">Accesibilidad</td><td data-label="Qué dice el artículo">23 herramientas no se pudieron evaluar por pago o por capturas incompletas</td><td data-label="Qué muestran sus propios datos">24 figuran con «disponibilidad limitada», categoría más amplia que incluye el acceso a través del investigador principal, de suplementos o de la sección de resultados</td><td data-label="Clasificación">Diferencia explicable por criterios; no es una discrepancia</td></tr>
+<tr><th scope="row" class="dst-num">7</th><td data-label="Punto">Países</td><td data-label="Qué dice el artículo">Herramientas de EE. UU., Europa, Australia, Japón y Corea</td><td data-label="Qué muestran sus propios datos">La Tabla 2 incluye una herramienta con datos del Harbin Medical University Cancer Hospital (China)</td><td data-label="Clasificación">Requiere verificación adicional (el criterio de «país» no está definido)</td></tr>
+<tr><th scope="row" class="dst-num">8</th><td data-label="Punto">Abreviaturas, Tabla 2</td><td data-label="Qué dice el artículo">«AT aromatase inhibitor»</td><td data-label="Qué muestran sus propios datos">La tabla usa «AI»</td><td data-label="Clasificación">Posible errata editorial</td></tr>
+<tr><th scope="row" class="dst-num">9</th><td data-label="Punto">Celdas de las tablas</td><td data-label="Qué dice el artículo">«PMR», «breast reduction», «Rocket Mountain», «2 of more», «mellitus»</td><td data-label="Qué muestran sus propios datos">Aparentes erratas tipográficas, conservadas y marcadas</td><td data-label="Clasificación">Posible errata editorial</td></tr>
+<tr><th scope="row" class="dst-num">10</th><td data-label="Punto">Figura 1</td><td data-label="Qué dice el artículo">Asteriscos <em> y </em>*</td><td data-label="Qué muestran sus propios datos">Son llamadas de la plantilla PRISMA 2020 cuyas notas no se reproducen en la leyenda</td><td data-label="Clasificación">Posible errata editorial</td></tr>
+</tbody></table></div>
+```
 
-Las erratas aparentes dentro de las celdas («PMR», «reduction», «Rocket Mountain», «2 of more», «mellitus») se conservaron y se marcaron en las tablas.
+**Puntos verificados que no son discrepancias:**
+
+- **Media IPDAS.** La media de las 51 herramientas puntuadas es 15,57; el artículo informa 16, un redondeo correcto. Solo falta explicitar que el denominador es 51, no 54, porque tres herramientas se excluyeron.
+- **Supervivencia global (20 herramientas en la Tabla 2).** 18 mencionan explícitamente la supervivencia global; las otras dos que cita el texto (referencias 85 y 86) estiman escenarios de supervivencia y supervivencia a 5 años. El recuento es coherente con ese criterio.
+- **Validación en la Tabla 2** (15 externas, 35 internas, 5 sin validación), **usuarios** (4, 31 y 8), **raza** (17), **factores contextuales** (21; estado civil 20, seguro 4) y **metástasis óseas o pulmonares** (10): coinciden con la tabla.
+- **Cita sobre la FDA.** La afirmación sobre la regulación de la FDA se apoya en un comentario del *NEJM* (referencia 26), no en el documento regulatorio. Es una cita indirecta, no un error.
 
 ## Referencias
 
@@ -501,9 +534,13 @@ Las erratas aparentes dentro de las celdas («PMR», «reduction», «Rocket Mou
 
 <p class="dst-reference dst-reference--main">Wojcik, K. M., Kamil, D., Zhang, J., Wilson, O. W. A., Smith, L., Butera, G., Isaacs, C., Kurian, A., &amp; Jayasekera, J. (2025). A scoping review of web-based, interactive, personalized decision-making tools available to support breast cancer treatment and survivorship care. <em>Journal of Cancer Survivorship, 19</em>, 1496–1524. <a href="https://doi.org/10.1007/s11764-024-01567-6">https://doi.org/10.1007/s11764-024-01567-6</a> (publicado en línea el 28 de marzo de 2024).</p>
 
+<p class="dst-reference">Christodoulou, E., Ma, J., Collins, G. S., Steyerberg, E. W., Verbakel, J. Y., &amp; Van Calster, B. (2019). A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. <em>Journal of Clinical Epidemiology, 110</em>, 12–22. <a href="https://doi.org/10.1016/j.jclinepi.2019.02.004">https://doi.org/10.1016/j.jclinepi.2019.02.004</a></p>
+
 <p class="dst-reference">Collins, G. S., Moons, K. G. M., Dhiman, P., et al. (2024). TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. <em>BMJ, 385</em>, e078378. <a href="https://doi.org/10.1136/bmj-2023-078378">https://doi.org/10.1136/bmj-2023-078378</a></p>
 
 <p class="dst-reference">Elwyn, G., O'Connor, A., Stacey, D., et al. (2006). Developing a quality criteria framework for patient decision aids: online international Delphi consensus process. <em>BMJ, 333</em>(7565), 417. <a href="https://doi.org/10.1136/bmj.38926.629329.AE">https://doi.org/10.1136/bmj.38926.629329.AE</a></p>
+
+<p class="dst-reference">Noone, A.-M., Lund, J. L., Mariotto, A., Cronin, K., McNeel, T., Deapen, D., &amp; Warren, J. L. (2016). Comparison of SEER treatment data with Medicare claims. <em>Medical Care, 54</em>(9), e55–e64. <a href="https://doi.org/10.1097/MLR.0000000000000073">https://doi.org/10.1097/MLR.0000000000000073</a></p>
 
 <p class="dst-reference">Page, M. J., McKenzie, J. E., Bossuyt, P. M., et al. (2021). The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. <em>BMJ, 372</em>, n71. <a href="https://doi.org/10.1136/bmj.n71">https://doi.org/10.1136/bmj.n71</a></p>
 
@@ -515,9 +552,12 @@ Las erratas aparentes dentro de las celdas («PMR», «reduction», «Rocket Mou
 
 <p class="dst-reference">Vickers, A. J., &amp; Elkin, E. B. (2006). Decision curve analysis: a novel method for evaluating prediction models. <em>Medical Decision Making, 26</em>(6), 565–574. <a href="https://doi.org/10.1177/0272989X06295361">https://doi.org/10.1177/0272989X06295361</a></p>
 
+
+<p class="dst-reference">Wolff, R. F., Moons, K. G. M., Riley, R. D., Whiting, P. F., Westwood, M., Collins, G. S., Reitsma, J. B., Kleijnen, J., Mallett, S., &amp; PROBAST Group. (2019). PROBAST: a tool to assess the risk of bias and applicability of prediction model studies. <em>Annals of Internal Medicine, 170</em>(1), 51–58. <a href="https://doi.org/10.7326/M18-1376">https://doi.org/10.7326/M18-1376</a></p>
+
 </div>
 
-<p class="dst-note">Los DOI se comprobaron en Crossref. Las referencias de las herramientas (números entre corchetes en las tablas) remiten a la lista de 156 referencias del artículo original. Las obras de Collins, Van Calster y Vickers no forman parte de la revisión; se citan solo como apoyo de las propuestas de la sección 9.</p>
+<p class="dst-note">Los DOI se comprobaron en Crossref. Las referencias de las herramientas (números entre corchetes en las tablas) remiten a la lista de 156 referencias del artículo original. Las obras de Christodoulou, Collins, Noone, Ramspek, Van Calster, Vickers y Wolff no forman parte de la revisión; se citan solo como apoyo metodológico de los análisis propios (secciones 6, 7, 9 y 10).</p>
 
 <div class="dst-links">
 <a class="dst-links__primary" href="https://doi.org/10.1007/s11764-024-01567-6">Leer el artículo original (DOI)</a>
@@ -528,7 +568,5 @@ Las erratas aparentes dentro de las celdas («PMR», «reduction», «Rocket Mou
 ::: {.dst-credits}
 **Créditos y licencia.** El artículo de Wojcik et al. es de acceso abierto bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Es además un trabajo del Gobierno de EE. UU., no sujeto a derechos de autor en ese país. La Figura 1 y las Tablas 1 y 2 son adaptaciones (traducción, redibujo y reorganización) de los originales; la Figura 1 se basa a su vez en la plantilla PRISMA 2020 de Page et al. (*BMJ*, CC BY 4.0). Las Figuras 2 a 5 y la imagen de portada son elaboración propia a partir de los datos de las tablas. Ninguna de estas adaptaciones implica respaldo de los autores originales.
 
-**Uso de inteligencia artificial.** Esta reseña se preparó con el apoyo de Claude (Anthropic), un asistente de IA generativa, en la extracción y verificación de las tablas y cifras del PDF, la comprobación de referencias en Crossref, la redacción de los borradores en español e inglés y la elaboración de las figuras y tablas. El autor definió el encargo, los criterios de rigor y los ajustes metodológicos. La responsabilidad final del contenido corresponde al autor.
+**Uso de inteligencia artificial.** Esta reseña se preparó con el apoyo de Claude (Anthropic), un asistente de IA generativa, en la extracción y verificación de las tablas y cifras del PDF, la comprobación de referencias en Crossref, la redacción de los borradores en español e inglés, la elaboración de las figuras y tablas y una auditoría posterior de verificación (comparación de las tablas con el PDF, consistencia de los gráficos y equivalencia entre idiomas). El autor definió el encargo, los criterios de rigor y los ajustes metodológicos, y solicitó la auditoría. La responsabilidad final del contenido corresponde al autor.
 :::
-
-::::
