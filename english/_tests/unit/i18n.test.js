@@ -54,7 +54,8 @@ test('dynamic key families are complete', () => {
     ...['auto', 'self', 'ai', 'human'].flatMap((k) => [`rw.fb.${k}`, `rw.fb.${k}.desc`]),
     ...[1, 2, 3, 4, 5].map((n) => `set.p${n}`),
     ...['pre', 'a1', 'a2', 'b1'].map((k) => `diag.place.${k}`),
-    ...['dashboard', 'path', 'speaking', 'listening', 'vocab', 'readwrite', 'assess', 'progress', 'settings'].map((v) => `nav.${v}`)
+    ...['dashboard', 'path', 'speaking', 'listening', 'vocab', 'readwrite', 'assess', 'progress', 'settings'].map((v) => `nav.${v}`),
+    ...['idle', 'syncing', 'synced', 'offline', 'error', 'conflict'].map((st) => `sync.${st}`)
   ];
   assert.deepEqual(need.filter((k) => !_DICT.es[k] || !_DICT.en[k]), []);
 });

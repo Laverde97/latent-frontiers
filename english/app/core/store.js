@@ -238,7 +238,7 @@ export function memoryStorage() {
   };
 }
 
-function safeLocalStorage() {
+export function safeLocalStorage() {
   try {
     const ls = globalThis.localStorage;
     const probe = '__efl_probe__';
@@ -251,7 +251,10 @@ function safeLocalStorage() {
 }
 
 export class Store {
-  constructor(storage) {
+  /* key: storage key of the active local profile (default profile keeps
+     the original 'efl-progress' key, so existing progress is untouched). */
+  constructor(storage, key = STORAGE_KEY) {
+    this.key = key;
     if (storage) {
       this.storage = storage;
       this.persistent = true;
@@ -267,7 +270,7 @@ export class Store {
 
   load() {
     let raw = null;
-    try { raw = this.storage.getItem(STORAGE_KEY); } catch (e) { raw = null; }
+    try { raw = this.storage.getItem(this.key); } catch (e) { raw = null; }
     if (!raw) { return createInitialState(); }
     const res = importState(raw);
     if (res.ok) {
@@ -275,7 +278,7 @@ export class Store {
       return res.state;
     }
     /* Corrupt or unreadable: keep a copy for manual recovery, start fresh. */
-    try { this.storage.setItem(`${STORAGE_KEY}-corrupt-${Date.now()}`, raw); } catch (e) { /* ignore */ }
+    try { this.storage.setItem(`${this.key}-corrupt-${Date.now()}`, raw); } catch (e) { /* ignore */ }
     this.notice = 'corrupt';
     return createInitialState();
   }
@@ -283,7 +286,7 @@ export class Store {
   save() {
     this.state.updatedAt = new Date().toISOString();
     try {
-      this.storage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+      this.storage.setItem(this.key, JSON.stringify(this.state));
       this.saveError = null;
     } catch (e) {
       this.saveError = e;
