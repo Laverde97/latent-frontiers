@@ -61,6 +61,8 @@ begin
 end;
 $$;
 
+revoke all on function public.efl_state_guard() from public, anon, authenticated;
+
 drop trigger if exists efl_state_guard on public.efl_learner_state;
 create trigger efl_state_guard
   before insert or update on public.efl_learner_state
@@ -72,8 +74,11 @@ alter table public.efl_profiles force row level security;
 alter table public.efl_learner_state enable row level security;
 alter table public.efl_learner_state force row level security;
 
-revoke all on public.efl_profiles from public, anon;
-revoke all on public.efl_learner_state from public, anon;
+-- Supabase grants ALL on new public tables to anon/authenticated through
+-- default privileges (including TRUNCATE, which RLS does not cover).
+-- Start from zero and grant back only what the app needs.
+revoke all on public.efl_profiles from public, anon, authenticated;
+revoke all on public.efl_learner_state from public, anon, authenticated;
 grant select, insert, delete on public.efl_profiles to authenticated;
 grant select, insert, update, delete on public.efl_learner_state to authenticated;
 
@@ -81,31 +86,31 @@ drop policy if exists efl_profiles_select on public.efl_profiles;
 drop policy if exists efl_profiles_insert on public.efl_profiles;
 drop policy if exists efl_profiles_delete on public.efl_profiles;
 create policy efl_profiles_select on public.efl_profiles
-  for select to authenticated using (user_id = auth.uid());
+  for select to authenticated using (user_id = (select auth.uid()));
 create policy efl_profiles_insert on public.efl_profiles
-  for insert to authenticated with check (user_id = auth.uid());
+  for insert to authenticated with check (user_id = (select auth.uid()));
 create policy efl_profiles_delete on public.efl_profiles
-  for delete to authenticated using (user_id = auth.uid());
+  for delete to authenticated using (user_id = (select auth.uid()));
 
 drop policy if exists efl_state_select on public.efl_learner_state;
 drop policy if exists efl_state_insert on public.efl_learner_state;
 drop policy if exists efl_state_update on public.efl_learner_state;
 drop policy if exists efl_state_delete on public.efl_learner_state;
 create policy efl_state_select on public.efl_learner_state
-  for select to authenticated using (user_id = auth.uid());
+  for select to authenticated using (user_id = (select auth.uid()));
 -- saving progress requires the 18+ confirmation row of the same user
 create policy efl_state_insert on public.efl_learner_state
   for insert to authenticated
   with check (
-    user_id = auth.uid()
-    and exists (select 1 from public.efl_profiles p where p.user_id = auth.uid())
+    user_id = (select auth.uid())
+    and exists (select 1 from public.efl_profiles p where p.user_id = (select auth.uid()))
   );
 create policy efl_state_update on public.efl_learner_state
   for update to authenticated
-  using (user_id = auth.uid())
-  with check (user_id = auth.uid());
+  using (user_id = (select auth.uid()))
+  with check (user_id = (select auth.uid()));
 create policy efl_state_delete on public.efl_learner_state
-  for delete to authenticated using (user_id = auth.uid());
+  for delete to authenticated using (user_id = (select auth.uid()));
 
 -- ----------------------------------------------------------- save with rev
 -- SECURITY INVOKER: runs with the caller's privileges, so RLS applies.
@@ -148,7 +153,7 @@ begin
 end;
 $$;
 
-revoke all on function public.efl_save_state(jsonb, integer, bigint, text) from public, anon;
+revoke all on function public.efl_save_state(jsonb, integer, bigint, text) from public, anon, authenticated;
 grant execute on function public.efl_save_state(jsonb, integer, bigint, text) to authenticated;
 
 -- ------------------------------------------------------- delete my account
@@ -171,5 +176,5 @@ begin
 end;
 $$;
 
-revoke all on function public.efl_delete_my_account() from public, anon;
+revoke all on function public.efl_delete_my_account() from public, anon, authenticated;
 grant execute on function public.efl_delete_my_account() to authenticated;

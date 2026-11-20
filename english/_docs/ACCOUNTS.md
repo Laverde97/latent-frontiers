@@ -41,9 +41,10 @@ Con un documento por estudiante, la sincronización es atómica y simple. El his
 | Leer o modificar datos de otro estudiante manipulando peticiones | RLS **forzado** en todas las tablas; políticas `user_id = auth.uid()` en lectura y escritura; `with check` en insert/update. `auth.uid()` sale del JWT firmado por Supabase, nunca del cuerpo de la petición |
 | Enviar un `user_id` ajeno | El cliente nunca envía `user_id` (valor por defecto `auth.uid()`). Si alguien lo fuerza, RLS lo rechaza; un trigger impide cambiar `user_id` |
 | Uso de la clave pública | La clave anon es pública por diseño; el rol `anon` no tiene privilegios sobre las tablas ni las funciones |
-| Clave administrativa en el frontend | No existe: solo URL + anon key en `config.js`. `verify-supabase.js` se niega a correr con una clave `service_role` |
+| Privilegios por defecto de Supabase | Supabase concede `ALL` (incluido `TRUNCATE`, que RLS no cubre) a `anon` y `authenticated` en tablas y funciones nuevas. La migración revoca todo y concede solo lo necesario: `select/insert/delete` en `efl_profiles` (sin `update`) y `select/insert/update/delete` en `efl_learner_state` |
+| Clave administrativa en el frontend | No existe: solo URL + anon key en `config.js`. `verify-supabase.js` se niega a correr con una clave `service_role` o `sb_secret_…` |
 | Sobrescribir progreso entre dispositivos | `efl_save_state` con `rev` esperado; un conflicto obliga a fusionar y reintentar |
-| Borrar la cuenta de otro | `efl_delete_my_account()` no recibe parámetros: solo borra `auth.uid()` |
+| Borrar la cuenta de otro | `efl_delete_my_account()` no recibe parámetros: solo borra `auth.uid()`. Es `security definer` (necesario para borrar en `auth.users`) con `search_path = ''` y nombres totalmente calificados; `execute` revocado a `public` y `anon`, concedido solo a `authenticated`; sin sesión lanza «not authenticated» |
 | XSS que robe la sesión | La sesión vive en `localStorage` (estándar de supabase-js). Mitigación: sin HTML de terceros, contenido estático propio y librería vendorizada y fijada. Pendiente: Content-Security-Policy (GitHub Pages no permite cabeceras; evaluar `<meta http-equiv>`) |
 | Menores | Cuentas solo 18+. La confirmación es declarativa (no se verifica identidad); los menores tienen el modo invitado sin datos en servidor |
 
@@ -79,7 +80,7 @@ Es determinista e idempotente, y nunca pierde evidencias.
 
 | Prueba | Qué demuestra | Qué **no** demuestra |
 |---|---|---|
-| `npm run test:db` (13) | La migración y RLS en PostgreSQL 17 real (PGlite), con `auth.uid()` emulado igual que Supabase | Configuración de un proyecto Supabase real |
+| `npm run test:db` (17) | La migración y RLS en PostgreSQL 17 real (PGlite), con `auth.uid()` emulado igual que Supabase | Configuración de un proyecto Supabase real |
 | `npm run test:unit` | Perfiles, fusión, motor de sincronización (conflictos, offline) | — |
 | E2E `accounts.spec.js` | Interfaz completa; los datos pasan por PostgreSQL con RLS real. Incluye manipulación de peticiones A→B | Autenticación real, correo y red (simulados) |
-| `npm run verify:supabase` | RLS en el **proyecto real** con dos usuarios de prueba | — (**pendiente**: requiere el proyecto) |
+| `npm run verify:supabase` | En el **proyecto real**, con dos cuentas que entran por código de correo (el mismo flujo de la app): aislamiento A↔B, 18+, conflicto de `rev`, clave anon sin acceso y, con `--delete-test-accounts`, eliminación real de cuentas | La interfaz (se prueba a mano en la vista previa) |

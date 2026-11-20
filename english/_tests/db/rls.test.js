@@ -56,11 +56,20 @@ test('A cannot update or delete B\'s rows (0 rows affected, B unchanged)', async
 test('A cannot insert rows on behalf of B (forged user_id)', async () => {
   const C = await createUser(db, 'c@example.test');
   await rejects(as(db, A, (tx) => tx.query("insert into efl_profiles (user_id, adult_confirmed, terms_version) values ($1, true, 'x')", [C])), /row-level security/);
-  await rejects(as(db, A, (tx) => tx.query("insert into efl_learner_state (user_id, state, state_version) values ($1, '{}', 2)", [C])), /row-level security|duplicate/);
+  await rejects(as(db, A, (tx) => tx.query("insert into efl_learner_state (user_id, state, state_version) values ($1, '{}', 2)", [C])), /row-level security/);
+});
+
+test('a forged insert targeting B\'s EXISTING rows fails by RLS, not by a duplicate key', async () => {
+  /* B already has both rows: a duplicate-key error would hide whether RLS works */
+  await rejects(as(db, A, (tx) => tx.query("insert into efl_learner_state (user_id, state, state_version) values ($1, '{}', 2)", [B])), /new row violates row-level security policy/);
+  await rejects(as(db, A, (tx) => tx.query("insert into efl_profiles (user_id, adult_confirmed, terms_version) values ($1, true, 'x')", [B])), /new row violates row-level security policy/);
+  await rejects(as(db, A, (tx) => tx.query("insert into efl_learner_state (user_id, state, state_version) values ($1, '{}', 2) on conflict (user_id) do update set state = excluded.state", [B])), /row-level security/);
+  const b = await as(db, B, (tx) => tx.query('select state->>\'tag\' as tag from efl_learner_state'));
+  assert.equal(b.rows[0].tag, 'B1');
 });
 
 test('A cannot move a row to another owner', async () => {
-  await rejects(as(db, A, (tx) => tx.query('update efl_learner_state set user_id = $1 where user_id = $2', [B, A])), /row-level security|user_id cannot change|duplicate/);
+  await rejects(as(db, A, (tx) => tx.query('update efl_learner_state set user_id = $1 where user_id = $2', [B, A])), /row-level security|user_id cannot change/);
   const a = await as(db, A, (tx) => tx.query('select count(*)::int as n from efl_learner_state'));
   assert.equal(a.rows[0].n, 1);
 });
@@ -125,4 +134,38 @@ test('delete my account removes only the caller and cascades', async () => {
 
 test('the delete function takes no user id: it cannot target someone else', async () => {
   await rejects(as(db, A, (tx) => tx.query('select efl_delete_my_account($1)', [B])), /function .* does not exist/);
+});
+
+test('Supabase default grants are revoked: no TRUNCATE (not covered by RLS), no profile UPDATE', async () => {
+  await rejects(as(db, A, (tx) => tx.query('truncate efl_learner_state')), /permission denied/);
+  await rejects(as(db, A, (tx) => tx.query('truncate efl_profiles')), /permission denied/);
+  await rejects(as(db, A, (tx) => tx.query("update efl_profiles set terms_version = 'x'")), /permission denied/);
+  const n = await db.query('select count(*)::int as n from efl_learner_state');
+  assert.equal(n.rows[0].n >= 2, true);
+});
+
+test('anonymous cannot execute any of the functions', async () => {
+  await rejects(as(db, null, (tx) => tx.query('select efl_delete_my_account()')), /permission denied/);
+  await rejects(as(db, null, (tx) => tx.query("select efl_save_state('{}'::jsonb, 2, null, null)")), /permission denied/);
+});
+
+test('delete function privileges: definer, fixed empty search_path, no arguments, executable only by authenticated', async () => {
+  const f = (await db.query(`select p.prosecdef, p.proconfig, p.pronargs,
+      has_function_privilege('anon', p.oid, 'execute') as anon_exec,
+      has_function_privilege('authenticated', p.oid, 'execute') as auth_exec,
+      has_function_privilege('public', p.oid, 'execute') as public_exec
+    from pg_proc p where p.proname = 'efl_delete_my_account'`)).rows;
+  assert.equal(f.length, 1, 'exactly one overload');
+  assert.deepEqual(f[0], { prosecdef: true, proconfig: ['search_path=""'], pronargs: 0, anon_exec: false, auth_exec: true, public_exec: false });
+  const save = (await db.query(`select prosecdef from pg_proc where proname = 'efl_save_state'`)).rows;
+  assert.deepEqual(save, [{ prosecdef: false }], 'save runs as the caller so RLS applies');
+});
+
+test('the delete function does nothing without a signed-in user (even with a forged claim-less role)', async () => {
+  await rejects(db.transaction(async (tx) => {
+    await tx.exec('set local role authenticated');
+    return tx.query('select efl_delete_my_account()');
+  }), /not authenticated/);
+  const n = await db.query('select count(*)::int as n from auth.users where id in ($1, $2)', [A, B]);
+  assert.equal(n.rows[0].n, 2);
 });

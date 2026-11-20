@@ -1,42 +1,178 @@
 # Activar las cuentas personales (Supabase)
 
-Hasta completar estos pasos, el sitio funciona solo en modo invitado. Los pasos 1–5 los hace la persona propietaria del proyecto; nunca compartas la clave `service_role`.
+Hasta completar estos pasos, `app/config.js` queda vacío y el sitio funciona **solo en modo invitado** (perfiles locales, sin servidor). El modo invitado nunca depende de Supabase.
+
+**Lo que nunca debes compartir** (ni conmigo, ni en el repositorio):
+- la contraseña de la base de datos;
+- la clave `service_role` o cualquier clave `sb_secret_…`;
+- las credenciales SMTP;
+- los tokens de acceso de Supabase.
+
+La aplicación solo necesita **dos valores públicos**: la *Project URL* y la clave *anon / publishable*.
+
+---
 
 ## 1. Crear el proyecto
-1. https://supabase.com → New project (plan gratuito). Región cercana a los estudiantes (p. ej. `South America (São Paulo)`).
-2. Guarda la contraseña de la base de datos en tu gestor de contraseñas (no se usa en el sitio).
 
-## 2. Aplicar la migración
-SQL Editor → New query → pega el contenido de `supabase/migrations/0001_efl_accounts.sql` → Run. Comprueba en Table Editor que `efl_profiles` y `efl_learner_state` muestran **RLS enabled**.
+1. Entra en https://supabase.com/dashboard → **New project**.
+2. Rellena el formulario:
+   - **Organization**: la tuya (plan Free).
+   - **Project name**: `english-fluency-lab` (o el que prefieras).
+   - **Database password**: pulsa *Generate a password* y guárdala en tu gestor de contraseñas. La aplicación no la usa; **no me la envíes**.
+   - **Region**: la más cercana a los estudiantes, por ejemplo *South America (São Paulo)*.
+   - **Security options**, si aparecen:
+     - **Enable Data API: activado**. La app usa la API REST.
+     - El resto de opciones con su valor por defecto. La migración concede y revoca los permisos explícitamente, así que funciona con o sin «exponer tablas nuevas automáticamente».
+3. Pulsa **Create new project** y espera a que el estado sea *Healthy* (1–2 minutos).
+
+## 2. Aplicar la migración (tablas, RLS y funciones)
+
+1. Menú lateral → **SQL Editor** → **New query**.
+2. Pega **todo** el contenido de `supabase/migrations/0001_efl_accounts.sql` y pulsa **Run**.
+   - Supabase puede advertir de «operaciones destructivas» porque el script incluye `drop policy if exists` / `drop trigger if exists`. Son idempotentes y no borran datos: confirma.
+   - Resultado esperado: *Success. No rows returned*.
+3. Comprobación de solo lectura: ejecuta esta consulta en una pestaña nueva del SQL Editor.
+
+   ```sql
+   select c.relname, c.relrowsecurity as rls, c.relforcerowsecurity as forced,
+          has_table_privilege('anon', c.oid, 'select')            as anon_select,
+          has_table_privilege('authenticated', c.oid, 'truncate') as auth_truncate,
+          has_table_privilege('authenticated', c.oid, 'update')   as auth_update
+     from pg_class c
+    where c.relname in ('efl_profiles', 'efl_learner_state');
+
+   select p.proname, p.prosecdef as security_definer, p.proconfig,
+          has_function_privilege('anon', p.oid, 'execute')          as anon_exec,
+          has_function_privilege('authenticated', p.oid, 'execute') as auth_exec
+     from pg_proc p
+    where p.proname in ('efl_save_state', 'efl_delete_my_account');
+   ```
+
+   Resultado esperado de la primera consulta:
+
+   | relname | rls | forced | anon_select | auth_truncate | auth_update |
+   |---|---|---|---|---|---|
+   | efl_profiles | true | true | false | false | **false** |
+   | efl_learner_state | true | true | false | false | true |
+
+   Resultado esperado de la segunda consulta:
+   - `efl_save_state`: `security_definer = false`, `anon_exec = false`, `auth_exec = true`.
+   - `efl_delete_my_account`: `security_definer = true`, `proconfig = {search_path=""}`, `anon_exec = false`, `auth_exec = true`.
+
+   Si algo no coincide, avísame antes de seguir.
+4. Opcional: **Advisors → Security Advisor**. Puede señalar que `efl_delete_my_account` es *security definer* y ejecutable por `authenticated`. Es intencionado: así puede borrar en `auth.users`, pero solo la fila del propio usuario. Cualquier otro aviso sobre `efl_*`, compártelo conmigo.
 
 ## 3. Autenticación por correo (sin contraseñas)
-- Authentication → Sign In / Providers → **Email**: activado; «Confirm email» activado.
-- Authentication → Email Templates → **Magic Link**: incluye el código para escribirlo en la página, por ejemplo:
-  `Tu código para English Fluency Lab es: {{ .Token }}` y el enlace `{{ .ConfirmationURL }}`.
-- Recomendado para producción: SMTP propio (el correo integrado de Supabase tiene límites bajos de envío).
+
+1. **Authentication → Sign In / Providers**:
+   - **Allow new users to sign up: activado**. Sin esto nadie puede crear su cuenta.
+   - **Email: activado**, con **Confirm email: activado**.
+   - **Email OTP Expiration**: 3600 s (valor por defecto) o menos.
+   - **Email OTP Length**: 6 (por defecto). La app acepta hasta 10 dígitos.
+   - No actives otros proveedores (Google, teléfono, anónimos…): la app no los usa.
+2. **Authentication → Emails → Templates**. Edita **dos** plantillas, porque un usuario nuevo recibe *Confirm signup* y uno existente recibe *Magic Link*:
+   - **Confirm signup** y **Magic Link**: añade el código, por ejemplo:
+
+     ```html
+     <h2>English Fluency Lab</h2>
+     <p>Tu código de acceso es: <strong>{{ .Token }}</strong></p>
+     <p>Escríbelo en la página donde lo pediste. Caduca en 1 hora.</p>
+     <p>O abre este enlace en el mismo navegador: <a href="{{ .ConfirmationURL }}">entrar</a></p>
+     <p>Si no lo pediste, ignora este correo.</p>
+     ```
+
+   - El **código** funciona en cualquier navegador. El **enlace** solo funciona en el mismo navegador donde se pidió (flujo PKCE). Por eso la interfaz recomienda el código.
+
+### Envío de correos: decisión importante
+
+El servidor de correo integrado de Supabase tiene dos límites:
+1. Solo entrega a direcciones de los **miembros del equipo** de tu organización.
+2. Tiene un límite muy bajo de envíos por hora.
+
+| Uso | Qué hacer |
+|---|---|
+| **Verificación** (pasos 6–7) | Dos buzones distintos que sean miembros del equipo. Ve a **Organization → Team → Invite** e invita tu segundo correo (rol *Developer* basta). Otra opción es configurar SMTP propio desde ya |
+| **Estudiantes reales** | **Obligatorio SMTP propio**: Authentication → Emails → SMTP Settings (por ejemplo Resend, Brevo o Amazon SES). Las credenciales SMTP se introducen solo en el panel de Supabase; **no me las envíes** |
+
+Las cuentas **no deben anunciarse a estudiantes** hasta tener SMTP propio.
 
 ## 4. URLs permitidas
-Authentication → URL Configuration:
-- Site URL: `https://laverde97.github.io/latent-frontiers/english/`
-- Redirect URLs:
-  - `https://laverde97.github.io/latent-frontiers/english/index.html?view=account`
-  - `http://localhost:8765/latent-frontiers/english/index.html?view=account` (vista previa local)
 
-## 5. Datos que necesito
-Project Settings → API:
-- **Project URL** (`https://xxxx.supabase.co`)
-- **anon / publishable key** (pública por diseño)
+La app siempre pide volver a la dirección canónica `…/english/index.html?view=account`, aunque el estudiante entre por `…/english/`.
 
-Se pegan en `english/app/config.js`. **No** envíes la clave `service_role` ni la contraseña de la base de datos.
+**Authentication → URL Configuration**:
+- **Site URL**: `https://laverde97.github.io/latent-frontiers/english/index.html`
+- **Redirect URLs** (*Add URL*, una por una):
+  1. `https://laverde97.github.io/latent-frontiers/english/index.html?view=account` (GitHub Pages)
+  2. `http://localhost:8765/latent-frontiers/english/index.html?view=account` (vista previa local)
+  3. `http://127.0.0.1:8765/latent-frontiers/english/index.html?view=account` (vista previa por IP)
 
-## 6. Verificación en producción
-1. Authentication → Users → Add user (×2, con «auto confirm»), solo para pruebas.
-2. En tu terminal (las variables no se guardan en el repositorio):
-   ```bash
-   cd english
-   SUPABASE_URL=… SUPABASE_ANON_KEY=… \
-   EFL_TEST_A_EMAIL=… EFL_TEST_A_PASSWORD=… \
-   EFL_TEST_B_EMAIL=… EFL_TEST_B_PASSWORD=… \
-   npm run verify:supabase
-   ```
-3. Deben salir todas las comprobaciones con ✓. Después puedes borrar los dos usuarios de prueba.
+No uses comodines amplios como `https://laverde97.github.io/**`: así solo esta sección puede recibir sesiones.
+
+## 5. Copiar los dos valores públicos
+
+**Project Settings → API Keys** y **Project Settings → Data API**. En proyectos antiguos ambas cosas están en **Settings → API**.
+
+| Valor | Dónde | Formato | ¿Público? |
+|---|---|---|---|
+| **Project URL** | Data API / API → *Project URL* | `https://<ref>.supabase.co` | Sí |
+| **Clave pública** | API Keys → **Publishable key** (`sb_publishable_…`) o la *legacy* **anon public** (`eyJ…`) | una línea | Sí, está diseñada para el navegador |
+| ~~Secret / service_role~~ | API Keys → *Secret keys* | `sb_secret_…` / `eyJ…` con `service_role` | **NO. Nunca la copies** |
+
+Envíame **solo la Project URL y la clave pública**. Yo las pongo en `english/app/config.js` en la rama `feat/efl-phase2-accounts` (PR #13), sin publicar nada.
+
+## 6. Verificación automática contra el proyecto real
+
+El script entra exactamente como la app: código por correo con `signInWithOtp` + `verifyOtp`, **sin contraseñas**. Crea las dos cuentas de prueba la primera vez. Necesitas dos buzones distintos que reciban correo (ver el paso 3). Las variables viven solo en tu terminal.
+
+```bash
+cd english
+export SUPABASE_URL='https://<ref>.supabase.co'
+export SUPABASE_ANON_KEY='<clave pública>'
+export EFL_TEST_A_EMAIL='<buzón de prueba A>'
+export EFL_TEST_B_EMAIL='<buzón de prueba B>'
+
+# 1) envía los dos códigos
+npm run verify:supabase -- --send
+
+# 2) con los códigos recibidos (válidos 1 h, un solo uso):
+EFL_TEST_A_CODE=<código A> EFL_TEST_B_CODE=<código B> \
+  npm run verify:supabase -- --delete-test-accounts
+```
+
+Puedes ejecutar los comandos tú en tu terminal o escribirlos en esta sesión con el prefijo `!`. Los códigos de un solo uso de cuentas de prueba no son claves del proyecto.
+
+El script comprueba:
+- **Acceso**: A y B entran por código.
+- **18+**: sin la confirmación no se guarda progreso; `adult_confirmed = false` se rechaza; la fila 18+ no se puede editar.
+- **Guardado y concurrencia**: cada uno guarda lo suyo y un `rev` antiguo produce conflicto.
+- **Intentos de A contra B**: A no puede leer, actualizar, borrar, mover filas ni insertar como B. Los intentos de inserción deben fallar **por RLS**; un error de clave duplicada no cuenta como éxito.
+- **Clave anon sola**: no lee, no inserta y no llama a las funciones.
+- **Integridad de B**: sus datos siguen intactos tras todos los intentos.
+- **Eliminación** (con `--delete-test-accounts`): A elimina su cuenta y sus datos desaparecen, B no se ve afectado, y después B se elimina (limpieza).
+
+Resultado esperado: `N/N checks passed against <ref>.supabase.co`. Si falla una comprobación, **no actives las cuentas para estudiantes** y comparte la salida conmigo (no contiene claves).
+
+> Si `efl_delete_my_account` falla con *permission denied for table users*, tu proyecto restringe al rol `postgres` sobre el esquema `auth`. Alternativa segura: una Edge Function que use la clave secreta **como secreto del servidor** (`auth.admin.deleteUser(user.id)` tras validar el JWT del llamante). Nunca se resolvería poniendo esa clave en el navegador.
+
+## 7. Prueba manual de la interfaz (vista previa local)
+
+Con `config.js` relleno, la vista previa sigue en `http://localhost:8765/latent-frontiers/english/index.html?view=account`:
+
+1. Sin cuenta: perfiles locales, lecciones, audio y progreso funcionan igual (modo invitado).
+2. Entrar con correo + casillas 18+ y términos → código → «Cuenta vinculada».
+3. Con progreso local previo, aparece la elección de migración (subir / combinar / usar el de la cuenta / reemplazar).
+4. Abrir la misma cuenta en otro navegador (Edge): el progreso aparece y los cambios se combinan.
+5. Cerrar sesión conservando o borrando la copia local.
+6. Eliminar la cuenta escribiendo «ELIMINAR».
+
+## Estado
+
+| Comprobación | Dónde | Estado |
+|---|---|---|
+| Migración + RLS + privilegios (18 pruebas) | PostgreSQL local (PGlite), con `auth.uid()` y los privilegios por defecto de Supabase emulados | ✓ en verde; no equivale a producción |
+| Interfaz de cuentas (9 E2E) | Navegador con Supabase **simulado** sobre PGlite | ✓ en verde; autenticación y correo simulados |
+| Pasos 1–5 | Tu proyecto Supabase | Pendiente |
+| Paso 6 `verify:supabase` | Supabase real | Pendiente |
+| Paso 7 manual | Vista previa + Supabase real | Pendiente |
+| SMTP propio | Tu proyecto | Pendiente; obligatorio antes de abrir cuentas a estudiantes |

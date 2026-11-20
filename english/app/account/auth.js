@@ -61,7 +61,10 @@ export class AuthService {
   onChange(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
 
   async sendCode(email) {
-    const redirect = `${window.location.origin}${window.location.pathname}?view=account`;
+    /* always the same canonical address (…/english/index.html?view=account),
+       so it matches the Redirect URLs allow-list in Supabase */
+    const path = window.location.pathname.replace(/\/(index\.html)?$/, '/index.html');
+    const redirect = `${window.location.origin}${path}?view=account`;
     const { error } = await this.client.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect, shouldCreateUser: true } });
     if (error) { throw error; }
   }
