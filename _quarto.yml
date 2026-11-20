@@ -20,6 +20,8 @@ website:
         href: index.qmd
       - text: "Writings"
         href: writings.qmd
+      - text: "English Lab"
+        href: english/index.qmd
       - text: "About"
         href: about.qmd
       - text: "CV"

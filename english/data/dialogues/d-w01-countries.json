@@ -1,0 +1,117 @@
+{
+  "id": "d-w01-countries",
+  "title": "At a hostel in Cusco",
+  "level": "A1",
+  "minutes": 3,
+  "goal": {
+    "en": "Say where you and others are from",
+    "es": "Decir de dónde eres tú y otras personas"
+  },
+  "setting": {
+    "en": "You are in the kitchen of a hostel in Cusco, Peru. Noah, a traveller, says hello.",
+    "es": "Estás en la cocina de un hostal en Cusco, Perú. Noah, un viajero, te saluda."
+  },
+  "roles": {
+    "bot": "Noah"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Hi there! I'm Noah. Where are you from?",
+      "es": "¡Hola! Soy Noah. ¿De dónde eres?",
+      "options": [
+        {
+          "text": "I'm from [your country].",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "I'm [your nationality].",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "I'm fine, thanks.",
+          "next": "n1r",
+          "fit": "off",
+          "feedback": {
+            "en": "Noah asked 'Where are you from?'. Answer with 'I'm from …'.",
+            "es": "Noah preguntó «Where are you from?». Responde con «I'm from …»."
+          }
+        }
+      ]
+    },
+    "n1r": {
+      "say": "Sorry, I mean, what country are you from?",
+      "es": "Perdón, quiero decir, ¿de qué país eres?",
+      "options": [
+        {
+          "text": "I'm from [your country].",
+          "next": "n2",
+          "fit": "good"
+        }
+      ]
+    },
+    "n2": {
+      "say": "Oh, nice! I'm Canadian, from Toronto. Do you live in your home city?",
+      "es": "¡Qué bien! Soy canadiense, de Toronto. ¿Vives en tu ciudad natal?",
+      "options": [
+        {
+          "text": "Yes, I live in [your city].",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "No, I live in [another city].",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I'm.",
+          "next": "n3",
+          "fit": "off",
+          "feedback": {
+            "en": "Noah asked 'Do you live…?'. Say 'Yes, I live in …' (and never 'Yes, I'm').",
+            "es": "Noah preguntó «Do you live…?». Di «Yes, I live in …» (y nunca «Yes, I'm»)."
+          }
+        }
+      ]
+    },
+    "n3": {
+      "say": "Cool. And your friend over there? Where is she from?",
+      "es": "Genial. ¿Y tu amiga de allá? ¿De dónde es ella?",
+      "options": [
+        {
+          "text": "She's from [country]. She's [nationality].",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "He's from Brazil.",
+          "next": "n4",
+          "fit": "ok",
+          "feedback": {
+            "en": "Noah said 'she' — use 'she' for a woman.",
+            "es": "Noah dijo «she»: usa «she» para una mujer."
+          }
+        }
+      ]
+    },
+    "n4": {
+      "say": "Great. Welcome to Cusco! See you at breakfast.",
+      "es": "Genial. ¡Bienvenido/a a Cusco! Nos vemos en el desayuno.",
+      "options": [
+        {
+          "text": "Thanks, Noah. See you!",
+          "next": "end",
+          "fit": "good"
+        }
+      ]
+    },
+    "end": {
+      "say": "Bye!",
+      "es": "¡Chao!",
+      "end": true
+    }
+  }
+}

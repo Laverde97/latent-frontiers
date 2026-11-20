@@ -1,0 +1,1001 @@
+{
+  "title": "English Fluency Lab — Learn English from A1 to C1",
+  "version": "2026.11-delivery1",
+  "note": "Calendar targets are orientative. Moving between levels depends on demonstrated competences, not elapsed weeks. Only lessons marked 'available' have published, validated content.",
+  "cefrReference": "Council of Europe (2020). CEFR Companion Volume. https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-companion-volume-and-its-language-versions",
+  "skillTimeShare": {
+    "speaking": 40,
+    "listening": 35,
+    "reading": 15,
+    "writing": 10
+  },
+  "weekStructure": "5 core lessons + 1 integrative session + 1 flexible recovery/rest day",
+  "dialogues": [
+    "d-w01-meet",
+    "d-w01-cafe",
+    "d-w01-countries",
+    "d-w01-phone",
+    "d-w01-exchange",
+    "d-w01-review"
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "level": "A1",
+      "title": "First English Words",
+      "lessons": [
+        {
+          "id": "w01-l1",
+          "title": "Hello! Greetings and spelling your name",
+          "status": "available"
+        },
+        {
+          "id": "w01-l2",
+          "title": "I am, you are: the verb to be",
+          "status": "available"
+        },
+        {
+          "id": "w01-l3",
+          "title": "Where are you from? Countries and nationalities",
+          "status": "available"
+        },
+        {
+          "id": "w01-l4",
+          "title": "Numbers, age and phone numbers",
+          "status": "available"
+        },
+        {
+          "id": "w01-l5",
+          "title": "Getting to know you: personal questions",
+          "status": "available"
+        }
+      ],
+      "integrative": {
+        "id": "w01-review",
+        "title": "Week 1 communication check: introduce yourself",
+        "status": "available"
+      },
+      "goals": {
+        "speaking": "Introduce yourself and ask simple personal questions.",
+        "listening": "Identify greetings, names and personal information."
+      }
+    },
+    {
+      "week": 2,
+      "level": "A1",
+      "title": "My Everyday Life",
+      "lessons": [
+        {
+          "id": "w02-l1",
+          "title": "Daily verbs and routines",
+          "status": "planned"
+        },
+        {
+          "id": "w02-l2",
+          "title": "Simple Present: I, you, we, they",
+          "status": "planned"
+        },
+        {
+          "id": "w02-l3",
+          "title": "He, she, it: -s and does",
+          "status": "planned"
+        },
+        {
+          "id": "w02-l4",
+          "title": "Days, times and schedules",
+          "status": "planned"
+        },
+        {
+          "id": "w02-l5",
+          "title": "How often? Adverbs of frequency",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w02-review",
+        "title": "Week 2 check: my daily routine",
+        "status": "planned"
+      },
+      "goals": {
+        "speaking": "Describe a daily routine.",
+        "listening": "Understand conversations about everyday activities."
+      }
+    },
+    {
+      "week": 3,
+      "level": "A1",
+      "title": "People and Places",
+      "lessons": [
+        {
+          "id": "w03-l1",
+          "title": "My family",
+          "status": "planned"
+        },
+        {
+          "id": "w03-l2",
+          "title": "Jobs and workplaces",
+          "status": "planned"
+        },
+        {
+          "id": "w03-l3",
+          "title": "Describing people: adjectives",
+          "status": "planned"
+        },
+        {
+          "id": "w03-l4",
+          "title": "There is / there are in my city",
+          "status": "planned"
+        },
+        {
+          "id": "w03-l5",
+          "title": "Where is it? Prepositions of place",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w03-review",
+        "title": "Week 3 check: people and places",
+        "status": "planned"
+      },
+      "goals": {
+        "speaking": "Describe family members, people and places.",
+        "listening": "Follow simple descriptions and directions."
+      }
+    },
+    {
+      "week": 4,
+      "level": "A1",
+      "title": "Everyday Survival English",
+      "lessons": [
+        {
+          "id": "w04-l1",
+          "title": "Buying food",
+          "status": "planned"
+        },
+        {
+          "id": "w04-l2",
+          "title": "How much is it? Prices",
+          "status": "planned"
+        },
+        {
+          "id": "w04-l3",
+          "title": "At the restaurant",
+          "status": "planned"
+        },
+        {
+          "id": "w04-l4",
+          "title": "Getting around: transport and directions",
+          "status": "planned"
+        },
+        {
+          "id": "w04-l5",
+          "title": "Can / can't and polite requests",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w04-review",
+        "title": "A1 integrated assessment",
+        "status": "planned"
+      },
+      "goals": {
+        "speaking": "Handle simple transactions politely.",
+        "listening": "Understand prices, directions and simple requests."
+      }
+    },
+    {
+      "week": 5,
+      "level": "A2",
+      "title": "Talking About the Past",
+      "lessons": [
+        {
+          "id": "w05-l1",
+          "title": "Was / were",
+          "status": "planned"
+        },
+        {
+          "id": "w05-l2",
+          "title": "Regular verbs in the past",
+          "status": "planned"
+        },
+        {
+          "id": "w05-l3",
+          "title": "Common irregular verbs",
+          "status": "planned"
+        },
+        {
+          "id": "w05-l4",
+          "title": "Past questions and negatives",
+          "status": "planned"
+        },
+        {
+          "id": "w05-l5",
+          "title": "Telling a short story",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w05-review",
+        "title": "Week 5 check: my last weekend",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 6,
+      "level": "A2",
+      "title": "Plans and the Future",
+      "lessons": [
+        {
+          "id": "w06-l1",
+          "title": "Going to: plans",
+          "status": "planned"
+        },
+        {
+          "id": "w06-l2",
+          "title": "Will: predictions and offers",
+          "status": "planned"
+        },
+        {
+          "id": "w06-l3",
+          "title": "Invitations",
+          "status": "planned"
+        },
+        {
+          "id": "w06-l4",
+          "title": "Making arrangements",
+          "status": "planned"
+        },
+        {
+          "id": "w06-l5",
+          "title": "Agreeing and declining politely",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w06-review",
+        "title": "Week 6 check: making plans",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 7,
+      "level": "A2",
+      "title": "Real-World Conversations",
+      "lessons": [
+        {
+          "id": "w07-l1",
+          "title": "Travel and the airport",
+          "status": "planned"
+        },
+        {
+          "id": "w07-l2",
+          "title": "At the hotel",
+          "status": "planned"
+        },
+        {
+          "id": "w07-l3",
+          "title": "Shopping and returns",
+          "status": "planned"
+        },
+        {
+          "id": "w07-l4",
+          "title": "Services and appointments",
+          "status": "planned"
+        },
+        {
+          "id": "w07-l5",
+          "title": "Phone conversations",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w07-review",
+        "title": "Week 7 check: travel role-plays",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 8,
+      "level": "A2",
+      "title": "Describing Experiences",
+      "lessons": [
+        {
+          "id": "w08-l1",
+          "title": "Present Perfect: Have you ever…?",
+          "status": "planned"
+        },
+        {
+          "id": "w08-l2",
+          "title": "Experiences and achievements",
+          "status": "planned"
+        },
+        {
+          "id": "w08-l3",
+          "title": "Comparatives",
+          "status": "planned"
+        },
+        {
+          "id": "w08-l4",
+          "title": "Superlatives",
+          "status": "planned"
+        },
+        {
+          "id": "w08-l5",
+          "title": "Giving simple opinions",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w08-review",
+        "title": "A2 integrated assessment",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 9,
+      "level": "B1",
+      "title": "Extended Conversations",
+      "lessons": [
+        {
+          "id": "w09-l1",
+          "title": "Keeping a conversation going",
+          "status": "planned"
+        },
+        {
+          "id": "w09-l2",
+          "title": "Follow-up questions",
+          "status": "planned"
+        },
+        {
+          "id": "w09-l3",
+          "title": "Giving and asking for opinions",
+          "status": "planned"
+        },
+        {
+          "id": "w09-l4",
+          "title": "Agreeing and disagreeing",
+          "status": "planned"
+        },
+        {
+          "id": "w09-l5",
+          "title": "Asking for clarification",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w09-review",
+        "title": "Week 9 check: a 5-minute conversation",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 10,
+      "level": "B1",
+      "title": "Storytelling",
+      "lessons": [
+        {
+          "id": "w10-l1",
+          "title": "Past Continuous",
+          "status": "planned"
+        },
+        {
+          "id": "w10-l2",
+          "title": "Past Continuous vs Simple Past",
+          "status": "planned"
+        },
+        {
+          "id": "w10-l3",
+          "title": "Past Perfect: introduction",
+          "status": "planned"
+        },
+        {
+          "id": "w10-l4",
+          "title": "Sequencing and connectors",
+          "status": "planned"
+        },
+        {
+          "id": "w10-l5",
+          "title": "Telling an anecdote",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w10-review",
+        "title": "Week 10 check: tell a story",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 11,
+      "level": "B1",
+      "title": "Work and Education",
+      "lessons": [
+        {
+          "id": "w11-l1",
+          "title": "Talking about your studies",
+          "status": "planned"
+        },
+        {
+          "id": "w11-l2",
+          "title": "Professions and skills",
+          "status": "planned"
+        },
+        {
+          "id": "w11-l3",
+          "title": "Job interviews: the basics",
+          "status": "planned"
+        },
+        {
+          "id": "w11-l4",
+          "title": "Describing your experience",
+          "status": "planned"
+        },
+        {
+          "id": "w11-l5",
+          "title": "Taking part in a meeting",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w11-review",
+        "title": "Week 11 check: job interview role-play",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 12,
+      "level": "B1",
+      "title": "Problem Solving",
+      "lessons": [
+        {
+          "id": "w12-l1",
+          "title": "Modals of advice and obligation",
+          "status": "planned"
+        },
+        {
+          "id": "w12-l2",
+          "title": "Zero and first conditionals",
+          "status": "planned"
+        },
+        {
+          "id": "w12-l3",
+          "title": "Second conditional",
+          "status": "planned"
+        },
+        {
+          "id": "w12-l4",
+          "title": "Making decisions",
+          "status": "planned"
+        },
+        {
+          "id": "w12-l5",
+          "title": "Solving a problem together",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w12-review",
+        "title": "Week 12 check: solve a problem",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 13,
+      "level": "B1",
+      "title": "Natural Conversations",
+      "lessons": [
+        {
+          "id": "w13-l1",
+          "title": "Connected speech",
+          "status": "planned"
+        },
+        {
+          "id": "w13-l2",
+          "title": "Common idioms",
+          "status": "planned"
+        },
+        {
+          "id": "w13-l3",
+          "title": "Phrasal verbs for daily life",
+          "status": "planned"
+        },
+        {
+          "id": "w13-l4",
+          "title": "Spontaneous responses",
+          "status": "planned"
+        },
+        {
+          "id": "w13-l5",
+          "title": "Small talk",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w13-review",
+        "title": "Week 13 check: spontaneous conversation",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 14,
+      "level": "B1",
+      "title": "B1 Communication Challenge",
+      "lessons": [
+        {
+          "id": "w14-l1",
+          "title": "Preparing a short presentation",
+          "status": "planned"
+        },
+        {
+          "id": "w14-l2",
+          "title": "Delivering a presentation",
+          "status": "planned"
+        },
+        {
+          "id": "w14-l3",
+          "title": "Semi-spontaneous conversation",
+          "status": "planned"
+        },
+        {
+          "id": "w14-l4",
+          "title": "Understanding interviews",
+          "status": "planned"
+        },
+        {
+          "id": "w14-l5",
+          "title": "Writing an organised text",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w14-review",
+        "title": "B1 integrated assessment",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 15,
+      "level": "B2",
+      "title": "Argumentation",
+      "lessons": [
+        {
+          "id": "w15-l1",
+          "title": "Expressing complex opinions",
+          "status": "planned"
+        },
+        {
+          "id": "w15-l2",
+          "title": "Justifying arguments",
+          "status": "planned"
+        },
+        {
+          "id": "w15-l3",
+          "title": "Debating respectfully",
+          "status": "planned"
+        },
+        {
+          "id": "w15-l4",
+          "title": "Organising ideas",
+          "status": "planned"
+        },
+        {
+          "id": "w15-l5",
+          "title": "Hedging and softening",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w15-review",
+        "title": "Week 15 check: argue a position",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 16,
+      "level": "B2",
+      "title": "Professional English",
+      "lessons": [
+        {
+          "id": "w16-l1",
+          "title": "Work meetings",
+          "status": "planned"
+        },
+        {
+          "id": "w16-l2",
+          "title": "Presentations at work",
+          "status": "planned"
+        },
+        {
+          "id": "w16-l3",
+          "title": "Negotiation basics",
+          "status": "planned"
+        },
+        {
+          "id": "w16-l4",
+          "title": "Professional emails",
+          "status": "planned"
+        },
+        {
+          "id": "w16-l5",
+          "title": "Advanced job interviews",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w16-review",
+        "title": "Week 16 check: professional role-plays",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 17,
+      "level": "B2",
+      "title": "Advanced Listening",
+      "lessons": [
+        {
+          "id": "w17-l1",
+          "title": "Fast conversations",
+          "status": "planned"
+        },
+        {
+          "id": "w17-l2",
+          "title": "Long interviews",
+          "status": "planned"
+        },
+        {
+          "id": "w17-l3",
+          "title": "Accents and varieties of English",
+          "status": "planned"
+        },
+        {
+          "id": "w17-l4",
+          "title": "Inference",
+          "status": "planned"
+        },
+        {
+          "id": "w17-l5",
+          "title": "Implicit information",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w17-review",
+        "title": "Week 17 check: extended listening",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 18,
+      "level": "B2",
+      "title": "Grammar for Fluency",
+      "lessons": [
+        {
+          "id": "w18-l1",
+          "title": "Passive voice",
+          "status": "planned"
+        },
+        {
+          "id": "w18-l2",
+          "title": "Reported speech",
+          "status": "planned"
+        },
+        {
+          "id": "w18-l3",
+          "title": "Relative clauses",
+          "status": "planned"
+        },
+        {
+          "id": "w18-l4",
+          "title": "Advanced conditionals",
+          "status": "planned"
+        },
+        {
+          "id": "w18-l5",
+          "title": "Discourse markers",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w18-review",
+        "title": "Week 18 check: grammar in use",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 19,
+      "level": "B2",
+      "title": "Complex Topics",
+      "lessons": [
+        {
+          "id": "w19-l1",
+          "title": "Science",
+          "status": "planned"
+        },
+        {
+          "id": "w19-l2",
+          "title": "Technology",
+          "status": "planned"
+        },
+        {
+          "id": "w19-l3",
+          "title": "Education",
+          "status": "planned"
+        },
+        {
+          "id": "w19-l4",
+          "title": "Culture and society",
+          "status": "planned"
+        },
+        {
+          "id": "w19-l5",
+          "title": "Environment",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w19-review",
+        "title": "Week 19 check: discuss a complex topic",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 20,
+      "level": "B2",
+      "title": "B2 Communication Challenge",
+      "lessons": [
+        {
+          "id": "w20-l1",
+          "title": "Structured debate",
+          "status": "planned"
+        },
+        {
+          "id": "w20-l2",
+          "title": "Argued presentation",
+          "status": "planned"
+        },
+        {
+          "id": "w20-l3",
+          "title": "Understanding extended conversations",
+          "status": "planned"
+        },
+        {
+          "id": "w20-l4",
+          "title": "Structured writing",
+          "status": "planned"
+        },
+        {
+          "id": "w20-l5",
+          "title": "Peer feedback",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w20-review",
+        "title": "B2 integrated assessment",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 21,
+      "level": "C1",
+      "title": "Advanced Fluency",
+      "lessons": [
+        {
+          "id": "w21-l1",
+          "title": "Extended speech",
+          "status": "planned"
+        },
+        {
+          "id": "w21-l2",
+          "title": "Paraphrasing and reformulation",
+          "status": "planned"
+        },
+        {
+          "id": "w21-l3",
+          "title": "Semantic nuance",
+          "status": "planned"
+        },
+        {
+          "id": "w21-l4",
+          "title": "Lexical precision",
+          "status": "planned"
+        },
+        {
+          "id": "w21-l5",
+          "title": "Argumentative fluency",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w21-review",
+        "title": "Week 21 check: extended speech",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 22,
+      "level": "C1",
+      "title": "Academic English",
+      "lessons": [
+        {
+          "id": "w22-l1",
+          "title": "Following lectures",
+          "status": "planned"
+        },
+        {
+          "id": "w22-l2",
+          "title": "Academic presentations",
+          "status": "planned"
+        },
+        {
+          "id": "w22-l3",
+          "title": "Critical reading",
+          "status": "planned"
+        },
+        {
+          "id": "w22-l4",
+          "title": "Synthesis",
+          "status": "planned"
+        },
+        {
+          "id": "w22-l5",
+          "title": "Discussing research",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w22-review",
+        "title": "Week 22 check: academic presentation",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 23,
+      "level": "C1",
+      "title": "Complex Listening",
+      "lessons": [
+        {
+          "id": "w23-l1",
+          "title": "Complex talks and debates",
+          "status": "planned"
+        },
+        {
+          "id": "w23-l2",
+          "title": "Implicit language",
+          "status": "planned"
+        },
+        {
+          "id": "w23-l3",
+          "title": "Recognising stance",
+          "status": "planned"
+        },
+        {
+          "id": "w23-l4",
+          "title": "Irony in context",
+          "status": "planned"
+        },
+        {
+          "id": "w23-l5",
+          "title": "Linguistic variation",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w23-review",
+        "title": "Week 23 check: complex listening",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 24,
+      "level": "C1",
+      "title": "Persuasive Communication",
+      "lessons": [
+        {
+          "id": "w24-l1",
+          "title": "Persuasion",
+          "status": "planned"
+        },
+        {
+          "id": "w24-l2",
+          "title": "Negotiation",
+          "status": "planned"
+        },
+        {
+          "id": "w24-l3",
+          "title": "Structured debates",
+          "status": "planned"
+        },
+        {
+          "id": "w24-l4",
+          "title": "Arguments and counterarguments",
+          "status": "planned"
+        },
+        {
+          "id": "w24-l5",
+          "title": "Formal and informal registers",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w24-review",
+        "title": "Week 24 check: persuasive debate",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 25,
+      "level": "C1",
+      "title": "Advanced Real-World English",
+      "lessons": [
+        {
+          "id": "w25-l1",
+          "title": "Conflict resolution",
+          "status": "planned"
+        },
+        {
+          "id": "w25-l2",
+          "title": "Professional meetings",
+          "status": "planned"
+        },
+        {
+          "id": "w25-l3",
+          "title": "Multidisciplinary discussions",
+          "status": "planned"
+        },
+        {
+          "id": "w25-l4",
+          "title": "Explaining complex topics",
+          "status": "planned"
+        },
+        {
+          "id": "w25-l5",
+          "title": "Spontaneous responses",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w25-review",
+        "title": "Week 25 check: real-world simulation",
+        "status": "planned"
+      }
+    },
+    {
+      "week": 26,
+      "level": "C1",
+      "title": "Final Communication Project",
+      "lessons": [
+        {
+          "id": "w26-l1",
+          "title": "Planning the final project",
+          "status": "planned"
+        },
+        {
+          "id": "w26-l2",
+          "title": "Extended oral presentation",
+          "status": "planned"
+        },
+        {
+          "id": "w26-l3",
+          "title": "Interactive conversation",
+          "status": "planned"
+        },
+        {
+          "id": "w26-l4",
+          "title": "Complex listening and advanced reading",
+          "status": "planned"
+        },
+        {
+          "id": "w26-l5",
+          "title": "Argumentative essay and self-assessment",
+          "status": "planned"
+        }
+      ],
+      "integrative": {
+        "id": "w26-review",
+        "title": "Final competence-based assessment",
+        "status": "planned"
+      }
+    }
+  ]
+}

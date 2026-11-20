@@ -1,0 +1,139 @@
+{
+  "id": "d-w01-phone",
+  "title": "Booking a trial class by phone",
+  "level": "A1",
+  "minutes": 4,
+  "goal": {
+    "en": "Give your name, age and phone number on the phone",
+    "es": "Dar tu nombre, edad y teléfono por teléfono"
+  },
+  "setting": {
+    "en": "You call a language school to book a free trial class. It's 3 p.m.",
+    "es": "Llamas a una escuela de idiomas para reservar una clase de prueba gratis. Son las 3 p. m."
+  },
+  "roles": {
+    "bot": "Receptionist"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Good afternoon, City Language School. How can I help you?",
+      "es": "Buenas tardes, City Language School. ¿En qué puedo ayudarte?",
+      "options": [
+        {
+          "text": "Hi! I want a free trial class, please.",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "Good night.",
+          "next": "n1r",
+          "fit": "off",
+          "feedback": {
+            "en": "'Good night' is for leaving or going to bed. In the afternoon say 'Good afternoon' or 'Hi'.",
+            "es": "«Good night» es para despedirse o ir a dormir. En la tarde di «Good afternoon» o «Hi»."
+          }
+        }
+      ]
+    },
+    "n1r": {
+      "say": "Sorry? How can I help you?",
+      "es": "¿Perdón? ¿En qué puedo ayudarte?",
+      "options": [
+        {
+          "text": "Good afternoon! I want a free trial class, please.",
+          "next": "n2",
+          "fit": "good"
+        }
+      ]
+    },
+    "n2": {
+      "say": "Sure! What's your name, please?",
+      "es": "¡Claro! ¿Cuál es tu nombre, por favor?",
+      "options": [
+        {
+          "text": "My name is [your name].",
+          "next": "n3",
+          "fit": "good"
+        }
+      ]
+    },
+    "n3": {
+      "say": "Thank you. And how old are you?",
+      "es": "Gracias. ¿Y cuántos años tienes?",
+      "options": [
+        {
+          "text": "I'm [your age].",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I'm [your age] years old.",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I have [your age] years.",
+          "next": "n4",
+          "fit": "off",
+          "feedback": {
+            "en": "In English: 'I'm 30', not 'I have 30 years'.",
+            "es": "En inglés: «I'm 30», no «I have 30 years»."
+          }
+        }
+      ]
+    },
+    "n4": {
+      "say": "Great. What's your phone number?",
+      "es": "Genial. ¿Cuál es tu número de teléfono?",
+      "options": [
+        {
+          "text": "It's [your number, digit by digit].",
+          "next": "n5",
+          "fit": "good"
+        },
+        {
+          "text": "My phone is a Samsung.",
+          "next": "n4r",
+          "fit": "off",
+          "feedback": {
+            "en": "She asked for your number: 'It's three one five…'.",
+            "es": "Te pidió tu número: «It's three one five…»."
+          }
+        }
+      ]
+    },
+    "n4r": {
+      "say": "Ha! No, your phone NUMBER, please.",
+      "es": "¡Ja! No, tu NÚMERO de teléfono, por favor.",
+      "options": [
+        {
+          "text": "Sorry! It's [your number].",
+          "next": "n5",
+          "fit": "good"
+        }
+      ]
+    },
+    "n5": {
+      "say": "Perfect. The trial class is on Monday at five. See you then!",
+      "es": "Perfecto. La clase de prueba es el lunes a las cinco. ¡Nos vemos!",
+      "options": [
+        {
+          "text": "Thank you! Goodbye.",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "Thanks! See you on Monday.",
+          "next": "end",
+          "fit": "good"
+        }
+      ]
+    },
+    "end": {
+      "say": "Goodbye!",
+      "es": "¡Adiós!",
+      "end": true
+    }
+  }
+}

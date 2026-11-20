@@ -1,0 +1,147 @@
+{
+  "id": "d-w01-meet",
+  "title": "Meet Mia",
+  "level": "A1",
+  "minutes": 3,
+  "goal": {
+    "en": "Greet, give and spell your name, say goodbye",
+    "es": "Saludar, dar y deletrear tu nombre, despedirte"
+  },
+  "setting": {
+    "en": "A welcome event at a language school. Mia, another student, starts talking to you.",
+    "es": "Un evento de bienvenida en una escuela de idiomas. Mia, otra estudiante, empieza a hablarte."
+  },
+  "roles": {
+    "bot": "Mia"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Hi! I'm Mia. What's your name?",
+      "es": "¡Hola! Soy Mia. ¿Cómo te llamas?",
+      "options": [
+        {
+          "text": "Hi, Mia! I'm [your name].",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "I'm fine, thanks.",
+          "next": "n1r",
+          "fit": "off",
+          "feedback": {
+            "en": "Mia asked your name, not how you are. Try 'I'm …' or 'My name is …'.",
+            "es": "Mia preguntó tu nombre, no cómo estás. Prueba «I'm …» o «My name is …»."
+          }
+        }
+      ]
+    },
+    "n1r": {
+      "say": "Sorry? What's your name?",
+      "es": "¿Perdón? ¿Cómo te llamas?",
+      "options": [
+        {
+          "text": "My name is [your name].",
+          "next": "n2",
+          "fit": "good"
+        }
+      ]
+    },
+    "n2": {
+      "say": "Nice to meet you! How do you spell your name?",
+      "es": "¡Mucho gusto! ¿Cómo se escribe tu nombre?",
+      "options": [
+        {
+          "text": "It's [the letters of your name].",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "Nice to meet you, too.",
+          "next": "n2r",
+          "fit": "ok",
+          "feedback": {
+            "en": "Polite! But Mia asked you to spell your name.",
+            "es": "¡Cortés! Pero Mia te pidió deletrear tu nombre."
+          }
+        }
+      ]
+    },
+    "n2r": {
+      "say": "Ha ha, nice to meet you too! Can you spell your name, please?",
+      "es": "¡Ja, ja, mucho gusto! ¿Puedes deletrear tu nombre, por favor?",
+      "options": [
+        {
+          "text": "Sure. It's [the letters of your name].",
+          "next": "n3",
+          "fit": "good"
+        }
+      ]
+    },
+    "n3": {
+      "say": "Thank you! How are you today?",
+      "es": "¡Gracias! ¿Cómo estás hoy?",
+      "options": [
+        {
+          "text": "Fine, thanks. And you?",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "Good, thank you.",
+          "next": "n4",
+          "fit": "ok",
+          "feedback": {
+            "en": "Correct! Adding 'And you?' keeps the conversation going.",
+            "es": "¡Correcto! Añadir «And you?» mantiene la conversación."
+          }
+        },
+        {
+          "text": "I'm from Mexico.",
+          "next": "n3r",
+          "fit": "off",
+          "feedback": {
+            "en": "Mia asked how you are, not where you're from.",
+            "es": "Mia preguntó cómo estás, no de dónde eres."
+          }
+        }
+      ]
+    },
+    "n3r": {
+      "say": "Oh, nice! But how are you today?",
+      "es": "¡Qué bien! Pero, ¿cómo estás hoy?",
+      "options": [
+        {
+          "text": "I'm fine, thanks. And you?",
+          "next": "n4",
+          "fit": "good"
+        }
+      ]
+    },
+    "n4": {
+      "say": "I'm very well, thanks. Oh, my class is starting. See you later!",
+      "es": "Muy bien, gracias. Ay, empieza mi clase. ¡Hasta luego!",
+      "options": [
+        {
+          "text": "See you later, Mia!",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "Good night!",
+          "next": "end",
+          "fit": "off",
+          "feedback": {
+            "en": "'Good night' is for going to bed. Use 'See you later!' or 'Bye!'.",
+            "es": "«Good night» es para ir a dormir. Usa «See you later!» o «Bye!»."
+          }
+        }
+      ]
+    },
+    "end": {
+      "say": "Bye!",
+      "es": "¡Chao!",
+      "end": true
+    }
+  }
+}

@@ -1,0 +1,46 @@
+---
+pagetitle: "English Fluency Lab — Learn English from A1 to C1 · Latent Frontiers"
+description-meta: "Interactive English course for Spanish speakers, A1 to C1, focused on speaking and listening. Works in the browser, no account needed."
+lang: es
+page-layout: full
+toc: false
+resources:
+  - app/**
+  - data/**
+---
+
+```{=html}
+<link rel="stylesheet" href="app/styles/efl.css">
+```
+
+::: {.efl-hero}
+
+::: {.efl-hero__eyebrow}
+Latent Frontiers · English Fluency Lab
+:::
+
+<h1 class="efl-hero__title">Learn English from A1 to C1</h1>
+
+::: {.efl-hero__motto}
+Listen more. Speak every day. Think in English. Communicate confidently.
+:::
+
+::: {.efl-hero__lead data-lang="es"}
+Una ruta de 26 semanas para hispanohablantes de Latinoamérica, centrada en **hablar y escuchar** desde el primer día. Funciona en tu navegador, sin cuenta y sin enviar tus datos a ningún servidor. El calendario es orientativo: avanzar de nivel depende de lo que demuestres, no de las semanas transcurridas.
+:::
+::: {.efl-hero__lead data-lang="en" hidden="hidden"}
+A 26-week path for Spanish speakers from Latin America, centred on **speaking and listening** from day one. It runs in your browser, with no account and no data sent to any server. The calendar is a guide: moving up a level depends on what you demonstrate, not on the weeks that have passed.
+:::
+
+<ul class="efl-hero__pills" aria-label="Focus">
+<li>A1 → C1</li><li>Speaking 40 %</li><li>Listening 35 %</li><li>Reading 15 %</li><li>Writing 10 %</li>
+</ul>
+
+:::
+
+```{=html}
+<div id="efl-app" aria-live="off">
+  <noscript><p>English Fluency Lab necesita JavaScript activado. / English Fluency Lab needs JavaScript enabled.</p></noscript>
+</div>
+<script type="module" src="app/main.js"></script>
+```

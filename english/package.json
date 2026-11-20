@@ -1,0 +1,16 @@
+{
+  "name": "english-fluency-lab",
+  "private": true,
+  "type": "module",
+  "description": "English Fluency Lab (Latent Frontiers) — tests and content validation. The app itself has no build step.",
+  "scripts": {
+    "validate": "node _tests/validate-content.js",
+    "test:unit": "node --test _tests/unit/*.test.js",
+    "test:e2e": "playwright test --config _tests/playwright.config.js",
+    "test": "npm run validate && npm run test:unit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.59.1"
+  }
+}

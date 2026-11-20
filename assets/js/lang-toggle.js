@@ -16,7 +16,8 @@
     'index.html': { es: 'Inicio', en: 'Home' },
     'writings.html': { es: 'Escritos', en: 'Writings' },
     'about.html': { es: 'Acerca de', en: 'About' },
-    'cv.html': { es: 'CV', en: 'CV' }
+    'cv.html': { es: 'CV', en: 'CV' },
+    'english/index.html': { es: 'Inglés', en: 'English Lab' }
   };
 
   function getStoredLang() {
@@ -43,7 +44,14 @@
     var pathPart = href.split('#')[0].split('?')[0];
     var segments = pathPart.split('/');
     var last = segments[segments.length - 1];
-    return last === '' ? 'index.html' : last;
+    if (last === '') { last = 'index.html'; }
+    /* Section landing pages (e.g. english/index.html) are keyed with
+       their folder so they don't inherit the Home label. */
+    var parent = segments[segments.length - 2];
+    if (last === 'index.html' && parent && NAV_LABELS[parent + '/index.html']) {
+      return parent + '/index.html';
+    }
+    return last;
   }
 
   function applyLang(lang) {
