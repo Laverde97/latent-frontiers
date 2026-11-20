@@ -1,0 +1,164 @@
+{
+  "id": "w01-l4",
+  "kind": "core",
+  "title": "Numbers, age and phone numbers",
+  "level": "A1",
+  "week": 1,
+  "minutes": 60,
+  "objectives": [
+    { "en": "Understand and say numbers from 0 to 100.", "es": "Entender y decir los números del 0 al 100." },
+    { "en": "Say your age (I'm 25) and ask 'How old are you?'.", "es": "Decir tu edad (I'm 25) y preguntar «How old are you?»." },
+    { "en": "Give and understand phone numbers and email addresses.", "es": "Dar y entender números de teléfono y correos electrónicos." }
+  ],
+  "prerequisites": ["w01-l3"],
+  "prerequisitesText": { "en": "The verb be and spelling letters (Lessons 1–3).", "es": "El verbo be y deletrear (Lecciones 1–3)." },
+  "vocabIds": ["zero", "three", "eight", "thirteen", "thirty", "fifteen", "fifty", "twenty", "hundred", "phone-number", "years-old", "age", "email"],
+  "completion": { "reviewThreshold": 0.7, "rule": "All nine steps saved. Auto-scored steps below 70 % are flagged for review." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "Numbers are hard to hear at first — keep training -teen vs -ty in the Listening Lab. Next: personal questions.", "es": "Al principio los números cuestan al oído: sigue entrenando -teen vs -ty en el Listening Lab. Siguiente: preguntas personales." },
+  "steps": [
+    {
+      "id": "s1", "type": "vocab", "title": "Numbers and personal data",
+      "items": ["zero", "three", "eight", "thirteen", "thirty", "fifteen", "fifty", "twenty", "hundred", "phone-number", "years-old", "age", "email"],
+      "exercises": [
+        { "id": "v1", "type": "mcq", "audio": "thirteen", "prompt": "Listen. Which number?", "options": ["13", "30"], "answer": 0, "vocab": "thirteen" },
+        { "id": "v2", "type": "mcq", "audio": "fifty", "prompt": "Listen. Which number?", "options": ["15", "50"], "answer": 1, "vocab": "fifty" },
+        { "id": "v3", "type": "gap", "prompt": "Write in numbers: twenty-eight = ___", "accept": ["28"], "vocab": "twenty" },
+        { "id": "v4", "type": "mcq", "prompt": "In phone numbers, people often say 0 as…", "options": ["'oh', like the letter O", "'nil'", "'cero'"], "answer": 0, "vocab": "zero" },
+        { "id": "v5", "type": "dictation", "audio": "One hundred.", "accept": ["one hundred", "a hundred", "100"], "vocab": "hundred" }
+      ]
+    },
+    {
+      "id": "s2", "type": "listening", "title": "Joining a gym",
+      "lines": [
+        { "speaker": "Receptionist", "text": "Hi! Do you want to join the gym?", "es": "¡Hola! ¿Quieres inscribirte en el gimnasio?" },
+        { "speaker": "Andrés", "text": "Yes, please.", "es": "Sí, por favor." },
+        { "speaker": "Receptionist", "text": "Great. What's your full name?", "es": "Genial. ¿Cuál es tu nombre completo?" },
+        { "speaker": "Andrés", "text": "Andrés Molina.", "es": "Andrés Molina." },
+        { "speaker": "Receptionist", "text": "And how old are you, Andrés?", "es": "¿Y cuántos años tienes, Andrés?" },
+        { "speaker": "Andrés", "text": "I'm thirty-four.", "es": "Tengo treinta y cuatro." },
+        { "speaker": "Receptionist", "text": "Thirty-four. OK. What's your phone number?", "es": "Treinta y cuatro. Bien. ¿Cuál es tu número de teléfono?" },
+        { "speaker": "Andrés", "text": "It's three one five, four eight two, six oh nine oh.", "es": "Es 315 482 6090." },
+        { "speaker": "Receptionist", "text": "Three one five, four eight two, six oh nine oh. And your email address?", "es": "315 482 6090. ¿Y tu correo electrónico?" },
+        { "speaker": "Andrés", "text": "andres dot molina at mail dot com.", "es": "andres.molina@mail.com" },
+        { "speaker": "Receptionist", "text": "Perfect. It's fifty dollars a month.", "es": "Perfecto. Son cincuenta dólares al mes." }
+      ],
+      "exercises": [
+        { "id": "l1", "type": "mcq", "prompt": "Where is Andrés? (main idea)", "options": ["At a gym", "At a bank", "At a school"], "answer": 0 },
+        { "id": "l2", "type": "mcq", "prompt": "How old is Andrés?", "options": ["34", "43", "24"], "answer": 0 },
+        { "id": "l3", "type": "gap", "prompt": "His phone number is 315 482 ____.", "accept": ["6090"] },
+        { "id": "l4", "type": "mcq", "prompt": "In an email address, '.' is said…", "options": ["dot", "point", "stop"], "answer": 0 },
+        { "id": "l5", "type": "mcq", "prompt": "How much is it per month?", "options": ["$50", "$15", "$500"], "answer": 0 },
+        { "id": "l6", "type": "dictation", "audio": "It's fifteen dollars.", "accept": ["it's fifteen dollars", "it's 15 dollars", "it's $15"] }
+      ]
+    },
+    {
+      "id": "s3", "type": "grammar", "title": "Age with be, phone numbers and emails",
+      "explanation": {
+        "en": "In English, age uses the verb be, not have: 'I'm 25' or 'I'm 25 years old' — never 'I have 25 years'. Ask: 'How old are you?'. Phone numbers are said digit by digit, in groups, and 0 is usually 'oh'. In email addresses @ is 'at' and . is 'dot'. Numbers from 21 to 99 have a hyphen in writing: twenty-one, forty-five.",
+        "es": "En inglés la edad usa el verbo be, no have: «I'm 25» o «I'm 25 years old»; nunca «I have 25 years». Se pregunta «How old are you?». Los teléfonos se dicen dígito a dígito, por grupos, y el 0 suele ser «oh». En los correos @ es «at» y . es «dot». Del 21 al 99 se escriben con guion: twenty-one, forty-five."
+      },
+      "table": { "head": ["-teen", "", "-ty", ""],
+        "rows": [["13", "thirteen", "30", "thirty"], ["14", "fourteen", "40", "forty"], ["15", "fifteen", "50", "fifty"], ["16", "sixteen", "60", "sixty"], ["17", "seventeen", "70", "seventy"], ["18", "eighteen", "80", "eighty"], ["19", "nineteen", "90", "ninety"]] },
+      "examples": [
+        { "en": "How old are you?", "es": "¿Cuántos años tienes?" },
+        { "en": "I'm twenty-five.", "es": "Tengo veinticinco años." },
+        { "en": "My phone number is three one oh, five five two, eight four seven one.", "es": "Mi teléfono es 310 552 8471." },
+        { "en": "My email is ana dot ruiz at mail dot com.", "es": "Mi correo es ana.ruiz@mail.com." }
+      ],
+      "watchOut": { "en": "'I have 30 years' ✗ → 'I'm 30' ✓. And 'forty' has no 'u' (four → forty).", "es": "«I have 30 years» ✗ → «I'm 30» ✓. Y «forty» no lleva «u» (four → forty)." },
+      "exercises": [
+        { "id": "g1", "type": "mcq", "prompt": "Which is correct?", "options": ["I have 30 years.", "I'm 30.", "I'm have 30."], "answer": 1 },
+        { "id": "g2", "type": "gap", "prompt": "Complete the question: How ___ are you?", "accept": ["old"] },
+        { "id": "g3", "type": "gap", "prompt": "Write the word: 40 = ___", "accept": ["forty"],
+          "explanation": { "en": "No 'u': four → forty.", "es": "Sin «u»: four → forty." } },
+        { "id": "g4", "type": "gap", "prompt": "Write the number: seventy-two = ___", "accept": ["72"] },
+        { "id": "g5", "type": "order", "prompt": "Make a question.", "words": ["your", "What's", "phone", "number?"], "accept": ["What's your phone number?"] },
+        { "id": "g6", "type": "mcq", "prompt": "How do you say @ in an email address?", "options": ["at", "arroba", "and"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s4", "type": "pronunciation", "title": "/θ/ in three and -teen vs -ty",
+      "focus": "/θ/ (three, thirty) and stress: thir-TEEN vs THIR-ty",
+      "tip": { "en": "/θ/: tongue tip between your teeth, blow air, no voice — not /t/ ('tree') and not /s/. -teen numbers have stress at the end and a long /iː/: thir-TEEN. -ty numbers have stress at the start: THIR-ty, with a short ending. Make -teen endings long and clear so people don't hear 30.", "es": "/θ/: punta de la lengua entre los dientes, sopla aire sin voz; no /t/ («tree») ni /s/. Los -teen llevan el acento al final con /iː/ larga: thir-TEEN. Los -ty al inicio: THIR-ty, con final corto. Alarga bien los -teen para que no se entienda 30." },
+      "repeat": [
+        { "text": "three, thirteen, thirty", "ipa": "/θriː ˌθɜːrˈtiːn ˈθɜːrti/", "es": "tres, trece, treinta" },
+        { "text": "fifteen, fifty", "ipa": "/ˌfɪfˈtiːn ˈfɪfti/", "es": "quince, cincuenta" },
+        { "text": "I'm thirty-three.", "es": "Tengo treinta y tres." },
+        { "text": "It's thirteen dollars.", "es": "Son trece dólares." }
+      ],
+      "exercises": [
+        { "id": "p1", "type": "minimalPair", "pair": ["three", "tree"], "say": "three", "ipa": { "three": "/θriː/", "tree": "/triː/" } },
+        { "id": "p2", "type": "minimalPair", "pair": ["thirteen", "thirty"], "say": "thirty", "ipa": { "thirteen": "/ˌθɜːrˈtiːn/", "thirty": "/ˈθɜːrti/" } },
+        { "id": "p3", "type": "minimalPair", "pair": ["fourteen", "forty"], "say": "fourteen", "ipa": { "fourteen": "/ˌfɔːrˈtiːn/", "forty": "/ˈfɔːrti/" } },
+        { "id": "p4", "type": "minimalPair", "pair": ["sixteen", "sixty"], "say": "sixty", "ipa": { "sixteen": "/ˌsɪksˈtiːn/", "sixty": "/ˈsɪksti/" } },
+        { "id": "p5", "type": "minimalPair", "pair": ["thank", "tank"], "say": "thank", "ipa": { "thank": "/θæŋk/", "tank": "/tæŋk/" } }
+      ]
+    },
+    {
+      "id": "s5", "type": "speaking", "title": "Fill in a form aloud",
+      "repeat": [
+        { "text": "How old are you?", "es": "¿Cuántos años tienes?" },
+        { "text": "I'm twenty-six years old.", "es": "Tengo veintiséis años." },
+        { "text": "What's your phone number?", "es": "¿Cuál es tu número de teléfono?" },
+        { "text": "It's three one five, two oh eight, four four nine one.", "es": "Es 315 208 4491." },
+        { "text": "My email is ana at mail dot com.", "es": "Mi correo es ana@mail.com." }
+      ],
+      "challenge": {
+        "prompt": "Fill in a form aloud: your name (spell your last name), your age, a phone number and an email address. You can invent the number and email.",
+        "promptEs": "Completa un formulario en voz alta: nombre (deletrea el apellido), edad, un número de teléfono y un correo. Puedes inventar el número y el correo.",
+        "seconds": [20, 40],
+        "prepare": ["My name is … That's (letters).", "I'm … years old.", "My phone number is … (digit by digit)", "My email is … at … dot com."],
+        "model": "My name is Paola Ruiz. That's R, U, I, Z. I'm twenty-eight years old. My phone number is three oh one, five five two, seven eight four oh. My email is paola dot ruiz at mail dot com."
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "I gave my name (spelled), age, phone number and email.", "es": "Di mi nombre (deletreado), edad, teléfono y correo." } },
+        { "id": "numbers", "label": { "en": "-teen and -ty numbers sounded clearly different.", "es": "Los -teen y -ty sonaron claramente distintos." } },
+        { "id": "theta", "label": { "en": "I said /θ/ in three / thirty with my tongue between my teeth.", "es": "Dije /θ/ en three / thirty con la lengua entre los dientes." } },
+        { "id": "fluency", "label": { "en": "I said the phone number in groups, without long pauses.", "es": "Dije el teléfono por grupos, sin pausas largas." } }
+      ]
+    },
+    { "id": "s6", "type": "interaction", "title": "Booking a free trial class by phone", "dialogue": "d-w01-phone" },
+    {
+      "id": "s7", "type": "reading", "title": "A notice on the school board",
+      "text": "FOUND: a black phone in Room 13!\n\nIs it your phone? Please call Ms. Santos at 555 0192, or write to frontdesk@cityschool.com.\n\nThe office is open from 8 a.m. to 5 p.m., Monday to Friday.\n\nThe office is on the second floor, in room 20.",
+      "glossary": { "found": "encontrado", "office": "oficina", "open": "abierto/a", "floor": "piso", "Friday": "viernes" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "What is the notice about?", "options": ["A phone someone found", "A new class", "A job"], "answer": 0 },
+        { "id": "r2", "type": "gap", "prompt": "The phone was in Room ___.", "accept": ["13", "thirteen"] },
+        { "id": "r3", "type": "mcq", "prompt": "What is Ms. Santos's number?", "options": ["555 0192", "555 0129", "555 1092"], "answer": 0 },
+        { "id": "r4", "type": "mcq", "prompt": "When can you go to the office?", "options": ["Monday to Friday, 8 to 5", "Every day", "Monday to Friday, 5 to 8"], "answer": 0 },
+        { "id": "r5", "type": "gap", "prompt": "The office is in room ___.", "accept": ["20", "twenty"] }
+      ]
+    },
+    {
+      "id": "s8", "type": "writing", "title": "Your online class profile",
+      "prompt": "Complete your profile for an online class in full sentences: name, age, phone number and email (you can invent the number and email).",
+      "promptEs": "Completa tu perfil para una clase en línea con frases completas: nombre, edad, teléfono y correo (puedes inventar el teléfono y el correo).",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 15, "label": { "en": "At least 15 words", "es": "Al menos 15 palabras" } },
+        { "id": "age", "type": "includesAny", "patterns": ["\\bi'?m \\d{1,2}\\b", "\\bi am \\d{1,2}\\b", "\\byears old\\b", "\\bi'?m (eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)", "\\bi am (eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)"], "label": { "en": "Says your age with be (I'm 25)", "es": "Dice tu edad con be (I'm 25)" } },
+        { "id": "noHave", "type": "excludes", "patterns": ["\\bhave \\w+(-\\w+)? years\\b"], "label": { "en": "No 'I have … years'", "es": "Sin «I have … years»" }, "hint": { "en": "Use I'm + number.", "es": "Usa I'm + número." } },
+        { "id": "phone", "type": "includesAny", "patterns": ["\\bphone( number)?\\b"], "label": { "en": "Gives a phone number", "es": "Da un número de teléfono" } },
+        { "id": "email", "type": "includesAny", "patterns": ["@", "\\be-?mail\\b"], "label": { "en": "Gives an email address", "es": "Da un correo electrónico" } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "My profile has name, age, phone and email.", "es": "Mi perfil tiene nombre, edad, teléfono y correo." } },
+        { "id": "accuracy", "label": { "en": "Age uses be (I'm 25), numbers are written correctly.", "es": "La edad usa be (I'm 25) y los números están bien escritos." } },
+        { "id": "clarity", "label": { "en": "Someone could contact me with this information.", "es": "Alguien podría contactarme con esta información." } }
+      ],
+      "model": "My name is Julián Pérez. I'm twenty-nine years old. My phone number is 312 555 0187. My email is julian.perez@mail.com."
+    },
+    {
+      "id": "s9", "type": "retrieval", "title": "Remember without looking",
+      "exercises": [
+        { "id": "q1", "type": "minimalPair", "pair": ["fifteen", "fifty"], "say": "fifteen", "ipa": { "fifteen": "/ˌfɪfˈtiːn/", "fifty": "/ˈfɪfti/" }, "vocab": "fifteen" },
+        { "id": "q2", "type": "gap", "prompt": "How do people often say 0 in a phone number?", "accept": ["oh", "zero"], "vocab": "zero" },
+        { "id": "q3", "type": "dictation", "audio": "I'm thirty-eight years old.", "accept": ["i'm thirty-eight years old", "i'm thirty eight years old", "i'm 38 years old"], "vocab": "years-old" },
+        { "id": "q4", "type": "mcq", "prompt": "'Edad' in English is:", "options": ["age", "old", "year"], "answer": 0, "vocab": "age" },
+        { "id": "q5", "type": "gap", "prompt": "Write the word: 13 = ___", "accept": ["thirteen"], "vocab": "thirteen" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "id": "d-w01-review",
+  "title": "Meeting a classmate (Week 1 check)",
+  "level": "A1",
+  "minutes": 5,
+  "goal": {
+    "en": "Hold a full getting-to-know-you conversation",
+    "es": "Mantener una conversación completa para conocer a alguien"
+  },
+  "setting": {
+    "en": "The teacher says: 'Find a partner and ask questions.' Sam, a classmate, turns to you.",
+    "es": "La profesora dice: «Busquen pareja y hagan preguntas». Sam, un compañero, se gira hacia ti."
+  },
+  "roles": {
+    "bot": "Sam"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Hi! I'm Sam. What's your name?",
+      "es": "¡Hola! Soy Sam. ¿Cómo te llamas?",
+      "options": [
+        {
+          "text": "Hi, Sam. My name is [your name].",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "I'm from [your country].",
+          "next": "n1r",
+          "fit": "off",
+          "feedback": {
+            "en": "Sam asked your name.",
+            "es": "Sam preguntó tu nombre."
+          }
+        }
+      ]
+    },
+    "n1r": {
+      "say": "Cool! And your name?",
+      "es": "¡Genial! ¿Y tu nombre?",
+      "options": [
+        {
+          "text": "I'm [your name].",
+          "next": "n2",
+          "fit": "good"
+        }
+      ]
+    },
+    "n2": {
+      "say": "Sorry, how do you spell that?",
+      "es": "Perdón, ¿cómo se escribe?",
+      "options": [
+        {
+          "text": "It's [the letters of your name].",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I am.",
+          "next": "n2",
+          "fit": "off",
+          "feedback": {
+            "en": "Sam asked you to spell your name: say the letters.",
+            "es": "Sam te pidió deletrear tu nombre: di las letras."
+          }
+        }
+      ]
+    },
+    "n3": {
+      "say": "Thanks. Where are you from?",
+      "es": "Gracias. ¿De dónde eres?",
+      "options": [
+        {
+          "text": "I'm from [country]. I'm [nationality]. And you?",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I'm from [country].",
+          "next": "n4",
+          "fit": "ok",
+          "feedback": {
+            "en": "Correct. Ask back with 'And you?'.",
+            "es": "Correcto. Devuelve la pregunta con «And you?»."
+          }
+        }
+      ]
+    },
+    "n4": {
+      "say": "I'm from Australia, from Perth. How old are you, if that's OK?",
+      "es": "Soy de Australia, de Perth. ¿Cuántos años tienes, si no te molesta?",
+      "options": [
+        {
+          "text": "Sure. I'm [age].",
+          "next": "n5",
+          "fit": "good"
+        },
+        {
+          "text": "I have [age] years.",
+          "next": "n5",
+          "fit": "off",
+          "feedback": {
+            "en": "Age uses be: 'I'm 30'.",
+            "es": "La edad usa be: «I'm 30»."
+          }
+        }
+      ]
+    },
+    "n5": {
+      "say": "Nice. What's your job?",
+      "es": "Bien. ¿A qué te dedicas?",
+      "options": [
+        {
+          "text": "I'm a [job]. What about you?",
+          "next": "n6",
+          "fit": "good"
+        },
+        {
+          "text": "I'm student.",
+          "next": "n6",
+          "fit": "ok",
+          "feedback": {
+            "en": "Almost! Use a/an with jobs: 'I'm a student.'",
+            "es": "¡Casi! Usa a/an con profesiones: «I'm a student.»"
+          }
+        }
+      ]
+    },
+    "n6": {
+      "say": "I'm a chef. What's your phone number? For the class group.",
+      "es": "Soy chef. ¿Cuál es tu número? Para el grupo de la clase.",
+      "options": [
+        {
+          "text": "It's [your number, digit by digit].",
+          "next": "n7",
+          "fit": "good"
+        },
+        {
+          "text": "Sorry? Can you say that again?",
+          "next": "n6r",
+          "fit": "good"
+        }
+      ]
+    },
+    "n6r": {
+      "say": "Of course. What's your phone number, for the class group?",
+      "es": "Claro. ¿Cuál es tu número, para el grupo de la clase?",
+      "options": [
+        {
+          "text": "It's [your number].",
+          "next": "n7",
+          "fit": "good"
+        }
+      ]
+    },
+    "n7": {
+      "say": "Great, thanks! Nice to meet you.",
+      "es": "¡Genial, gracias! Mucho gusto.",
+      "options": [
+        {
+          "text": "Nice to meet you, too. See you on Monday!",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "Good night!",
+          "next": "end",
+          "fit": "off",
+          "feedback": {
+            "en": "It's a greeting context; say 'Nice to meet you, too!' or 'See you!'.",
+            "es": "Es un contexto de saludo; di «Nice to meet you, too!» o «See you!»."
+          }
+        }
+      ]
+    },
+    "end": {
+      "say": "See you!",
+      "es": "¡Nos vemos!",
+      "end": true
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "id": "d-w01-exchange",
+  "title": "Language exchange with Ava",
+  "level": "A1",
+  "minutes": 4,
+  "goal": {
+    "en": "Ask and answer personal questions; ask for repetition",
+    "es": "Hacer y responder preguntas personales; pedir que repitan"
+  },
+  "setting": {
+    "en": "Your first language-exchange meeting at a café. Ava, from New Zealand, arrives.",
+    "es": "Tu primer intercambio de idiomas en un café. Llega Ava, de Nueva Zelanda."
+  },
+  "roles": {
+    "bot": "Ava"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Hi! Are you here for the language exchange?",
+      "es": "¡Hola! ¿Vienes al intercambio de idiomas?",
+      "options": [
+        {
+          "text": "Yes, I am. I'm [your name].",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I'm.",
+          "next": "n2",
+          "fit": "off",
+          "feedback": {
+            "en": "Short answer: 'Yes, I am.'",
+            "es": "Respuesta corta: «Yes, I am.»"
+          }
+        }
+      ]
+    },
+    "n2": {
+      "say": "Great, I'm Ava. Where are you from?",
+      "es": "Genial, soy Ava. ¿De dónde eres?",
+      "options": [
+        {
+          "text": "I'm from [your city / country]. And you?",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "I'm from [your country].",
+          "next": "n3",
+          "fit": "ok",
+          "feedback": {
+            "en": "Good answer! Add 'And you?' to keep the conversation going.",
+            "es": "¡Buena respuesta! Añade «And you?» para mantener la conversación."
+          }
+        }
+      ]
+    },
+    "n3": {
+      "say": "I'm from New Zealand. What's your job?",
+      "es": "Soy de Nueva Zelanda. ¿A qué te dedicas?",
+      "options": [
+        {
+          "text": "I'm a [your job]. What about you?",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I'm a student.",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I'm twenty-five.",
+          "next": "n3r",
+          "fit": "off",
+          "feedback": {
+            "en": "Ava asked about your job ('What's your job?'). Age is 'How old…?'.",
+            "es": "Ava preguntó por tu trabajo («What's your job?»). La edad es «How old…?»."
+          }
+        }
+      ]
+    },
+    "n3r": {
+      "say": "Oh OK! And what's your job?",
+      "es": "¡Ah, vale! ¿Y a qué te dedicas?",
+      "options": [
+        {
+          "text": "I'm a [your job].",
+          "next": "n4",
+          "fit": "good"
+        }
+      ]
+    },
+    "n4": {
+      "say": "I'm a veterinarian, a vet.",
+      "es": "Soy veterinaria.",
+      "options": [
+        {
+          "text": "Sorry? Can you say that again, please?",
+          "next": "n5",
+          "fit": "good"
+        },
+        {
+          "text": "Oh, nice!",
+          "next": "n5",
+          "fit": "ok",
+          "feedback": {
+            "en": "Fine if you understood! If not, 'Can you say that again?' is a great strategy.",
+            "es": "¡Bien si entendiste! Si no, «Can you say that again?» es una gran estrategia."
+          }
+        }
+      ]
+    },
+    "n5": {
+      "say": "Sure! I'm a vet. A doctor for animals. OK, last question: what's your favorite English word?",
+      "es": "¡Claro! Soy veterinaria, médica de animales. Última pregunta: ¿cuál es tu palabra favorita en inglés?",
+      "options": [
+        {
+          "text": "My favorite word is [a word].",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "It's [a word]!",
+          "next": "end",
+          "fit": "good"
+        }
+      ]
+    },
+    "end": {
+      "say": "Ha, I love it! Nice to meet you. See you next week!",
+      "es": "¡Ja, me encanta! Mucho gusto. ¡Nos vemos la próxima semana!",
+      "end": true
+    }
+  }
+}

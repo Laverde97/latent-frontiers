@@ -1,0 +1,113 @@
+{
+  "id": "w01-review",
+  "kind": "review",
+  "title": "Week 1 communication check: introduce yourself",
+  "level": "A1",
+  "week": 1,
+  "minutes": 60,
+  "objectives": [
+    { "en": "Understand people introducing themselves (names, origin, jobs, numbers).", "es": "Entender presentaciones de otras personas (nombres, origen, trabajos, números)." },
+    { "en": "Introduce yourself orally for 20–40 seconds and in a short email.", "es": "Presentarte oralmente durante 20–40 segundos y en un correo corto." },
+    { "en": "Hold a short getting-to-know-you conversation, asking questions back.", "es": "Mantener una conversación breve para conocer a alguien, devolviendo preguntas." }
+  ],
+  "prerequisites": ["w01-l1", "w01-l2", "w01-l3", "w01-l4", "w01-l5"],
+  "prerequisitesText": { "en": "All Week 1 lessons.", "es": "Todas las lecciones de la Semana 1." },
+  "vocabIds": [],
+  "completion": { "reviewThreshold": 0.7, "rule": "All steps saved. Results are reported per skill with their source (automatic / self-assessed)." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "Week 1 done! Look at your results by skill in Assessments. Before moving on, review any activity marked for review, and use the flexible day to rest or practise speaking.", "es": "¡Semana 1 terminada! Mira tus resultados por habilidad en Evaluaciones. Antes de seguir, repasa lo marcado para repaso y usa el día flexible para descansar o practicar speaking." },
+  "steps": [
+    {
+      "id": "s1", "type": "listening", "title": "Welcome evening at the school",
+      "lines": [
+        { "speaker": "Helen", "text": "Good evening, everyone! Welcome. Let's start. Please say your name, where you're from and your job.", "es": "¡Buenas noches a todos! Bienvenidos. Empecemos. Digan su nombre, de dónde son y a qué se dedican." },
+        { "speaker": "Rafael", "text": "Hi, I'm Rafael. I'm Venezuelan, from Caracas, but I live here in Bogotá. I'm an engineer.", "es": "Hola, soy Rafael, venezolano, de Caracas, pero vivo aquí en Bogotá. Soy ingeniero." },
+        { "speaker": "Helen", "text": "Thank you, Rafael. Next?", "es": "Gracias, Rafael. ¿Quién sigue?" },
+        { "speaker": "Jin", "text": "Hello. My name is Jin. That's J, I, N. I'm Korean. I'm a student, and I'm nineteen.", "es": "Hola. Me llamo Jin: J, I, N. Soy coreano, estudiante, y tengo diecinueve." },
+        { "speaker": "Helen", "text": "Welcome, Jin! And you?", "es": "¡Bienvenido, Jin! ¿Y tú?" },
+        { "speaker": "Beatriz", "text": "Good evening! I'm Beatriz. I'm Brazilian, from Recife. I'm a nurse. My phone number for the class group is three oh two, five five five, one eight one three.", "es": "¡Buenas noches! Soy Beatriz, brasileña, de Recife. Soy enfermera. Mi número para el grupo de la clase es 302 555 1813." },
+        { "speaker": "Helen", "text": "Great, thank you. Now find a partner and ask: What's your name? Where are you from? How old are you?", "es": "Genial, gracias. Ahora busquen pareja y pregunten: What's your name? Where are you from? How old are you?" }
+      ],
+      "exercises": [
+        { "id": "e1", "type": "mcq", "prompt": "What is the event? (main idea)", "options": ["A welcome evening at a school", "A job interview", "A birthday party"], "answer": 0 },
+        { "id": "e2", "type": "mcq", "prompt": "Where does Rafael live?", "options": ["In Bogotá", "In Caracas", "In Recife"], "answer": 0 },
+        { "id": "e3", "type": "gap", "prompt": "Jin spells his name: ___", "accept": ["Jin", "J I N"] },
+        { "id": "e4", "type": "mcq", "prompt": "How old is Jin?", "options": ["19", "90", "9"], "answer": 0 },
+        { "id": "e5", "type": "mcq", "prompt": "What is Beatriz's job?", "options": ["Nurse", "Engineer", "Student"], "answer": 0 },
+        { "id": "e6", "type": "gap", "prompt": "Beatriz's number: 302 555 ____", "accept": ["1813"] },
+        { "id": "e7", "type": "mcq", "prompt": "What does the teacher ask them to do at the end?", "options": ["Ask a partner questions", "Write an email", "Go home"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s2", "type": "reading", "title": "The class group chat",
+      "text": "Class group chat\n\nHelen (teacher): Hi everyone! Our next class is on Monday at 6 p.m. in room 14.\n\nRafael: Thanks, Helen! Is Jin in our group?\n\nJin: Yes, I am! Hi, Rafael.\n\nBeatriz: Hello! Sorry, what's the room number again?\n\nHelen: It's fourteen, Beatriz. On the second floor.\n\nBeatriz: Thank you! See you on Monday!",
+      "glossary": { "group chat": "chat grupal", "next": "próxima", "floor": "piso" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "When is the next class?", "options": ["Monday at 6 p.m.", "Monday at 6 a.m.", "Tuesday at 6 p.m."], "answer": 0 },
+        { "id": "r2", "type": "gap", "prompt": "The class is in room ___.", "accept": ["14", "fourteen"] },
+        { "id": "r3", "type": "mcq", "prompt": "Why does Beatriz write 'what's the room number again?'", "options": ["She forgot it or didn't see it", "She is angry", "She is the teacher"], "answer": 0 },
+        { "id": "r4", "type": "mcq", "prompt": "Is Jin in the group?", "options": ["Yes", "No"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s3", "type": "writing", "title": "Email to your new teacher",
+      "prompt": "Write an email to your new English teacher: greeting, your name (spell your last name), where you are from and where you live, your age, your job or studies, and a goodbye (40–80 words).",
+      "promptEs": "Escribe un correo a tu nuevo/a profesor/a: saludo, nombre (deletrea el apellido), de dónde eres y dónde vives, edad, trabajo o estudios y despedida (40–80 palabras).",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 40, "label": { "en": "At least 40 words", "es": "Al menos 40 palabras" } },
+        { "id": "max", "type": "maxWords", "n": 100, "label": { "en": "No more than 100 words", "es": "No más de 100 palabras" } },
+        { "id": "greet", "type": "includesAny", "patterns": ["\\b(hello|hi|dear|good (morning|afternoon|evening))\\b"], "label": { "en": "Greeting", "es": "Saludo" } },
+        { "id": "name", "type": "includesAny", "patterns": ["\\bmy name is\\b", "\\bi'?m\\b"], "label": { "en": "Your name", "es": "Tu nombre" } },
+        { "id": "from", "type": "includesAny", "patterns": ["\\bfrom\\b"], "label": { "en": "Where you are from", "es": "De dónde eres" } },
+        { "id": "age", "type": "includesAny", "patterns": ["\\byears old\\b", "\\bi'?m \\d{1,2}\\b", "\\bi'?m (eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy)"], "label": { "en": "Your age (I'm …)", "es": "Tu edad (I'm …)" } },
+        { "id": "noHave", "type": "excludes", "patterns": ["\\bhave \\w+(-\\w+)? years\\b"], "label": { "en": "No 'I have … years'", "es": "Sin «I have … years»" } },
+        { "id": "bye", "type": "includesAny", "patterns": ["\\b(goodbye|bye|see you|best|regards)\\b"], "label": { "en": "Goodbye / closing", "es": "Despedida" } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "Task achievement: all the requested information is there.", "es": "Cumplimiento: está toda la información pedida." } },
+        { "id": "organisation", "label": { "en": "Organisation: greeting → information → goodbye.", "es": "Organización: saludo → información → despedida." } },
+        { "id": "grammar", "label": { "en": "Grammar and vocabulary: be, from, numbers are correct.", "es": "Gramática y vocabulario: be, from y números correctos." } },
+        { "id": "register", "label": { "en": "Register: polite and friendly for a teacher.", "es": "Registro: cortés y amable para un profesor." } }
+      ],
+      "model": "Hello Ms. Brown,\n\nMy name is Natalia Vargas. That's V, A, R, G, A, S. I'm Colombian, from Pereira, but I live in Medellín. I'm twenty-four years old and I'm a nurse. My phone number is 300 555 0147 and my email is natalia.vargas@mail.com.\n\nNice to meet you. See you on Monday!\n\nNatalia"
+    },
+    {
+      "id": "s4", "type": "speaking", "title": "Introduce yourself to the class",
+      "repeat": [
+        { "text": "Good evening, everyone.", "es": "Buenas noches a todos." },
+        { "text": "I'm from Colombia, but I live in Medellín.", "es": "Soy de Colombia, pero vivo en Medellín." },
+        { "text": "I'm twenty-four years old.", "es": "Tengo veinticuatro años." },
+        { "text": "Nice to meet you all!", "es": "¡Mucho gusto a todos!" }
+      ],
+      "challenge": {
+        "prompt": "Introduce yourself to the class: greeting, name (spell your last name), nationality and city, where you live, age, job or studies, and a goodbye.",
+        "promptEs": "Preséntate a la clase: saludo, nombre (deletrea tu apellido), nacionalidad y ciudad, dónde vives, edad, trabajo o estudios y despedida.",
+        "seconds": [20, 40],
+        "prepare": ["Good evening, everyone!", "My name is … That's …", "I'm (nationality), from … I live in …", "I'm … years old. I'm a …", "Nice to meet you all!"],
+        "model": "Good evening, everyone! My name is Natalia Vargas. That's V, A, R, G, A, S. I'm Colombian, from Pereira, but I live in Medellín. I'm twenty-four years old and I'm a nurse. Nice to meet you all!"
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "Task achievement: I included all the requested information.", "es": "Cumplimiento: incluí toda la información pedida." },
+          "levels": [{ "en": "Less than half", "es": "Menos de la mitad" }, { "en": "About half", "es": "Más o menos la mitad" }, { "en": "Almost all", "es": "Casi todo" }, { "en": "All of it", "es": "Todo" }] },
+        { "id": "fluency", "label": { "en": "Fluency: I spoke without long pauses or restarts.", "es": "Fluidez: hablé sin pausas largas ni reinicios." } },
+        { "id": "coherence", "label": { "en": "Coherence: greeting → information → goodbye, in a logical order.", "es": "Coherencia: saludo → información → despedida, en orden lógico." } },
+        { "id": "resources", "label": { "en": "Language: be, from, numbers and nationalities were correct.", "es": "Recursos lingüísticos: be, from, números y nacionalidades correctos." } },
+        { "id": "intelligibility", "label": { "en": "Intelligibility: names, letters and numbers were easy to understand.", "es": "Inteligibilidad: nombres, letras y números se entendían fácilmente." } }
+      ]
+    },
+    { "id": "s5", "type": "interaction", "title": "Meeting a classmate at the welcome evening", "dialogue": "d-w01-review", "difficulty": "challenge",
+      "followUp": { "en": "Challenge mode: answer aloud first, then reveal the options. This assesses interaction as automatic 'appropriate reply' choices; your speaking itself is assessed in the previous step.", "es": "Modo reto: responde en voz alta primero y luego muestra las opciones. Aquí se registra automáticamente si eliges respuestas adecuadas; tu speaking se evalúa en el paso anterior." } },
+    {
+      "id": "s6", "type": "retrieval", "title": "Week 1 mixed review",
+      "exercises": [
+        { "id": "m1", "type": "minimalPair", "pair": ["thirteen", "thirty"], "say": "thirteen", "ipa": { "thirteen": "/ˌθɜːrˈtiːn/", "thirty": "/ˈθɜːrti/" }, "vocab": "thirteen" },
+        { "id": "m2", "type": "gap", "prompt": "Someone from Peru is ___.", "accept": ["Peruvian"], "vocab": "peruvian" },
+        { "id": "m3", "type": "order", "prompt": "Make a question.", "words": ["old", "How", "you?", "are"], "accept": ["How old are you?"], "vocab": "how-old" },
+        { "id": "m4", "type": "dictation", "audio": "Nice to meet you.", "accept": ["nice to meet you"], "vocab": "nice-to-meet-you" },
+        { "id": "m5", "type": "mcq", "prompt": "'Are you married?' — 'No, ___.'", "options": ["I'm not", "I not", "I amn't"], "answer": 0, "vocab": "married" },
+        { "id": "m6", "type": "mcq", "prompt": "Which is correct?", "options": ["I have 22 years.", "I'm 22.", "I'm 22 years."], "answer": 1, "vocab": "years-old" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "id": "w01-l3",
+  "kind": "core",
+  "title": "Where are you from? Countries and nationalities",
+  "level": "A1",
+  "week": 1,
+  "minutes": 60,
+  "objectives": [
+    { "en": "Say where you are from and where you live.", "es": "Decir de dónde eres y dónde vives." },
+    { "en": "Use countries and nationalities with the right word stress.", "es": "Usar países y nacionalidades con el acento correcto." },
+    { "en": "Ask 'Where are you from?' and follow simple introductions.", "es": "Preguntar «Where are you from?» y seguir presentaciones sencillas." }
+  ],
+  "prerequisites": ["w01-l2"],
+  "prerequisitesText": { "en": "The verb be (Lesson 2).", "es": "El verbo be (Lección 2)." },
+  "vocabIds": ["country", "from", "colombian", "mexican", "peruvian", "argentinian", "chilean", "brazilian", "spanish", "american", "british", "canadian", "english", "city", "live"],
+  "completion": { "reviewThreshold": 0.7, "rule": "All nine steps saved. Auto-scored steps below 70 % are flagged for review." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "Now you can say where you and others are from. Next: numbers, age and phone numbers.", "es": "Ya puedes decir de dónde eres tú y otras personas. Siguiente: números, edad y teléfonos." },
+  "steps": [
+    {
+      "id": "s1", "type": "vocab", "title": "Countries, nationalities and cities",
+      "items": ["country", "from", "colombian", "mexican", "peruvian", "argentinian", "chilean", "brazilian", "spanish", "american", "british", "canadian", "english", "city", "live"],
+      "exercises": [
+        { "id": "v1", "type": "mcq", "prompt": "Someone from Mexico is…", "options": ["Mexican", "Mexico", "Mexicish"], "answer": 0, "vocab": "mexican" },
+        { "id": "v2", "type": "gap", "prompt": "Someone from Brazil is ___.", "accept": ["Brazilian"], "vocab": "brazilian" },
+        { "id": "v3", "type": "mcq", "audio": "Peruvian", "prompt": "Listen. Which nationality?", "options": ["Peruvian", "Paraguayan", "Brazilian"], "answer": 0, "vocab": "peruvian" },
+        { "id": "v4", "type": "mcq", "prompt": "'I'm from Chile' means I'm…", "options": ["Chilean", "Chinese", "Spanish"], "answer": 0, "vocab": "chilean" },
+        { "id": "v5", "type": "mcq", "prompt": "In English, nationalities are written with…", "options": ["a capital letter (Colombian)", "a small letter (colombian)"], "answer": 0, "vocab": "colombian" }
+      ]
+    },
+    {
+      "id": "s2", "type": "listening", "title": "An online language exchange",
+      "lines": [
+        { "speaker": "Grace", "text": "Hello, everyone, and welcome! Let's say where we're from. I'm Grace. I'm American, from Chicago, but I live in Lima now.", "es": "¡Hola a todos y bienvenidos! Digamos de dónde somos. Soy Grace, estadounidense, de Chicago, pero ahora vivo en Lima." },
+        { "speaker": "Mateo", "text": "Hi! I'm Mateo. I'm Argentinian. I'm from Córdoba, a big city in Argentina.", "es": "¡Hola! Soy Mateo, argentino, de Córdoba, una ciudad grande de Argentina." },
+        { "speaker": "Aiko", "text": "Hello, I'm Aiko. I'm from Japan, but I live in Mexico City.", "es": "Hola, soy Aiko. Soy de Japón, pero vivo en Ciudad de México." },
+        { "speaker": "Grace", "text": "Great! And you, Daniel? Where are you from?", "es": "¡Genial! ¿Y tú, Daniel? ¿De dónde eres?" },
+        { "speaker": "Daniel", "text": "I'm British. I'm from Manchester. I live in Manchester, too!", "es": "Soy británico, de Mánchester. ¡Y también vivo en Mánchester!" }
+      ],
+      "exercises": [
+        { "id": "l1", "type": "mcq", "prompt": "What are they talking about? (main idea)", "options": ["Where they are from", "Their jobs", "Their families"], "answer": 0 },
+        { "id": "l2", "type": "mcq", "prompt": "Where does Grace live now?", "options": ["In Lima", "In Chicago", "In Mexico City"], "answer": 0 },
+        { "id": "l3", "type": "gap", "prompt": "Mateo is ___ (nationality).", "accept": ["Argentinian", "Argentine", "Argentinean"] },
+        { "id": "l4", "type": "mcq", "prompt": "Where is Aiko from?", "options": ["Japan", "Mexico", "China"], "answer": 0 },
+        { "id": "l5", "type": "mcq", "prompt": "Does Daniel live in his home city?", "options": ["Yes", "No"], "answer": 0,
+          "explanation": { "en": "He's from Manchester and lives in Manchester, too.", "es": "Es de Mánchester y también vive allí." } },
+        { "id": "l6", "type": "dictation", "audio": "I live in Mexico City.", "accept": ["i live in mexico city"] }
+      ]
+    },
+    {
+      "id": "s3", "type": "grammar", "title": "from + country, I'm + nationality, live in + city",
+      "explanation": {
+        "en": "Use 'from' + country or city: I'm from Colombia. Use the nationality without 'from': I'm Colombian. Countries, cities, nationalities and languages always start with a capital letter in English: Peru, Peruvian, Spanish, English. To say where you live now, use 'I live in' + city.",
+        "es": "Usa «from» + país o ciudad: I'm from Colombia. Usa la nacionalidad sin «from»: I'm Colombian. Países, ciudades, nacionalidades e idiomas siempre van con mayúscula en inglés: Peru, Peruvian, Spanish, English. Para decir dónde vives ahora usa «I live in» + ciudad."
+      },
+      "table": { "head": ["Country", "Nationality", "Stress"],
+        "rows": [["Colombia", "Colombian", "co-LOM-bi-an"], ["Mexico", "Mexican", "MEX-i-can"], ["Peru", "Peruvian", "pe-RU-vi-an"], ["Argentina", "Argentinian", "ar-gen-TIN-i-an"], ["Chile", "Chilean", "CHIL-e-an"], ["Brazil", "Brazilian", "bra-ZIL-ian"], ["Spain", "Spanish", "SPAN-ish"], ["the United States", "American", "a-MER-i-can"], ["the United Kingdom", "British", "BRIT-ish"], ["Canada", "Canadian", "ca-NA-di-an"]] },
+      "examples": [
+        { "en": "Where are you from?", "es": "¿De dónde eres?" },
+        { "en": "I'm from Peru. I'm Peruvian.", "es": "Soy de Perú. Soy peruano/a." },
+        { "en": "She's Brazilian. She's from São Paulo.", "es": "Es brasileña, de São Paulo." },
+        { "en": "I live in Bogotá.", "es": "Vivo en Bogotá." }
+      ],
+      "watchOut": { "en": "Not 'I'm from Colombian' or 'I'm Colombia': country after from, nationality after I'm. And 'American' usually means from the United States.", "es": "No «I'm from Colombian» ni «I'm Colombia»: el país va después de from y la nacionalidad después de I'm. Y «American» suele significar de Estados Unidos." },
+      "exercises": [
+        { "id": "g1", "type": "gap", "prompt": "I'm from Mexico. I'm ___.", "accept": ["Mexican"] },
+        { "id": "g2", "type": "mcq", "prompt": "Which is correct?", "options": ["I'm from Colombian.", "I'm Colombian.", "I'm Colombia."], "answer": 1 },
+        { "id": "g3", "type": "gap", "prompt": "Complete the question: Where are you ___?", "accept": ["from"] },
+        { "id": "g4", "type": "order", "prompt": "Put the words in order.", "words": ["live", "I", "in", "Quito."], "accept": ["I live in Quito."] },
+        { "id": "g5", "type": "mcq", "prompt": "Which word is written correctly?", "options": ["spanish", "Spanish"], "answer": 1 }
+      ]
+    },
+    {
+      "id": "s4", "type": "pronunciation", "title": "Word stress and the schwa /ə/",
+      "focus": "One strong syllable per word; weak syllables become /ə/",
+      "tip": { "en": "English words have one strong syllable; the others are short and weak, often with /ə/ (schwa), a relaxed 'uh'. Colombian = kə-LÁM-bi-ən: first and last syllables are weak. Spanish speakers often give every syllable the same weight — make the stressed one longer and louder.", "es": "Las palabras inglesas tienen una sílaba fuerte; las demás son cortas y débiles, a menudo con /ə/ (schwa), una «e» relajada. Colombian = kə-LÁM-bi-ən: la primera y la última son débiles. En español solemos dar el mismo peso a todas: alarga y refuerza la sílaba acentuada." },
+      "repeat": [
+        { "text": "I'm Colombian.", "ipa": "/aɪm kəˈlʌmbiən/", "es": "Soy colombiano/a." },
+        { "text": "She's Canadian.", "ipa": "/ʃiːz kəˈneɪdiən/", "es": "Es canadiense." },
+        { "text": "They're Brazilian.", "es": "Son brasileños." },
+        { "text": "I'm from Argentina.", "ipa": "/aɪm frəm ˌɑːrdʒənˈtiːnə/", "es": "Soy de Argentina." }
+      ],
+      "exercises": [
+        { "id": "p1", "type": "mcq", "audio": "Canadian", "prompt": "Listen to 'Canadian'. Which syllable is stressed?", "options": ["CA-na-di-an", "ca-NA-di-an", "ca-na-DI-an"], "answer": 1 },
+        { "id": "p2", "type": "mcq", "audio": "Japanese", "prompt": "Listen to 'Japanese'. Which syllable is stressed?", "options": ["JA-pa-nese", "ja-PA-nese", "ja-pa-NESE"], "answer": 2 },
+        { "id": "p3", "type": "mcq", "audio": "Mexican", "prompt": "Listen to 'Mexican'. Which syllable is stressed?", "options": ["MEX-i-can", "mex-I-can", "mex-i-CAN"], "answer": 0 },
+        { "id": "p4", "type": "minimalPair", "pair": ["live", "leave"], "say": "live", "ipa": { "live": "/lɪv/", "leave": "/liːv/" } }
+      ]
+    },
+    {
+      "id": "s5", "type": "speaking", "title": "Where are they from?",
+      "repeat": [
+        { "text": "Where are you from?", "es": "¿De dónde eres?" },
+        { "text": "I'm from Colombia, but I live in Mexico.", "es": "Soy de Colombia, pero vivo en México." },
+        { "text": "My friend is Chilean.", "es": "Mi amigo/a es chileno/a." },
+        { "text": "We're Peruvian.", "es": "Somos peruanos." },
+        { "text": "Is she Canadian?", "es": "¿Ella es canadiense?" }
+      ],
+      "challenge": {
+        "prompt": "Introduce yourself and two people (family, friends or famous people): name, nationality, where they are from and where they live.",
+        "promptEs": "Preséntate a ti y a dos personas (familia, amigos o famosos): nombre, nacionalidad, de dónde son y dónde viven.",
+        "seconds": [20, 40],
+        "prepare": ["I'm … I'm (nationality), from …", "I live in …", "My friend … is (nationality). He's / She's from …"],
+        "model": "Hi! I'm Carolina. I'm Colombian, from Cali, but I live in Bogotá. My best friend is Ana. She's Mexican. She's from Monterrey. My favorite singer is Shakira. She's Colombian, from Barranquilla."
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "I talked about me and two people: nationality, origin and city.", "es": "Hablé de mí y de dos personas: nacionalidad, origen y ciudad." } },
+        { "id": "stress", "label": { "en": "Nationalities had a clear strong syllable (co-LOM-bi-an).", "es": "Las nacionalidades tenían una sílaba fuerte clara (co-LOM-bi-an)." } },
+        { "id": "accuracy", "label": { "en": "from + country, I'm + nationality, live in + city.", "es": "from + país, I'm + nacionalidad, live in + ciudad." } },
+        { "id": "fluency", "label": { "en": "I kept going without long pauses.", "es": "Seguí hablando sin pausas largas." } }
+      ]
+    },
+    { "id": "s6", "type": "interaction", "title": "At a hostel in Cusco", "dialogue": "d-w01-countries" },
+    {
+      "id": "s7", "type": "reading", "title": "Hello from Toronto!",
+      "text": "Hello from Toronto!\n\nI'm Lucía. I'm Peruvian, from Arequipa, but now I live in Toronto, a big city in Canada. My roommates are great. Kenji is Japanese. He's from Osaka. Hannah is British. She's from London. We're all students at the same college.\n\nIn our apartment we speak English, but Kenji says 'arigato' and I say 'gracias'!",
+      "glossary": { "roommates": "compañeros de apartamento", "college": "universidad / instituto", "apartment": "apartamento", "all": "todos" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "Where does Lucía live now?", "options": ["In Toronto", "In Arequipa", "In London"], "answer": 0 },
+        { "id": "r2", "type": "gap", "prompt": "Kenji is ___ (nationality).", "accept": ["Japanese"] },
+        { "id": "r3", "type": "mcq", "prompt": "Hannah is from…", "options": ["the United Kingdom", "the United States", "Canada"], "answer": 0,
+          "explanation": { "en": "She's British, from London.", "es": "Es británica, de Londres." } },
+        { "id": "r4", "type": "mcq", "prompt": "What language do they speak at home?", "options": ["English", "Spanish", "Japanese"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s8", "type": "writing", "title": "Three people, three places",
+      "prompt": "Write about three people (you + two others): name, nationality, home city and where they live now (4–6 sentences).",
+      "promptEs": "Escribe sobre tres personas (tú + dos más): nombre, nacionalidad, ciudad de origen y dónde viven ahora (4–6 frases).",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 20, "label": { "en": "At least 20 words", "es": "Al menos 20 palabras" } },
+        { "id": "from", "type": "includesAny", "patterns": ["\\bfrom\\b"], "label": { "en": "Uses from + country/city", "es": "Usa from + país/ciudad" } },
+        { "id": "live", "type": "includesAny", "patterns": ["\\blives? in\\b"], "label": { "en": "Uses live in + city", "es": "Usa live in + ciudad" } },
+        { "id": "nat", "type": "capitalized", "words": ["colombian", "mexican", "peruvian", "argentinian", "argentine", "chilean", "brazilian", "spanish", "american", "british", "canadian", "english", "japanese", "venezuelan", "ecuadorian", "bolivian", "uruguayan", "paraguayan", "cuban", "colombia", "mexico", "peru", "argentina", "chile", "brazil", "spain", "canada"], "label": { "en": "Countries and nationalities start with a capital letter", "es": "Países y nacionalidades empiezan con mayúscula" } },
+        { "id": "wrongfrom", "type": "excludes", "patterns": ["\\bfrom (colombian|mexican|peruvian|argentinian|chilean|brazilian|spanish|american|british|canadian)\\b"], "label": { "en": "No 'from + nationality' (from Colombian ✗)", "es": "Sin «from + nacionalidad» (from Colombian ✗)" } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } },
+        { "id": "caps", "type": "sentenceCase", "label": { "en": "Sentences start with a capital letter", "es": "Las frases empiezan con mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "I wrote about three people with nationality, origin and city.", "es": "Escribí sobre tres personas con nacionalidad, origen y ciudad." } },
+        { "id": "accuracy", "label": { "en": "from / I'm / live in are used correctly.", "es": "Uso bien from / I'm / live in." } },
+        { "id": "clarity", "label": { "en": "Each person's information is clear.", "es": "La información de cada persona es clara." } }
+      ],
+      "model": "I'm Felipe. I'm Ecuadorian, from Quito, and I live in Quito. My sister Daniela is in Spain now. She lives in Madrid. My friend Tom is American. He's from Texas, but he lives in Lima."
+    },
+    {
+      "id": "s9", "type": "retrieval", "title": "Remember without looking",
+      "exercises": [
+        { "id": "q1", "type": "gap", "prompt": "Someone from Argentina is ___.", "accept": ["Argentinian", "Argentine", "Argentinean"], "vocab": "argentinian" },
+        { "id": "q2", "type": "gap", "prompt": "Someone from Canada is ___.", "accept": ["Canadian"], "vocab": "canadian" },
+        { "id": "q3", "type": "mcq", "audio": "British", "prompt": "Listen. Which word is it?", "options": ["British", "Brazilian", "Spanish"], "answer": 0, "vocab": "british" },
+        { "id": "q4", "type": "order", "prompt": "Make a question.", "words": ["are", "Where", "from?", "you"], "accept": ["Where are you from?"], "vocab": "from" },
+        { "id": "q5", "type": "minimalPair", "pair": ["live", "leave"], "say": "leave", "ipa": { "live": "/lɪv/", "leave": "/liːv/" }, "vocab": "live" }
+      ]
+    }
+  ]
+}

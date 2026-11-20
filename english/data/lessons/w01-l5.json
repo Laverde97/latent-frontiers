@@ -1,0 +1,171 @@
+{
+  "id": "w01-l5",
+  "kind": "core",
+  "title": "Getting to know you: personal questions",
+  "level": "A1",
+  "week": 1,
+  "minutes": 60,
+  "objectives": [
+    { "en": "Ask and answer basic personal questions: name, origin, age, job.", "es": "Hacer y responder preguntas personales básicas: nombre, origen, edad, trabajo." },
+    { "en": "Use question words with be: What / Where / Who / How old.", "es": "Usar palabras interrogativas con be: What / Where / Who / How old." },
+    { "en": "Keep a conversation going with 'And you?' and ask for repetition.", "es": "Mantener la conversación con «And you?» y pedir que repitan." }
+  ],
+  "prerequisites": ["w01-l4"],
+  "prerequisitesText": { "en": "Lessons 1–4: greetings, be, countries, numbers.", "es": "Lecciones 1–4: saludos, be, países, números." },
+  "vocabIds": ["what", "where", "who", "how-old", "job", "favorite", "birthday", "speak", "language"],
+  "completion": { "reviewThreshold": 0.7, "rule": "All nine steps saved. Auto-scored steps below 70 % are flagged for review." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "You can now hold a short getting-to-know-you conversation. Next: the Week 1 integrative session.", "es": "Ya puedes mantener una conversación corta para conocer a alguien. Siguiente: la sesión integradora de la Semana 1." },
+  "steps": [
+    {
+      "id": "s1", "type": "vocab", "title": "Question words and personal topics",
+      "items": ["what", "where", "who", "how-old", "job", "favorite", "birthday", "speak", "language", "sorry", "again"],
+      "exercises": [
+        { "id": "v1", "type": "mcq", "prompt": "Which question asks about a place?", "options": ["Where are you from?", "Who is she?", "What's your name?"], "answer": 0, "vocab": "where" },
+        { "id": "v2", "type": "mcq", "prompt": "Which question asks about a person?", "options": ["Who is your teacher?", "Where is your teacher?", "How old is your teacher?"], "answer": 0, "vocab": "who" },
+        { "id": "v3", "type": "gap", "prompt": "cumpleaños = ___", "accept": ["birthday", "a birthday"], "vocab": "birthday" },
+        { "id": "v4", "type": "mcq", "audio": "Sorry?", "prompt": "Listen. When do you say this, with this intonation?", "options": ["When you didn't understand", "When you are sad", "When you say goodbye"], "answer": 0, "vocab": "sorry",
+          "explanation": { "en": "'Sorry?' as a question = 'I didn't understand, can you repeat?'. 'I'm sorry' is an apology.", "es": "«Sorry?» como pregunta = «no entendí, ¿repites?». «I'm sorry» es una disculpa." } },
+        { "id": "v5", "type": "mcq", "prompt": "'Favorite' in British spelling is:", "options": ["favourite", "favorit"], "answer": 0, "vocab": "favorite" }
+      ]
+    },
+    {
+      "id": "s2", "type": "listening", "title": "A language exchange at a café",
+      "lines": [
+        { "speaker": "Olivia", "text": "Hi, are you Martín?", "es": "Hola, ¿eres Martín?" },
+        { "speaker": "Martín", "text": "Yes, I am. Are you Olivia?", "es": "Sí. ¿Eres Olivia?" },
+        { "speaker": "Olivia", "text": "Yes! Nice to meet you. So, where are you from, Martín?", "es": "¡Sí! Mucho gusto. Entonces, ¿de dónde eres, Martín?" },
+        { "speaker": "Martín", "text": "I'm from Uruguay, from Montevideo. And you?", "es": "Soy de Uruguay, de Montevideo. ¿Y tú?" },
+        { "speaker": "Olivia", "text": "I'm from Ireland. What's your job?", "es": "Soy de Irlanda. ¿A qué te dedicas?" },
+        { "speaker": "Martín", "text": "I'm a nurse. What about you?", "es": "Soy enfermero. ¿Y tú?" },
+        { "speaker": "Olivia", "text": "I'm a graphic designer. How old are you, if that's OK?", "es": "Soy diseñadora gráfica. ¿Cuántos años tienes, si no te molesta?" },
+        { "speaker": "Martín", "text": "Sure, I'm twenty-seven. Sorry, what's your job again?", "es": "Claro, tengo veintisiete. Perdón, ¿cuál es tu trabajo?" },
+        { "speaker": "Olivia", "text": "A graphic designer. I design websites.", "es": "Diseñadora gráfica. Diseño sitios web." },
+        { "speaker": "Martín", "text": "Oh, cool! What languages do you speak?", "es": "¡Qué bien! ¿Qué idiomas hablas?" },
+        { "speaker": "Olivia", "text": "English and a little Spanish!", "es": "¡Inglés y un poco de español!" }
+      ],
+      "exercises": [
+        { "id": "l1", "type": "mcq", "prompt": "Is this their first meeting? (main idea)", "options": ["Yes", "No"], "answer": 0,
+          "explanation": { "en": "They say 'Nice to meet you'.", "es": "Dicen «Nice to meet you»." } },
+        { "id": "l2", "type": "gap", "prompt": "Martín is from ___ (country).", "accept": ["Uruguay"] },
+        { "id": "l3", "type": "mcq", "prompt": "What is Olivia's job?", "options": ["Graphic designer", "Nurse", "Teacher"], "answer": 0 },
+        { "id": "l4", "type": "mcq", "prompt": "Why does Martín say 'Sorry, what's your job again?'", "options": ["He didn't understand or remember", "He is sad", "He wants to leave"], "answer": 0 },
+        { "id": "l5", "type": "mcq", "prompt": "How old is Martín?", "options": ["27", "37", "72"], "answer": 0 },
+        { "id": "l6", "type": "dictation", "audio": "What's your job?", "accept": ["what's your job"] }
+      ]
+    },
+    {
+      "id": "s3", "type": "grammar", "title": "Wh- questions with be",
+      "explanation": {
+        "en": "Wh- questions with be use this order: question word + be + subject. What's your name? Where are you from? Who is she? How old are you? Answer with a short sentence and bounce the question back with 'And you?' or 'What about you?'. If you don't understand, say 'Sorry?' or 'Can you say that again, please?' — asking is a communication skill, not a failure.",
+        "es": "Las preguntas Wh- con be siguen este orden: palabra interrogativa + be + sujeto. What's your name? Where are you from? Who is she? How old are you? Responde con una frase corta y devuelve la pregunta con «And you?» o «What about you?». Si no entiendes, di «Sorry?» o «Can you say that again, please?»: preguntar es una habilidad comunicativa, no un fracaso."
+      },
+      "table": { "head": ["Question word", "be", "Subject / rest"],
+        "rows": [["What", "'s (is)", "your name?"], ["Where", "are", "you from?"], ["Who", "is", "your teacher?"], ["How old", "are", "you?"], ["What", "'s (is)", "your phone number?"]] },
+      "examples": [
+        { "en": "What's your name?", "es": "¿Cómo te llamas?" },
+        { "en": "Where are you from?", "es": "¿De dónde eres?" },
+        { "en": "Who is that?", "es": "¿Quién es esa persona?" },
+        { "en": "How old is your brother?", "es": "¿Cuántos años tiene tu hermano?" },
+        { "en": "What about you?", "es": "¿Y tú?" }
+      ],
+      "watchOut": { "en": "Not Spanish word order: 'Where you are from?' ✗ → 'Where are you from?' ✓. 'What is your age?' is correct but formal: people say 'How old are you?'.", "es": "No uses el orden del español: «Where you are from?» ✗ → «Where are you from?» ✓. «What is your age?» es correcto pero formal: se dice «How old are you?»." },
+      "exercises": [
+        { "id": "g1", "type": "order", "prompt": "Make a question.", "words": ["is", "Who", "teacher?", "your"], "accept": ["Who is your teacher?"] },
+        { "id": "g2", "type": "mcq", "prompt": "Which question is correct?", "options": ["Where you are from?", "Where are you from?", "Where from you are?"], "answer": 1 },
+        { "id": "g3", "type": "gap", "prompt": "___ old are you?", "accept": ["How"] },
+        { "id": "g4", "type": "gap", "prompt": "___ is your job? — I'm a nurse.", "accept": ["What"] },
+        { "id": "g5", "type": "mcq", "prompt": "Answer: 'Who is she?'", "options": ["She's my sister.", "She's from Peru.", "She's 20."], "answer": 0 },
+        { "id": "g6", "type": "mcq", "prompt": "You didn't understand. You say:", "options": ["Sorry, can you say that again?", "Goodbye!", "I'm fine."], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s4", "type": "pronunciation", "title": "Question intonation and /ɪ/ vs /iː/",
+      "focus": "Wh- questions usually fall ↘; yes/no questions often rise ↗. Short /ɪ/ vs long /iː/.",
+      "tip": { "en": "In Wh- questions (What's your name? ↘) your voice usually goes down at the end; in yes/no questions (Are you a student? ↗) it often goes up. Synthetic voices don't always reproduce intonation well, so exaggerate it yourself when you repeat. For /iː/ (speak, meet) smile slightly and make it long; for /ɪ/ (it, live) relax and keep it short.", "es": "En las preguntas Wh- (What's your name? ↘) la voz suele bajar al final; en las de sí/no (Are you a student? ↗) suele subir. Las voces sintéticas no siempre reproducen bien la entonación: exagérala tú al repetir. Para /iː/ (speak, meet) sonríe un poco y alárgala; para /ɪ/ (it, live) relaja y hazla corta." },
+      "repeat": [
+        { "text": "What's your name?", "es": "¿Cómo te llamas? (↘)" },
+        { "text": "Where are you from?", "es": "¿De dónde eres? (↘)" },
+        { "text": "Are you a student?", "es": "¿Eres estudiante? (↗)" },
+        { "text": "Sorry, can you say that again?", "es": "Perdón, ¿lo repites? (↗)" }
+      ],
+      "exercises": [
+        { "id": "p1", "type": "mcq", "prompt": "Which question usually goes UP at the end?", "options": ["Are you married?", "Where are you from?", "What's your job?"], "answer": 0,
+          "explanation": { "en": "Yes/no questions often rise; Wh- questions usually fall.", "es": "Las preguntas de sí/no suelen subir; las Wh- suelen bajar." } },
+        { "id": "p2", "type": "minimalPair", "pair": ["sit", "seat"], "say": "seat", "ipa": { "sit": "/sɪt/", "seat": "/siːt/" } },
+        { "id": "p3", "type": "minimalPair", "pair": ["ship", "sheep"], "say": "ship", "ipa": { "ship": "/ʃɪp/", "sheep": "/ʃiːp/" } },
+        { "id": "p4", "type": "minimalPair", "pair": ["fill", "feel"], "say": "feel", "ipa": { "fill": "/fɪl/", "feel": "/fiːl/" } },
+        { "id": "p5", "type": "minimalPair", "pair": ["it", "eat"], "say": "it", "ipa": { "it": "/ɪt/", "eat": "/iːt/" } }
+      ]
+    },
+    {
+      "id": "s5", "type": "speaking", "title": "Interview yourself",
+      "repeat": [
+        { "text": "Nice to meet you. Where are you from?", "es": "Mucho gusto. ¿De dónde eres?" },
+        { "text": "What's your job?", "es": "¿A qué te dedicas?" },
+        { "text": "How old are you, if that's OK?", "es": "¿Cuántos años tienes, si no te molesta?" },
+        { "text": "What about you?", "es": "¿Y tú?" },
+        { "text": "Sorry, what's your name again?", "es": "Perdón, ¿cómo te llamabas?" }
+      ],
+      "challenge": {
+        "prompt": "Interview yourself: ask yourself at least four personal questions aloud (name, origin, job, age, favorite…) and answer each one.",
+        "promptEs": "Entrevístate: hazte en voz alta al menos cuatro preguntas personales (nombre, origen, trabajo, edad, favorito…) y responde cada una.",
+        "seconds": [25, 45],
+        "prepare": ["What's your name? — My name is …", "Where are you from? — I'm from …", "What's your job? — I'm a …", "How old are you? — I'm …", "What's your favorite …? — My favorite … is …"],
+        "model": "What's your name? My name is Laura. Where are you from? I'm from Bogotá, Colombia. What's your job? I'm an engineer. How old are you? I'm thirty-two. What's your favorite food? Arepas!"
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "I asked and answered at least four questions.", "es": "Hice y respondí al menos cuatro preguntas." } },
+        { "id": "order", "label": { "en": "Question order was question word + be + subject.", "es": "El orden fue palabra interrogativa + be + sujeto." } },
+        { "id": "intonation", "label": { "en": "My voice went down at the end of Wh- questions.", "es": "Mi voz bajó al final de las preguntas Wh-." } },
+        { "id": "fluency", "label": { "en": "I kept going without long pauses.", "es": "Seguí sin pausas largas." } }
+      ]
+    },
+    {
+      "id": "s6", "type": "interaction", "title": "Language exchange with Ava", "dialogue": "d-w01-exchange", "difficulty": "guided",
+      "followUp": { "en": "Repeat it in Challenge mode in the Conversation Coach and answer before seeing the options.", "es": "Repítela en modo Reto en el Conversation Coach y responde antes de ver las opciones." }
+    },
+    {
+      "id": "s7", "type": "reading", "title": "Five questions for our new teacher",
+      "text": "Five questions for our new teacher!\n\nWhat's your name?\nMy name is Richard Okafor, but please call me Rich.\n\nWhere are you from?\nI'm from Lagos, in Nigeria, but my family is in London now.\n\nHow old are you?\nI'm forty-one.\n\nWhat's your favorite word in Spanish?\n'Sobremesa'! There isn't one word for it in English.\n\nWhat languages do you speak?\nEnglish, Yoruba, French and a little Spanish.",
+      "glossary": { "call me": "llámame", "family": "familia", "word": "palabra", "a little": "un poco" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "What kind of text is this?", "options": ["An interview", "An email", "A form"], "answer": 0 },
+        { "id": "r2", "type": "mcq", "prompt": "What does the teacher want students to call him?", "options": ["Rich", "Richard", "Mr. Okafor"], "answer": 0 },
+        { "id": "r3", "type": "mcq", "prompt": "Where is his family now?", "options": ["In London", "In Lagos", "In Nigeria"], "answer": 0 },
+        { "id": "r4", "type": "gap", "prompt": "He's ___ years old (number).", "accept": ["41", "forty-one", "forty one"] },
+        { "id": "r5", "type": "mcq", "prompt": "How many languages does he speak (including a little Spanish)?", "options": ["Four", "Three", "Two"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s8", "type": "writing", "title": "Questions for a new classmate",
+      "prompt": "Write five questions you would like to ask a new classmate, and your own answer to each one.",
+      "promptEs": "Escribe cinco preguntas que te gustaría hacerle a un compañero nuevo y tu propia respuesta a cada una.",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 25, "label": { "en": "At least 25 words", "es": "Al menos 25 palabras" } },
+        { "id": "q", "type": "includesAny", "patterns": ["\\?"], "label": { "en": "Includes questions (with ?)", "es": "Incluye preguntas (con ?)" } },
+        { "id": "wh", "type": "includesAny", "patterns": ["\\b(what|where|who|how old)\\b"], "label": { "en": "Uses question words (What / Where / Who / How old)", "es": "Usa palabras interrogativas (What / Where / Who / How old)" } },
+        { "id": "order", "type": "excludes", "patterns": ["\\bwhere (you|he|she|they) (are|is)\\b[^.!]*\\?", "\\bwhat (your|his|her) \\w+ (is)\\?"], "label": { "en": "Question order: Where are you…? (not 'Where you are…?')", "es": "Orden de pregunta: Where are you…? (no «Where you are…?»)" } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } },
+        { "id": "caps", "type": "sentenceCase", "label": { "en": "Sentences start with a capital letter", "es": "Las frases empiezan con mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "Five questions, each with my answer.", "es": "Cinco preguntas, cada una con mi respuesta." } },
+        { "id": "order", "label": { "en": "Questions use the correct word order.", "es": "Las preguntas tienen el orden correcto." } },
+        { "id": "clarity", "label": { "en": "Questions and answers match each other.", "es": "Las preguntas y respuestas corresponden entre sí." } }
+      ],
+      "model": "What's your name? My name is Diego. Where are you from? I'm from Lima, Peru. What's your job? I'm a student. How old are you? I'm nineteen. Who is your favorite singer? My favorite singer is Natalia Lafourcade."
+    },
+    {
+      "id": "s9", "type": "retrieval", "title": "Remember without looking",
+      "exercises": [
+        { "id": "q1", "type": "gap", "prompt": "___ is your teacher? — Mr. Brown.", "accept": ["Who"], "vocab": "who" },
+        { "id": "q2", "type": "order", "prompt": "Make a question.", "words": ["your", "What's", "favorite", "color?"], "accept": ["What's your favorite color?"], "vocab": "favorite" },
+        { "id": "q3", "type": "minimalPair", "pair": ["ship", "sheep"], "say": "sheep", "ipa": { "ship": "/ʃɪp/", "sheep": "/ʃiːp/" } },
+        { "id": "q4", "type": "dictation", "audio": "Can you say that again, please?", "accept": ["can you say that again please"], "vocab": "again" },
+        { "id": "q5", "type": "mcq", "prompt": "'Idioma' in English is:", "options": ["language", "idiom", "lenguage"], "answer": 0, "vocab": "language",
+          "explanation": { "en": "'Idiom' means a fixed expression (modismo).", "es": "«Idiom» significa modismo." } }
+      ]
+    }
+  ]
+}

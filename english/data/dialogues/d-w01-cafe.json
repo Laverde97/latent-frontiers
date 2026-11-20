@@ -1,0 +1,136 @@
+{
+  "id": "d-w01-cafe",
+  "title": "Is this seat free?",
+  "level": "A1",
+  "minutes": 3,
+  "goal": {
+    "en": "Answer yes/no questions with be",
+    "es": "Responder preguntas de sí/no con be"
+  },
+  "setting": {
+    "en": "The school café is full. Leo, a student, comes to your table.",
+    "es": "La cafetería de la escuela está llena. Leo, un estudiante, llega a tu mesa."
+  },
+  "roles": {
+    "bot": "Leo"
+  },
+  "start": "n1",
+  "nodes": {
+    "n1": {
+      "say": "Excuse me, is this seat free?",
+      "es": "Disculpa, ¿está libre este asiento?",
+      "options": [
+        {
+          "text": "Yes, it is. Please sit down.",
+          "next": "n2",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I am.",
+          "next": "n2",
+          "fit": "off",
+          "feedback": {
+            "en": "Leo asked about the seat: 'Is this seat free?' → 'Yes, it is.'",
+            "es": "Leo preguntó por el asiento: «Is this seat free?» → «Yes, it is.»"
+          }
+        }
+      ]
+    },
+    "n2": {
+      "say": "Thanks! Are you a student here?",
+      "es": "¡Gracias! ¿Eres estudiante aquí?",
+      "options": [
+        {
+          "text": "Yes, I am. And you?",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "No, I'm not. I'm a [your job].",
+          "next": "n3",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I'm.",
+          "next": "n3",
+          "fit": "off",
+          "feedback": {
+            "en": "Short answers don't use contractions: 'Yes, I am.'",
+            "es": "Las respuestas cortas no llevan contracción: «Yes, I am.»"
+          }
+        }
+      ]
+    },
+    "n3": {
+      "say": "I'm a student, too. I'm Leo. Are you from here?",
+      "es": "Yo también soy estudiante. Soy Leo. ¿Eres de aquí?",
+      "options": [
+        {
+          "text": "No, I'm not. I'm from [your country].",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I am.",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "I'm 25.",
+          "next": "n3r",
+          "fit": "off",
+          "feedback": {
+            "en": "Leo asked where you are from, not your age.",
+            "es": "Leo preguntó de dónde eres, no tu edad."
+          }
+        }
+      ]
+    },
+    "n3r": {
+      "say": "Ha, OK! But are you from this city?",
+      "es": "¡Ja, vale! Pero, ¿eres de esta ciudad?",
+      "options": [
+        {
+          "text": "No, I'm not. I'm from [your country].",
+          "next": "n4",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I am.",
+          "next": "n4",
+          "fit": "good"
+        }
+      ]
+    },
+    "n4": {
+      "say": "Cool. Are you tired? Long day?",
+      "es": "Genial. ¿Estás cansado/a? ¿Día largo?",
+      "options": [
+        {
+          "text": "Yes, I am. I'm very tired!",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "No, I'm not. I'm fine.",
+          "next": "end",
+          "fit": "good"
+        },
+        {
+          "text": "Yes, I tired.",
+          "next": "end",
+          "fit": "off",
+          "feedback": {
+            "en": "Remember be: 'I'm tired' (estoy cansado/a).",
+            "es": "Recuerda be: «I'm tired» (estoy cansado/a)."
+          }
+        }
+      ]
+    },
+    "end": {
+      "say": "Me too! Nice to meet you.",
+      "es": "¡Yo también! Mucho gusto.",
+      "end": true
+    }
+  }
+}

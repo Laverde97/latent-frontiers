@@ -1,0 +1,164 @@
+{
+  "id": "w01-l1",
+  "kind": "core",
+  "title": "Hello! Greetings and spelling your name",
+  "level": "A1",
+  "week": 1,
+  "minutes": 55,
+  "objectives": [
+    { "en": "Greet people and say goodbye at different times of the day.", "es": "Saludar y despedirte según el momento del día." },
+    { "en": "Say your name and spell it letter by letter.", "es": "Decir tu nombre y deletrearlo letra por letra." },
+    { "en": "Ask someone to spell a word or say it again.", "es": "Pedir que te deletreen algo o que lo repitan." }
+  ],
+  "prerequisites": [],
+  "prerequisitesText": { "en": "None — this is the starting point.", "es": "Ninguno: este es el punto de partida." },
+  "vocabIds": ["hello", "hi", "good-morning", "good-afternoon", "good-evening", "goodbye", "see-you-later", "name", "spell", "please", "thank-you", "nice-to-meet-you", "how-are-you", "fine", "sorry", "again"],
+  "completion": { "reviewThreshold": 0.7, "rule": "All nine steps saved. Auto-scored steps below 70 % are flagged for review." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "Great start! You greeted people, introduced yourself and spelled your name. Next: the verb to be (I am, you are…).", "es": "¡Excelente comienzo! Saludaste, te presentaste y deletreaste tu nombre. Siguiente: el verbo to be (I am, you are…)." },
+  "steps": [
+    {
+      "id": "s1", "type": "vocab", "title": "Greetings and goodbyes",
+      "intro": { "en": "Listen to each expression, repeat it aloud and read the example.", "es": "Escucha cada expresión, repítela en voz alta y lee el ejemplo." },
+      "items": ["hello", "hi", "good-morning", "good-afternoon", "good-evening", "goodbye", "see-you-later", "nice-to-meet-you", "how-are-you", "fine", "name", "spell", "please", "thank-you", "sorry", "again"],
+      "exercises": [
+        { "id": "v1", "type": "mcq", "audio": "Good evening!", "prompt": "Listen. When do you say this?", "options": ["When you arrive in the evening", "When you go to bed", "In the morning"], "answer": 0, "vocab": "good-evening",
+          "explanation": { "en": "'Good evening' is a greeting when you arrive. 'Good night' is for leaving or going to bed.", "es": "«Good evening» es un saludo al llegar. «Good night» es para despedirse o ir a dormir." } },
+        { "id": "v2", "type": "mcq", "prompt": "It's 9 a.m. You arrive at work. You say:", "options": ["Good night!", "Good morning!", "Good evening!"], "answer": 1, "vocab": "good-morning" },
+        { "id": "v3", "type": "gap", "prompt": "Complete: Nice to ___ you.", "accept": ["meet"], "vocab": "nice-to-meet-you" },
+        { "id": "v4", "type": "mcq", "prompt": "Someone says 'How are you?'. A natural answer is:", "options": ["I'm 25.", "Fine, thanks. And you?", "My name is Ana."], "answer": 1, "vocab": "how-are-you",
+          "explanation": { "en": "'How are you?' is a greeting: answer briefly and ask back.", "es": "«How are you?» es un saludo: responde breve y pregunta de vuelta." } },
+        { "id": "v5", "type": "dictation", "audio": "See you later!", "accept": ["see you later"], "vocab": "see-you-later" }
+      ]
+    },
+    {
+      "id": "s2", "type": "listening", "title": "At the language school reception",
+      "lines": [
+        { "speaker": "Receptionist", "text": "Good morning! Welcome to City Language School.", "es": "¡Buenos días! Bienvenida a City Language School." },
+        { "speaker": "Sofía", "text": "Good morning. My name is Sofía Ramírez.", "es": "Buenos días. Me llamo Sofía Ramírez." },
+        { "speaker": "Receptionist", "text": "Nice to meet you, Sofía. Can you spell your last name, please?", "es": "Mucho gusto, Sofía. ¿Puedes deletrear tu apellido, por favor?" },
+        { "speaker": "Sofía", "text": "Sure. R, A, M, I, R, E, Z.", "es": "Claro. R, A, M, I, R, E, Z." },
+        { "speaker": "Receptionist", "text": "R, A, M, I, R, E, Z. Thank you. How are you today?", "es": "R, A, M, I, R, E, Z. Gracias. ¿Cómo estás hoy?" },
+        { "speaker": "Sofía", "text": "Fine, thanks. And you?", "es": "Bien, gracias. ¿Y tú?" },
+        { "speaker": "Receptionist", "text": "Very well, thank you. Your class is in room twelve.", "es": "Muy bien, gracias. Tu clase es en el salón doce." },
+        { "speaker": "Sofía", "text": "Room twelve. Thank you! See you later.", "es": "Salón doce. ¡Gracias! Hasta luego." },
+        { "speaker": "Receptionist", "text": "Goodbye, Sofía!", "es": "¡Adiós, Sofía!" }
+      ],
+      "exercises": [
+        { "id": "l1", "type": "mcq", "prompt": "Where are they? (main idea)", "options": ["At a language school", "At a restaurant", "At an airport"], "answer": 0 },
+        { "id": "l2", "type": "mcq", "prompt": "What does the receptionist ask Sofía to do?", "options": ["Spell her last name", "Say her age", "Write her email"], "answer": 0 },
+        { "id": "l3", "type": "gap", "prompt": "Her class is in room ___.", "accept": ["twelve", "12"] },
+        { "id": "l4", "type": "mcq", "prompt": "What time of day is it? (How do you know?)", "options": ["Morning", "Afternoon", "Evening"], "answer": 0,
+          "explanation": { "en": "They say 'Good morning'.", "es": "Dicen «Good morning»." } },
+        { "id": "l5", "type": "dictation", "audio": "Can you spell your last name, please?", "accept": ["can you spell your last name please"] }
+      ]
+    },
+    {
+      "id": "s3", "type": "grammar", "title": "My name is… / I'm… and the English alphabet",
+      "explanation": {
+        "en": "To introduce yourself, say 'My name is …' or 'I'm …' ('I'm' is the short form of 'I am'). To check spelling, ask 'How do you spell that?' or 'Can you spell that, please?'. English letter names are different from Spanish ones. The most confusing for Spanish speakers are the vowels A /eɪ/, E /iː/ and I /aɪ/, and G /dʒiː/, J /dʒeɪ/, H /eɪtʃ/, R /ɑːr/, W /ˈdʌbəljuː/, Y /waɪ/, Z /ziː/ (US) or /zɛd/ (UK).",
+        "es": "Para presentarte di «My name is …» o «I'm …» («I'm» es la forma corta de «I am»). Para confirmar la ortografía pregunta «How do you spell that?» o «Can you spell that, please?». Los nombres de las letras son distintos en inglés. Las más confusas para hispanohablantes son las vocales A /eɪ/, E /iː/ e I /aɪ/, y G /dʒiː/, J /dʒeɪ/, H /eɪtʃ/, R /ɑːr/, W /ˈdʌbəljuː/, Y /waɪ/, Z /ziː/ (EE. UU.) o /zɛd/ (Reino Unido)."
+      },
+      "table": { "head": ["Letter", "IPA", "Sounds like (approx.)"],
+        "rows": [["A", "/eɪ/", "ei"], ["E", "/iː/", "ii (long)"], ["I", "/aɪ/", "ai"], ["G", "/dʒiː/", "yii (with 'dy')"], ["J", "/dʒeɪ/", "yei (with 'dy')"], ["H", "/eɪtʃ/", "eich"], ["R", "/ɑːr/", "ar"], ["W", "/ˈdʌbəljuː/", "dabel-iu"], ["Y", "/waɪ/", "uai"], ["Z", "/ziː/ (US), /zɛd/ (UK)", "zii / zed"]] },
+      "examples": [
+        { "en": "My name is Sofía.", "es": "Me llamo Sofía." },
+        { "en": "I'm Daniel.", "es": "Soy Daniel." },
+        { "en": "How do you spell that?", "es": "¿Cómo se escribe eso?" },
+        { "en": "It's D, A, N, I, E, L.", "es": "Es D, A, N, I, E, L." }
+      ],
+      "watchOut": { "en": "E is /iː/ and I is /aɪ/ — almost the opposite of what Spanish speakers expect. Tip: 'E for email, I for Ireland'.", "es": "La E suena /iː/ y la I suena /aɪ/: casi lo contrario de lo que esperamos. Truco: «E for email, I for Ireland»." },
+      "exercises": [
+        { "id": "g1", "type": "mcq", "audio": "G", "prompt": "Listen. Which letter is it?", "options": ["G", "J", "H"], "answer": 0 },
+        { "id": "g2", "type": "mcq", "audio": "J", "prompt": "Listen. Which letter is it?", "options": ["G", "J", "Y"], "answer": 1 },
+        { "id": "g3", "type": "mcq", "audio": "E", "prompt": "Listen. Which letter is it?", "options": ["E", "I", "A"], "answer": 0 },
+        { "id": "g4", "type": "order", "prompt": "Put the words in order.", "words": ["My", "name", "is", "Laura."], "accept": ["My name is Laura."] },
+        { "id": "g5", "type": "gap", "prompt": "Complete the question: How do you ___ your name?", "accept": ["spell"] },
+        { "id": "g6", "type": "dictation", "audio": "M, A, R, T, A.", "prompt": "Listen and type the letters you hear (spaces are optional).", "accept": ["marta", "m a r t a"] }
+      ]
+    },
+    {
+      "id": "s4", "type": "pronunciation", "title": "The /h/ sound: hello, hi, how",
+      "focus": "/h/ in hello, hi, how — a soft breath, never silent",
+      "tip": { "en": "English /h/ is just air from your throat, softer than Spanish 'j' in 'jamón'. It is not silent at the start of hello, hi, how or he. Imagine fogging a mirror: 'ha'.", "es": "La /h/ inglesa es solo aire de la garganta, más suave que la «j» de «jamón». No es muda al inicio de hello, hi, how o he. Imagina que empañas un espejo: «ja» muy suave." },
+      "repeat": [
+        { "text": "Hello! How are you?", "ipa": "/həˈloʊ ˌhaʊ ˈɑːr juː/", "es": "¡Hola! ¿Cómo estás?" },
+        { "text": "Hi, I'm Sofía.", "es": "Hola, soy Sofía." },
+        { "text": "He is here.", "es": "Él está aquí." }
+      ],
+      "exercises": [
+        { "id": "p1", "type": "minimalPair", "pair": ["I", "hi"], "say": "hi", "ipa": { "I": "/aɪ/", "hi": "/haɪ/" } },
+        { "id": "p2", "type": "minimalPair", "pair": ["and", "hand"], "say": "hand", "ipa": { "and": "/ænd/", "hand": "/hænd/" } },
+        { "id": "p3", "type": "minimalPair", "pair": ["old", "hold"], "say": "old", "ipa": { "old": "/oʊld/", "hold": "/hoʊld/" } },
+        { "id": "p4", "type": "minimalPair", "pair": ["art", "heart"], "say": "heart", "ipa": { "art": "/ɑːrt/", "heart": "/hɑːrt/" } }
+      ]
+    },
+    {
+      "id": "s5", "type": "speaking", "title": "Introduce yourself and spell your name",
+      "repeat": [
+        { "text": "Good morning. My name is Sofía.", "es": "Buenos días. Me llamo Sofía." },
+        { "text": "Nice to meet you.", "es": "Mucho gusto." },
+        { "text": "Can you spell that, please?", "es": "¿Puedes deletrearlo, por favor?" },
+        { "text": "Sorry, can you say that again?", "es": "Perdón, ¿puedes repetirlo?" },
+        { "text": "See you later!", "es": "¡Hasta luego!" }
+      ],
+      "challenge": {
+        "prompt": "Greet a new classmate, say your name, spell your first name and say goodbye.",
+        "promptEs": "Saluda a un compañero nuevo, di tu nombre, deletrea tu nombre de pila y despídete.",
+        "seconds": [20, 40],
+        "prepare": ["Good morning / Good afternoon…", "My name is … / I'm …", "That's … (letters)", "Nice to meet you. See you later!"],
+        "model": "Good afternoon! My name is Daniel Torres. That's D, A, N, I, E, L. Nice to meet you. See you later!"
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "I greeted, said and spelled my name, and said goodbye.", "es": "Saludé, dije y deletreé mi nombre, y me despedí." } },
+        { "id": "letters", "label": { "en": "The letters were clear: could someone write my name correctly?", "es": "Las letras se entendían: ¿alguien podría escribir bien mi nombre?" } },
+        { "id": "fluency", "label": { "en": "I spoke without long pauses (short pauses are fine).", "es": "Hablé sin pausas largas (las pausas cortas están bien)." } },
+        { "id": "h", "label": { "en": "I pronounced the /h/ in hello / hi / how.", "es": "Pronuncié la /h/ de hello / hi / how." } }
+      ]
+    },
+    {
+      "id": "s6", "type": "interaction", "title": "Meet Mia at a welcome event", "dialogue": "d-w01-meet",
+      "followUp": { "en": "Then try the same conversation in Speaking Studio → Conversation Coach, in Challenge mode: answer before seeing the options.", "es": "Después repite la conversación en Speaking Studio → Conversation Coach, en modo Reto: responde antes de ver las opciones." }
+    },
+    {
+      "id": "s7", "type": "reading", "title": "An email from your teacher",
+      "text": "Subject: Welcome to Class 1B!\n\nGood morning, everyone!\n\nMy name is Helen Brown. That's H, E, L, E, N — Helen. I'm your teacher.\n\nOur class is in room fourteen. Please write your name on the paper on the door.\n\nQuestions? Ask me: 'Can you spell that, please?' or 'Sorry, can you say that again?'\n\nSee you on Monday!\nHelen",
+      "glossary": { "everyone": "todos", "teacher": "profesor/a", "paper": "hoja / papel", "door": "puerta", "Monday": "lunes" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "Who is Helen?", "options": ["The teacher", "A new student", "The receptionist"], "answer": 0 },
+        { "id": "r2", "type": "gap", "prompt": "The class is in room ___.", "accept": ["fourteen", "14"] },
+        { "id": "r3", "type": "mcq", "prompt": "What does Helen want students to do?", "options": ["Write their name on the paper on the door", "Call her on the phone", "Spell their name in the email"], "answer": 0 },
+        { "id": "r4", "type": "mcq", "prompt": "When is the first class?", "options": ["On Monday", "On Tuesday", "Today"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "s8", "type": "writing", "title": "Your first message to the class",
+      "prompt": "Write a short message to your new class: greet everyone, say your name, spell it, and say goodbye (3–5 sentences).",
+      "promptEs": "Escribe un mensaje corto a tu nueva clase: saluda, di tu nombre, deletréalo y despídete (3–5 frases).",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 12, "label": { "en": "At least 12 words", "es": "Al menos 12 palabras" }, "hint": { "en": "Add one more sentence.", "es": "Añade una frase más." } },
+        { "id": "greet", "type": "includesAny", "patterns": ["\\b(hello|hi|good (morning|afternoon|evening))\\b"], "label": { "en": "Includes a greeting", "es": "Incluye un saludo" }, "hint": { "en": "Start with Hello / Hi / Good morning.", "es": "Empieza con Hello / Hi / Good morning." } },
+        { "id": "name", "type": "includesAny", "patterns": ["\\bmy name is\\b", "\\bi'?m\\b", "\\bi am\\b"], "label": { "en": "Says your name (My name is… / I'm…)", "es": "Dice tu nombre (My name is… / I'm…)" } },
+        { "id": "bye", "type": "includesAny", "patterns": ["\\b(goodbye|bye|see you)\\b"], "label": { "en": "Says goodbye", "es": "Se despide" } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } },
+        { "id": "caps", "type": "sentenceCase", "label": { "en": "Sentences start with a capital letter", "es": "Las frases empiezan con mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "My message greets, gives and spells my name, and says goodbye.", "es": "Mi mensaje saluda, da y deletrea mi nombre, y se despide." } },
+        { "id": "accuracy", "label": { "en": "I used 'My name is' / 'I'm' correctly.", "es": "Usé bien «My name is» / «I'm»." } },
+        { "id": "clarity", "label": { "en": "A classmate could read it and write my name correctly.", "es": "Un compañero podría leerlo y escribir bien mi nombre." } }
+      ],
+      "model": "Hello, everyone! My name is Andrés Gómez. That's A, N, D, R, E, S. Nice to meet you. See you on Monday!"
+    },
+    {
+      "id": "s9", "type": "retrieval", "title": "Remember without looking",
+      "exercises": [
+        { "id": "q1", "type": "gap", "prompt": "You arrive at a party at 8 p.m. You say: 'Good ___!'", "accept": ["evening"], "vocab": "good-evening" },
+        { "id": "q2", "type": "gap", "prompt": "You didn't understand. 'Sorry, can you say that ___?'", "accept": ["again"], "vocab": "again" },
+        { "id": "q3", "type": "order", "prompt": "Put the words in order.", "words": ["you", "Can", "spell", "that,", "please?"], "accept": ["Can you spell that, please?"], "vocab": "spell" },
+        { "id": "q4", "type": "dictation", "audio": "Good afternoon.", "accept": ["good afternoon"], "vocab": "good-afternoon" },
+        { "id": "q5", "type": "mcq", "prompt": "Which letter is pronounced /iː/?", "options": ["E", "I", "A"], "answer": 0 }
+      ]
+    }
+  ]
+}

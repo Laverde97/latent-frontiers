@@ -1,0 +1,161 @@
+{
+  "id": "w01-l2",
+  "kind": "core",
+  "title": "I am, you are: the verb to be",
+  "level": "A1",
+  "week": 1,
+  "minutes": 60,
+  "objectives": [
+    { "en": "Give basic information with I'm / you're / he's / she's / we're / they're.", "es": "Dar información básica con I'm / you're / he's / she's / we're / they're." },
+    { "en": "Make negative sentences with not (I'm not, she isn't).", "es": "Formar frases negativas con not (I'm not, she isn't)." },
+    { "en": "Ask and answer yes/no questions: Are you…? — Yes, I am.", "es": "Hacer y responder preguntas de sí/no: Are you…? — Yes, I am." }
+  ],
+  "prerequisites": ["w01-l1"],
+  "prerequisitesText": { "en": "Greetings and 'I'm …' from Lesson 1.", "es": "Saludos e «I'm …» de la Lección 1." },
+  "vocabIds": ["i", "you", "he", "she", "it", "we", "they", "am", "is", "are", "student", "teacher", "married", "tired", "happy"],
+  "completion": { "reviewThreshold": 0.7, "rule": "All nine steps saved. Auto-scored steps below 70 % are flagged for review." },
+  "review": { "status": "pending-human-review", "author": "AI-assisted draft for Latent Frontiers", "date": "2026-11-20", "checks": "schema, answer keys and references validated automatically" },
+  "feedback": { "en": "Well done! The verb be is everywhere in English. Next: countries and nationalities.", "es": "¡Bien hecho! El verbo be está en todas partes. Siguiente: países y nacionalidades." },
+  "steps": [
+    {
+      "id": "s1", "type": "vocab", "title": "People words and the verb be",
+      "items": ["i", "you", "he", "she", "it", "we", "they", "am", "is", "are", "student", "teacher", "married", "tired", "happy"],
+      "exercises": [
+        { "id": "v1", "type": "mcq", "prompt": "Which pronoun do you use for Carlos?", "options": ["He", "She", "It"], "answer": 0, "vocab": "he" },
+        { "id": "v2", "type": "mcq", "prompt": "Which pronoun for 'Ana and me'?", "options": ["They", "We", "You"], "answer": 1, "vocab": "we" },
+        { "id": "v3", "type": "mcq", "audio": "they", "prompt": "Listen. Which word is it?", "options": ["they", "day", "the"], "answer": 0, "vocab": "they" },
+        { "id": "v4", "type": "gap", "prompt": "estudiante = ___", "accept": ["student", "a student"], "vocab": "student" },
+        { "id": "v5", "type": "mcq", "prompt": "'Cansado' in English is:", "options": ["tired", "married", "happy"], "answer": 0, "vocab": "tired" }
+      ]
+    },
+    {
+      "id": "s2", "type": "listening", "title": "Who is she?",
+      "lines": [
+        { "speaker": "Lucas", "text": "Hi, Emma! Are you busy?", "es": "¡Hola, Emma! ¿Estás ocupada?" },
+        { "speaker": "Emma", "text": "No, I'm not. I'm on a break.", "es": "No. Estoy en un descanso." },
+        { "speaker": "Lucas", "text": "Who is she? Is she a new student?", "es": "¿Quién es ella? ¿Es una estudiante nueva?" },
+        { "speaker": "Emma", "text": "Yes, she is. Her name is Camila. She's from Peru.", "es": "Sí. Se llama Camila. Es de Perú." },
+        { "speaker": "Lucas", "text": "Is she in our class?", "es": "¿Está en nuestra clase?" },
+        { "speaker": "Emma", "text": "No, she isn't. She's in the evening class.", "es": "No. Está en la clase de la noche." },
+        { "speaker": "Lucas", "text": "And who are they?", "es": "¿Y quiénes son ellos?" },
+        { "speaker": "Emma", "text": "They're teachers. They're very nice!", "es": "Son profesores. ¡Son muy amables!" }
+      ],
+      "exercises": [
+        { "id": "l1", "type": "mcq", "prompt": "Is Emma busy?", "options": ["No, she isn't.", "Yes, she is.", "We don't know."], "answer": 0 },
+        { "id": "l2", "type": "gap", "prompt": "The new student's name is ___.", "accept": ["Camila"] },
+        { "id": "l3", "type": "mcq", "prompt": "Is Camila in Lucas and Emma's class?", "options": ["Yes", "No", "We don't know"], "answer": 1 },
+        { "id": "l4", "type": "mcq", "prompt": "Who are 'they'?", "options": ["Teachers", "Students", "Friends from Peru"], "answer": 0 },
+        { "id": "l5", "type": "dictation", "audio": "She's in the evening class.", "accept": ["she's in the evening class"] }
+      ]
+    },
+    {
+      "id": "s3", "type": "grammar", "title": "The verb be: affirmative, negative and questions",
+      "explanation": {
+        "en": "The verb be means both 'ser' and 'estar'. English always needs a subject: say 'It is cold', never 'Is cold'. In conversation we use short forms: I'm, you're, she's. Negatives add not: I'm not, he isn't, they aren't. Questions swap the order: Are you a student? Short answers: 'Yes, I am.' / 'No, I'm not.' — never 'Yes, I'm.'",
+        "es": "El verbo be significa «ser» y «estar». El inglés siempre necesita sujeto: «It is cold», nunca «Is cold». En conversación se usan formas cortas: I'm, you're, she's. La negación añade not: I'm not, he isn't, they aren't. Las preguntas invierten el orden: Are you a student? Respuestas cortas: «Yes, I am.» / «No, I'm not.»; nunca «Yes, I'm.»"
+      },
+      "table": { "head": ["Full form", "Short form", "Negative", "Question"],
+        "rows": [["I am", "I'm", "I'm not", "Am I…?"], ["you are", "you're", "you aren't / you're not", "Are you…?"], ["he / she / it is", "he's / she's / it's", "he isn't / he's not", "Is he…?"], ["we are", "we're", "we aren't / we're not", "Are we…?"], ["they are", "they're", "they aren't / they're not", "Are they…?"]] },
+      "examples": [
+        { "en": "I'm a student.", "es": "Soy estudiante." },
+        { "en": "She isn't married.", "es": "Ella no está casada." },
+        { "en": "Are you tired?", "es": "¿Estás cansado/a?" },
+        { "en": "Yes, I am.", "es": "Sí." },
+        { "en": "It's cold today.", "es": "Hace frío hoy." }
+      ],
+      "watchOut": { "en": "Don't drop the subject: 'Is a good teacher' ✗ → 'She is a good teacher' ✓. And for professions use a/an: 'I'm a nurse', not 'I'm nurse'.", "es": "No omitas el sujeto: «Is a good teacher» ✗ → «She is a good teacher» ✓. Y con profesiones usa a/an: «I'm a nurse», no «I'm nurse»." },
+      "exercises": [
+        { "id": "g1", "type": "gap", "prompt": "Complete: She ___ a teacher.", "accept": ["is"] },
+        { "id": "g2", "type": "gap", "prompt": "Complete: We ___ from Colombia.", "accept": ["are"] },
+        { "id": "g3", "type": "gap", "prompt": "Make it negative: I ___ tired. (am + not)", "accept": ["am not", "'m not", "m not"] },
+        { "id": "g4", "type": "mcq", "prompt": "'Are you a student?' — 'Yes, ___.'", "options": ["I am", "I'm", "I'm a"], "answer": 0,
+          "explanation": { "en": "Short answers don't use contractions: Yes, I am.", "es": "Las respuestas cortas no usan contracción: Yes, I am." } },
+        { "id": "g5", "type": "order", "prompt": "Make a question.", "words": ["you", "Are", "married?"], "accept": ["Are you married?"] },
+        { "id": "g6", "type": "mcq", "prompt": "Which sentence is correct?", "options": ["Is cold today.", "It's cold today.", "It cold today."], "answer": 1 }
+      ]
+    },
+    {
+      "id": "s4", "type": "pronunciation", "title": "Short forms and the /ð/ in they",
+      "focus": "Contractions (I'm /aɪm/, they're /ðɛr/) and /ð/",
+      "tip": { "en": "In natural speech 'I am' becomes I'm — one syllable. For /ð/ (they, the, this) put the tip of your tongue lightly between your teeth and use your voice: it vibrates. It's softer than the Spanish 'd' in 'dedo'.", "es": "En el habla natural «I am» se vuelve I'm: una sola sílaba. Para /ð/ (they, the, this) pon la punta de la lengua entre los dientes y usa la voz: vibra. Es más suave que la «d» de «dedo»." },
+      "repeat": [
+        { "text": "I'm a student.", "es": "Soy estudiante." },
+        { "text": "They're teachers.", "ipa": "/ðɛr ˈtiːtʃərz/", "es": "Son profesores." },
+        { "text": "She isn't married.", "es": "Ella no está casada." },
+        { "text": "We're not tired.", "es": "No estamos cansados." }
+      ],
+      "exercises": [
+        { "id": "p1", "type": "minimalPair", "pair": ["they", "day"], "say": "they", "ipa": { "they": "/ðeɪ/", "day": "/deɪ/" } },
+        { "id": "p2", "type": "minimalPair", "pair": ["then", "den"], "say": "den", "ipa": { "then": "/ðɛn/", "den": "/dɛn/" } },
+        { "id": "p3", "type": "minimalPair", "pair": ["she", "see"], "say": "she", "ipa": { "she": "/ʃiː/", "see": "/siː/" } },
+        { "id": "p4", "type": "minimalPair", "pair": ["is", "ease"], "say": "is", "ipa": { "is": "/ɪz/", "ease": "/iːz/" } }
+      ]
+    },
+    {
+      "id": "s5", "type": "speaking", "title": "Describe yourself and people you know",
+      "repeat": [
+        { "text": "I'm Ana. I'm a student.", "es": "Soy Ana. Soy estudiante." },
+        { "text": "Are you tired? No, I'm not.", "es": "¿Estás cansado? No." },
+        { "text": "He's my teacher.", "es": "Él es mi profesor." },
+        { "text": "They're from Chile.", "es": "Ellos son de Chile." },
+        { "text": "We're happy.", "es": "Estamos contentos." }
+      ],
+      "challenge": {
+        "prompt": "Describe yourself and two people you know with the verb be: who they are, job or studies, and how they are today. Include one negative sentence.",
+        "promptEs": "Descríbete a ti y a dos personas que conozcas con el verbo be: quiénes son, trabajo o estudios y cómo están hoy. Incluye una frase negativa.",
+        "seconds": [20, 40],
+        "prepare": ["I'm … I'm a …", "This is my friend … He's / She's a …", "He isn't … / They aren't …", "Today I'm … (happy / tired)"],
+        "model": "I'm Laura. I'm a student. I'm not tired today, I'm happy! This is my friend Diego. He's a teacher. He isn't married. My parents are in Bogotá. They're fine."
+      },
+      "rubric": [
+        { "id": "task", "label": { "en": "I described myself and two other people, with one negative sentence.", "es": "Me describí y describí a dos personas, con una frase negativa." } },
+        { "id": "accuracy", "label": { "en": "Every sentence had a subject + be (I'm, he's, they're).", "es": "Cada frase tenía sujeto + be (I'm, he's, they're)." } },
+        { "id": "forms", "label": { "en": "Short forms sounded like one syllable (I'm, they're).", "es": "Las formas cortas sonaron como una sílaba (I'm, they're)." } },
+        { "id": "fluency", "label": { "en": "I kept going without long pauses.", "es": "Seguí hablando sin pausas largas." } }
+      ]
+    },
+    { "id": "s6", "type": "interaction", "title": "Is this seat free?", "dialogue": "d-w01-cafe" },
+    {
+      "id": "s7", "type": "reading", "title": "Meet the Tuesday group",
+      "text": "Meet the Tuesday group!\n\nPaula is a nurse. She's 29 and she's from Cali. She isn't married.\n\nTom and Jessica are from Canada. They're students. They're married!\n\nMr. Kim is our teacher. He's from Seoul, but he's in Bogotá now. He's very patient.",
+      "glossary": { "nurse": "enfermero/a", "patient": "paciente", "now": "ahora", "group": "grupo" },
+      "exercises": [
+        { "id": "r1", "type": "mcq", "prompt": "What is Paula's job?", "options": ["She's a nurse.", "She's a student.", "She's a teacher."], "answer": 0 },
+        { "id": "r2", "type": "mcq", "prompt": "Is Paula married?", "options": ["Yes, she is.", "No, she isn't."], "answer": 1 },
+        { "id": "r3", "type": "gap", "prompt": "Tom and Jessica are from ___.", "accept": ["Canada"] },
+        { "id": "r4", "type": "mcq", "prompt": "Where is Mr. Kim now?", "options": ["In Bogotá", "In Seoul", "In Cali"], "answer": 0,
+          "explanation": { "en": "'He's from Seoul, but he's in Bogotá now.'", "es": "«Es de Seúl, pero ahora está en Bogotá»." } }
+      ]
+    },
+    {
+      "id": "s8", "type": "writing", "title": "Me and a friend",
+      "prompt": "Write 4–6 sentences about you and a friend using the verb be: name, where you are from, job or studies, and how you are today. Include one negative sentence.",
+      "promptEs": "Escribe 4–6 frases sobre ti y un amigo/a con el verbo be: nombre, de dónde son, trabajo o estudios y cómo están hoy. Incluye una frase negativa.",
+      "checks": [
+        { "id": "len", "type": "minWords", "n": 20, "label": { "en": "At least 20 words", "es": "Al menos 20 palabras" } },
+        { "id": "me", "type": "includesAny", "patterns": ["\\bi'?m\\b", "\\bi am\\b"], "label": { "en": "A sentence about you (I'm / I am)", "es": "Una frase sobre ti (I'm / I am)" } },
+        { "id": "other", "type": "includesAny", "patterns": ["\\b(he|she)'s\\b", "\\b(he|she) is\\b"], "label": { "en": "A sentence about another person (he's / she's)", "es": "Una frase sobre otra persona (he's / she's)" } },
+        { "id": "neg", "type": "includesAny", "patterns": ["\\bnot\\b", "n't\\b"], "label": { "en": "A negative sentence (not / isn't / aren't)", "es": "Una frase negativa (not / isn't / aren't)" } },
+        { "id": "nosubj", "type": "excludes", "patterns": ["(^|[.!?]\\s+)is (a|an|very|from|my|cold|hot)\\b"], "label": { "en": "No sentences without a subject ('Is a…')", "es": "Sin frases sin sujeto («Is a…»)" }, "hint": { "en": "Add he / she / it before is.", "es": "Añade he / she / it antes de is." } },
+        { "id": "capI", "type": "capitalI", "label": { "en": "The pronoun I is a capital letter", "es": "El pronombre I va en mayúscula" } },
+        { "id": "caps", "type": "sentenceCase", "label": { "en": "Sentences start with a capital letter", "es": "Las frases empiezan con mayúscula" } }
+      ],
+      "rubric": [
+        { "id": "task", "label": { "en": "I wrote about me and a friend, with one negative sentence.", "es": "Escribí sobre mí y un amigo, con una frase negativa." } },
+        { "id": "accuracy", "label": { "en": "Subject + be is correct in every sentence.", "es": "Sujeto + be es correcto en cada frase." } },
+        { "id": "clarity", "label": { "en": "The information is clear and easy to follow.", "es": "La información es clara y fácil de seguir." } }
+      ],
+      "model": "I'm Camilo. I'm from Medellín and I'm a student. I'm not tired today. My friend Sara is a doctor. She's 30. She isn't married."
+    },
+    {
+      "id": "s9", "type": "retrieval", "title": "Remember without looking",
+      "exercises": [
+        { "id": "q1", "type": "gap", "prompt": "Complete: They ___ teachers.", "accept": ["are"], "vocab": "are" },
+        { "id": "q2", "type": "order", "prompt": "Put the words in order.", "words": ["isn't", "She", "married."], "accept": ["She isn't married."], "vocab": "married" },
+        { "id": "q3", "type": "dictation", "audio": "We're not tired.", "accept": ["we're not tired", "we aren't tired"], "vocab": "tired" },
+        { "id": "q4", "type": "gap", "prompt": "'Is he your teacher?' — 'Yes, he ___.'", "accept": ["is"], "vocab": "is" },
+        { "id": "q5", "type": "mcq", "prompt": "'They' in Spanish is:", "options": ["ellos / ellas", "nosotros", "ustedes"], "answer": 0, "vocab": "they" }
+      ]
+    }
+  ]
+}
