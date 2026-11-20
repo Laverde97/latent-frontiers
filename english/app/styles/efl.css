@@ -61,6 +61,12 @@
 .efl-nav__link:hover { background: var(--lf-surface, #F7F9FC); }
 .efl-nav__link[aria-current="page"] { background: var(--lf-deep-blue, #12305C); color: #fff; }
 .efl-nav__es { font-size: 0.85rem; }
+.efl-nav__tools { display: flex; flex-wrap: wrap; gap: 0.25rem; align-items: center; }
+.efl-nav__profile { font-size: 0.85rem; max-width: 100%; }
+.efl-profiles li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; padding: 0.5rem 0; border-bottom: 1px solid var(--lf-line, #E2E8F0); }
+.efl-profile.is-active { font-weight: 600; }
+.efl-danger-zone { border: 1px solid #f1aeb5; border-radius: var(--efl-radius); padding: 0.5rem 0.8rem; margin-top: 1rem; }
+.efl-signin .efl-input { max-width: 22rem; }
 @media (max-width: 767.98px) {
   .efl-nav__list { flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 0.25rem; scrollbar-width: thin; }
   .efl-nav__link { white-space: nowrap; }

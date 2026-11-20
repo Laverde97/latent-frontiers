@@ -240,7 +240,7 @@ export function recorderPanel(ctx, opts = {}) {
       announce(t('mic.recordedAnnounce'));
       ctx.store.update((s) => { s.badges.firstRecording = s.badges.firstRecording || new Date().toISOString(); });
       if (ctx.store.state.settings.saveRecordings && key) {
-        saveRecording(key, res.blob, { seconds: secs }).catch(() => {});
+        saveRecording(`${ctx.profileId || 'default'}/${key}`, res.blob, { seconds: secs }).catch(() => {});
       }
       if (onRecorded) { onRecorded(res); }
     };

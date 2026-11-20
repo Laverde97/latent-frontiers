@@ -8,7 +8,12 @@
 
 import { h, clear, setLiveRegion, announce } from './ui/dom.js';
 import { t, getLang, onLangChange, missingKeys } from './i18n.js';
-import { Store, addPracticeMinutes } from './core/store.js';
+import { Store, addPracticeMinutes, safeLocalStorage } from './core/store.js';
+import { ProfileRegistry, profileStorageKey } from './core/profiles.js';
+import { AuthService } from './account/auth.js';
+import { AccountController } from './account/controller.js';
+import { ACCOUNT_CONFIG } from './config.js';
+import { renderAccount } from './ui/views/account.js';
 import { loadJSON, flattenCurriculum } from './core/content.js';
 import { PracticeTimer, studyDays } from './core/time.js';
 import { configureTTS, ttsHooks } from './audio/tts.js';
@@ -28,7 +33,8 @@ const VIEWS = {
   readwrite: renderReadWrite,
   assess: renderAssess,
   progress: renderProgress,
-  settings: renderSettings
+  settings: renderSettings,
+  account: renderAccount
 };
 const NAV = ['dashboard', 'path', 'speaking', 'listening', 'vocab', 'readwrite', 'assess', 'progress', 'settings'];
 
@@ -70,7 +76,11 @@ function readRoute() {
 }
 
 async function boot(container) {
-  const store = new Store();
+  /* local profile (guest mode): each profile has its own storage key */
+  const ls = safeLocalStorage();
+  const profiles = new ProfileRegistry(ls.storage);
+  const store = new Store(ls.storage, profileStorageKey(profiles.activeId()));
+  store.persistent = ls.persistent;
   configureTTS({ voiceURI: store.state.settings.voiceURI, rate: store.state.settings.rate });
 
   const live = h('div', { class: 'efl-sr', 'aria-live': 'polite', role: 'status' });
@@ -107,8 +117,25 @@ async function boot(container) {
   let renderToken = 0;
   let firstRender = true;
 
+  const auth = new AuthService(ACCOUNT_CONFIG);
+  const reloadApp = () => { timer.flush(); window.location.reload(); };
+  const account = new AccountController({
+    auth, registry: profiles, store, storage: ls.storage, termsVersion: ACCOUNT_CONFIG.termsVersion,
+    onChange: (a) => {
+      if (a.phase === 'reload') { reloadApp(); return; }
+      drawNav();
+      if (route.view === 'account') { render(false); }
+    }
+  });
+
   const ctx = {
     store,
+    profiles,
+    auth,
+    account,
+    profileId: profiles.activeId(),
+    reloadApp,
+    switchProfile(id) { profiles.setActive(id); reloadApp(); },
     data,
     timer,
     lang: getLang,
@@ -136,7 +163,12 @@ async function boot(container) {
     const esToggle = h('button', { type: 'button', class: 'efl-btn efl-btn--ghost efl-nav__es', 'aria-pressed': String(ctx.esOn()), 'data-testid': 'es-toggle' },
       ctx.esOn() ? t('nav.esOn') : t('nav.esOff'));
     esToggle.addEventListener('click', () => { store.update((s) => { s.settings.esSupport = !s.settings.esSupport; }); render(false); });
-    nav.append(esToggle);
+    const prof = profiles.active();
+    const syncLabel = prof.account ? ` · ${t(`sync.${account.status}`)}` : ` · ${t('acc.guest')}`;
+    const who = h('button', { type: 'button', class: 'efl-btn efl-btn--ghost efl-nav__profile', 'data-testid': 'profile-chip', 'aria-label': `${t('acc.title')}: ${prof.name}${syncLabel}` },
+      '👤 ', prof.name, h('span', { class: 'efl-small efl-muted' }, syncLabel));
+    who.addEventListener('click', () => ctx.go('account'));
+    nav.append(h('div', { class: 'efl-nav__tools' }, who, esToggle));
   };
 
   const drawNotices = () => {
@@ -171,14 +203,25 @@ async function boot(container) {
       container.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     }
     firstRender = false;
-    document.title = `${t(`nav.${route.view === 'lesson' ? 'path' : route.view}`)} · English Fluency Lab · Latent Frontiers`;
-    announce(t(`nav.${route.view === 'lesson' ? 'path' : route.view}`));
+    const label = route.view === 'account' ? t('acc.title') : t(`nav.${route.view === 'lesson' ? 'path' : route.view}`);
+    document.title = `${label} · English Fluency Lab · Latent Frontiers`;
+    announce(label);
   }
 
   window.addEventListener('popstate', () => { route = readRoute(); render(true); });
   onLangChange(() => render(false));
   store.subscribe(() => { if (store.saveError) { drawNotices(); } });
   window.__efl = { store, ctx, missingKeys };
+  /* optional personal account: only when configured (config.js) */
+  if (auth.configured) {
+    try {
+      await auth.init();
+      auth.onChange((u) => account.handleUser(u));
+      await account.handleUser(auth.user);
+    } catch (e) {
+      console.warn('accounts unavailable:', e.message);
+    }
+  }
   await render(false);
   container.setAttribute('data-ready', 'true');
 }
