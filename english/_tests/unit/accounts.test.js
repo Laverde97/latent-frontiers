@@ -170,9 +170,11 @@ test('two devices sync through the backend without losing work', async () => {
   assert.ok(d2.store.state.lessons['w01-l1'].activities.s2, 'device 2 received device 1 work');
   await d1.eng.sync();
   assert.ok(d1.store.state.lessons['w01-l3'], 'device 1 received device 2 work');
-  /* the merged document is pushed in the same sync */
+  /* device 1 adds nothing the server lacks: it adopts rev 2 without a
+     redundant push (no endless write ping-pong between devices) */
   assert.equal(d1.meta().dirty, false);
-  assert.equal(backend.peek().rev, 3);
+  assert.equal(d1.meta().rev, 2);
+  assert.equal(backend.peek().rev, 2);
   assert.ok(backend.peek().state.lessons['w01-l3'] && backend.peek().state.lessons['w01-l1'].activities.s2);
   d1.eng.stop(); d2.eng.stop();
 });
@@ -200,4 +202,56 @@ test('offline errors are reported and nothing is lost', async () => {
   assert.equal(d.statuses.pop(), 'offline');
   assert.ok(d.store.state.lessons['w01-l1']);
   d.eng.stop();
+});
+
+test('accounts accept a publishable key and refuse secret / service_role keys', async () => {
+  const { accountsConfigured, isSecretKey } = await import('../../app/account/auth.js');
+  const url = 'https://abcdefghijklmnop.supabase.co';
+  const jwt = (role) => `x.${Buffer.from(JSON.stringify({ role })).toString('base64url')}.y`;
+  const quiet = console.error; console.error = () => {};
+  try {
+    assert.equal(accountsConfigured({ supabaseUrl: url, supabaseAnonKey: 'sb_publishable_abc123' }), true);
+    assert.equal(accountsConfigured({ supabaseUrl: url, supabaseAnonKey: jwt('anon') }), true);
+    assert.equal(accountsConfigured({ supabaseUrl: url, supabaseAnonKey: 'sb_secret_abc123' }), false);
+    assert.equal(accountsConfigured({ supabaseUrl: url, supabaseAnonKey: jwt('service_role') }), false);
+    assert.equal(accountsConfigured({ supabaseUrl: 'https://evil.example.com', supabaseAnonKey: 'sb_publishable_x' }), false);
+    assert.equal(accountsConfigured({ supabaseUrl: '', supabaseAnonKey: '' }), false);
+    assert.equal(isSecretKey('sb_publishable_abc'), false);
+  } finally { console.error = quiet; }
+});
+
+/* PostgreSQL jsonb returns keys in its own order (shorter keys first). */
+function reorderKeys(v) {
+  if (Array.isArray(v)) { return v.map(reorderKeys); }
+  if (v && typeof v === 'object') {
+    return Object.fromEntries(Object.keys(v).sort((a, b) => a.length - b.length || (a < b ? -1 : 1)).map((k) => [k, reorderKeys(v[k])]));
+  }
+  return v;
+}
+
+test('devices converge: after one round no more writes, even with jsonb key reordering and different settings', async () => {
+  const backend = memoryBackend();
+  const origLoad = backend.load.bind(backend);
+  backend.load = async () => { const r = await origLoad(); return r && { ...r, state: reorderKeys(r.state) }; };
+  const d1 = engineFor(backend, deviceA());
+  const d2 = engineFor(backend, deviceB());
+  d2.store.update((s) => { s.settings.rate = 1; s.settings.studyMode = 'essential'; });
+  await d1.eng.sync(); await d2.eng.sync(); await d1.eng.sync();
+  const rev = backend.peek().rev;
+  for (let i = 0; i < 3; i++) { await d1.eng.sync(); await d2.eng.sync(); }
+  assert.equal(backend.peek().rev, rev, 'no further writes once converged');
+  assert.equal(d1.meta().rev, d2.meta().rev);
+  assert.ok(d1.store.state.lessons['w01-l3'] && d2.store.state.lessons['w01-l1'].activities.s2);
+  d1.eng.stop(); d2.eng.stop();
+});
+
+test('magic link of the default template is parsed; PKCE links and junk are refused', async () => {
+  const { parseMagicLink } = await import('../magic-link.js');
+  const link = 'https://abcd.supabase.co/auth/v1/verify?token=0123abcd&type=magiclink&redirect_to=https://laverde97.github.io/latent-frontiers/english/index.html?view=account';
+  assert.deepEqual(parseMagicLink(link), { token_hash: '0123abcd', type: 'magiclink' });
+  assert.deepEqual(parseMagicLink(`https://nam.safelinks.protection.outlook.com/?url=${encodeURIComponent(link)}`), { token_hash: '0123abcd', type: 'magiclink' });
+  assert.deepEqual(parseMagicLink('https://abcd.supabase.co/auth/v1/verify?token=ff&type=signup'), { token_hash: 'ff', type: 'signup' });
+  assert.throws(() => parseMagicLink('https://abcd.supabase.co/auth/v1/verify?token=pkce_ff&type=magiclink'), /PKCE/);
+  assert.equal(parseMagicLink('123456'), null);
+  assert.equal(parseMagicLink('https://example.com/?a=1'), null);
 });

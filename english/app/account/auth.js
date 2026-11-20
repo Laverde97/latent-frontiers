@@ -10,7 +10,20 @@
 
 import { ACCOUNT_CONFIG } from '../config.js';
 
+/* A secret key must never reach a browser: refuse it outright. */
+export function isSecretKey(key = '') {
+  if (/^sb_secret_/.test(key)) { return true; }
+  try {
+    const part = key.split('.')[1] || '';
+    return JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/'))).role === 'service_role';
+  } catch { return false; }
+}
+
 export function accountsConfigured(cfg = ACCOUNT_CONFIG) {
+  if (cfg.supabaseAnonKey && isSecretKey(cfg.supabaseAnonKey)) {
+    console.error('English Fluency Lab: a secret key was configured; accounts stay disabled. Use the publishable key.');
+    return false;
+  }
   return !!(cfg.supabaseUrl && cfg.supabaseAnonKey && /^https:\/\/[a-z0-9-]+\.supabase\.co$|^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(cfg.supabaseUrl));
 }
 

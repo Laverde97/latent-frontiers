@@ -133,6 +133,16 @@ export function summarize(s) {
    backend: { load() -> {state, rev} | null,
               save(state, expectedRev) -> {status:'ok'|'conflict', rev} }
    meta: persisted { userId, rev, lastSyncedAt, dirty } (per profile)      */
+/* JSON with sorted keys: PostgreSQL jsonb does not keep key order, so a
+   plain JSON.stringify comparison would always report a difference. */
+export function canonicalJSON(v) {
+  if (Array.isArray(v)) { return `[${v.map(canonicalJSON).join(',')}]`; }
+  if (v && typeof v === 'object') {
+    return `{${Object.keys(v).sort().filter((k) => v[k] !== undefined).map((k) => `${JSON.stringify(k)}:${canonicalJSON(v[k])}`).join(',')}}`;
+  }
+  return JSON.stringify(v);
+}
+
 export class SyncEngine {
   constructor({ backend, store, readMeta, writeMeta, onStatus = () => {}, debounceMs = 2000, device = null }) {
     Object.assign(this, { backend, store, readMeta, writeMeta, onStatus, debounceMs, device });
@@ -179,7 +189,10 @@ export class SyncEngine {
       if (remote && remote.rev !== meta.rev) {
         const merged = mergeStates(this.store.state, remote.state);
         this.applyRemote(merged);
-        meta = { ...meta, rev: remote.rev, dirty: true };
+        /* push only if this device adds something the server lacks */
+        const shared = (st) => canonicalJSON({ ...st, settings: undefined });
+        const differs = shared(merged) !== shared(remote.state);   /* settings are per device */
+        meta = { ...meta, rev: remote.rev, dirty: !!meta.dirty || differs };
         this.writeMeta(meta);
       }
       if (!meta.dirty && remote) {

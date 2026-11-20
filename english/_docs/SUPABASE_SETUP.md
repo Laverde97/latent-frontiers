@@ -119,25 +119,48 @@ No uses comodines amplios como `https://laverde97.github.io/**`: así solo esta 
 | **Clave pública** | API Keys → **Publishable key** (`sb_publishable_…`) o la *legacy* **anon public** (`eyJ…`) | una línea | Sí, está diseñada para el navegador |
 | ~~Secret / service_role~~ | API Keys → *Secret keys* | `sb_secret_…` / `eyJ…` con `service_role` | **NO. Nunca la copies** |
 
-Envíame **solo la Project URL y la clave pública**. Yo las pongo en `english/app/config.js` en la rama `feat/efl-phase2-accounts` (PR #13), sin publicar nada.
+### Configuración local (sin tocar el repositorio)
+
+Pega los dos valores en `english/_local/config.js`. Ese archivo está en `.gitignore` y, como la carpeta empieza por `_`, Quarto no lo copia ni lo publica.
+
+```js
+export const ACCOUNT_CONFIG = {
+  supabaseUrl: 'https://<ref>.supabase.co',        // sin barra final
+  supabaseAnonKey: 'sb_publishable_…',              // nunca sb_secret_…
+  termsVersion: 'efl-2026-11'
+};
+```
+
+- La vista previa lo sirve en lugar de `app/config.js` **solo** si se inicia con `EFL_LOCAL_CONFIG=1`:
+
+  ```bash
+  EFL_LOCAL_CONFIG=1 HOST=0.0.0.0 PORT=8765 node english/_tests/serve.js
+  ```
+
+- El `app/config.js` del repositorio sigue vacío, así que GitHub Pages continúa en modo invitado. Rellenarlo será un paso aparte, autorizado, antes de publicar.
+- Si por error se pega una clave secreta, la app desactiva las cuentas y lo indica en la consola.
+- `supabase-js` 2.119.2 reconoce las claves `sb_publishable_` de forma nativa.
 
 ## 6. Verificación automática contra el proyecto real
 
-El script entra exactamente como la app: código por correo con `signInWithOtp` + `verifyOtp`, **sin contraseñas**. Crea las dos cuentas de prueba la primera vez. Necesitas dos buzones distintos que reciban correo (ver el paso 3). Las variables viven solo en tu terminal.
+El script entra sin contraseñas, como la app (`signInWithOtp`). Acepta dos respuestas al correo:
+- el **enlace** de la plantilla predeterminada: copia el enlace con clic derecho → «Copiar dirección del enlace» y **no lo abras**, porque es de un solo uso;
+- el **código**, si la plantilla incluye `{{ .Token }}`.
+
+Lee la URL y la clave de `_local/config.js`. Crea las dos cuentas de prueba la primera vez. Necesitas dos buzones distintos que reciban correo (ver el paso 3). Las variables viven solo en tu terminal.
 
 ```bash
 cd english
-export SUPABASE_URL='https://<ref>.supabase.co'
-export SUPABASE_ANON_KEY='<clave pública>'
 export EFL_TEST_A_EMAIL='<buzón de prueba A>'
 export EFL_TEST_B_EMAIL='<buzón de prueba B>'
 
-# 1) envía los dos códigos
+# 1) envía los dos correos
 npm run verify:supabase -- --send
 
-# 2) con los códigos recibidos (válidos 1 h, un solo uso):
-EFL_TEST_A_CODE=<código A> EFL_TEST_B_CODE=<código B> \
+# 2) con los enlaces copiados (válidos 1 h, un solo uso):
+EFL_TEST_A_LINK='<enlace A>' EFL_TEST_B_LINK='<enlace B>' \
   npm run verify:supabase -- --delete-test-accounts
+# (o EFL_TEST_A_CODE=… EFL_TEST_B_CODE=… si la plantilla trae código)
 ```
 
 Puedes ejecutar los comandos tú en tu terminal o escribirlos en esta sesión con el prefijo `!`. Los códigos de un solo uso de cuentas de prueba no son claves del proyecto.
@@ -149,6 +172,7 @@ El script comprueba:
 - **Intentos de A contra B**: A no puede leer, actualizar, borrar, mover filas ni insertar como B. Los intentos de inserción deben fallar **por RLS**; un error de clave duplicada no cuenta como éxito.
 - **Clave anon sola**: no lee, no inserta y no llama a las funciones.
 - **Integridad de B**: sus datos siguen intactos tras todos los intentos.
+- **Sincronización real**: A en dos «dispositivos» con el motor de la app. Ambos terminan con la unión del progreso y la misma revisión, el documento guardado es válido y nada llega a B.
 - **Eliminación** (con `--delete-test-accounts`): A elimina su cuenta y sus datos desaparecen, B no se ve afectado, y después B se elimina (limpieza).
 
 Resultado esperado: `N/N checks passed against <ref>.supabase.co`. Si falla una comprobación, **no actives las cuentas para estudiantes** y comparte la salida conmigo (no contiene claves).
@@ -160,7 +184,7 @@ Resultado esperado: `N/N checks passed against <ref>.supabase.co`. Si falla una 
 Con `config.js` relleno, la vista previa sigue en `http://localhost:8765/latent-frontiers/english/index.html?view=account`:
 
 1. Sin cuenta: perfiles locales, lecciones, audio y progreso funcionan igual (modo invitado).
-2. Entrar con correo + casillas 18+ y términos → código → «Cuenta vinculada».
+2. Entrar con correo + casillas 18+ y términos → **abrir el enlace del correo en el mismo Chrome** (o escribir el código) → vuelve a `?view=account` → «Cuenta vinculada». El enlace no funciona en otro navegador (PKCE).
 3. Con progreso local previo, aparece la elección de migración (subir / combinar / usar el de la cuenta / reemplazar).
 4. Abrir la misma cuenta en otro navegador (Edge): el progreso aparece y los cambios se combinan.
 5. Cerrar sesión conservando o borrando la copia local.
