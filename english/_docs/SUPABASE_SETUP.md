@@ -175,6 +175,13 @@ El script comprueba:
 - **Sincronización real**: A en dos «dispositivos» con el motor de la app. Ambos terminan con la unión del progreso y la misma revisión, el documento guardado es válido y nada llega a B.
 - **Eliminación** (con `--delete-test-accounts`): A elimina su cuenta y sus datos desaparecen, B no se ve afectado, y después B se elimina (limpieza).
 
+**Con una sola cuenta**: omite `EFL_TEST_B_EMAIL`.
+- Se ejecutan las comprobaciones de una cuenta: acceso, 18+, conflicto de `rev`, inserciones falsificadas contra un id ajeno, clave anon y sincronización entre dos dispositivos.
+- Las de aislamiento A↔B se listan como **PENDING**, no como superadas.
+- Seguridad: el script se niega a tocar una cuenta que ya tenga progreso real.
+- Privacidad: no imprime enlaces, códigos ni tokens, y enmascara los correos.
+- Es mejor pegar los enlaces cuando el script los pida en tu terminal que ponerlos en variables de entorno, porque así no quedan en el historial del shell.
+
 Resultado esperado: `N/N checks passed against <ref>.supabase.co`. Si falla una comprobación, **no actives las cuentas para estudiantes** y comparte la salida conmigo (no contiene claves).
 
 > Si `efl_delete_my_account` falla con *permission denied for table users*, tu proyecto restringe al rol `postgres` sobre el esquema `auth`. Alternativa segura: una Edge Function que use la clave secreta **como secreto del servidor** (`auth.admin.deleteUser(user.id)` tras validar el JWT del llamante). Nunca se resolvería poniendo esa clave en el navegador.
