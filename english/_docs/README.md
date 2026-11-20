@@ -39,7 +39,8 @@ No hay paso de build propio: Quarto copia `english/app/**` y `english/data/**` g
 cd english
 npm install                      # solo para las pruebas (Playwright + axe)
 npm run validate                 # integridad del contenido
-npm run test:unit                # 28 pruebas unitarias (node:test, sin dependencias)
+npm run test:unit                # pruebas unitarias (node:test)
+npm run test:db                  # RLS en PostgreSQL local (PGlite)
 quarto render ..                 # (desde la raíz) genera _site
 npm run test:e2e                 # Playwright contra _site servido bajo /latent-frontiers/
 ```
@@ -65,6 +66,9 @@ En sistemas que Playwright aún no soporta (p. ej. Ubuntu 26.04) usa un Chromium
 - [ASSESSMENT.md](ASSESSMENT.md): reglas de puntuación, fuentes de evidencia, diagnóstico, repaso espaciado.
 - [PRIVACY.md](PRIVACY.md): datos, micrófono y almacenamiento.
 - [QA_CHECKLIST.md](QA_CHECKLIST.md): verificación manual y automática.
+- [ACCOUNTS.md](ACCOUNTS.md): perfiles locales, cuentas opcionales, RLS, migración y modelo de amenazas (Fase 2 · Etapa 1).
+- [SUPABASE_SETUP.md](SUPABASE_SETUP.md): cómo activar las cuentas en un proyecto Supabase y verificarlo.
+- [PHASE2_ROADMAP.md](PHASE2_ROADMAP.md): arquitectura de Cinema English, Professional English, biblioteca de vocabulario, speaking ampliado y adaptación.
 
 ## Lo que la plataforma no hace (a propósito)
 

@@ -229,7 +229,7 @@ test('English interface: every view, no missing or Spanish UI strings', async ({
   await page.addInitScript(FAKE_TTS);
   const errors = trackErrors(page);
   const spanishUI = /Siguiente paso|Ruta de aprendizaje|Autoevaluación|Comprobar|Mostrar transcripción|Ajustes|Evaluaciones|Mi progreso|Panel\b/;
-  for (const v of ['', '?view=path', '?view=lesson&id=w01-l1', '?view=speaking', '?view=listening', '?view=vocab', '?view=readwrite', '?view=assess', '?view=progress', '?view=settings']) {
+  for (const v of ['', '?view=path', '?view=lesson&id=w01-l1', '?view=speaking', '?view=listening', '?view=vocab', '?view=readwrite', '?view=assess', '?view=progress', '?view=settings', '?view=account']) {
     await openLab(page, v);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     const ui = await page.locator('#efl-app').evaluate((el) => {
