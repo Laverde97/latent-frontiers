@@ -7,7 +7,7 @@
    ========================================================================= */
 
 import { h, clear, setLiveRegion, announce } from './ui/dom.js';
-import { t, getLang, onLangChange } from './i18n.js';
+import { t, getLang, onLangChange, missingKeys } from './i18n.js';
 import { Store, addPracticeMinutes } from './core/store.js';
 import { loadJSON, flattenCurriculum } from './core/content.js';
 import { PracticeTimer, studyDays } from './core/time.js';
@@ -178,7 +178,7 @@ async function boot(container) {
   window.addEventListener('popstate', () => { route = readRoute(); render(true); });
   onLangChange(() => render(false));
   store.subscribe(() => { if (store.saveError) { drawNotices(); } });
-  window.__efl = { store, ctx };
+  window.__efl = { store, ctx, missingKeys };
   await render(false);
   container.setAttribute('data-ready', 'true');
 }

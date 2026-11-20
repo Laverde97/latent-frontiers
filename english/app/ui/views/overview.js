@@ -31,7 +31,7 @@ function skillTile(skill, s) {
     h('h4', null, t(`skill.${skill}`), h('span', { class: 'efl-tile__target' }, ` · ${t('dash.targetShare', { n: SKILL_TARGET[skill] })}`)), ...lines);
 }
 
-export function renderDashboard(ctx) {
+export async function renderDashboard(ctx) {
   const st = ctx.store.state;
   const cur = ctx.data.curriculum;
   const est = estimateLevel(st, cur);
@@ -48,8 +48,8 @@ export function renderDashboard(ctx) {
   const in7 = Object.values(st.srs).filter((c) => new Date(c.due) - Date.now() < 7 * 864e5).length;
   const inProg = cur.lessons.find((l) => lessonStatus(st, l) === 'in_progress');
   let pending = 0;
-  if (inProg && ctx.data.lessonCache.has(inProg.id)) {
-    const L = ctx.data.lessonCache.get(inProg.id);
+  if (inProg) {
+    const L = await ctx.data.getLesson(inProg.id);
     pending = L.steps.filter((s) => !(st.lessons[inProg.id].activities[s.id])).length;
   }
 
