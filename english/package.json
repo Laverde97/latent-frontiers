@@ -7,10 +7,14 @@
     "validate": "node _tests/validate-content.js",
     "test:unit": "node --test _tests/unit/*.test.js",
     "test:e2e": "playwright test --config _tests/playwright.config.js",
-    "test": "npm run validate && npm run test:unit"
+    "test": "npm run validate && npm run test:unit && npm run test:db",
+    "test:db": "node --test _tests/db/*.test.js",
+    "verify:supabase": "node _tests/verify-supabase.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.10.2",
-    "@playwright/test": "1.59.1"
+    "@electric-sql/pglite": "0.5.17",
+    "@playwright/test": "1.59.1",
+    "@supabase/supabase-js": "2.119.2"
   }
 }
