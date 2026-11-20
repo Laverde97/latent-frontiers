@@ -255,3 +255,24 @@ test('magic link of the default template is parsed; PKCE links and junk are refu
   assert.equal(parseMagicLink('123456'), null);
   assert.equal(parseMagicLink('https://example.com/?a=1'), null);
 });
+
+test('no push when the remote differs only in save timestamp or per-device settings (deterministic)', async () => {
+  const backend = memoryBackend();
+  const remote = deviceA();
+  remote.updatedAt = '2026-01-01T00:00:00.000Z';
+  await backend.save(remote, null);
+  const local = JSON.parse(JSON.stringify(remote));
+  local.updatedAt = '2026-12-31T23:59:59.999Z';
+  local.settings.rate = 1.2;
+  const d = engineFor(backend, local);
+  await d.eng.sync();
+  assert.equal(backend.peek().rev, 1, 'no redundant write');
+  assert.equal(d.meta().rev, 1);
+  assert.equal(d.meta().dirty, false);
+  /* but real new progress is pushed */
+  d.store.update((s) => { recordActivity(s, 'w01-l4', 's1', { score: 1, max: 1, source: 'auto', skill: null }); });
+  await d.eng.sync();
+  assert.equal(backend.peek().rev, 2);
+  assert.ok(backend.peek().state.lessons['w01-l4']);
+  d.eng.stop();
+});

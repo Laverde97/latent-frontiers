@@ -46,7 +46,9 @@ function mergeLesson(a, b) {
   for (const id of new Set([...Object.keys(a.activities || {}), ...Object.keys(b.activities || {})])) {
     activities[id] = mergeActivity((a.activities || {})[id], (b.activities || {})[id]);
   }
-  const out = { ...base, activities, attempts: Math.max(a.attempts || 1, b.attempts || 1), cursor: Math.max(a.cursor || 0, b.cursor || 0) };
+  const out = { ...base, activities, attempts: Math.max(a.attempts || 1, b.attempts || 1) };
+  /* do not invent fields: an absent cursor stays absent */
+  if (a.cursor != null || b.cursor != null) { out.cursor = Math.max(a.cursor || 0, b.cursor || 0); }
   const done = [a, b].filter((l) => l.status === 'completed');
   if (done.length) {
     const first = done.reduce((x, y) => (t(y.completedAt) && t(y.completedAt) < t(x.completedAt) ? y : x));
@@ -190,8 +192,10 @@ export class SyncEngine {
         const merged = mergeStates(this.store.state, remote.state);
         this.applyRemote(merged);
         /* push only if this device adds something the server lacks */
-        const shared = (st) => canonicalJSON({ ...st, settings: undefined });
-        const differs = shared(merged) !== shared(remote.state);   /* settings are per device */
+        /* compare progress only: settings are per device and updatedAt is
+           a save timestamp, not progress */
+        const shared = (st) => canonicalJSON({ ...st, settings: undefined, updatedAt: undefined });
+        const differs = shared(merged) !== shared(remote.state);
         meta = { ...meta, rev: remote.rev, dirty: !!meta.dirty || differs };
         this.writeMeta(meta);
       }
