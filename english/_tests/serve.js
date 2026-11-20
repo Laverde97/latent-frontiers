@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '_site');
 const PREFIX = '/latent-frontiers/';
 const PORT = Number(process.env.PORT || 4173);
+const HOST = process.env.HOST || '127.0.0.1';
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.xml': 'application/xml', '.ico': 'image/x-icon', '.gif': 'image/gif', '.mp4': 'video/mp4' };
 
 http.createServer(async (req, res) => {
@@ -31,4 +32,4 @@ http.createServer(async (req, res) => {
   } catch (e) {
     res.writeHead(404); res.end('not found');
   }
-}).listen(PORT, '127.0.0.1', () => console.log(`serving ${root} at http://127.0.0.1:${PORT}${PREFIX}`));
+}).listen(PORT, HOST, () => console.log(`serving ${root} at http://${HOST}:${PORT}${PREFIX}`));
