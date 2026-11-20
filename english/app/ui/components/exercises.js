@@ -69,7 +69,7 @@ export function renderExercise(ex, ctx, done) {
 
   switch (ex.type) {
     case 'mcq': {
-      if (ex.audio) { box.append(h('div', { class: 'efl-ex__audio' }, listenButtons(ex.audio, ctx))); }
+      if (ex.audio) { box.append(h('div', { class: 'efl-ex__audio' }, listenButtons(ex.audio, ctx, { hideText: true }))); }
       const opts = h('div', { class: 'efl-opts', role: 'group', 'aria-labelledby': legendId });
       /* options are shuffled (deterministically) so the key is never
          simply "the first one"; 2-option yes/no items keep their order */
@@ -95,10 +95,10 @@ export function renderExercise(ex, ctx, done) {
     case 'dictation': {
       if (ex.type === 'dictation') {
         box.append(h('div', { class: 'efl-ex__audio' }, ttsSupported()
-          ? listenButtons(ex.audio, ctx)
+          ? listenButtons(ex.audio, ctx, { hideText: true })
           : h('p', { class: 'efl-notice efl-notice--warn' }, t('ex.dictationNoTts'), ' ', h('q', { lang: 'en' }, ex.audio))));
       } else if (ex.audio) {
-        box.append(h('div', { class: 'efl-ex__audio' }, listenButtons(ex.audio, ctx)));
+        box.append(h('div', { class: 'efl-ex__audio' }, listenButtons(ex.audio, ctx, { hideText: true })));
       }
       const id = nextId('in');
       const input = h('input', { id, type: 'text', class: 'efl-input', autocomplete: 'off', autocapitalize: 'off', spellcheck: 'false', lang: 'en', 'aria-describedby': legendId });

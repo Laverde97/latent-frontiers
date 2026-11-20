@@ -198,7 +198,7 @@ export function writingTask(step, ctx, onSubmit) {
 /* ---- timed speaking challenge ------------------------------------------------
    challenge: { prompt, promptEs, seconds:[min,max], prepare[], model }
    rubric: criteria. onSubmit({ rubric, recorded, seconds }) */
-export function speakingChallenge(challenge, rubric, ctx, onSubmit, { key } = {}) {
+export function speakingChallenge(challenge, rubric, ctx, onSubmit, { key, attempt } = {}) {
   const wrap = h('div', { class: 'efl-challenge' });
   let recorded = null;
   const rubricSlot = h('div');
@@ -212,7 +212,7 @@ export function speakingChallenge(challenge, rubric, ctx, onSubmit, { key } = {}
     challenge.promptEs && ctx.esOn() ? h('p', { class: 'efl-es', lang: 'es' }, challenge.promptEs) : null,
     challenge.prepare ? h('div', { class: 'efl-prepare' }, h('h4', null, t('sp.prepare')), h('ul', null, challenge.prepare.map((p) => h('li', { lang: 'en' }, pick(p, 'en'))))) : null,
     challenge.model ? h('details', { class: 'efl-model' }, h('summary', null, t('sp.modelAnswer')), h('p', { lang: 'en' }, challenge.model), listenButtons(challenge.model, ctx)) : null,
-    recorderPanel(ctx, { key, maxSeconds: range[1] + 30, targetSeconds: range, modelText: null, onRecorded: (r) => { recorded = r; showRubric(); } }),
+    recorderPanel(ctx, { key, attempt, maxSeconds: range[1] + 30, targetSeconds: range, modelText: null, onRecorded: (r) => { recorded = r; showRubric(); } }),
     rubricSlot
   );
   return wrap;

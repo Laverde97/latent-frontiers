@@ -11,11 +11,14 @@ import { startRecording, recordingSupported } from '../../audio/recorder.js';
 import { saveRecording } from '../../audio/recording-db.js';
 import { asrSupported, recognizeOnce } from '../../audio/asr.js';
 import { alignWords } from '../../core/scoring.js';
+import { recordActivity } from '../../core/store.js';
 
 export const RATES = [0.6, 0.8, 0.9, 1.0, 1.2];
 
 /* "Listen" button (+ optional slow button). */
-export function listenButtons(text, ctx, { slow = true, label } = {}) {
+/* hideText: for dictations / listening questions the accessible name must
+   not contain the text (a screen reader would read the answer aloud). */
+export function listenButtons(text, ctx, { slow = true, label, hideText = false } = {}) {
   if (!ttsSupported()) {
     return h('span', { class: 'efl-muted efl-small' }, t('audio.noTtsInline'));
   }
@@ -24,11 +27,11 @@ export function listenButtons(text, ctx, { slow = true, label } = {}) {
     ctx.timer.hold();
     try { await speak(text, { rate }); } finally { ctx.timer.release(); btn.setAttribute('aria-pressed', 'false'); }
   };
-  const normal = h('button', { type: 'button', class: 'efl-btn efl-btn--audio', 'aria-pressed': 'false', 'aria-label': `${t('audio.listen')}: ${text}` }, '▶ ', label || t('audio.listen'));
+  const normal = h('button', { type: 'button', class: 'efl-btn efl-btn--audio', 'aria-pressed': 'false', 'aria-label': hideText ? (label || t('audio.listenAudio')) : `${label || t('audio.listen')}: ${text}` }, '▶ ', label || t('audio.listen'));
   normal.addEventListener('click', () => play(ctx.store.state.settings.rate, normal));
   const out = [normal];
   if (slow) {
-    const s = h('button', { type: 'button', class: 'efl-btn efl-btn--ghost', 'aria-pressed': 'false', 'aria-label': `${t('audio.slow')}: ${text}` }, '🐢 ', t('audio.slow'));
+    const s = h('button', { type: 'button', class: 'efl-btn efl-btn--ghost', 'aria-pressed': 'false', 'aria-label': hideText ? `${t('audio.slow')} — ${t('audio.listenAudio')}` : `${t('audio.slow')}: ${text}` }, '🐢 ', t('audio.slow'));
     s.addEventListener('click', () => play(0.6, s));
     out.push(s);
   }
@@ -138,10 +141,12 @@ function consentBox(ctx, onAccept) {
 
 /* ---- recorder ------------------------------------------------------------
    opts: key (storage key), maxSeconds, modelText (for compare),
-         targetSeconds [min,max] (shows guidance), onRecorded(result)      */
+         targetSeconds [min,max] (shows guidance), onRecorded(result),
+         attempt {lessonId, activityId}: every real recording is logged as a
+         practice attempt (no score: a recording is not graded)            */
 export function recorderPanel(ctx, opts = {}) {
   const wrap = h('div', { class: 'efl-recorder' });
-  const { maxSeconds = 60, modelText, targetSeconds, onRecorded, key } = opts;
+  const { maxSeconds = 60, modelText, targetSeconds, onRecorded, key, attempt } = opts;
 
   if (!recordingSupported()) {
     wrap.append(h('p', { class: 'efl-notice efl-notice--warn', role: 'note' }, t('mic.unsupported')));
@@ -194,8 +199,24 @@ export function recorderPanel(ctx, opts = {}) {
     const showResult = (res) => {
       clear(out);
       const audio = h('audio', { controls: true, src: res.url, 'data-testid': 'my-recording', preload: 'auto' });
+      /* Chrome's MediaRecorder WebM has no duration header, so the native
+         player shows 0:00. Seeking far forward forces it to compute the
+         real duration; then we rewind. */
+      audio.addEventListener('loadedmetadata', () => {
+        if (audio.duration === Infinity || Number.isNaN(audio.duration)) {
+          const fix = () => { audio.removeEventListener('durationchange', fix); audio.currentTime = 0; };
+          audio.addEventListener('durationchange', fix);
+          audio.currentTime = 1e101;
+        }
+      });
       const secs = res.seconds;
-      const items = [h('p', { class: 'efl-small' }, t('mic.recorded', { s: secs.toFixed(1) })), audio];
+      let attemptNo = null;
+      if (attempt) {
+        ctx.store.update((s) => {
+          attemptNo = recordActivity(s, attempt.lessonId, attempt.activityId, { score: 0, max: 0, source: 'practice', skill: null, detail: { seconds: Math.round(secs * 10) / 10 } }).attempts;
+        });
+      }
+      const items = [h('p', { class: 'efl-small', 'data-testid': 'rec-info' }, attemptNo ? `${t('mic.attempt', { n: attemptNo })} · ` : '', t('mic.recorded', { s: secs.toFixed(1) })), audio];
       if (targetSeconds) {
         const ok = secs >= targetSeconds[0] && secs <= targetSeconds[1] + 5;
         items.push(h('p', { class: ok ? 'efl-ok efl-small' : 'efl-warn efl-small' }, ok ? t('mic.durationOk') : t('mic.durationOff', { min: targetSeconds[0], max: targetSeconds[1] })));
@@ -310,7 +331,7 @@ export function asrPanel(target, ctx, { tips = {}, onResult } = {}) {
 }
 
 /* Listen + record + compare + optional ASR for one phrase. */
-export function repeatCard(phrase, ctx, { key, tips, onPractised } = {}) {
+export function repeatCard(phrase, ctx, { key, tips, onPractised, attempt } = {}) {
   const es = ctx.esOn();
   let done = false;
   const mark = () => { if (!done) { done = true; card.classList.add('is-done'); if (onPractised) { onPractised(); } } };
@@ -319,7 +340,7 @@ export function repeatCard(phrase, ctx, { key, tips, onPractised } = {}) {
     phrase.ipa ? h('p', { class: 'efl-ipa' }, phrase.ipa) : null,
     es && phrase.es ? h('p', { class: 'efl-es', lang: 'es' }, phrase.es) : null,
     listenButtons(phrase.text, ctx),
-    recorderPanel(ctx, { key, maxSeconds: 15, modelText: phrase.text, onRecorded: mark }),
+    recorderPanel(ctx, { key, attempt, maxSeconds: 15, modelText: phrase.text, onRecorded: mark }),
     asrPanel(phrase.text, ctx, { tips, onResult: (r) => { mark(); if (phrase.onAsr) { phrase.onAsr(r); } } })
   );
   return card;

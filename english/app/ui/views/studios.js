@@ -46,7 +46,7 @@ export async function renderSpeaking(ctx) {
   const drawRepeat = (L) => {
     clear(repeatSlot);
     const phrases = L.steps.filter((s) => s.type === 'speaking' || s.type === 'pronunciation').flatMap((s) => s.repeat || []);
-    phrases.forEach((p, k) => repeatSlot.append(repeatCard({ ...p, onAsr: (r) => logEvidence(ctx, `repeat-${L.id}-${k}`, { score: r.matched, max: r.total, source: 'asr', skill: 'speaking' }) }, ctx, { key: `studio/${L.id}/${k}`, tips: ctx.data.tips })));
+    phrases.forEach((p, k) => repeatSlot.append(repeatCard({ ...p, onAsr: (r) => logEvidence(ctx, `repeat-${L.id}-${k}`, { score: r.matched, max: r.total, source: 'asr', skill: 'speaking' }) }, ctx, { key: `studio/${L.id}/${k}`, tips: ctx.data.tips, attempt: { lessonId: STUDIO, activityId: `rec-${L.id}-${k}` } })));
   };
   root.append(section('sp-repeat', t('sp.repeatTitle'), t('sp.repeatHelp'), lessonPicker(core, ctx, drawRepeat), repeatSlot));
   drawRepeat(core[0]);
@@ -70,7 +70,7 @@ export async function renderSpeaking(ctx) {
   const drawChallenge = (L) => {
     clear(chSlot);
     const st = challenges.find((x) => x.L.id === L.id).step;
-    chSlot.append(speakingChallenge(st.challenge, st.rubric, ctx, (r) => logEvidence(ctx, `challenge-${L.id}`, { score: r.rubric.score, max: r.rubric.max, source: 'self', skill: 'speaking' }), { key: `studio/challenge/${L.id}` }));
+    chSlot.append(speakingChallenge(st.challenge, st.rubric, ctx, (r) => logEvidence(ctx, `challenge-${L.id}`, { score: r.rubric.score, max: r.rubric.max, source: 'self', skill: 'speaking' }), { key: `studio/challenge/${L.id}`, attempt: { lessonId: STUDIO, activityId: `challenge-rec-${L.id}` } }));
   };
   root.append(section('sp-challenge', t('sp.challengeTitle'), t('sp.challengeHelp'), levels, lessonPicker(challenges.map((x) => x.L), ctx, drawChallenge), chSlot));
   drawChallenge(challenges[0].L);
@@ -97,8 +97,8 @@ function shadowing(lines, ctx, lessonId) {
       if (noText.checked) { text.hidden = true; }
       list.append(h('li', { class: 'efl-shadow__item' },
         h('p', null, h('strong', null, `${ln.speaker}: `), text, noText.checked ? reveal : null),
-        listenButtons(ln.text, ctx),
-        recorderPanel(ctx, { key: `shadow/${lessonId}/${k}`, maxSeconds: 20, modelText: ln.text })));
+        listenButtons(ln.text, ctx, { hideText: noText.checked }),
+        recorderPanel(ctx, { key: `shadow/${lessonId}/${k}`, maxSeconds: 20, modelText: ln.text, attempt: { lessonId: STUDIO, activityId: `shadow-rec-${lessonId}-${k}` } })));
     });
   };
   noText.addEventListener('change', draw);
@@ -201,7 +201,7 @@ export async function renderListening(ctx) {
     const hidden = h('p', { lang: 'en', hidden: true }, q.text);
     const show = h('button', { type: 'button', class: 'efl-btn efl-btn--ghost' }, t('sp.showText'));
     show.addEventListener('click', () => { hidden.hidden = false; show.remove(); });
-    respSlot.append(listenButtons(q.text, ctx, { label: t('li.playQuestion') }), show, hidden,
+    respSlot.append(listenButtons(q.text, ctx, { label: t('li.playQuestion'), hideText: true }), show, hidden,
       recorderPanel(ctx, { key: 'respond', maxSeconds: 30, onRecorded: () => announce(t('li.respondDone')) }));
   };
   const nextQ = h('button', { type: 'button', class: 'efl-btn' }, t('li.nextQuestion'));

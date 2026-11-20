@@ -258,7 +258,7 @@ function renderStep(step, lesson, ctx, onDone, srsFromResults) {
         h('p', null, step.tip.en), es && step.tip.es ? h('p', { class: 'efl-es', lang: 'es' }, step.tip.es) : null));
       if (step.repeat) {
         box.append(h('h4', null, t('lesson.listenRepeat')), h('div', { class: 'efl-repeat-list' },
-          step.repeat.map((p, k) => repeatCard(p, ctx, { key: `${lesson.id}/${step.id}/${k}`, tips: ctx.data.tips }))));
+          step.repeat.map((p, k) => repeatCard(p, ctx, { key: `${lesson.id}/${step.id}/${k}`, tips: ctx.data.tips, attempt: { lessonId: lesson.id, activityId: `${step.id}-rec-${k}` } }))));
       }
       box.append(h('h4', null, t('lesson.discriminate')), exerciseSet(step.exercises, ctx, exDone));
       break;
@@ -267,9 +267,9 @@ function renderStep(step, lesson, ctx, onDone, srsFromResults) {
       box.append(h('h4', null, t('lesson.listenRepeat')), h('div', { class: 'efl-repeat-list' },
         step.repeat.map((p, k) => repeatCard({ ...p, onAsr: (r) => ctx.store.update((s) => {
           recordActivity(s, lesson.id, `${step.id}-asr-${k}`, { score: r.matched, max: r.total, source: 'asr', skill: 'speaking' });
-        }) }, ctx, { key: `${lesson.id}/${step.id}/${k}`, tips: ctx.data.tips }))));
+        }) }, ctx, { key: `${lesson.id}/${step.id}/${k}`, tips: ctx.data.tips, attempt: { lessonId: lesson.id, activityId: `${step.id}-rec-${k}` } }))));
       box.append(h('h4', null, t('lesson.challenge')),
-        speakingChallenge(step.challenge, step.rubric, ctx, (r) => onDone({ score: r.rubric.score, max: r.rubric.max, source: 'self', detail: { recorded: r.recorded, seconds: r.seconds, ratings: r.rubric.ratings } }), { key: `${lesson.id}/${step.id}/challenge` }));
+        speakingChallenge(step.challenge, step.rubric, ctx, (r) => onDone({ score: r.rubric.score, max: r.rubric.max, source: 'self', detail: { recorded: r.recorded, seconds: r.seconds, ratings: r.rubric.ratings } }), { key: `${lesson.id}/${step.id}/challenge`, attempt: { lessonId: lesson.id, activityId: `${step.id}-rec-challenge` } }));
       break;
     }
     case 'interaction': {
