@@ -32,15 +32,25 @@ function topArgs(src) {
   return out.map((a) => a.replace(/\s+/g, ' ').trim()).filter(Boolean);
 }
 
+/* variables declared as `cond ? node : null` (or undefined / false) */
+function nullableVars(src) {
+  const names = new Set();
+  const re = /(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=([^;]*);/g;
+  let m;
+  while ((m = re.exec(src))) { if (/\?[\s\S]*:\s*(null|undefined|false)\s*$/.test(m[2])) { names.add(m[1]); } }
+  return names;
+}
+
 export function unsafeNativeAppends(src) {
   const found = [];
+  const nullable = nullableVars(src);
   const re = /(?<![\w$])([A-Za-z_$][\w$.]*)\.(append|prepend|replaceChildren|after|before)\(/g;
   let m;
   while ((m = re.exec(src))) {
     let i = re.lastIndex; let depth = 1; const start = i;
     while (depth && i < src.length) { if (src[i] === '(') { depth++; } else if (src[i] === ')') { depth--; } i++; }
     for (const arg of topArgs(src.slice(start, i - 1))) {
-      if (/\?[\s\S]*:\s*(null|undefined|false)$/.test(arg) || /^[\w$.()[\]!]+\s*&&/.test(arg) || /^(null|undefined|false)$/.test(arg)) {
+      if (/\?[\s\S]*:\s*(null|undefined|false)$/.test(arg) || /^[\w$.()[\]!]+\s*&&/.test(arg) || /^(null|undefined|false)$/.test(arg) || nullable.has(arg)) {
         found.push({ line: src.slice(0, m.index).split('\n').length, call: `${m[1]}.${m[2]}`, arg: arg.slice(0, 80) });
       }
     }
@@ -53,6 +63,10 @@ test('the detector itself catches the pattern and accepts safe calls', () => {
   assert.equal(unsafeNativeAppends('el.append(ok && node);').length, 1);
   assert.equal(unsafeNativeAppends("add(body, h('p'), x ? h('p') : null);").length, 0);
   assert.equal(unsafeNativeAppends("el.append(h('p', null, a ? 'x' : null));").length, 0);   /* inside h(): filtered */
+  /* a variable that may be null, appended later (Speaking Studio recorder) */
+  assert.equal(unsafeNativeAppends("const guide = x ? h('p') : null;\nbody.append(guide, h('div'));").length, 1);
+  assert.equal(unsafeNativeAppends("const guide = x ? h('p') : null;\nadd(body, guide, h('div'));").length, 0);
+  assert.equal(unsafeNativeAppends("const n = x ? 1 : 2;\nbody.append(h('p'), n);").length, 0);
 });
 
 test('no native DOM append/prepend/… receives a possibly-null child', () => {
@@ -61,4 +75,20 @@ test('no native DOM append/prepend/… receives a possibly-null child', () => {
     for (const p of unsafeNativeAppends(readFileSync(f, 'utf8'))) { problems.push(`${f.split('/app/')[1]}:${p.line} ${p.call}(… ${p.arg})`); }
   }
   assert.deepEqual(problems, []);
+});
+
+/* h() and add() never print absent values or NaN (minimal DOM in Node) */
+test('h() and add() skip null, undefined, false and NaN but keep 0 and empty-looking text', async () => {
+  class Node { constructor() { this.children = []; } appendChild(c) { this.children.push(c); return c; } }
+  class Text extends Node { constructor(v) { super(); this.value = v; } }
+  class El extends Node { setAttribute() {} addEventListener() {} }
+  const saved = { Node: globalThis.Node, document: globalThis.document };
+  globalThis.Node = Node;
+  globalThis.document = { createElement: () => new El(), createTextNode: (v) => new Text(v) };
+  try {
+    const { h, add } = await import('../../app/ui/dom.js');
+    const text = (el) => el.children.map((c) => (c instanceof Text ? c.value : '<el>')).join('|');
+    assert.equal(text(h('p', null, 'a', null, undefined, false, Number.NaN, 0, 'b')), 'a|0|b');
+    assert.equal(text(add(h('div'), h('p'), null, [undefined, Number.NaN, 'x'])), '<el>|x');
+  } finally { globalThis.Node = saved.Node; globalThis.document = saved.document; }
 });

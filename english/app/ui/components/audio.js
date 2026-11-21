@@ -4,7 +4,7 @@
    when an API is missing and say why.
    ========================================================================= */
 
-import { h, clear, announce, nextId, pick } from '../dom.js';
+import { h, add, clear, announce, nextId, pick } from '../dom.js';
 import { t } from '../../i18n.js';
 import { speak, stopSpeaking, ttsSupported, SegmentPlayer } from '../../audio/tts.js';
 import { startRecording, recordingSupported } from '../../audio/recorder.js';
@@ -174,7 +174,7 @@ export function recorderPanel(ctx, opts = {}) {
     const meter = h('span', { class: 'efl-meter', role: 'img', 'aria-label': t('mic.level') }, h('span', { class: 'efl-meter__bar' }));
     const out = h('div', { class: 'efl-recorder__out', 'aria-live': 'polite' });
     const guide = targetSeconds ? h('p', { class: 'efl-small efl-muted' }, t('mic.target', { min: targetSeconds[0], max: targetSeconds[1] })) : null;
-    body.append(guide, h('div', { class: 'efl-recorder__row' }, recBtn, time, meter), out);
+    add(body, guide, h('div', { class: 'efl-recorder__row' }, recBtn, time, meter), out);
 
     let ctl = null;
     let raf = 0;

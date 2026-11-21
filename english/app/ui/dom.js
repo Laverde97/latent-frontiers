@@ -28,7 +28,8 @@ export function h(tag, attrs, ...children) {
 }
 
 /* Safe version of el.append(...): the native DOM method turns null /
-   undefined / false into the literal text "null" / "undefined" / "false".
+   undefined / false into the literal text "null" / "undefined" / "false"
+   (and a NaN number would print "NaN"); add() and h() skip all of them.
    Use add() whenever a child may be absent. */
 export function add(el, ...children) {
   append(el, children);
@@ -37,7 +38,7 @@ export function add(el, ...children) {
 
 function append(el, children) {
   for (const c of children) {
-    if (c == null || c === false) { continue; }
+    if (c == null || c === false || (typeof c === 'number' && Number.isNaN(c))) { continue; }
     if (Array.isArray(c)) { append(el, c); } else if (c instanceof Node) { el.appendChild(c); } else { el.appendChild(document.createTextNode(String(c))); }
   }
 }
