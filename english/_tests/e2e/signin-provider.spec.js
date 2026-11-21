@@ -66,6 +66,23 @@ async function fill(panel, { email = 'owner@example.test', adult = true, terms =
   if (terms) { await panel.locator('[data-testid="signin-terms"]').check(); }
 }
 const msg = (panel) => panel.locator('[data-testid="signin-msg"]');
+
+/* WCAG relative-luminance contrast between two "rgb(r, g, b)" strings */
+function contrast(a, b) {
+  const lum = (c) => {
+    const [r, g, bl] = c.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+  };
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+}
+/* effective look of a checkbox and of the background around it */
+const lookOf = (loc) => loc.evaluate((el) => {
+  const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+  let bgEl = el.parentElement; let bg = 'rgba(0, 0, 0, 0)';
+  while (bgEl && (bg = getComputedStyle(bgEl).backgroundColor) === 'rgba(0, 0, 0, 0)') { bgEl = bgEl.parentElement; }
+  return { w: r.width, h: r.height, bw: cs.borderTopWidth, bc: cs.borderTopColor, fill: cs.backgroundColor, outline: `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`, oc: cs.outlineColor, os: cs.outlineStyle, op: cs.opacity, vis: cs.visibility, around: bg === 'rgba(0, 0, 0, 0)' ? 'rgb(255, 255, 255)' : bg, label: getComputedStyle(document.querySelector(`label[for="${el.id}"]`)).color };
+});
 const send = (panel) => panel.locator('[data-testid="signin-send"]');
 
 test('validation: nothing is sent unless 18+, terms and a valid email are all present', async ({ browser }) => {
@@ -191,11 +208,11 @@ test('age checkbox: visible, labelled, keyboard-operable, error linked for scree
   await expect(age).toBeVisible();
   await expect(age).not.toBeChecked();
   await expect(age).toHaveAttribute('required', '');
-  const look = () => age.evaluate((el) => { const cs = getComputedStyle(el); const r = el.getBoundingClientRect(); return { w: r.width, h: r.height, bw: cs.borderTopWidth, bc: cs.borderTopColor, op: cs.opacity, vis: cs.visibility, shadow: cs.boxShadow }; });
-  const before = await look();
+  const before = await lookOf(age);
   expect(before.w).toBeGreaterThanOrEqual(20);
   expect(before.h).toBeGreaterThanOrEqual(20);
-  expect(before).toMatchObject({ bw: '2px', bc: 'rgb(74, 85, 104)', op: '1', vis: 'visible', shadow: 'none' });
+  expect(before).toMatchObject({ bw: '2px', bc: 'rgb(74, 85, 104)', op: '1', vis: 'visible' });
+  expect(contrast(before.bc, before.around)).toBeGreaterThanOrEqual(3);   /* WCAG 1.4.11 */
   /* keyboard: Tab from the email field reaches it; Space toggles it */
   await panel.locator('[data-testid="signin-email"]').focus();
   await page.keyboard.press('Tab');
@@ -217,9 +234,18 @@ test('age checkbox: visible, labelled, keyboard-operable, error linked for scree
   await expect(age).toHaveAccessibleDescription('Las cuentas personales están disponibles únicamente para mayores de 18 años.');
   await expect(age).toBeFocused();
   await expect(age).not.toBeChecked();                                   /* never set automatically */
-  const after = await look();
-  expect(after.bc).toBe('rgb(164, 14, 38)');                             /* --efl-bad */
-  expect(after.shadow).not.toBe('none');
+  /* error state: still a box (dark border on white, NOT the label colour),
+     plus a separate red ring and a marked row — all with real contrast */
+  const after = await lookOf(age);
+  expect(after.bc).toBe('rgb(26, 26, 26)');
+  expect(after.fill).toBe('rgb(255, 255, 255)');
+  expect(after.os).toBe('solid');
+  expect(after.oc).toBe('rgb(164, 14, 38)');                             /* --efl-bad ring */
+  expect(after.bc).not.toBe(after.oc);                                   /* box border ≠ error red (the original defect) */
+  expect(contrast(after.bc, after.fill)).toBeGreaterThanOrEqual(3);
+  expect(contrast(after.oc, after.around)).toBeGreaterThanOrEqual(3);
+  expect(contrast(after.label, after.around)).toBeGreaterThanOrEqual(4.5);
+  expect(after.around).not.toBe('rgb(255, 255, 255)');                  /* the row is marked */
   /* ticking it clears the error state; still nothing sent until the user sends */
   await page.keyboard.press('Space');
   await expect(age).not.toHaveAttribute('aria-invalid', 'true');
@@ -256,5 +282,40 @@ test('guest mode works for anyone: after declining the age confirmation, lessons
   expect(otp).toHaveLength(0);
   expect(other).toEqual([]);
   expect(errors).toEqual([]);
+  await context.close();
+});
+
+test('both required checkboxes are distinguishable in every state (normal, error, checked) with sufficient contrast', async ({ browser }) => {
+  const { context, page, panel } = await setup(browser, ok);
+  const age = panel.getByRole('checkbox', { name: 'Confirmo que tengo 18 años o más.' });
+  const terms = panel.getByRole('checkbox', { name: /Entiendo qué datos se guardan/ });
+  /* normal */
+  for (const box of [age, terms]) {
+    const l = await lookOf(box);
+    expect(l.w).toBeGreaterThanOrEqual(20);
+    expect(contrast(l.bc, l.around)).toBeGreaterThanOrEqual(3);
+  }
+  /* the situation reported: terms ticked, age missing → error on age */
+  await terms.check();
+  await panel.locator('[data-testid="signin-email"]').fill('owner@example.test');
+  await send(panel).click();
+  const a = await lookOf(age);
+  const tm = await lookOf(terms);
+  expect(contrast(a.bc, a.fill)).toBeGreaterThanOrEqual(3);              /* age box visible */
+  expect(a.os).toBe('solid');                                            /* a separate error ring exists */
+  expect(a.oc).toBe('rgb(164, 14, 38)');
+  expect(a.bc).not.toBe(a.oc);                                           /* the box is not painted in the error red */
+  expect(a.fill).toBe('rgb(255, 255, 255)');
+  expect(contrast(a.oc, a.around)).toBeGreaterThanOrEqual(3);            /* error ring visible */
+  expect(contrast(tm.fill, tm.around)).toBeGreaterThanOrEqual(3);        /* ticked terms visible */
+  await page.locator('[data-testid="account-panel"] .efl-signin').screenshot({ path: test.info().outputPath('age-error-terms-checked.png') });
+  /* both ticked */
+  await age.check();
+  for (const box of [age, terms]) {
+    const l = await lookOf(box);
+    expect(l.fill).toBe('rgb(29, 78, 137)');
+    expect(contrast(l.fill, l.around)).toBeGreaterThanOrEqual(3);
+  }
+  await expect(age).not.toHaveAttribute('aria-invalid', 'true');
   await context.close();
 });
