@@ -66,6 +66,9 @@ export class PracticeTimer {
     this.accumulated = 0;
     this.doc = doc;
     this.busy = 0;
+    /* paused on non-study screens (account, settings): signing in or
+       changing settings is not practice time */
+    this.paused = false;
     const mark = () => { this.lastActivity = Date.now(); };
     if (doc) {
       ['pointerdown', 'keydown', 'input'].forEach((ev) => doc.addEventListener(ev, mark, { passive: true }));
@@ -78,12 +81,13 @@ export class PracticeTimer {
 
   /* audio playing / recording keeps the timer active */
   hold() { this.busy += 1; this.mark(); }
+  setPaused(on) { if (on && !this.paused) { this.flush(); } this.paused = !!on; }
   release() { this.busy = Math.max(0, this.busy - 1); this.mark(); }
 
   step() {
     const visible = !this.doc || !this.doc.hidden;
     const active = this.busy > 0 || Date.now() - this.lastActivity < IDLE_MS;
-    if (visible && active) { this.accumulated += 5; }
+    if (visible && active && !this.paused) { this.accumulated += 5; }
   }
 
   flush() {

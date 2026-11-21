@@ -101,6 +101,7 @@ async function boot(container) {
     return;
   }
 
+  const NON_STUDY_VIEWS = new Set(['account', 'settings']);
   const timer = new PracticeTimer((minutes) => {
     store.update((s) => {
       addPracticeMinutes(s, minutes);
@@ -182,6 +183,7 @@ async function boot(container) {
   async function render(moveFocus) {
     const token = ++renderToken;
     timer.flush();
+    timer.setPaused(NON_STUDY_VIEWS.has(route.view));
     drawNav();
     drawNotices();
     ctx.focusOnRender = moveFocus;

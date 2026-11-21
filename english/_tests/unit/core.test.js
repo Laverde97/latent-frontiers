@@ -290,3 +290,22 @@ test('study modes', () => {
   const practice = { [todayKey(now)]: 30, [todayKey(new Date(2026, 10, 16))]: 20, [todayKey(new Date(2026, 10, 15))]: 99 };
   assert.equal(minutesThisWeek(practice, now), 50, 'Monday-based week; Sunday before is excluded');
 });
+
+test('PracticeTimer does not count time on non-study screens (account, settings)', async () => {
+  const { PracticeTimer } = await import('../../app/core/time.js');
+  const flushed = [];
+  const doc = { hidden: false, addEventListener() {} };
+  const timer = new PracticeTimer((m) => flushed.push(m), { doc, flushEvery: 1e9 });
+  clearInterval(timer.tick); clearInterval(timer.flushTimer);
+  timer.mark();
+  timer.step(); timer.step();                       /* 10 s of study */
+  timer.setPaused(true);                            /* → account view: flushes what was studied */
+  assert.deepEqual(flushed, [10 / 60]);
+  timer.mark();
+  timer.step(); timer.step(); timer.step();         /* 15 s signing in: not practice */
+  timer.flush();
+  assert.deepEqual(flushed, [10 / 60]);
+  timer.setPaused(false);
+  timer.mark(); timer.step(); timer.flush();        /* back to a lesson */
+  assert.deepEqual(flushed, [10 / 60, 5 / 60]);
+});

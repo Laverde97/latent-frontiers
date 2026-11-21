@@ -148,12 +148,30 @@ export class AccountController {
     });
     this.onOnline = () => this.syncNow();
     window.addEventListener('online', this.onOnline);
+    /* coming back to this tab/window (e.g. after studying in another
+       browser): fetch what changed meanwhile. A read; it writes only if this
+       device has something new. At most once every PULL_ON_FOCUS_MS. */
+    this.lastFocusPull = 0;
+    this.onFocus = () => {
+      if (document.visibilityState === 'hidden') { return; }
+      const now = Date.now();
+      if (now - this.lastFocusPull < AccountController.PULL_ON_FOCUS_MS) { return; }
+      this.lastFocusPull = now;
+      this.syncNow();
+    };
+    document.addEventListener('visibilitychange', this.onFocus);
+    window.addEventListener('focus', this.onFocus);
     this.retry = setInterval(() => { if (this.status === 'offline' || this.status === 'error') { this.syncNow(); } }, 60000);
   }
 
   stopEngine() {
     if (this.engine) { this.engine.stop(); this.engine = null; }
     if (this.onOnline) { window.removeEventListener('online', this.onOnline); this.onOnline = null; }
+    if (this.onFocus) {
+      document.removeEventListener('visibilitychange', this.onFocus);
+      window.removeEventListener('focus', this.onFocus);
+      this.onFocus = null;
+    }
     clearInterval(this.retry);
   }
 
@@ -190,3 +208,5 @@ export class AccountController {
     this.set('deleted');
   }
 }
+
+AccountController.PULL_ON_FOCUS_MS = 30000;
