@@ -137,9 +137,11 @@ function signInForm(ctx) {
   const adultId = nextId('ad');
   const termsId = nextId('tr');
   const email = h('input', { id: emailId, type: 'email', class: 'efl-input', autocomplete: 'email', 'data-testid': 'signin-email', required: true });
-  const adult = h('input', { id: adultId, type: 'checkbox', 'data-testid': 'signin-adult' });
-  const terms = h('input', { id: termsId, type: 'checkbox', 'data-testid': 'signin-terms' });
-  const msg = h('p', { class: 'efl-small', role: 'status', 'data-testid': 'signin-msg' });
+  /* required, never pre-checked and never ticked by code */
+  const adult = h('input', { id: adultId, type: 'checkbox', 'data-testid': 'signin-adult', required: true });
+  const terms = h('input', { id: termsId, type: 'checkbox', 'data-testid': 'signin-terms', required: true });
+  const msgId = nextId('sm');
+  const msg = h('p', { id: msgId, class: 'efl-small', role: 'status', 'data-testid': 'signin-msg' });
   const send = h('button', { type: 'button', class: 'efl-btn efl-btn--primary', 'data-testid': 'signin-send' }, t('acc.sendCode'));
   const codeBox = h('div', { hidden: true });
   const codeId = nextId('cd');
@@ -157,11 +159,20 @@ function signInForm(ctx) {
     msg.setAttribute('role', state === 'rejected' ? 'alert' : 'status');
     msg.textContent = text;
   };
+  const clearInvalid = (f) => { f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby'); };
   const invalid = (field, text) => {
-    [email, adult, terms].forEach((f) => f.removeAttribute('aria-invalid'));
-    if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+    [email, adult, terms].forEach(clearInvalid);
     show('validation', text, 'efl-warn');
+    if (field) {
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', msgId);   /* the reason is read with the field */
+      field.focus();
+    }
   };
+  /* fixing a field clears its error state at once */
+  adult.addEventListener('change', () => { if (adult.checked) { clearInvalid(adult); } });
+  terms.addEventListener('change', () => { if (terms.checked) { clearInvalid(terms); } });
+  email.addEventListener('input', () => clearInvalid(email));
   let waitTimer = null;
   let cooling = false;
   const cooldown = (seconds) => {
@@ -187,7 +198,7 @@ function signInForm(ctx) {
     if (!addr) { invalid(email, t('acc.required')); return; }
     if (!terms.checked) { invalid(terms, t('acc.required')); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) { invalid(email, t('acc.invalidEmail')); return; }
-    [email, adult, terms].forEach((f) => f.removeAttribute('aria-invalid'));
+    [email, adult, terms].forEach(clearInvalid);
     send.disabled = true;
     try {
       await ctx.auth.sendCode(addr);

@@ -126,6 +126,29 @@
 .efl-input { flex: 1 1 14rem; }
 .efl-textarea { width: 100%; }
 .efl-check-row input { width: 1.15rem; height: 1.15rem; vertical-align: middle; }
+/* Checkboxes drawn explicitly (still native <input>, so keyboard and screen
+   readers are unchanged): they stay visible whatever the browser's default
+   style, zoom or theme extensions do. 2px #4A5568 border = 7.5:1 on white. */
+#efl-app .efl-check-row { display: flex; align-items: flex-start; gap: 0.55rem; }
+#efl-app .efl-check-row label { cursor: pointer; }
+#efl-app .efl-check-row input[type="checkbox"] {
+  -webkit-appearance: none; appearance: none; flex: 0 0 auto;
+  width: 1.375rem; height: 1.375rem; margin: 0.05rem 0 0; padding: 0;
+  border: 2px solid #4A5568; border-radius: 4px; background: #fff no-repeat center / 85%;
+  cursor: pointer; vertical-align: middle;
+}
+#efl-app .efl-check-row input[type="checkbox"]:checked {
+  background-color: var(--lf-blue, #1D4E89); border-color: var(--lf-blue, #1D4E89);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+#efl-app .efl-check-row input[type="checkbox"]:disabled { opacity: 0.55; cursor: not-allowed; }
+/* missing required confirmation: visible on the box AND its label */
+#efl-app .efl-check-row input[type="checkbox"][aria-invalid="true"] { border-color: var(--efl-bad); box-shadow: 0 0 0 3px var(--efl-bad-bg); }
+#efl-app .efl-check-row:has(input[aria-invalid="true"]) label { color: var(--efl-bad); font-weight: 600; }
+#efl-app .efl-input[aria-invalid="true"] { border-color: var(--efl-bad); box-shadow: 0 0 0 3px var(--efl-bad-bg); }
+@media (forced-colors: active) {
+  #efl-app .efl-check-row input[type="checkbox"] { -webkit-appearance: auto; appearance: auto; background: none; box-shadow: none; }
+}
 
 /* cards & layout */
 .efl-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin: 1rem 0; }

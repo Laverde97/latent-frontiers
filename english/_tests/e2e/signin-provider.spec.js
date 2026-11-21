@@ -184,3 +184,77 @@ test('accessibility (axe) of the form with a provider error visible', async ({ b
   expect(r.violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
   await context.close();
 });
+
+test('age checkbox: visible, labelled, keyboard-operable, error linked for screen readers, never ticked by code', async ({ browser }) => {
+  const { context, page, panel, otp, errors } = await setup(browser, ok);
+  const age = panel.getByRole('checkbox', { name: 'Confirmo que tengo 18 años o más.' });
+  await expect(age).toBeVisible();
+  await expect(age).not.toBeChecked();
+  await expect(age).toHaveAttribute('required', '');
+  const look = () => age.evaluate((el) => { const cs = getComputedStyle(el); const r = el.getBoundingClientRect(); return { w: r.width, h: r.height, bw: cs.borderTopWidth, bc: cs.borderTopColor, op: cs.opacity, vis: cs.visibility, shadow: cs.boxShadow }; });
+  const before = await look();
+  expect(before.w).toBeGreaterThanOrEqual(20);
+  expect(before.h).toBeGreaterThanOrEqual(20);
+  expect(before).toMatchObject({ bw: '2px', bc: 'rgb(74, 85, 104)', op: '1', vis: 'visible', shadow: 'none' });
+  /* keyboard: Tab from the email field reaches it; Space toggles it */
+  await panel.locator('[data-testid="signin-email"]').focus();
+  await page.keyboard.press('Tab');
+  await expect(age).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(age).toBeChecked();
+  await page.keyboard.press('Space');
+  await expect(age).not.toBeChecked();
+  /* clicking the label also toggles it */
+  await panel.getByText('Confirmo que tengo 18 años o más.').click();
+  await expect(age).toBeChecked();
+  await age.uncheck();
+  /* send without it: validation only, visible + announced error on the field */
+  await panel.locator('[data-testid="signin-email"]').fill('owner@example.test');
+  await panel.locator('[data-testid="signin-terms"]').check();
+  await send(panel).click();
+  await expect(msg(panel)).toHaveAttribute('data-state', 'validation');
+  await expect(age).toHaveAttribute('aria-invalid', 'true');
+  await expect(age).toHaveAccessibleDescription('Las cuentas personales están disponibles únicamente para mayores de 18 años.');
+  await expect(age).toBeFocused();
+  await expect(age).not.toBeChecked();                                   /* never set automatically */
+  const after = await look();
+  expect(after.bc).toBe('rgb(164, 14, 38)');                             /* --efl-bad */
+  expect(after.shadow).not.toBe('none');
+  /* ticking it clears the error state; still nothing sent until the user sends */
+  await page.keyboard.press('Space');
+  await expect(age).not.toHaveAttribute('aria-invalid', 'true');
+  expect(otp).toHaveLength(0);
+  await send(panel).click();
+  await expect(msg(panel)).toHaveAttribute('data-state', 'accepted');
+  expect(otp).toHaveLength(1);
+  expect(errors).toEqual([]);
+  await context.close();
+});
+
+test('age checkbox stays visible with forced colours and a dark colour scheme', async ({ browser }) => {
+  const { context, page, panel } = await setup(browser, ok);
+  for (const media of [{ colorScheme: 'dark' }, { forcedColors: 'active' }]) {
+    await page.emulateMedia(media);
+    const age = panel.getByRole('checkbox', { name: 'Confirmo que tengo 18 años o más.' });
+    await expect(age).toBeVisible();
+    const box = await age.boundingBox();
+    expect(box.width).toBeGreaterThanOrEqual(13);
+  }
+  await context.close();
+});
+
+test('guest mode works for anyone: after declining the age confirmation, lessons still save locally and nothing reaches Supabase', async ({ browser }) => {
+  const { context, page, panel, otp, other, errors } = await setup(browser, ok);
+  await send(panel).click();                                             /* a minor stops here */
+  await expect(msg(panel)).toHaveAttribute('data-state', 'validation');
+  await openLab(page, '?view=lesson&id=w01-l1');
+  await page.evaluate(() => window.__efl.store.update((s) => { s.practice['2026-11-21'] = 5; }));
+  await page.reload();
+  await expect(page.locator('#efl-app')).toHaveAttribute('data-ready', 'true');
+  const practice = await page.evaluate(() => JSON.parse(localStorage.getItem('efl-progress')).practice);
+  expect(practice['2026-11-21']).toBe(5);
+  expect(otp).toHaveLength(0);
+  expect(other).toEqual([]);
+  expect(errors).toEqual([]);
+  await context.close();
+});
