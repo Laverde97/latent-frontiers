@@ -4,3 +4,4 @@ playwright-report/
 _tests/screenshots/*.png
 !_tests/screenshots/.gitkeep
 _local/
+_tests/results/

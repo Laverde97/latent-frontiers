@@ -186,6 +186,32 @@ Resultado esperado: `N/N checks passed against <ref>.supabase.co`. Si falla una 
 
 > Si `efl_delete_my_account` falla con *permission denied for table users*, tu proyecto restringe al rol `postgres` sobre el esquema `auth`. Alternativa segura: una Edge Function que use la clave secreta **como secreto del servidor** (`auth.admin.deleteUser(user.id)` tras validar el JWT del llamante). Nunca se resolvería poniendo esa clave en el navegador.
 
+## No llega el correo: diagnóstico
+
+El formulario distingue tres estados (atributo `data-state` del mensaje):
+
+| Mensaje en la página | Qué significa | Qué hacer |
+|---|---|---|
+| «Las cuentas personales están disponibles únicamente para mayores de 18 años» / «Completa los campos obligatorios» / correo no válido | **Validación**: no se envió nada | Completar el formulario |
+| «La solicitud fue aceptada por el proveedor de correo» | Supabase aceptó la petición. **No confirma la entrega** | Esperar unos minutos, revisar spam y comprobar el evento de envío en el registro de Auth |
+| «Este correo no está autorizado…» (`email_address_not_authorized`) | El correo integrado de Supabase solo entrega a los miembros del equipo de la organización | Usar el correo del propietario, o configurar SMTP propio (autorización pendiente) |
+| «Se ha alcanzado el límite temporal de solicitudes» (`over_email_send_rate_limit`, `over_request_rate_limit`, 429) | Cupo por hora del correo integrado, o menos de 60 s desde el último envío a esa dirección | Esperar. El botón se bloquea 60 s. No reintentar en bucle |
+| «No fue posible enviar el correo. Revisa la configuración» (`network`, `http_5xx`, `email_provider_disabled`…) | Sin conexión, error del servidor o proveedor de correo desactivado | Revisar la conexión y Authentication → Sign In / Providers |
+
+**Cómo leer el registro sin compartir datos:**
+1. En el panel de Supabase abre **Logs → Auth** (o Authentication → Logs).
+2. Filtra por la hora del intento y la ruta `/otp`.
+3. Anota solo el estado HTTP, el `error_code` y si aparece un evento de envío de correo.
+4. No copies el correo completo, enlaces ni tokens.
+
+**Límites del correo integrado:**
+- solo entrega a miembros del equipo;
+- muy pocos mensajes por hora en todo el proyecto;
+- 60 s mínimo entre envíos a la misma dirección;
+- el remitente genérico suele caer en spam.
+
+**Para estudiantes reales hace falta SMTP propio** (Authentication → Emails → SMTP Settings). Requiere elegir y autorizar un proveedor externo; no se ha contratado ni conectado ninguno.
+
 ## 7. Prueba manual de la interfaz (vista previa local)
 
 Con `config.js` relleno, la vista previa sigue en `http://localhost:8765/latent-frontiers/english/index.html?view=account`:

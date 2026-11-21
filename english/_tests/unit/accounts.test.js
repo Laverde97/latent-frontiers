@@ -276,3 +276,28 @@ test('no push when the remote differs only in save timestamp or per-device setti
   assert.ok(backend.peek().state.lessons['w01-l4']);
   d.eng.stop();
 });
+
+test('classifyOtpError maps provider responses without exposing addresses or tokens', async () => {
+  const { classifyOtpError } = await import('../../app/account/auth.js');
+  const err = (props) => Object.assign(new Error(props.message || 'x'), props);
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', code: 'email_address_not_authorized', status: 400, message: 'Email address "a@b.c" cannot be used' })), { kind: 'notAuthorized', code: 'email_address_not_authorized' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', code: 'over_email_send_rate_limit', status: 429 })), { kind: 'rateLimit', code: 'over_email_send_rate_limit' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', code: 'over_request_rate_limit', status: 429 })), { kind: 'rateLimit', code: 'over_request_rate_limit' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', status: 429 })), { kind: 'rateLimit', code: 'http_429' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', code: 'email_address_invalid', status: 400 })), { kind: 'invalidEmail', code: 'email_address_invalid' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthRetryableFetchError', status: 0, message: 'Failed to fetch' })), { kind: 'network', code: 'network' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', code: 'email_provider_disabled', status: 400 })), { kind: 'config', code: 'email_provider_disabled' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthApiError', status: 500 })), { kind: 'config', code: 'http_500' });
+  assert.deepEqual(classifyOtpError(null), { kind: 'config', code: 'unknown' });
+  /* the code shown never contains the address from the message */
+  assert.ok(!JSON.stringify(classifyOtpError(err({ code: 'email_address_not_authorized', message: 'Email address "a@b.c"' }))).includes('@'));
+});
+
+test('classifyOtpError falls back to status/message when the provider code is unavailable', async () => {
+  const { classifyOtpError } = await import('../../app/account/auth.js');
+  const err = (props) => Object.assign(new Error(props.message || 'x'), props);
+  assert.equal(classifyOtpError(err({ name: 'AuthApiError', status: 400, message: 'Email address "a@b.c" cannot be used as it is not authorized' })).kind, 'notAuthorized');
+  assert.equal(classifyOtpError(err({ name: 'AuthApiError', status: 400, message: 'email rate limit exceeded' })).kind, 'rateLimit');
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthRetryableFetchError', status: 500, message: '{}' })), { kind: 'config', code: 'http_500' });
+  assert.deepEqual(classifyOtpError(err({ name: 'AuthRetryableFetchError', status: 502, message: 'Bad gateway' })), { kind: 'config', code: 'http_502' });
+});

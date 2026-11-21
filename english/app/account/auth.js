@@ -38,6 +38,25 @@ function loadLibrary() {
   });
 }
 
+/* Classify a signInWithOtp failure so the learner sees what really happened
+   (a rejection is never shown as "sent"). Uses only the provider's error
+   code / HTTP status: never the address, link or any token. */
+export function classifyOtpError(e) {
+  const code = (e && e.code) || '';
+  const status = e && typeof e.status === 'number' ? e.status : null;
+  const text = String((e && (e.name || '')) + ' ' + (e && e.message || ''));
+  const message = String((e && e.message) || '');
+  let kind = 'config';
+  /* the provider code first; status / message as a fallback when the code
+     is unavailable (e.g. a proxy hides the API-version header) */
+  if (code === 'email_address_not_authorized' || (!code && /not authori[sz]ed/i.test(message))) { kind = 'notAuthorized'; }
+  else if (code === 'over_email_send_rate_limit' || code === 'over_request_rate_limit' || status === 429 || (!code && /rate limit/i.test(message))) { kind = 'rateLimit'; }
+  else if (code === 'email_address_invalid' || code === 'validation_failed') { kind = 'invalidEmail'; }
+  else if (status && status >= 400) { kind = 'config'; }
+  else if (/AuthRetryableFetchError|Failed to fetch|NetworkError|Load failed/i.test(text) || status === 0) { kind = 'network'; }
+  return { kind, code: code || (kind === 'network' ? 'network' : status ? `http_${status}` : 'unknown') };
+}
+
 export class AuthService {
   constructor(cfg = ACCOUNT_CONFIG) {
     this.cfg = cfg;

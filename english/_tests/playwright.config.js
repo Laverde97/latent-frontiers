@@ -8,6 +8,8 @@ const executablePath = process.env.PW_CHROMIUM_PATH || undefined;
 
 export default defineConfig({
   testDir: './e2e',
+  /* inside _tests/: Quarto ignores it, so failure reports are never rendered into the site */
+  outputDir: './results',
   timeout: 180000,
   expect: { timeout: 10000 },
   fullyParallel: false,

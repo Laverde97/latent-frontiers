@@ -8,6 +8,7 @@ import { h, nextId, announce } from '../dom.js';
 import { t } from '../../i18n.js';
 import { DEFAULT_PROFILE_ID } from '../../core/profiles.js';
 import { exportState } from '../../core/store.js';
+import { classifyOtpError } from '../../account/auth.js';
 
 function card(id, title, ...children) {
   return h('section', { class: 'efl-card efl-card--wide', 'aria-labelledby': id }, h('h3', { class: 'efl-h3', id }, title), ...children);
@@ -146,22 +147,67 @@ function signInForm(ctx) {
   const verify = h('button', { type: 'button', class: 'efl-btn efl-btn--primary', 'data-testid': 'signin-verify' }, t('acc.verify'));
   codeBox.append(h('p', null, t('acc.codeSent')), h('label', { for: codeId }, t('acc.codeLabel')), ' ', code, ' ', verify);
 
+  /* one message area, three clearly different states:
+     validation (nothing was sent) · accepted (provider took the request —
+     delivery is NOT confirmed) · rejected (provider refused / unreachable) */
+  const note = h('p', { class: 'efl-small efl-muted', 'data-testid': 'signin-note', hidden: true });
+  const show = (state, text, cls) => {
+    msg.dataset.state = state;
+    msg.className = `${cls} efl-small`;
+    msg.setAttribute('role', state === 'rejected' ? 'alert' : 'status');
+    msg.textContent = text;
+  };
+  const invalid = (field, text) => {
+    [email, adult, terms].forEach((f) => f.removeAttribute('aria-invalid'));
+    if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+    show('validation', text, 'efl-warn');
+  };
+  let waitTimer = null;
+  let cooling = false;
+  const cooldown = (seconds) => {
+    clearInterval(waitTimer);
+    let left = seconds;
+    cooling = true;
+    send.disabled = true;
+    const tick = () => {
+      if (!send.isConnected) { clearInterval(waitTimer); return; }
+      if (left <= 0) { clearInterval(waitTimer); cooling = false; send.disabled = false; send.textContent = t('acc.sendCode'); return; }
+      send.textContent = t('acc.otpWait', { s: left });
+      left -= 1;
+    };
+    tick();
+    waitTimer = setInterval(tick, 1000);
+  };
+
   send.addEventListener('click', async () => {
-    msg.className = 'efl-small';
-    if (!adult.checked) { msg.className = 'efl-warn efl-small'; msg.textContent = t('acc.adultRequired'); return; }
-    if (!terms.checked) { msg.className = 'efl-warn efl-small'; msg.textContent = t('acc.termsRequired'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { msg.className = 'efl-warn efl-small'; msg.textContent = t('acc.invalidEmail'); return; }
+    if (send.disabled || cooling) { return; }
+    const addr = email.value.trim();
+    note.hidden = true;
+    if (!adult.checked) { invalid(adult, t('acc.adultOnly')); return; }
+    if (!addr) { invalid(email, t('acc.required')); return; }
+    if (!terms.checked) { invalid(terms, t('acc.required')); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(addr)) { invalid(email, t('acc.invalidEmail')); return; }
+    [email, adult, terms].forEach((f) => f.removeAttribute('aria-invalid'));
     send.disabled = true;
     try {
-      ctx.account.rememberAdultIntent(email.value.trim());
-      await ctx.auth.sendCode(email.value.trim());
-      msg.textContent = '';
+      await ctx.auth.sendCode(addr);
+      ctx.account.rememberAdultIntent(addr);
+      show('accepted', t('acc.otpAccepted'), 'efl-ok');
+      note.textContent = t('acc.otpAcceptedNote');
+      note.hidden = false;
       codeBox.hidden = false;
-      code.focus();
+      console.info('[efl] otp', { state: 'accepted' });
+      cooldown(60);
     } catch (e) {
-      msg.className = 'efl-bad efl-small';
-      msg.textContent = t('acc.genericError', { msg: e.message });
-    } finally { send.disabled = false; }
+      const { kind, code: errCode } = classifyOtpError(e);
+      const text = { notAuthorized: t('acc.otpNotAuthorized'), rateLimit: t('acc.otpRateLimit'), invalidEmail: t('acc.invalidEmail') }[kind] || t('acc.otpFailed');
+      show('rejected', `${text} ${t('acc.otpCode', { code: errCode })}`, 'efl-bad');
+      codeBox.hidden = true;
+      console.info('[efl] otp', { state: 'rejected', code: errCode });
+      if (kind === 'rateLimit') { cooldown(60); }
+    } finally {
+      if (!cooling) { send.disabled = false; }
+    }
   });
   verify.addEventListener('click', async () => {
     verify.disabled = true;
@@ -179,7 +225,7 @@ function signInForm(ctx) {
     h('p', { class: 'efl-small efl-muted' }, t('acc.minorsNote')),
     h('p', { class: 'efl-check-row' }, terms, h('label', { for: termsId }, ` ${t('acc.termsLabel')}`)),
     h('details', { class: 'efl-model' }, h('summary', null, t('acc.dataTitle')), h('ul', { class: 'efl-small' }, ['d1', 'd2', 'd3', 'd4', 'd5'].map((k) => h('li', null, t(`acc.${k}`))))),
-    send, msg, codeBox);
+    send, msg, note, codeBox);
   return wrap;
 }
 
