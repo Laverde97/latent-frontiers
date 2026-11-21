@@ -27,6 +27,14 @@ export function h(tag, attrs, ...children) {
   return el;
 }
 
+/* Safe version of el.append(...): the native DOM method turns null /
+   undefined / false into the literal text "null" / "undefined" / "false".
+   Use add() whenever a child may be absent. */
+export function add(el, ...children) {
+  append(el, children);
+  return el;
+}
+
 function append(el, children) {
   for (const c of children) {
     if (c == null || c === false) { continue; }

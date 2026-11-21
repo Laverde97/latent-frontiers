@@ -84,6 +84,16 @@ test('sign-in requires 18+ and the data notice; code flow links an empty profile
   panel = await signIn(page, 'ana@example.test');
   await expect(panel.locator('[data-testid="signed-in-email"]')).toHaveText('ana@example.test');
   await expect(panel.locator('[data-testid="sync-status"]')).toContainText(/sincronizado|synced/);
+  /* regression: linked without a backup copy (empty profile) used to show the
+     literal text "null" under the last-sync line */
+  const leakLines = async () => (await panel.innerText()).split('\n').map((l) => l.trim()).filter((l) => /(^|[^\w-])(null|undefined|NaN)([^\w-]|$)/.test(l));
+  expect(await leakLines()).toEqual([]);
+  expect(await page.evaluate(() => localStorage.getItem('efl-progress-backup:default') === null && !Object.keys(localStorage).some((k) => k.startsWith('efl-progress-backup')))).toBe(true);
+  /* and after a reload (already-linked start-up path: no backup info at all) */
+  await page.reload();
+  await expect(page.locator('#efl-app')).toHaveAttribute('data-ready', 'true');
+  await expect(panel.locator('[data-testid="sync-status"]')).toContainText(/sincronizado|synced/);
+  expect(await leakLines()).toEqual([]);
   const row = await serverRow(server, 'ana@example.test');
   expect(row).toBeTruthy();
   const prof = await server.db.query("select adult_confirmed, terms_version from efl_profiles p join auth.users u on u.id = p.user_id where u.email = 'ana@example.test'");

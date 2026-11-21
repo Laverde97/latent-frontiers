@@ -7,7 +7,7 @@
    applies the lesson's completion criteria and recommends what's next.
    ========================================================================= */
 
-import { h, clear, announce, pick, pct } from '../dom.js';
+import { h, add, clear, announce, pick, pct } from '../dom.js';
 import { t } from '../../i18n.js';
 import { listenButtons, segmentPlayerUI, repeatCard, syntheticNotice } from '../components/audio.js';
 import { exerciseSet } from '../components/exercises.js';
@@ -113,7 +113,7 @@ export async function renderLesson(ctx, params) {
       announce(t('lesson.stepSaved'));
       drawStepper(i);
     };
-    stage.append(
+    add(stage,
       h('h3', { class: 'efl-h3', tabindex: '-1' }, `${i + 1}. ${t(`step.${step.type}`)}: `, h('span', { lang: 'en' }, step.title)),
       step.intro ? h('p', null, pick(step.intro, 'en')) : null,
       step.intro && step.intro.es && es ? h('p', { class: 'efl-es', lang: 'es' }, step.intro.es) : null,
@@ -174,7 +174,7 @@ export async function renderLesson(ctx, params) {
     } else {
       box.append(h('p', null, t('lesson.allGood')));
     }
-    if (lesson.feedback) { box.append(h('p', null, pick(lesson.feedback, 'en')), es && lesson.feedback.es ? h('p', { class: 'efl-es', lang: 'es' }, lesson.feedback.es) : null); }
+    if (lesson.feedback) { add(box, h('p', null, pick(lesson.feedback, 'en')), es && lesson.feedback.es ? h('p', { class: 'efl-es', lang: 'es' }, lesson.feedback.es) : null); }
     box.append(h('p', { class: 'efl-small efl-muted' }, t('lesson.vocabToSrs', { n: (lesson.vocabIds || []).length })));
     const recs = recommend(ctx.store.state, ctx.data.curriculum).filter((x) => x.rule !== 'R2');
     const nextRec = recs.find((x) => x.rule === 'R6') || recs[0];

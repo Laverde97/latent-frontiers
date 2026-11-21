@@ -2,7 +2,7 @@
    tasks.js — rubric self-assessment, scripted conversations and writing.
    ========================================================================= */
 
-import { h, clear, announce, nextId, pick } from '../dom.js';
+import { h, add, clear, announce, nextId, pick } from '../dom.js';
 import { t } from '../../i18n.js';
 import { listenButtons, recorderPanel } from './audio.js';
 import { speak, ttsSupported, stopSpeaking } from '../../audio/tts.js';
@@ -59,7 +59,7 @@ export function dialogueRunner(dialogue, ctx, { difficulty = 'guided', onComplet
   const lang = ctx.lang();
   const es = ctx.esOn();
   const wrap = h('div', { class: 'efl-dialogue' });
-  wrap.append(
+  add(wrap,
     h('p', { class: 'efl-notice', role: 'note' }, t('dlg.scripted')),
     h('p', { class: 'efl-dialogue__setting' }, h('strong', null, t('dlg.situation')), ' ', pick(dialogue.setting, 'en')),
     es && dialogue.setting.es ? h('p', { class: 'efl-es', lang: 'es' }, dialogue.setting.es) : null
@@ -187,7 +187,7 @@ export function writingTask(step, ctx, onSubmit) {
       );
     }
   });
-  wrap.append(
+  add(wrap,
     h('label', { for: id, class: 'efl-label' }, h('span', { lang: 'en' }, step.prompt)),
     step.promptEs && ctx.esOn() ? h('p', { class: 'efl-es efl-small', lang: 'es' }, step.promptEs) : null,
     ta, h('div', { class: 'efl-row' }, count, check), checksOut, after
@@ -207,7 +207,7 @@ export function speakingChallenge(challenge, rubric, ctx, onSubmit, { key, attem
     rubricSlot.append(rubricForm(rubric, ctx, (r) => onSubmit({ rubric: r, recorded: !!(recorded && !recorded.fallback), seconds: recorded && recorded.seconds })));
   };
   const range = Array.isArray(challenge.seconds) ? challenge.seconds : [Math.round(challenge.seconds * 0.5), challenge.seconds];
-  wrap.append(
+  add(wrap,
     h('p', { class: 'efl-challenge__prompt', lang: 'en' }, challenge.prompt),
     challenge.promptEs && ctx.esOn() ? h('p', { class: 'efl-es', lang: 'es' }, challenge.promptEs) : null,
     challenge.prepare ? h('div', { class: 'efl-prepare' }, h('h4', null, t('sp.prepare')), h('ul', null, challenge.prepare.map((p) => h('li', { lang: 'en' }, pick(p, 'en'))))) : null,

@@ -9,7 +9,7 @@
    (listen & choose), order (build the sentence).
    ========================================================================= */
 
-import { h, clear, announce, nextId, pick } from '../dom.js';
+import { h, add, clear, announce, nextId, pick } from '../dom.js';
 import { t, getLang } from '../../i18n.js';
 import { answersMatch } from '../../core/scoring.js';
 import { listenButtons } from './audio.js';
@@ -58,7 +58,7 @@ export function renderExercise(ex, ctx, done) {
       announce(t('ex.correct'));
       finish(true);
     } else if (attempts < maxAttempts) {
-      fb.append(h('p', { class: 'efl-warn' }, '✗ ', t('ex.tryAgain')), ex.hint ? h('p', { class: 'efl-small' }, t('ex.hint'), ' ', pick(ex.hint, 'en')) : null);
+      add(fb, h('p', { class: 'efl-warn' }, '✗ ', t('ex.tryAgain')), ex.hint ? h('p', { class: 'efl-small' }, t('ex.hint'), ' ', pick(ex.hint, 'en')) : null);
       announce(t('ex.tryAgain'));
     } else {
       fb.append(h('p', { class: 'efl-bad' }, '✗ ', t('ex.answerWas'), ' ', h('strong', { lang: 'en' }, correctText)), ...explain(ex, ctx));

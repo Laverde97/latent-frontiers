@@ -13,7 +13,7 @@
    self-assessed / pending and never change the placement by themselves.
    ========================================================================= */
 
-import { h, clear, pick, pct } from '../dom.js';
+import { h, add, clear, pick, pct } from '../dom.js';
 import { t } from '../../i18n.js';
 import { exerciseSet } from '../components/exercises.js';
 import { speakingChallenge } from '../components/tasks.js';
@@ -103,7 +103,7 @@ async function runDiagnostic(ctx, onFinish) {
 
   /* writing sample: rule checks only */
   const ta = h('textarea', { class: 'efl-textarea', rows: '4', lang: 'en', id: 'diag-writing', spellcheck: 'false' });
-  wrap.append(h('h4', null, t('diag.writingTitle')), h('label', { for: 'diag-writing', lang: 'en' }, d.writing.prompt),
+  add(wrap, h('h4', null, t('diag.writingTitle')), h('label', { for: 'diag-writing', lang: 'en' }, d.writing.prompt),
     d.writing.promptEs && ctx.esOn() ? h('p', { class: 'efl-es efl-small', lang: 'es' }, d.writing.promptEs) : null, ta,
     h('p', { class: 'efl-small efl-muted' }, t('diag.writingNote')));
 

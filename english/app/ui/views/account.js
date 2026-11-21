@@ -4,7 +4,7 @@
    delete).
    ========================================================================= */
 
-import { h, nextId, announce } from '../dom.js';
+import { h, add, nextId, announce } from '../dom.js';
 import { t } from '../../i18n.js';
 import { DEFAULT_PROFILE_ID } from '../../core/profiles.js';
 import { exportState } from '../../core/store.js';
@@ -116,7 +116,7 @@ function accountSection(ctx) {
       h('button', { type: 'button', class: 'efl-btn', onclick: () => acc.handleUser(ctx.auth.user) }, t('acc.retry')));
   } else if (phase === 'linked') {
     const last = acc.lastSyncedAt();
-    body.append(
+    add(body,
       h('p', null, t('acc.linkedProfile', { name: ctx.profiles.active().name })),
       h('p', { 'data-testid': 'sync-status' }, t(`sync.${acc.status}`), last ? h('span', { class: 'efl-small efl-muted' }, ` · ${t('acc.lastSync', { when: new Date(last).toLocaleString() })}`) : null),
       acc.lastBackup ? h('p', { class: 'efl-small efl-muted' }, t('acc.backupKept')) : null,
